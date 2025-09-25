@@ -10,9 +10,7 @@
 - Performance: avoid unnecessary allocations; cache with clear invalidation strategies.
 - Security: validate inputs, least-privilege for tokens/keys, avoid secrets in code.
 - Documentation: keep `.cursor/rules/ARCHITECTURE.mdc` per module aligned with this file.
-- The End
-
-
+- The End!!
 
 
 

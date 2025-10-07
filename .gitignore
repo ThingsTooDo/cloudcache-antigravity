@@ -17,3 +17,4 @@ Thumbs.db
 .idea/
 **/pnpm-lock.yaml
 **/deploy.yml
+.github/workflows/deploy.yml

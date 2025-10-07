@@ -6,8 +6,7 @@
     "lib": ["DOM", "ESNext"],
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["@cloudflare/workers-types"]
+    "skipLibCheck": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

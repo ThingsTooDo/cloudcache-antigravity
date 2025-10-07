@@ -15,4 +15,5 @@ dist/
 Thumbs.db
 .vscode/
 .idea/
-pnpm-lock.yaml
+**/pnpm-lock.yaml
+**/deploy.yml

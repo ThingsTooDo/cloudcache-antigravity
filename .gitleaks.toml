@@ -1,0 +1,13 @@
+title = "Cloudcache gitleaks config"
+
+[allowlist]
+description = "Allow safe patterns and known files"
+regexes = [
+  'integrity:\\s*sha512-[A-Za-z0-9+/=]{40,}={0,2}',
+  'CLOUDFLARE_(API_TOKEN|ACCOUNT_ID)'
+]
+files = [
+  'pnpm-lock\\.yaml'
+]
+
+

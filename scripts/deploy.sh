@@ -55,7 +55,12 @@ fi
 # Generate env-specific config with IDs
 GEN_CONFIG=$(bash "$SCRIPT_DIR/generate-config.sh" "$MODULE" "$ENV")
 
-env -u NODE_OPTIONS pnpm exec wrangler deploy "$ENTRY_PATH" --no-bundle --config "$GEN_CONFIG" --env "$ENV"
+if [[ "$ENV" == "production" ]]; then
+  # Explicitly target the top-level env to avoid Wrangler warning
+  env -u NODE_OPTIONS pnpm exec wrangler deploy "$ENTRY_PATH" --no-bundle --config "$GEN_CONFIG" --env ""
+else
+  env -u NODE_OPTIONS pnpm exec wrangler deploy "$ENTRY_PATH" --no-bundle --config "$GEN_CONFIG" --env "$ENV"
+fi
 echo "✅ Deployment complete — $MODULE/$ENV"
 echo "8855RROKK-ACK"
 

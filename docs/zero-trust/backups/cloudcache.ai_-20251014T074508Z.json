@@ -1,0 +1,31 @@
+{
+  "result": [
+    {
+      "created_at": "2025-10-14T01:53:49Z",
+      "decision": "bypass",
+      "exclude": [],
+      "id": "66337f3c-08d6-4897-9376-3dfb8676ae16",
+      "include": [
+        {
+          "everyone": {}
+        }
+      ],
+      "name": "Public",
+      "require": [],
+      "uid": "66337f3c-08d6-4897-9376-3dfb8676ae16",
+      "updated_at": "2025-10-14T01:53:49Z",
+      "reusable": false,
+      "precedence": 1
+    }
+  ],
+  "success": true,
+  "errors": [],
+  "messages": [],
+  "result_info": {
+    "page": 1,
+    "per_page": 1000,
+    "count": 1,
+    "total_count": 1,
+    "total_pages": 1
+  }
+}

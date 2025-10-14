@@ -125,7 +125,7 @@ database_id = "00000000-0000-0000-0000-000000000000"
     "build": "next build && open-next build",
     "preview": "wrangler dev --local",
     "deploy:workers": "pnpm run build && wrangler deploy",
-    "deploy:pages": "pnpm run build && wrangler pages deploy .open-next/assets",
+    // Pages deploy removed: use staging hosts for previews
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "test": "vitest run --silent"

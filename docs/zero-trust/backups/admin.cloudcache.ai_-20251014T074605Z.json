@@ -1,0 +1,50 @@
+{
+  "result": [
+    {
+      "created_at": "2025-10-14T02:02:29Z",
+      "decision": "bypass",
+      "exclude": [],
+      "id": "3738b340-56ac-47d4-beba-f53677802c4e",
+      "include": [
+        {
+          "ip": {
+            "ip": "13.212.85.246/32"
+          }
+        }
+      ],
+      "name": "Bypass Office IP",
+      "require": [],
+      "uid": "3738b340-56ac-47d4-beba-f53677802c4e",
+      "updated_at": "2025-10-14T02:02:29Z",
+      "reusable": false,
+      "precedence": 1
+    },
+    {
+      "created_at": "2025-10-14T02:02:30Z",
+      "decision": "deny",
+      "exclude": [],
+      "id": "c1791dca-5254-4048-9ab4-74dd1e27858b",
+      "include": [
+        {
+          "everyone": {}
+        }
+      ],
+      "name": "Deny All",
+      "require": [],
+      "uid": "c1791dca-5254-4048-9ab4-74dd1e27858b",
+      "updated_at": "2025-10-14T02:02:30Z",
+      "reusable": false,
+      "precedence": 2
+    }
+  ],
+  "success": true,
+  "errors": [],
+  "messages": [],
+  "result_info": {
+    "page": 1,
+    "per_page": 1000,
+    "count": 2,
+    "total_count": 2,
+    "total_pages": 1
+  }
+}

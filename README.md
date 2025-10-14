@@ -9,6 +9,12 @@
 
 ## Security scanning
 
+## Domain Policy
+
+- Production: `app.cloudcache.ai`, `admin.cloudcache.ai`, `cloudcache.ai` (plus `www.cloudcache.ai`)
+- Staging: `staging-app.cloudcache.ai`, `staging-admin.cloudcache.ai`, `staging-apex.cloudcache.ai`
+- Preview (Pages): `[hash].app-cloudcache.pages.dev`, `[hash].admin-cloudcache.pages.dev`, `[hash].apex-cloudcache.pages.dev`
+
 - Gitleaks runs in CI using `.gitleaks.toml` to reduce false positives.
 - To run locally: `pnpm dlx gitleaks detect -c .gitleaks.toml`.
 

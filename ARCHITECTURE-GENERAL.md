@@ -12,6 +12,12 @@
 - Documentation: keep `.cursor/rules/ARCHITECTURE.mdc` per module aligned with this file.
 - The End!!
 
+## Domain Policy
+
+- Production: `app.cloudcache.ai`, `admin.cloudcache.ai`, `cloudcache.ai` (plus `www.cloudcache.ai`)
+- Staging: `staging-app.cloudcache.ai`, `staging-admin.cloudcache.ai`, `staging-apex.cloudcache.ai`
+- Preview (Pages): `[hash].app-cloudcache.pages.dev`, `[hash].admin-cloudcache.pages.dev`, `[hash].apex-cloudcache.pages.dev`
+
 
 
 

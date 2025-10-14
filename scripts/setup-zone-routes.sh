@@ -17,18 +17,40 @@ fi
 
 lower_module="$MODULE"
 service_name="${lower_module}-worker"
-# Production uses the base script name; other envs use suffix
-if [[ "$ENV_NAME" == "production" ]]; then
-  script_name="$service_name"
-else
-  script_name="${service_name}-${ENV_NAME}"
-fi
-host_pattern=""
-case "$MODULE" in
-  app)   host_pattern="app.cloudcache.ai/*" ;;
-  admin) host_pattern="admin.cloudcache.ai/*" ;;
-  apex)  host_pattern="cloudcache.ai/*" ;;
+# Determine script and domain by env
+case "$ENV_NAME" in
+  production)
+    script_name="$service_name"
+    ;;
+  staging)
+    script_name="${service_name}-staging"
+    ;;
+  preview)
+    echo "ℹ️ preview env has no zone route; use wrangler dev/preview."
+    exit 0
+    ;;
+  *)
+    echo "❌ Unknown env: $ENV_NAME (expected: production|staging|preview)" >&2
+    exit 1
+    ;;
 esac
+
+domain=""
+case "$MODULE" in
+  app)   domain="app.cloudcache.ai" ;;
+  admin) domain="admin.cloudcache.ai" ;;
+  apex)  domain="cloudcache.ai" ;;
+esac
+
+if [[ "$ENV_NAME" == "staging" ]]; then
+  case "$MODULE" in
+    app)   domain="staging-app.cloudcache.ai" ;;
+    admin) domain="staging-admin.cloudcache.ai" ;;
+    apex)  domain="staging-apex.cloudcache.ai" ;;
+  esac
+fi
+
+host_pattern="${domain}/*"
 
 echo "🔧 Wiring route $host_pattern → script=$script_name"
 

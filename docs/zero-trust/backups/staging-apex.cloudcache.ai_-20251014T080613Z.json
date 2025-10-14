@@ -1,0 +1,33 @@
+{
+  "result": [
+    {
+      "created_at": "2025-10-13T09:37:05Z",
+      "decision": "allow",
+      "exclude": [],
+      "id": "a434bd8f-01d4-47cf-b17f-e7aa31ea09ac",
+      "include": [
+        {
+          "service_token": {
+            "token_id": "35928d5c-496a-4e1d-8a4c-1cb67aaf290e"
+          }
+        }
+      ],
+      "name": "Service Auth",
+      "require": [],
+      "uid": "a434bd8f-01d4-47cf-b17f-e7aa31ea09ac",
+      "updated_at": "2025-10-13T09:37:05Z",
+      "reusable": false,
+      "precedence": 1
+    }
+  ],
+  "success": true,
+  "errors": [],
+  "messages": [],
+  "result_info": {
+    "page": 1,
+    "per_page": 1000,
+    "count": 1,
+    "total_count": 1,
+    "total_pages": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Cloudcache",
+  "private": true,
+  "scripts": {
+    "build": "tsup index.ts --format esm --dts"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.2"
+  }
+}

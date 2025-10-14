@@ -3,6 +3,11 @@ main = "index.ts"
 compatibility_date = "2025-10-07"
 compatibility_flags = ["nodejs_compat"]
 
+# Domains:
+#   prod:    admin.cloudcache.ai
+#   staging: staging-admin.cloudcache.ai
+#   preview: use staging-admin.cloudcache.ai (no Pages)
+
 [[d1_databases]]
 binding = "ADMIN_D1"
 database_name = "admin-db"

@@ -3,6 +3,11 @@ main = "index.ts"
 compatibility_date = "2025-10-07"
 compatibility_flags = ["nodejs_compat"]
 
+# Domains:
+#   prod:    cloudcache.ai (and www.cloudcache.ai)
+#   staging: staging-apex.cloudcache.ai
+#   preview: use staging-apex.cloudcache.ai (no Pages)
+
 [[d1_databases]]
 binding = "APEX_D1"
 database_name = "apex-db"

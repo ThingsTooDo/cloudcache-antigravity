@@ -1,0 +1,10 @@
+---
+scope: ["**/*"]
+enforce: true
+---
+# Code Truth
+
+## Miscellaneous Truth
+- one.plan.md is deprecated and must never be created or used.
+- All plans must live under `docs/plans/` with explicit, custom filenames provided by the requester (e.g., `code refactor.md`).
+- If any `one.plan.md` appears in the repository, it should be deleted and the content moved into a named plan under `docs/plans/`.

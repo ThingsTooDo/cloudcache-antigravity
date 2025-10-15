@@ -1,0 +1,25 @@
+name: plan-location-guard
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+jobs:
+  guard-plan-location:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block one.plan.md and plans outside docs/plans/
+        run: |
+          set -euo pipefail
+          bad=""
+          # Block one.plan.md anywhere
+          x=$(git ls-files | grep -E '^one\.plan\.md$|/one\.plan\.md$' || true)
+          [ -n "$x" ] && bad="$bad$x\n"
+          # Block plan files outside docs/plans/ (any .md with 'plan' in name)
+          y=$(git ls-files | grep -Ei '\.md$' | grep -Ei 'plan' | grep -v '^docs/plans/' || true)
+          [ -n "$y" ] && bad="$bad$y\n"
+          if [ -n "$(echo -e "$bad" | sed '/^$/d')" ]; then
+            echo -e "Plan location violations:\n$bad" >&2
+            exit 1
+          fi
+          echo "Plan location guard passed."

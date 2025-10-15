@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Run Logger
+
+on:
+  workflow_run:
+    workflows:
+      - CI
+      - Deploy
+      - Secrets Scan
+      - Policy Guards
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+concurrency:
+  group: run-logger
+  cancel-in-progress: false
+
+jobs:
+  append-log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare logs branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin || true
+          if git ls-remote --exit-code origin refs/heads/logs >/dev/null 2>&1; then
+            git checkout -B logs origin/logs
+          else
+            git checkout -B logs
+          fi
+          mkdir -p .github/workflows/logs
+
+      - name: Append summary line
+        shell: bash
+        env:
+          WF_NAME: ${{ github.event.workflow_run.name }}
+          WF_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          WF_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          WF_SHA: ${{ github.event.workflow_run.head_sha }}
+          WF_RUN: ${{ github.event.workflow_run.run_number }}
+          WF_ID: ${{ github.event.workflow_run.id }}
+          WF_URL: ${{ github.event.workflow_run.html_url }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          ts="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          line="${ts}\trepo=${REPO}\twf=${WF_NAME}\trun=${WF_RUN}\tstatus=${WF_CONCLUSION}\tbranch=${WF_BRANCH}\tsha=${WF_SHA}\turl=${WF_URL}\tid=${WF_ID}"
+          tries=5
+          for i in $(seq 1 ${tries}); do
+            git pull --rebase origin logs || true
+            printf '%s\n' "$line" >> .github/workflows/logs/summary.log
+            git add .github/workflows/logs/summary.log
+            git commit -m "logs: ${WF_NAME} #${WF_RUN} (${WF_CONCLUSION}) at ${ts}" || true
+            if git push origin logs; then
+              echo "pushed"; break
+            else
+              echo "retry $i"; git reset --soft HEAD~1 || true; sleep $((RANDOM % 3 + 1))
+            fi
+          done
+

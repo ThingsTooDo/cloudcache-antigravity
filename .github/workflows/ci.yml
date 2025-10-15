@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: CI
 on:
   pull_request:
@@ -7,7 +8,7 @@ env:
 
 jobs:
   build:
-    if: ${{ env.ENABLE_CI != 'false' }}
+    if: ${{ vars.ENABLE_CI != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,4 +21,10 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm run lint
       - run: pnpm run format:check || pnpm run format
+      - name: Summary
+        run: |
+          {
+            echo "### CI toggles";
+            echo "- ENABLE_CI=${{ env.ENABLE_CI }}";
+          } >> "$GITHUB_STEP_SUMMARY"
 

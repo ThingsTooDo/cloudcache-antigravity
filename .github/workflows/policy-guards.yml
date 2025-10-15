@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Policy Guards
 on:
   pull_request:
@@ -27,6 +28,12 @@ jobs:
             exit 1
           fi
           echo "No disallowed references found in code paths."
+      - name: Summary (pages-dev)
+        run: |
+          {
+            echo "### Policy Guards toggles";
+            echo "- ENABLE_POLICY_GUARDS=${{ env.ENABLE_POLICY_GUARDS }}";
+          } >> "$GITHUB_STEP_SUMMARY"
 
   guard-plan-location:
     if: ${{ env.ENABLE_POLICY_GUARDS != 'false' }}
@@ -46,5 +53,11 @@ jobs:
             exit 1
           fi
           echo "Plan location guard passed."
+      - name: Summary (plan-location)
+        run: |
+          {
+            echo "### Policy Guards toggles";
+            echo "- ENABLE_POLICY_GUARDS=${{ env.ENABLE_POLICY_GUARDS }}";
+          } >> "$GITHUB_STEP_SUMMARY"
 
 

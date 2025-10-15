@@ -3,12 +3,9 @@ name: Policy Guards
 on:
   pull_request:
 
-env:
-  ENABLE_POLICY_GUARDS: ${{ vars.ENABLE_POLICY_GUARDS || 'true' }}
-
 jobs:
   ban-pages-dev:
-    if: ${{ env.ENABLE_POLICY_GUARDS != 'false' }}
+    if: ${{ vars.ENABLE_POLICY_GUARDS != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,11 +29,11 @@ jobs:
         run: |
           {
             echo "### Policy Guards toggles";
-            echo "- ENABLE_POLICY_GUARDS=${{ env.ENABLE_POLICY_GUARDS }}";
+            echo "- ENABLE_POLICY_GUARDS=${{ vars.ENABLE_POLICY_GUARDS || 'true' }}";
           } >> "$GITHUB_STEP_SUMMARY"
 
   guard-plan-location:
-    if: ${{ env.ENABLE_POLICY_GUARDS != 'false' }}
+    if: ${{ vars.ENABLE_POLICY_GUARDS != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -57,7 +54,23 @@ jobs:
         run: |
           {
             echo "### Policy Guards toggles";
-            echo "- ENABLE_POLICY_GUARDS=${{ env.ENABLE_POLICY_GUARDS }}";
+            echo "- ENABLE_POLICY_GUARDS=${{ vars.ENABLE_POLICY_GUARDS || 'true' }}";
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: Save run report
+        if: always()
+        run: |
+          {
+            echo "repo=${{ github.repository }}";
+            echo "sha=${{ github.sha }}";
+            echo "workflow=${{ github.workflow }}";
+            echo "run_number=${{ github.run_number }}";
+            echo "enable_policy_guards=${{ vars.ENABLE_POLICY_GUARDS || 'true' }}";
+          } > run-report.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Policy-Guards-run-${{ github.run_number }}
+          path: run-report.txt
+          retention-days: 14
 
 

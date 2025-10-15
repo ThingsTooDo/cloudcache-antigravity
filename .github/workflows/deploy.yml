@@ -8,14 +8,9 @@ permissions:
   contents: read
   id-token: write
 
-env:
-  ENABLE_DEPLOY: ${{ vars.ENABLE_DEPLOY || 'true' }}
-  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
 jobs:
   deploy:
-    if: ${{ env.ENABLE_DEPLOY != 'false' }}
+    if: ${{ vars.ENABLE_DEPLOY != 'false' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -55,7 +50,23 @@ jobs:
         run: |
           {
             echo "### Deploy toggles";
-            echo "- ENABLE_DEPLOY=${{ env.ENABLE_DEPLOY }}";
+            echo "- ENABLE_DEPLOY=${{ vars.ENABLE_DEPLOY || 'true' }}";
           } >> "$GITHUB_STEP_SUMMARY"
+      - name: Save run report
+        if: always()
+        run: |
+          {
+            echo "repo=${{ github.repository }}";
+            echo "sha=${{ github.sha }}";
+            echo "workflow=${{ github.workflow }}";
+            echo "run_number=${{ github.run_number }}";
+            echo "enable_deploy=${{ vars.ENABLE_DEPLOY || 'true' }}";
+          } > run-report.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Deploy-run-${{ github.run_number }}
+          path: run-report.txt
+          retention-days: 14
 
 

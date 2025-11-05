@@ -1,7 +1,6 @@
 name = "admin-worker"
 main = "src/index.ts"
 compatibility_date = "2025-10-07"
-compatibility_flags = ["nodejs_compat"]
 
 # Domains:
 #   prod:    admin.cloudcache.ai

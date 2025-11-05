@@ -2,7 +2,8 @@
   "name": "Cloudcache",
   "private": true,
   "scripts": {
-    "build": "tsup index.ts --format esm --dts"
+    "build": "tsup index.ts --format esm --dts",
+    "dev": "pnpm exec wrangler dev --port 8789"
   },
   "devDependencies": {
     "tsup": "^8.2.2"

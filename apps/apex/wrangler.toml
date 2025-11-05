@@ -1,7 +1,6 @@
 name = "apex-worker"
 main = "src/index.ts"
 compatibility_date = "2025-10-07"
-compatibility_flags = ["nodejs_compat"]
 
 # Domains:
 #   prod:    cloudcache.ai (and www.cloudcache.ai)

@@ -9,7 +9,6 @@ ENV_NAME="${2:-production}"
 [[ -z "$MODULE" || ! "$MODULE" =~ ^(apex|app|admin)$ ]] && { echo "Usage: $0 [apex|app|admin] [production|staging|preview]"; exit 1; }
 [[ ! "$ENV_NAME" =~ ^(production|staging|preview)$ ]] && { echo "Invalid env: $ENV_NAME"; exit 1; }
 
-select_module_token "$MODULE"
 ACCOUNT_ID="$(get_account_id)"
 if [[ -z "$ACCOUNT_ID" ]]; then
   echo "❌ Missing CLOUDFLARE_ACCOUNT_ID/CF_ACCOUNT_ID"

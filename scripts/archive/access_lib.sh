@@ -55,38 +55,16 @@ http_post(){ _http POST "$1" "${2:-}"; }
 http_put(){ _http PUT "$1" "${2:-}"; }
 
 # Cloudflare helpers that require TOKEN to be set by the caller
-# (per-domain/module token selection). These validate HTTP status only.
+# Uses single CF_API_TOKEN for all domains. These validate HTTP status only.
 cf_get(){ http_get "$1"; }
 cf_post(){ http_post "$1" "${2:-}"; }
 cf_put(){ http_put "$1" "${2:-}"; }
 
-# Select module token based on a domain name (canonical policy)
+# Select token for domain (uses single CF_API_TOKEN for all domains)
 select_token_for_domain(){
   local domain="$1"
-  case "$domain" in
-    app.cloudcache.ai|staging-app.cloudcache.ai)
-      echo -n "${CLOUDFLARE_API_TOKEN_APP:-}"
-      ;;
-    admin.cloudcache.ai|staging-admin.cloudcache.ai)
-      echo -n "${CLOUDFLARE_API_TOKEN_ADMIN:-}"
-      ;;
-    cloudcache.ai|www.cloudcache.ai|staging-apex.cloudcache.ai)
-      echo -n "${CLOUDFLARE_API_TOKEN_APEX:-}"
-      ;;
-    # Legacy patterns (mapped to modules for cleanup)
-    app-staging.cloudcache.ai|staging.app.cloudcache.ai)
-      echo -n "${CLOUDFLARE_API_TOKEN_APP:-}"
-      ;;
-    admin-staging.cloudcache.ai|staging.admin.cloudcache.ai)
-      echo -n "${CLOUDFLARE_API_TOKEN_ADMIN:-}"
-      ;;
-    apex-staging.cloudcache.ai|staging.cloudcache.ai)
-      echo -n "${CLOUDFLARE_API_TOKEN_APEX:-}"
-      ;;
-    *)
-      echo -n ""
-      ;;
-  esac
+  # Use single CF_API_TOKEN for all domains
+  echo -n "${CF_API_TOKEN:-}"
 }
 
 # Common utilities

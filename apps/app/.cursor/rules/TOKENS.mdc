@@ -1,18 +1,14 @@
-Title: Cloudflare API Token Policy (Module-Scoped Only)
+Title: Cloudflare API Token Policy (Single Token)
 
 Rule:
-- Do not use `CLOUDFLARE_API_TOKEN` (generic). Ever.
-- Use module-scoped tokens only:
-  - APP → `CLOUDFLARE_API_TOKEN_APP`
-  - ADMIN → `CLOUDFLARE_API_TOKEN_ADMIN`
-  - APEX → `CLOUDFLARE_API_TOKEN_APEX`
-- Scripts must resolve the module by `CF_MODULE` (app|admin|apex) or by `CF_DOMAIN` mapping:
-  - app.cloudcache.ai, staging-app.cloudcache.ai → app
-  - admin.cloudcache.ai, staging-admin.cloudcache.ai → admin
-  - cloudcache.ai, staging-apex.cloudcache.ai, www.cloudcache.ai → apex
-- If the module token is missing, fail fast.
+- Use single `CF_API_TOKEN` for all modules (APEX, APP, ADMIN).
+- Map `CF_API_TOKEN` to `CLOUDFLARE_API_TOKEN` for wrangler compatibility.
+- Do not use module-specific tokens (`CLOUDFLARE_API_TOKEN_APEX`, `CLOUDFLARE_API_TOKEN_APP`, `CLOUDFLARE_API_TOKEN_ADMIN`).
+- Scripts must use `CF_API_TOKEN` as the source of truth.
+- For wrangler deployments, use `setup_wrangler_token()` helper from `scripts/lib/core.sh` to map the token.
+- If `CF_API_TOKEN` is missing, fail fast with clear error message.
 
 Examples:
-- `CF_MODULE=app bash scripts/access-verify.sh app.cloudcache.ai /tmp/svc-app.json`
-- `CF_DOMAIN=admin.cloudcache.ai bash scripts/access-app-policies.sh admin.cloudcache.ai`
-
+- `CF_API_TOKEN="token" bash scripts/modules/app/deploy-staging.sh staging`
+- `CF_API_TOKEN="token" bash scripts/archive/deploy.sh apex production`
+- In scripts: `require_env CF_API_TOKEN` then `setup_wrangler_token` before wrangler commands

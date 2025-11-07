@@ -4,7 +4,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/cf-env.sh"
 
 # Normalize DNS to workers-only (AAAA 100::, proxied)
-# Requires: CLOUDFLARE_API_TOKEN_*, CLOUDFLARE_ZONE_ID, CF_MODULE
+# Requires: CF_API_TOKEN, CLOUDFLARE_ZONE_ID, CF_MODULE
 
 auth=( "${CF_AUTH[@]}" ) # Use the resolved auth headers from cf-env.sh
 zone_base="${CF_ZONE_BASE}"

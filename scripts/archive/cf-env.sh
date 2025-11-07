@@ -6,7 +6,7 @@ set -euo pipefail
 [[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]] || { echo "❌ CLOUDFLARE_ACCOUNT_ID not set" >&2; exit 2; }
 [[ -n "${CLOUDFLARE_ZONE_ID:-}" ]] || { echo "❌ CLOUDFLARE_ZONE_ID not set" >&2; exit 2; }
 
-# Enforce module-scoped API tokens only; ignore generic token
+# Use single CF_API_TOKEN for all modules
 # Module resolution: CF_MODULE (app|admin|apex) or CF_DOMAIN mapping
 #
 # Canonical domains policy:
@@ -30,14 +30,9 @@ fi
 
 [[ -n "$MODULE" ]] || { echo "❌ CF_MODULE not set (expected: app|admin|apex), or CF_DOMAIN unmapped" >&2; exit 2; }
 
-case "$MODULE" in
-  app)   SELECTED_TOKEN="${CLOUDFLARE_API_TOKEN_APP:-}" ;;
-  admin) SELECTED_TOKEN="${CLOUDFLARE_API_TOKEN_ADMIN:-}" ;;
-  apex)  SELECTED_TOKEN="${CLOUDFLARE_API_TOKEN_APEX:-}" ;;
-  *) echo "❌ Unknown CF_MODULE: $MODULE" >&2; exit 2 ;;
-esac
-
-[[ -n "$SELECTED_TOKEN" ]] || { echo "❌ Missing module token for $MODULE (e.g., CLOUDFLARE_API_TOKEN_APP)" >&2; exit 2; }
+# Use single CF_API_TOKEN for all modules
+SELECTED_TOKEN="${CF_API_TOKEN:-}"
+[[ -n "$SELECTED_TOKEN" ]] || { echo "❌ Missing CF_API_TOKEN" >&2; exit 2; }
 
 CF_AUTH=(-H "Authorization: Bearer ${SELECTED_TOKEN}" -H "Content-Type: application/json")
 CF_ACCT_BASE="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"

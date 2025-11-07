@@ -7,12 +7,12 @@ read -r -p "Type 'RESET' to continue: " CONFIRM
 [[ "$CONFIRM" == "RESET" ]] || { echo "Aborted"; exit 1; }
 
 # Ensure env is present
-for v in CLOUDFLARE_API_TOKEN_APP CLOUDFLARE_API_TOKEN_ADMIN CLOUDFLARE_API_TOKEN_APEX CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_ZONE_ID; do
+for v in CF_API_TOKEN CLOUDFLARE_ACCOUNT_ID CLOUDFLARE_ZONE_ID; do
   [[ -n "${!v:-}" ]] || { echo "❌ Missing env: $v"; exit 2; }
 done
 
-# Step 1: Cleanup CF resources (use the APEX token which should be full-scope)
-env CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN_APEX"  bash "$SCRIPT_DIR/cleanup-cloudflare-resources.sh"
+# Step 1: Cleanup CF resources (use CF_API_TOKEN)
+env CLOUDFLARE_API_TOKEN="$CF_API_TOKEN" bash "$SCRIPT_DIR/cleanup-cloudflare-resources.sh"
 
 # Step 2: Configure DNS, routes, and apps
 bash "$SCRIPT_DIR/configure-workers-zero-trust.sh"

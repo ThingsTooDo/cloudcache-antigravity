@@ -13,15 +13,16 @@ MODULE_DIR="$ROOT_DIR/src/$MODULE"
 [ -d "$MODULE_DIR" ] || { echo "Module dir not found: $MODULE_DIR"; exit 2; }
 cd "$MODULE_DIR"
 
-select_module_token "$MODULE"
+# Setup token for wrangler (maps CF_API_TOKEN to CLOUDFLARE_API_TOKEN)
+select_module_token
 
-# Fallback for CI variable names
-if [[ -z "${CLOUDFLARE_API_TOKEN:-}" && -n "${CF_API_TOKEN:-}" ]]; then
-  export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
+if [[ -z "${CF_API_TOKEN:-}" ]]; then
+  echo "❌ Missing CF_API_TOKEN in environment"
+  exit 3
 fi
 
-if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ACCOUNT_ID:-${CF_ACCOUNT_ID:-}}" ]]; then
-  echo "❌ Missing Cloudflare token or account id in environment."
+if [[ -z "${CLOUDFLARE_ACCOUNT_ID:-${CF_ACCOUNT_ID:-}}" ]]; then
+  echo "❌ Missing CLOUDFLARE_ACCOUNT_ID in environment"
   exit 3
 fi
 

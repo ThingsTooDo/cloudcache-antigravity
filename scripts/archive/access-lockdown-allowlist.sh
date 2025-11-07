@@ -2,10 +2,7 @@
 set -euo pipefail
 
 # Usage: access-lockdown-allowlist.sh <domain> <ip1,ip2,ip3>
-# Requires: CLOUDFLARE_ACCOUNT_ID and one of:
-#  - CLOUDFLARE_API_TOKEN_APP
-#  - CLOUDFLARE_API_TOKEN_ADMIN
-#  - CLOUDFLARE_API_TOKEN_APEX
+# Requires: CLOUDFLARE_ACCOUNT_ID and CF_API_TOKEN
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -20,20 +17,9 @@ fi
 
 [[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]] || { echo "❌ CLOUDFLARE_ACCOUNT_ID not set" >&2; exit 2; }
 
-# Minimal domain→module mapping without sourcing cf-env.sh
-MODULE=""
-case "$DOMAIN" in
-  app.cloudcache.ai|staging-app.cloudcache.ai) MODULE=app ;;
-  admin.cloudcache.ai|staging-admin.cloudcache.ai) MODULE=admin ;;
-  *) MODULE=apex ;;
-esac
-
-case "$MODULE" in
-  app)   SELECTED_TOKEN="${CLOUDFLARE_API_TOKEN_APP:-}" ;;
-  admin) SELECTED_TOKEN="${CLOUDFLARE_API_TOKEN_ADMIN:-}" ;;
-  apex)  SELECTED_TOKEN="${CLOUDFLARE_API_TOKEN_APEX:-}" ;;
-esac
-[[ -n "$SELECTED_TOKEN" ]] || { echo "❌ Missing token for module $MODULE" >&2; exit 2; }
+# Use single CF_API_TOKEN for all modules
+SELECTED_TOKEN="${CF_API_TOKEN:-}"
+[[ -n "$SELECTED_TOKEN" ]] || { echo "❌ Missing CF_API_TOKEN" >&2; exit 2; }
 
 CF_AUTH=(-H "Authorization: Bearer ${SELECTED_TOKEN}" -H "Content-Type: application/json")
 CF_ACCT_BASE="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"

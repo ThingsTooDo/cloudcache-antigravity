@@ -37,23 +37,15 @@ get_account_id() {
   fi
 }
 
+# Setup token for wrangler compatibility.
+# Uses single CF_API_TOKEN and maps it to CLOUDFLARE_API_TOKEN for wrangler.
 select_module_token() {
-  local module="$1"
-  local token=""
-  case "$module" in
-    apex)  token="${CLOUDFLARE_API_TOKEN_APEX:-}" ;;
-    app)   token="${CLOUDFLARE_API_TOKEN_APP:-}" ;;
-    admin) token="${CLOUDFLARE_API_TOKEN_ADMIN:-}" ;;
-    *) echo "Unknown module: $module"; return 1 ;;
-  esac
-
-  if [[ -z "$token" ]]; then
-    echo "❌ Missing token env for module $module"
+  if [[ -z "${CF_API_TOKEN:-}" ]]; then
+    echo "❌ Missing CF_API_TOKEN. Set CF_API_TOKEN in your environment."
     return 1
   fi
-
-  # Explicitly set the generic var used by wrangler
-  export CLOUDFLARE_API_TOKEN="$token"
+  # Map CF_API_TOKEN to CLOUDFLARE_API_TOKEN for wrangler compatibility
+  export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
 }
 
 ensure_local_toml_account_id() {

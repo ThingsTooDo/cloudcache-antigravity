@@ -93,6 +93,16 @@ resolve_cf_token() {
   printf "%s" "$CF_API_TOKEN"
 }
 
+# Setup wrangler token mapping.
+# Wrangler requires CLOUDFLARE_API_TOKEN, so we map it from CF_API_TOKEN.
+setup_wrangler_token() {
+  if [[ -z "${CF_API_TOKEN:-}" ]]; then
+    die "CF_API_TOKEN is not set. Please configure it in your .env file."
+  fi
+  export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
+  redact "$CF_API_TOKEN"
+}
+
 # ---
 # Command Execution
 # ---

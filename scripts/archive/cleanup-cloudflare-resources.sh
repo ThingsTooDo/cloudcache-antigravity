@@ -6,15 +6,18 @@ set -euo pipefail
 # - Deletes ALL Cloudflare Pages projects in the account
 #
 # Requirements:
-#   - env: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
+#   - env: CF_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
 #   - curl, jq
 
-if [[ -z "${CLOUDFLARE_API_TOKEN:-}" || -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
-  echo "❌ CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID must be set in the environment" >&2
+if [[ -z "${CF_API_TOKEN:-}" || -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+  echo "❌ CF_API_TOKEN and CLOUDFLARE_ACCOUNT_ID must be set in the environment" >&2
   exit 2
 fi
 
 command -v jq >/dev/null 2>&1 || { echo "❌ jq is required (brew install jq)" >&2; exit 3; }
+
+# Map CF_API_TOKEN to CLOUDFLARE_API_TOKEN for API calls
+export CLOUDFLARE_API_TOKEN="${CF_API_TOKEN}"
 
 auth_header=( -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" -H "Content-Type: application/json" )
 acct_base="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"

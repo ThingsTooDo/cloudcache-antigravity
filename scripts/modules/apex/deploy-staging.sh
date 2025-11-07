@@ -8,6 +8,7 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 export CF_ENV="$ENV"
 log "Deploying APEX ($ENV)"
 require_env CF_API_TOKEN CF_ACCOUNT_ID
+setup_wrangler_token
 pushd "$ROOT_DIR/apps/apex" >/dev/null
 run wrangler deploy --env "$ENV"
 popd >/dev/null

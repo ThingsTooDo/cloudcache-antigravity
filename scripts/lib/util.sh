@@ -57,7 +57,7 @@ require_env() {
 # Cloudflare Environment and API Setup
 # ---
 # Initializes CF_ACCOUNT_ID, CF_ZONE_ID, and CF_API_TOKEN from environment
-# variables. Supports both CLOUDFLARE_ and legacy CF_ prefixes.
+# variables. Uses single CF_API_TOKEN for all modules.
 setup_env() {
   CF_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-${CF_ACCOUNT_ID:-}}"
   CF_ZONE_ID="${CLOUDFLARE_ZONE_ID:-${CF_ZONE_ID:-}}"
@@ -65,24 +65,11 @@ setup_env() {
   CF_ACCT_BASE="${API_ROOT}/accounts/${CF_ACCOUNT_ID}"
   CF_ZONE_BASE="${API_ROOT}/zones/${CF_ZONE_ID}"
   
-  # Module can be passed as an argument (e.g., app, admin, apex)
-  local module="${1:-}"
-  if [[ -n "$module" ]]; then
-    select_module_token "$module"
-  else
-    # Fallback to a generic token if no module is specified
-    CF_API_TOKEN="${CLOUDFLARE_API_TOKEN:-${CF_API_TOKEN:-}}"
-  fi
+  # Use single CF_API_TOKEN for all modules
+  CF_API_TOKEN="${CF_API_TOKEN:-}"
+  [[ -n "$CF_API_TOKEN" ]] || die "Missing CF_API_TOKEN. Set CF_API_TOKEN in your environment."
   
   CF_AUTH_HEADERS=(-H "Authorization: Bearer ${CF_API_TOKEN}" -H "Content-Type: application/json")
-}
-
-# Selects the appropriate API token based on the module (app, admin, apex)
-select_module_token() {
-  local module="$1"
-  local token_var="CLOUDFLARE_API_TOKEN_${module^^}"
-  CF_API_TOKEN="${!token_var:-}"
-  [[ -n "$CF_API_TOKEN" ]] || die "Missing token for module '$module'. Set ${token_var}."
 }
 
 # ---

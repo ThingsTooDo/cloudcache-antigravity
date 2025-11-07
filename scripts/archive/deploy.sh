@@ -12,15 +12,11 @@ ENV="${2:-production}"
 MODULE_DIR="$ROOT_DIR/apps/$MODULE"
 cd "$MODULE_DIR"
 
-select_module_token "$MODULE"
+# Setup token for wrangler (maps CF_API_TOKEN to CLOUDFLARE_API_TOKEN)
+select_module_token
 
-# Fallback: allow CF_API_TOKEN to satisfy scripts without exposing CLOUDFLARE_ names in CI
-if [[ -z "${CLOUDFLARE_API_TOKEN:-}" && -n "${CF_API_TOKEN:-}" ]]; then
-  export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
-fi
-
-if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
-  echo "❌ Missing token in environment for $MODULE"
+if [[ -z "${CF_API_TOKEN:-}" ]]; then
+  echo "❌ Missing CF_API_TOKEN in environment"
   exit 2
 fi
 

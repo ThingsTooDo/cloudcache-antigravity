@@ -2,13 +2,16 @@
 set -euo pipefail
 
 # Snapshot Cloudflare inventories to TSV files (read-only)
-# Requires: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_ZONE_ID
+# Requires: CF_API_TOKEN, CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_ZONE_ID
 
-[[ -n "${CLOUDFLARE_API_TOKEN:-}" ]] || { echo "❌ CLOUDFLARE_API_TOKEN required" >&2; exit 2; }
+[[ -n "${CF_API_TOKEN:-}" ]] || { echo "❌ CF_API_TOKEN required" >&2; exit 2; }
 [[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]] || { echo "❌ CLOUDFLARE_ACCOUNT_ID required" >&2; exit 2; }
 [[ -n "${CLOUDFLARE_ZONE_ID:-}" ]] || { echo "❌ CLOUDFLARE_ZONE_ID required" >&2; exit 2; }
 
 command -v jq >/dev/null 2>&1 || { echo "❌ jq is required (brew install jq)" >&2; exit 3; }
+
+# Map CF_API_TOKEN to CLOUDFLARE_API_TOKEN for API calls
+export CLOUDFLARE_API_TOKEN="${CF_API_TOKEN}"
 
 auth=( -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" -H "Content-Type: application/json" )
 acct_base="https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}"

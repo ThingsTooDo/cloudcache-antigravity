@@ -10,9 +10,14 @@ ZONE_ID="${ZONE_ID:-${CLOUDFLARE_ZONE_ID:-}}"
 [[ -z "$MODULE" || ! "$MODULE" =~ ^(apex|app|admin)$ ]] && { echo "Usage: $0 [apex|app|admin] [staging|production|preview]"; exit 1; }
 [[ -z "$ZONE_ID" ]] && { echo "❌ Missing ZONE_ID (export ZONE_ID)"; exit 2; }
 
-# If a generic token is already provided, use it; otherwise select per-module token
+# Setup token for API calls (maps CF_API_TOKEN to CLOUDFLARE_API_TOKEN)
 if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
-  select_module_token "$MODULE"
+  select_module_token
+fi
+
+if [[ -z "${CF_API_TOKEN:-}" ]]; then
+  echo "❌ Missing CF_API_TOKEN in environment"
+  exit 2
 fi
 
 lower_module="$MODULE"

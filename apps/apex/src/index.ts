@@ -33,13 +33,16 @@ export default {
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Cloudcache.</h1>
+    <h1>Welcome to Cloudcache</h1>
   </div>
 </body>
 </html>
       `.trim();
       return new Response(html, {
-        headers: { "Content-Type": "text/html; charset=utf-8" },
+        headers: { 
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
       });
     }
     return new Response("NOT_FOUND", { status: 404 });

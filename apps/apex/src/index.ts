@@ -9,10 +9,12 @@ export default {
     // Serve favicon
     if (url.pathname === "/favicon.ico") {
       const faviconData = Uint8Array.from(atob(FAVICON_BASE64), c => c.charCodeAt(0));
-      return new Response(faviconData, {
+      return new Response(faviconData.buffer, {
         headers: {
           "Content-Type": "image/x-icon",
-          "Cache-Control": "public, max-age=31536000",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0",
         },
       });
     }
@@ -24,7 +26,10 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,${FAVICON_BASE64}">
+  <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;base64,${FAVICON_BASE64}">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
   <title>Cloudcache</title>
   <style>
     body {

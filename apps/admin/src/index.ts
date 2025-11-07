@@ -9,7 +9,7 @@ export default {
     // Serve favicon
     if (url.pathname === "/favicon.ico") {
       const faviconData = Uint8Array.from(atob(FAVICON_BASE64), c => c.charCodeAt(0));
-      return new Response(faviconData, {
+      return new Response(faviconData.buffer, {
         headers: {
           "Content-Type": "image/x-icon",
           "Cache-Control": "public, max-age=31536000",

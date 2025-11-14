@@ -372,6 +372,188 @@ cmd_verify() {
   log "Verification complete"
 }
 
+# Status command: show deployment status, secrets, routes, health checks
+cmd_status() {
+  local module="${1:-}"
+  local env="${2:-}"
+  
+  [[ -n "$module" ]] || die "Usage: status <module> <env>"
+  [[ -n "$env" ]] || die "Usage: status <module> <env>"
+  
+  validate_module "$module"
+  # Normalize env (prev -> preview)
+  env=$(validate_env "$env")
+  
+  setup_cf_env
+  setup_wrangler_token
+  
+  step "Status for $module ($env)"
+  
+  if [[ "$module" == "apex" ]]; then
+    # Pages project status
+    local project
+    project=$(cf_get "${CF_ACCT_BASE}/pages/projects/apex-cloudcache" 2>/dev/null || echo "")
+    
+    if [[ -z "$project" ]]; then
+      log "❌ Pages project 'apex-cloudcache' not found"
+      return 1
+    fi
+    
+    local pages_env="production"
+    case "$env" in
+      staging) pages_env="staging" ;;
+      preview) pages_env="preview" ;;
+    esac
+    
+    local latest_deployment
+    latest_deployment=$(cf_get "${CF_ACCT_BASE}/pages/projects/apex-cloudcache/deployments?per_page=1" 2>/dev/null | jq -r '.result[0] | "\(.created_on) - \(.id)"' || echo "No deployments found")
+    
+    echo ""
+    echo "📦 Pages Project: apex-cloudcache"
+    echo "   Environment: $pages_env"
+    echo "   Latest Deployment: $latest_deployment"
+    
+    # Check environment variables
+    local env_vars
+    env_vars=$(cf_get "${CF_ACCT_BASE}/pages/projects/apex-cloudcache/env/$pages_env" 2>/dev/null || echo '{"vars":{}}')
+    local has_id has_secret
+    has_id=$(echo "$env_vars" | jq -r '.vars.CF_ACCESS_CLIENT_ID // empty' || echo "")
+    has_secret=$(echo "$env_vars" | jq -r '.vars.CF_ACCESS_CLIENT_SECRET // empty' || echo "")
+    
+    echo "   Secrets:"
+    echo "     CF_ACCESS_CLIENT_ID: $([ -n "$has_id" ] && echo "✅ Set" || echo "❌ Missing")"
+    echo "     CF_ACCESS_CLIENT_SECRET: $([ -n "$has_secret" ] && echo "✅ Set" || echo "❌ Missing")"
+    
+    # Health check
+    local domain=""
+    case "$env" in
+      prod) domain="https://cloudcache.ai" ;;
+      staging) domain="https://staging-apex.cloudcache.ai" ;;
+      preview) domain="https://apex-cloudcache.pages.dev" ;;
+    esac
+    
+    if [[ -n "$domain" ]]; then
+      echo "   Health Check:"
+      if curl -sf "${domain}/healthz" >/dev/null 2>&1; then
+        echo "     ${domain}/healthz: ✅ Healthy"
+      else
+        echo "     ${domain}/healthz: ❌ Unreachable"
+      fi
+    fi
+  else
+    # Worker status
+    local worker_name
+    worker_name=$(get_worker_name "$module" "$env")
+    
+    echo ""
+    echo "📦 Worker: $worker_name"
+    
+    # Deployment status
+    local deployments
+    deployments=$(wrangler deployments list --name "$worker_name" --config "$ROOT_DIR/apps/$module/wrangler.toml" 2>/dev/null || echo "")
+    
+    if [[ -n "$deployments" ]]; then
+      local latest_deployment
+      latest_deployment=$(echo "$deployments" | head -5 | grep -E "Created|Version" | head -2 || echo "No deployment info")
+      echo "   Latest Deployment:"
+      echo "$latest_deployment" | sed 's/^/     /'
+    else
+      echo "   Latest Deployment: ❌ Not deployed"
+    fi
+    
+    # Secrets status
+    echo "   Secrets:"
+    local secrets_str
+    secrets_str=$(get_module_secrets "$module")
+    local old_ifs="$IFS"
+    IFS=' '
+    local secrets_array=($secrets_str)
+    IFS="$old_ifs"
+    
+    for secret_name in "${secrets_array[@]}"; do
+      local secret_list
+      if [[ "$env" == "prod" ]]; then
+        secret_list=$(wrangler secret list --name "$worker_name" --config "$ROOT_DIR/apps/$module/wrangler.toml" 2>/dev/null || echo "[]")
+      else
+        secret_list=$(wrangler secret list --env "$env" --config "$ROOT_DIR/apps/$module/wrangler.toml" 2>/dev/null || echo "[]")
+      fi
+      
+      local secret_exists
+      secret_exists=$(echo "$secret_list" | jq -r --arg name "$secret_name" '.[]? | select(.name==$name) | .name' 2>/dev/null || echo "")
+      
+      if [[ -n "$secret_exists" ]]; then
+        echo "     $secret_name: ✅ Set"
+      else
+        echo "     $secret_name: ❌ Missing"
+      fi
+    done
+    
+    # Routes status
+    echo "   Routes:"
+    local wrangler_toml="$ROOT_DIR/apps/$module/wrangler.toml"
+    if [[ "$env" == "prod" ]]; then
+      local routes
+      routes=$(grep -A 5 '^routes = \[' "$wrangler_toml" | grep 'pattern' | sed 's/.*pattern = "\(.*\)".*/\1/' || echo "")
+      if [[ -n "$routes" ]]; then
+        echo "$routes" | while read -r route; do
+          echo "     ✅ $route"
+        done
+      else
+        echo "     ⚠️  No routes configured"
+      fi
+    else
+      local routes
+      routes=$(grep -A 5 "\[env.$env\]" "$wrangler_toml" | grep -A 5 'routes = \[' | grep 'pattern' | sed 's/.*pattern = "\(.*\)".*/\1/' || echo "")
+      if [[ -n "$routes" ]]; then
+        echo "$routes" | while read -r route; do
+          echo "     ✅ $route"
+        done
+      elif grep -A 5 "\[env.$env\]" "$wrangler_toml" | grep -q "routes = \[\]" 2>/dev/null; then
+        echo "     ℹ️  Uses workers.dev subdomain (no custom routes)"
+      else
+        echo "     ⚠️  No routes configured"
+      fi
+    fi
+    
+    # Health check
+    local domain=""
+    case "$env" in
+      prod)
+        case "$module" in
+          app) domain="https://app.cloudcache.ai" ;;
+          admin) domain="https://admin.cloudcache.ai" ;;
+        esac
+        ;;
+      staging)
+        case "$module" in
+          app) domain="https://staging-app.cloudcache.ai" ;;
+          admin) domain="https://staging-admin.cloudcache.ai" ;;
+        esac
+        ;;
+      preview)
+        domain="https://${worker_name}.workers.dev"
+        ;;
+    esac
+    
+    if [[ -n "$domain" ]]; then
+      echo "   Health Check:"
+      if curl -sf "${domain}/healthz" >/dev/null 2>&1; then
+        echo "     ${domain}/healthz: ✅ Healthy"
+      else
+        echo "     ${domain}/healthz: ❌ Unreachable"
+      fi
+      if curl -sf "${domain}/readyz" >/dev/null 2>&1; then
+        echo "     ${domain}/readyz: ✅ Ready"
+      else
+        echo "     ${domain}/readyz: ❌ Not ready"
+      fi
+    fi
+  fi
+  
+  echo ""
+  log "Status check complete"
+}
+
 # Main command dispatcher
 main() {
   local command="${1:-}"
@@ -389,13 +571,18 @@ main() {
       shift
       cmd_verify "$@"
       ;;
+    status)
+      shift
+      cmd_status "$@"
+      ;;
     *)
-      echo "Usage: $0 {bootstrap|bind|verify} <module> <env>" >&2
+      echo "Usage: $0 {bootstrap|bind|verify|status} <module> <env>" >&2
       echo "" >&2
       echo "Commands:" >&2
       echo "  bootstrap  Create/update infrastructure (Workers/Pages)" >&2
       echo "  bind        Set secrets interactively" >&2
       echo "  verify      Verify infrastructure and secrets" >&2
+      echo "  status      Show deployment status, secrets, routes, health checks" >&2
       echo "" >&2
       echo "Modules: apex, app, admin" >&2
       echo "Environments: preview (or prev), staging, prod" >&2

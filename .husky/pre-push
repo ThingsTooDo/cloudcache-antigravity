@@ -9,12 +9,21 @@ fi
 
 # TypeScript sanity (no emit)
 if command -v pnpm >/dev/null 2>&1; then
-  # Use pnpm exec to run tsc from node_modules
-  if pnpm exec tsc --version >/dev/null 2>&1; then
-    pnpm exec tsc -p tsconfig.base.json --noEmit || {
-      echo "Typecheck failed"; exit 1;
-    }
+  # Check if TypeScript is installed by looking for the binary file
+  if [ -f "node_modules/.bin/tsc" ]; then
+    # Binary exists - verify pnpm can execute it (catches permission/env issues)
+    if pnpm exec tsc --version >/dev/null 2>&1; then
+      # TypeScript is installed and executable, run typecheck - fail on any error
+      pnpm exec tsc -p tsconfig.base.json --noEmit || {
+        echo "Typecheck failed"; exit 1;
+      }
+    else
+      # Binary exists but pnpm can't execute it - this indicates an environment problem
+      echo "TypeScript binary found but pnpm exec failed - environment issue detected"
+      exit 1
+    fi
   else
+    # Binary doesn't exist - TypeScript is not installed, skip gracefully
     echo "TypeScript not installed; skipping typecheck"
   fi
 else

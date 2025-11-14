@@ -1,5 +1,5 @@
 name = "admin-worker"
-main = "src/index.ts"
+main = "dist/index.js"
 compatibility_date = "2025-10-07"
 
 # Remote bindings for local dev (no .dev.vars needed)
@@ -21,3 +21,5 @@ routes = [
 # Preview environment
 [env.preview]
 name = "admin-worker-preview"
+# Preview has no routes - uses workers.dev subdomain
+routes = []

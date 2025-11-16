@@ -1,0 +1,33 @@
+# Ignore all dotfiles except specific ones we want to format
+.*
+!.github
+!.husky
+
+# Don't format dependencies, build outputs, or generated files
+node_modules
+dist
+.next
+.turbo
+coverage
+*.min.js
+*.min.css
+
+# Don't format package manager lock files
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Don't format logs
+*.log
+
+# Don't format binaries and archives
+*.zip
+*.tar.gz
+
+# Wrangler files
+.wrangler
+.dev.vars
+
+# Don't format auto-generated validation reports
+docs/reports/
+

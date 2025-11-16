@@ -199,7 +199,7 @@ for module in "${MODULES[@]}"; do
       url=""
       GIT_HASH=""
       if [[ "$env" == "localhost" ]]; then
-        GIT_HASH=$(git rev-parse HEAD 2>/dev/null || echo "unknown")
+        GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
         case "$module" in
           app) url="http://localhost:8789" ;;
           admin) url="http://localhost:8787" ;;
@@ -208,7 +208,7 @@ for module in "${MODULES[@]}"; do
       else # cloudflare
         case "$mode" in
           preview)
-            GIT_HASH=$(git rev-parse HEAD 2>/dev/null || echo "unknown")
+            GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
             url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
             ;;
           staging)
@@ -217,7 +217,7 @@ for module in "${MODULES[@]}"; do
               echo "" >> "$REPORT_FILE"
               continue 2 # Skip to the next mode
             fi
-            GIT_HASH=$(git rev-parse origin/staging 2>/dev/null || echo "unknown")
+            GIT_HASH=$(git rev-parse --short origin/staging 2>/dev/null || echo "unknown")
             url="https://staging-$module.cloudcache.ai"
             ;;
           production)
@@ -226,7 +226,7 @@ for module in "${MODULES[@]}"; do
               echo "" >> "$REPORT_FILE"
               continue 2 # Skip to the next mode
             fi
-            GIT_HASH=$(git rev-parse origin/main 2>/dev/null || echo "unknown")
+            GIT_HASH=$(git rev-parse --short origin/main 2>/dev/null || echo "unknown")
             if [[ "$module" == "apex" ]]; then
               url="https://cloudcache.ai"
             else
@@ -251,14 +251,19 @@ for module in "${MODULES[@]}"; do
         continue
       fi
 
-      # 1. Health & Version Check
-      run_check "Health & Version Check" "node '$ROOT_DIR/scripts/validation/helpers/check-health.js' '$url' '$GIT_HASH'"
-      
-      # 2. Badge Verification
-      run_check "Badge Verification" "node '$ROOT_DIR/scripts/validation/helpers/check-badge.js' '$url'"
+      # Skip protected production endpoints (behind Cloudflare Access)
+      if [[ "$mode" == "production" && "$env" == "cloudflare" ]]; then
+        echo "  - 🟡 SKIPPED: Production endpoints are protected by Cloudflare Access." >> "$REPORT_FILE"
+      else
+        # 1. Health & Version Check
+        run_check "Health & Version Check" "node '$ROOT_DIR/scripts/validation/helpers/check-health.js' '$url' '$GIT_HASH'"
+        
+        # 2. Badge Verification
+        run_check "Badge Verification" "node '$ROOT_DIR/scripts/validation/helpers/check-badge.js' '$url'"
 
-      # 3. Link Verification (Optional, can be noisy)
-      # run_check "Link Verification" "node '$ROOT_DIR/scripts/validation/helpers/check-links.js' '$url'"
+        # 3. Link Verification (Optional, can be noisy)
+        # run_check "Link Verification" "node '$ROOT_DIR/scripts/validation/helpers/check-links.js' '$url'"
+      fi
       
       echo "" >> "$REPORT_FILE"
     done

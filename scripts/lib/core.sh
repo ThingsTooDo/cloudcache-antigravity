@@ -95,21 +95,6 @@ resolve_cf_token() {
   printf "%s" "$CF_API_TOKEN"
 }
 
-# Setup wrangler token mapping.
-# Wrangler requires CLOUDFLARE_API_TOKEN, so we map it from CF_API_TOKEN.
-# Also set CLOUDFLARE_ACCOUNT_ID to avoid deprecation warnings.
-setup_wrangler_token() {
-  if [[ -z "${CF_API_TOKEN:-}" ]]; then
-    die "CF_API_TOKEN is not set. Please configure it in your .env file."
-  fi
-  export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
-  # Set CLOUDFLARE_ACCOUNT_ID for wrangler (preferred over deprecated CF_ACCOUNT_ID)
-  if [[ -n "${CF_ACCOUNT_ID:-}" ]]; then
-    export CLOUDFLARE_ACCOUNT_ID="$CF_ACCOUNT_ID"
-  fi
-  redact "$CF_API_TOKEN"
-}
-
 # ---
 # Command Execution
 # ---
@@ -158,6 +143,46 @@ cf_get() { cf_api_call "GET" "$1"; }
 cf_post() { cf_api_call "POST" "$1" "${2:-}"; }
 cf_put() { cf_api_call "PUT" "$1" "${2:-}"; }
 cf_delete() { cf_api_call "DELETE" "$1"; }
+
+# --- Cloudflare / Wrangler Helpers ---
+
+# Check for wrangler and authentication
+require_wrangler() {
+  step "Verifying Wrangler authentication..."
+  if ! command -v wrangler >/dev/null 2>&1; then
+    die "❌ wrangler CLI is not installed. Please install it with 'pnpm i -g wrangler'."
+  fi
+  if ! wrangler whoami >/dev/null 2>&1; then
+    die "❌ Not logged in to Wrangler. Please run 'wrangler login'."
+  fi
+  log "✅ Wrangler is installed and authenticated."
+}
+
+# Setup wrangler token mapping.
+# Wrangler requires CLOUDFLARE_API_TOKEN, so we map it from CF_API_TOKEN.
+# Also set CLOUDFLARE_ACCOUNT_ID to avoid deprecation warnings.
+setup_wrangler_token() {
+  if [[ -z "${CF_API_TOKEN:-}" ]]; then
+    log "CF_API_TOKEN not set, relying on wrangler login..."
+  else
+    export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
+    redact "$CF_API_TOKEN"
+  fi
+  if [[ -n "${CF_ACCOUNT_ID:-}" ]]; then
+    export CLOUDFLARE_ACCOUNT_ID="$CF_ACCOUNT_ID"
+  fi
+}
+
+# Get a value from a wrangler.toml file
+# usage: get_toml_value <path_to_toml> <key>
+# example: get_toml_value "apps/app/wrangler.toml" "name"
+get_toml_value() {
+  local toml_path="$1"
+  local key="$2"
+  local value
+  value=$(grep -E "^$key\s*=" "$toml_path" | sed -E "s/^$key\s*=\s*\"?([^ \"]*)\"?$/\1/")
+  echo "$value"
+}
 
 # ---
 # Project root (always set when sourced)

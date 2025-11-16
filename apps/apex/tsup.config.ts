@@ -1,5 +1,6 @@
 import { defineConfig } from "tsup";
-import git from "git-rev-sync";
+import { execSync } from "child_process";
+import { resolve } from "path";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -20,7 +21,12 @@ export default defineConfig({
     // Define __VERSION__ to be Git commit hash
     options.define = {
       ...options.define,
-      __VERSION__: JSON.stringify(git.short()),
+      __VERSION__: JSON.stringify(execSync("git rev-parse --short HEAD").toString().trim()),
+    };
+
+    // Alias workspace packages to their source files
+    options.alias = {
+      "@cloudcache/worker-utils": resolve(__dirname, "../../packages/worker-utils/src/index.ts"),
     };
   },
 });

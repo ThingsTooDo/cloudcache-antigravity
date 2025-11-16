@@ -11,12 +11,12 @@ IFS=$'\n\t'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# Source core library (sets ROOT_DIR)
+source "$SCRIPT_DIR/lib/core.sh"
+
 # Check dependencies
 command -v jq >/dev/null 2>&1 || die "jq is required (brew install jq)"
 command -v wrangler >/dev/null 2>&1 || die "wrangler is required (npm install -g wrangler)"
-
-# Source core library (sets ROOT_DIR)
-source "$SCRIPT_DIR/lib/core.sh"
 
 # Ensure ROOT_DIR is set
 ROOT_DIR="${ROOT_DIR:-$(cd "$SCRIPT_DIR/.." && pwd)}"
@@ -609,10 +609,22 @@ cmd_test_preview() {
   echo "Preview URL: $preview_url"
 }
 
+# Test deployments command: run the main validation script
+cmd_test_deployments() {
+  step "Running full deployment validation suite..."
+
+  # Run the main validation script, passing any extra args
+  if "$SCRIPT_DIR/validation/run-validation.sh" "$@"; then
+    log "✅ Deployment validation suite finished."
+  else
+    die "❌ Deployment validation suite failed. Check the report for details."
+  fi
+}
+
 # Main command dispatcher
 main() {
   local command="${1:-}"
-  
+
   case "$command" in
     bootstrap)
       shift
@@ -630,25 +642,43 @@ main() {
       shift
       cmd_status "$@"
       ;;
-    test-preview)
-      shift
-      cmd_test_preview "$@"
+    test)
+      local sub_command="${2:-}"
+      case "$sub_command" in
+        deployments)
+          shift 2
+          cmd_test_deployments "$@"
+          ;;
+        preview)
+          shift 2
+          cmd_test_preview "$@"
+          ;;
+        *)
+          usage
+          exit 1
+          ;;
+      esac
       ;;
     *)
-      echo "Usage: $0 {bootstrap|bind|verify|status|test-preview} <module> <env|url>" >&2
-      echo "" >&2
-      echo "Commands:" >&2
-      echo "  bootstrap    Create/update infrastructure (Workers/Pages)" >&2
-      echo "  bind          Set secrets interactively" >&2
-      echo "  verify        Verify infrastructure and secrets" >&2
-      echo "  status        Show deployment status, secrets, routes, health checks" >&2
-      echo "  test-preview  Test preview deployment (verify + browser tests)" >&2
-      echo "" >&2
-      echo "Modules: apex, app, admin" >&2
-      echo "Environments: preview (or prev), staging, prod" >&2
+      usage
       exit 1
       ;;
   esac
+}
+
+usage() {
+  echo "Usage: $0 {bootstrap|bind|verify|status|test} <sub-command>" >&2
+  echo "" >&2
+  echo "Commands:" >&2
+  echo "  bootstrap    <module> <env>    Create/update infrastructure" >&2
+  echo "  bind         <module> <env>    Set secrets interactively" >&2
+  echo "  verify       <module> <env>    Verify infrastructure and secrets" >&2
+  echo "  status       <module> <env>    Show deployment status and health" >&2
+  echo "  test         deployments       Run the full deployment validation suite" >&2
+  echo "  test         preview <module>  Test a preview deployment" >&2
+  echo "" >&2
+  echo "Modules: apex, app, admin" >&2
+  echo "Environments: preview (or prev), staging, prod" >&2
 }
 
 main "$@"

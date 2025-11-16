@@ -3,6 +3,10 @@
 **/.env.*
 !**/.env.example
 
+# Local .env file
+.env
+.env.local
+
 # Wrangler local config files
 **/wrangler.local.toml
 **/wrangler.toml.local

@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 import { resolve } from "path";
 import { readFileSync, readdirSync, statSync } from "fs";
-import git from "git-rev-sync";
+import { execSync } from "child_process";
 
 // Helper to find packages in pnpm's .pnpm structure
 function findPnpmPackage(packageName: string, rootDir: string): string | null {
@@ -65,7 +65,7 @@ export default defineConfig({
     // Define __VERSION__ to be Git commit hash
     options.define = {
       ...options.define,
-      __VERSION__: JSON.stringify(git.short()),
+      __VERSION__: JSON.stringify(execSync("git rev-parse --short HEAD").toString().trim()),
     };
 
     // Alias workspace packages to their source files
@@ -85,6 +85,7 @@ export default defineConfig({
         __dirname,
         "../../packages/platform-validate/src/index.ts"
       ),
+      "@cloudcache/worker-utils": resolve(__dirname, "../../packages/worker-utils/src/index.ts"),
     };
   },
 });

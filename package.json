@@ -15,13 +15,13 @@
     "dev:admin": "pnpm --filter ./apps/admin dev",
     "dev:apex": "pnpm --filter ./apps/apex dev",
     "dev:app": "pnpm --filter ./apps/app dev",
-    "deploy:staging:app": "bash scripts/modules/app/deploy-staging.sh staging",
-    "deploy:staging:admin": "bash scripts/modules/admin/deploy-staging.sh staging",
-    "deploy:staging:apex": "bash scripts/modules/apex/deploy-staging.sh staging",
+    "deploy:preview": "bash scripts/deploy-preview.sh",
+    "deploy:module": "bash scripts/deploy-module.sh",
     "verify:access": "bash scripts/access/verify.sh staging",
     "verify:ping": "bash scripts/verify/ping.sh staging",
     "shopify:scopes": "bash scripts/shopify/scopes-assert.sh",
-    "cf:snapshot": "bash scripts/cf/inventory-snapshot.sh"
+    "cf:snapshot": "bash scripts/cf/inventory-snapshot.sh",
+    "test:validation": "bash scripts/cloudcache test deployments"
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,md,yml,yaml}": [
@@ -49,7 +49,9 @@
     "prettier": "^3.3.3",
     "tsup": "^8.5.0",
     "typescript-eslint": "^8.46.4",
-    "wrangler": "^4.42.1"
+    "wrangler": "^4.42.1",
+    "playwright": "^1.44.1",
+    "@playwright/test": "^1.44.1"
   },
   "pnpm": {
     "overrides": {

@@ -29,7 +29,7 @@
       "prettier --write"
     ],
     "*.{js,ts,tsx}": [
-      "eslint --max-warnings=0"
+      "bash scripts/lint-staged-eslint.sh"
     ],
     "*.sh": [
       "bash scripts/lint-staged-shfmt.sh",

@@ -16,4 +16,4 @@
 
 - Production: `app.cloudcache.ai`, `admin.cloudcache.ai`, `cloudcache.ai` (plus `www.cloudcache.ai`)
 - Staging: `staging-app.cloudcache.ai`, `staging-admin.cloudcache.ai`, `staging-apex.cloudcache.ai`
-- Preview (Pages): `[hash].app-cloudcache.pages.dev`, `[hash].admin-cloudcache.pages.dev`, `[hash].apex-cloudcache.pages.dev`
+- Preview: `app-worker-preview.cloudcache.workers.dev`, `admin-worker-preview.cloudcache.workers.dev`, `apex-worker-preview.cloudcache.workers.dev`

@@ -71,3 +71,6 @@ echo "  - App:   http://localhost:8789"
 echo ""
 echo "Press Ctrl+C to stop all servers."
 
+# Keep the script running to maintain the background processes
+wait
+

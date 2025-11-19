@@ -1,5 +1,15 @@
 # ⚠️ CRITICAL: Understanding Validation "Failures"
 
+**DEPRECATED**: This file has been consolidated.  
+**See**: `docs/all-git-truth.md` for current documentation.
+
+**Migration Date**: 2025-11-17
+**Archived On**: 2025-11-19 13:04:06
+
+---
+
+# ⚠️ CRITICAL: Understanding Validation "Failures"
+
 ## What Just Happened (Nov 17, 2025)
 
 ### The "Failure" That Wasn't Actually a Failure

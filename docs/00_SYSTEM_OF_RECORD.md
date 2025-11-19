@@ -45,14 +45,16 @@ This is the definitive list of primary scripts that power our pipeline.
 -   **`scripts/deploy-preview.sh`**: A simple wrapper that calls `deploy-module.sh` for all three modules to the preview environment.
 -   **`scripts/validation/run-validation.sh`**: The master script for our automated validation suite. It iterates through all modules and environments, running our two-factor checks.
 -   **`scripts/lib/core.sh`**: A shared library of shell functions used by our primary scripts.
+-   **`scripts/all-git-truth.sh`**: The unified script for all git operations, pre-commit checks, and validation.
 
 ---
 
 ## Hierarchy of Truth
 
 1.  **This Document (`00_SYSTEM_OF_RECORD.md`)**: Defines the process and points to the correct tools.
-2.  **Core Scripts (listed above)**: Contain the implementation of the process.
-3.  **Supporting Documentation (`docs/deployment-ground-truth.md`, etc.)**: Provide supplementary, verified information.
-4.  **Archived Files (`archive/`)**: Are for historical reference only and **must not** be used for current operations.
+2.  **Git Truth (`docs/all-git-truth.md`)**: The canonical source for git operations, pre-commit hooks, and documentation standards.
+3.  **Core Scripts (listed above)**: Contain the implementation of the process.
+4.  **Supporting Documentation (`docs/deployment-ground-truth.md`, etc.)**: Provide supplementary, verified information.
+5.  **Archived Files (`archive/`)**: Are for historical reference only and **must not** be used for current operations.
 
 By adhering to this structure, we will prevent architectural drift and ensure a stable, predictable, and reliable system for all developers.

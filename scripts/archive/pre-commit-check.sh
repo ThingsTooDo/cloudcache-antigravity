@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 #
+# DEPRECATED: This script has been consolidated.
+# See: scripts/all-git-truth.sh for current logic.
+#
+# Migration Date: 2025-11-17
+# Archived On: 2025-11-19 13:04:06
+#
+# --- Original Content Below ---
+
+#!/usr/bin/env bash
+#
 # Pre-Commit Helper
 # Run this before committing to avoid pre-commit hook failures
 #
@@ -61,14 +71,3 @@ echo ""
 echo "You can now commit:"
 echo -e "${BLUE}  git commit -m \"Your commit message\"${RESET}"
 echo ""
-
-
-
-
-
-
-
-
-
-
-

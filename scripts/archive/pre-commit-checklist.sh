@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 #
+# DEPRECATED: This script has been consolidated.
+# See: scripts/all-git-truth.sh for current logic.
+#
+# Migration Date: 2025-11-17
+# Archived On: 2025-11-19 13:04:06
+#
+# --- Original Content Below ---
+
+#!/usr/bin/env bash
+#
 # Pre-commit Checklist
 #
 # Run this before committing to catch and fix common issues
@@ -50,4 +60,3 @@ echo ""
 echo "✅ Ready to commit!"
 echo ""
 echo "Now run: git commit -m \"your message\""
-

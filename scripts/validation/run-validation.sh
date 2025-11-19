@@ -168,7 +168,7 @@ get_worker_name() {
 # --- Main Logic ---
 
 log "Syncing with remote repository..."
-git -c credential.helper='' fetch origin --prune || log "⚠️  Warning: git fetch failed, continuing anyway..."
+bash scripts/all-git-truth.sh --git-safe fetch origin --prune || log "⚠️  Warning: git fetch failed, continuing anyway..."
 
 # Start local servers if we'll be testing localhost
 if [[ " ${ENVIRONMENTS[@]} " =~ " localhost " ]]; then

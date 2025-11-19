@@ -9,7 +9,7 @@
     "typecheck": "pnpm -r typecheck",
     "format:check": "pnpm exec prettier -c .",
     "lint:quick": "pnpm exec eslint .",
-    "lint:shell": "bash scripts/lib/validate-no-duplication.sh",
+    "lint:shell": "bash scripts/all-git-truth.sh --validate-md docs/all-git-truth.md",
     "prepare": "husky",
     "predev": "bash scripts/dev-stop.sh",
     "dev": "bash scripts/dev-local.sh",
@@ -35,7 +35,7 @@
     "*.sh": [
       "bash scripts/lint-staged-shfmt.sh",
       "bash scripts/lint-staged-shellcheck.sh",
-      "bash scripts/lib/validate-no-duplication.sh"
+      "bash scripts/all-git-truth.sh --validate-md"
     ],
     ".husky/_/*.sh": []
   },

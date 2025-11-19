@@ -1,0 +1,90 @@
+---
+scope: ["**/*"]
+enforce: true
+---
+# All Code Truth
+
+## Documentation Truth
+- Reference: `docs/all-git-truth.md`
+- All git/commit/hook operations follow this canonical source
+
+## Script Truth  
+- Reference: `scripts/all-git-truth.sh`
+- All git operations use this unified script
+
+## File Naming Convention (ENFORCED)
+- **Lowercase only**: no uppercase letters allowed
+- **Hyphen-separated**: use hyphens, not underscores
+- **"all-" prefix**: reserved for truth/index files only
+- **Examples**: 
+  - ✅ `all-git-truth.md`, `deploy-module.sh`, `api-helpers.ts`
+  - ❌ `Deploy_Module.sh`, `API-HELPERS.ts`, `Quick-Fix-GUIDE.md`
+
+## MD File Creation Rules
+
+### Placement
+- **Documentation**: `docs/` or domain-specific subdirectories (e.g., `docs/zero-trust/`)
+- **Truth Files**: `docs/all-<domain>-truth.md`
+- **Archives**: `docs/archive/` (never delete, always archive)
+
+### Required Headers
+Every MD file must include:
+```markdown
+# <Title> Truth
+
+**Last Updated**: YYYY-MM-DD  
+**Rule Reference**: `.cursor/rules/all-code-truth.mdc`  
+**Related**: `docs/all-<domain>-truth.md` (if applicable)
+```
+
+### Interlinking
+- Every MD file must reference `.cursor/rules/all-code-truth.mdc`
+- Domain-specific files must reference their `all-<domain>-truth.md`
+- Truth files must reference each other where relevant
+
+### Grouping
+- **Domain Truth**: One `all-<domain>-truth.md` per major area (Git, Deployment, API)
+- **Child Files**: Specific guides link UP to the domain truth file
+- **Index**: `docs/00_DOCUMENTATION_INDEX.md` lists all truth files
+
+### Archiving Protocol
+When deprecating a file:
+1. Move to `docs/archive/` (or `scripts/archive/`)
+2. Add redirect header with deprecation timestamp:
+```markdown
+# [Original Title]
+
+**DEPRECATED**: This file has been consolidated.  
+**See**: `docs/all-<domain>-truth.md` for current documentation.
+
+**Migration Date**: YYYY-MM-DD
+**Archived On**: YYYY-MM-DD HH:MM:SS
+
+---
+```
+
+## MDC (Rule) File Creation Rules
+
+### Placement
+- **Location**: `.cursor/rules/`
+- **Extension**: `.mdc`
+
+### Naming
+- **Format**: `all-<domain>-truth.mdc` (for consolidated rules) or `<specific-rule>.mdc`
+- **Convention**: Lowercase, hyphen-separated
+
+### Structure
+- **Frontmatter**: Must include `scope` and `enforce` fields
+- **Content**: Clear, actionable rules (no fluff)
+- **References**: Must link to corresponding `docs/all-<domain>-truth.md`
+
+### Interlinking
+- **Central Rule**: `all-code-truth.mdc` is the master rule file
+- **Domain Rules**: Must reference `all-code-truth.mdc`
+- **Documentation**: Must reference the specific MDC file that governs it
+
+## Deprecated Patterns (BANNED)
+- `one.plan.md` - never create or use
+- Uppercase in filenames - convert to lowercase
+- Underscore separators - convert to hyphens (except DB migrations)
+- Multiple truth files per domain - consolidate to one

@@ -7,20 +7,21 @@
 # Store the exit code but don't fail immediately
 set +e
 
-NODE_OPTIONS="--no-deprecation" pnpm dlx lint-staged
-LINT_STAGED_EXIT=$?
+# Run consolidated pre-commit checks
+bash scripts/all-git-truth.sh --pre-commit
+PRE_COMMIT_EXIT=$?
 
-# If lint-staged failed, check if it's a permission error
-if [ $LINT_STAGED_EXIT -ne 0 ]; then
+# If pre-commit failed, check if it's a permission error
+if [ $PRE_COMMIT_EXIT -ne 0 ]; then
   echo ""
-  echo "⚠️  Pre-commit hooks encountered an issue (exit code: $LINT_STAGED_EXIT)"
+  echo "⚠️  Pre-commit hooks encountered an issue (exit code: $PRE_COMMIT_EXIT)"
   echo ""
   echo "Common fixes:"
   echo "  1. Run: pnpm install (to fix node_modules permissions)"
-  echo "  2. Run: bash scripts/pre-commit-check.sh (manual pre-commit check)"
+  echo "  2. Run: bash scripts/all-git-truth.sh --pre-commit (manual check)"
   echo "  3. If urgent: git commit --no-verify (skip hooks, use with caution)"
   echo ""
-  exit $LINT_STAGED_EXIT
+  exit $PRE_COMMIT_EXIT
 fi
 
 exit 0

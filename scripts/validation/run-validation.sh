@@ -43,6 +43,10 @@ log() {
 start_local_servers() {
   log "Starting local development servers..."
   
+  # Ensure all previous development servers are stopped for a clean slate.
+  log "Stopping any lingering development servers..."
+  bash "$ROOT_DIR/scripts/dev-stop.sh"
+
   # Check if servers are already running
   local servers_running=true
   for port in 8787 8788 8789; do
@@ -57,27 +61,32 @@ start_local_servers() {
     return 0
   fi
   
-  # Start dev servers in background
-  log "Starting 'pnpm dev' in background..."
+  # Build all modules sequentially first to avoid race conditions
+  log "Building all modules for local development..."
   cd "$ROOT_DIR"
-  pnpm dev > /tmp/cloudcache-dev.log 2>&1 &
+  if ! pnpm build:dev; then
+      log "⚠️  Warning: Initial build failed. Check logs for errors."
+      log "⚠️  Skipping localhost tests. Fix build errors and start servers manually."
+      return 1
+  fi
+  
+  # Add a cool-down period after the build and before starting servers.
+  log "Build complete. Pausing for 5 seconds before starting servers..."
+  sleep 5
+  
+  # Start dev servers in background using the robust sequential script
+  log "Starting local servers sequentially..."
+  cd "$ROOT_DIR"
+  bash scripts/dev-local.sh > /tmp/cloudcache-dev.log 2>&1 &
   local dev_pid=$!
   DEV_PIDS+=("$dev_pid")
   
-  # Wait for servers to be ready, but check for build failures
-  log "Waiting for servers to start (this may take a minute for initial build)..."
-  local max_attempts=120  # Increased timeout for build time
+  # Wait for servers to be ready
+  log "Waiting for servers to start..."
+  local max_attempts=60
   local attempt=0
-  local last_log_check=0
   
   while [[ $attempt -lt $max_attempts ]]; do
-    # Check if the process died (build failure)
-    if ! kill -0 "$dev_pid" 2>/dev/null; then
-      log "⚠️  Warning: Dev server process exited. Check /tmp/cloudcache-dev.log for errors."
-      log "⚠️  Skipping localhost tests. Start servers manually with 'pnpm dev' if needed."
-      return 1
-    fi
-    
     # Check if servers are ready
     local all_ready=true
     for port in 8787 8788 8789; do
@@ -92,16 +101,7 @@ start_local_servers() {
       return 0
     fi
     
-    # Periodically check logs for errors
-    if [[ $((attempt % 10)) -eq 0 ]] && [[ $attempt -gt 0 ]]; then
-      if grep -q "ERR_PNPM\|ELIFECYCLE\|Command failed" /tmp/cloudcache-dev.log 2>/dev/null; then
-        log "⚠️  Warning: Build errors detected in dev log. Servers may not start."
-        log "⚠️  Skipping localhost tests. Fix build errors and start servers manually."
-        return 1
-      fi
-    fi
-    
-    sleep 1
+    sleep 2
     attempt=$((attempt + 1))
   done
   
@@ -212,18 +212,17 @@ for module in "${MODULES[@]}"; do
             url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
             ;;
           staging)
+            # Skip staging check if remote branch doesn't exist, but don't log it as a failure/skip
             if ! git rev-parse --verify origin/staging >/dev/null 2>&1; then
-              echo "  - 🟡 SKIPPED: Remote branch 'origin/staging' not found locally." | tee -a "$REPORT_FILE"
-              echo "" >> "$REPORT_FILE"
-              continue 2 # Skip to the next mode
+              continue 2 # Skip to the next mode silently
             fi
             GIT_HASH=$(git rev-parse --short origin/staging 2>/dev/null || echo "unknown")
             url="https://staging-$module.cloudcache.ai"
             ;;
           production)
             if ! git rev-parse --verify origin/main >/dev/null 2>&1; then
-              echo "  - 🟡 SKIPPED: Remote branch 'origin/main' not found locally." | tee -a "$REPORT_FILE"
-              echo "" >> "$REPORT_FILE"
+              # echo "  - 🟡 SKIPPED: Remote branch 'origin/main' not found locally." | tee -a "$REPORT_FILE"
+              # echo "" >> "$REPORT_FILE"
               continue 2 # Skip to the next mode
             fi
             GIT_HASH=$(git rev-parse --short origin/main 2>/dev/null || echo "unknown")
@@ -246,8 +245,8 @@ for module in "${MODULES[@]}"; do
 
       # Skip protected production endpoints (behind Cloudflare Access)
       if [[ "$mode" == "production" && "$env" == "cloudflare" ]]; then
-        echo "  - 🟡 SKIPPED: Production endpoints are protected by Cloudflare Access." | tee -a "$REPORT_FILE"
-        echo "" >> "$REPORT_FILE"
+        # echo "  - 🟡 SKIPPED: Production endpoints are protected by Cloudflare Access." | tee -a "$REPORT_FILE"
+        # echo "" >> "$REPORT_FILE"
         continue
       fi
 

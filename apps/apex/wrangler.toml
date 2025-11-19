@@ -24,6 +24,7 @@ routes = [
 [env.preview]
 name = "apex-worker-preview"
 workers_dev = true
+routes = []
 
 # Pages configuration for Astro SSR
 # Note: Pages project should be created separately via scripts/cloudcache bootstrap

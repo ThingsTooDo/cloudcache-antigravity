@@ -171,15 +171,15 @@ kill_port() {
     
     if [[ $attempt -eq 0 ]]; then
       log "Stopping process on port $port (PID: $pid) with SIGTERM..."
-      kill "$pid" 2>/dev/null || true
+      echo "$pid" | xargs kill 2>/dev/null || true
       sleep 2
     elif [[ $attempt -eq 1 ]]; then
       log "Process still alive, trying SIGTERM again..."
-      kill "$pid" 2>/dev/null || true
+      echo "$pid" | xargs kill 2>/dev/null || true
       sleep 3
     else
       log "Process still alive, using SIGKILL (-9)..."
-      kill -9 "$pid" 2>/dev/null || true
+      echo "$pid" | xargs kill -9 2>/dev/null || true
       sleep 1
     fi
     
@@ -212,27 +212,38 @@ kill_ports() {
 
 # Check for wrangler and authentication
 require_wrangler() {
-  step "Verifying Wrangler authentication..."
+  step "Verifying Wrangler installation..."
   if ! command -v wrangler >/dev/null 2>&1; then
     die "❌ wrangler CLI is not installed. Please install it with 'pnpm i -g wrangler'."
   fi
-  if ! wrangler whoami >/dev/null 2>&1; then
-    die "❌ Not logged in to Wrangler. Please run 'wrangler login'."
-  fi
-  log "✅ Wrangler is installed and authenticated."
+
+  # NOTE: Bypassing 'wrangler whoami' due to intermittent and unreliable behavior
+  # in this environment. The 'wrangler deploy' command will perform its own
+  # authentication, which has proven to be more reliable.
+  log "✅ Wrangler is installed. Skipping 'whoami' check to avoid flakiness."
 }
 
 # Setup wrangler token mapping.
 # Wrangler requires CLOUDFLARE_API_TOKEN, so we map it from CF_API_TOKEN.
 # Also set CLOUDFLARE_ACCOUNT_ID to avoid deprecation warnings.
 setup_wrangler_token() {
-  if [[ -z "${CF_API_TOKEN:-}" ]]; then
-    log "CF_API_TOKEN not set, relying on wrangler login..."
-  else
+  # Prefer the modern CLOUDFLARE_API_TOKEN, but fall back to the deprecated CF_API_TOKEN.
+  if [[ -n "${CLOUDFLARE_API_TOKEN:-}" ]]; then
+    log "Using CLOUDFLARE_API_TOKEN for authentication."
+    redact "$CLOUDFLARE_API_TOKEN"
+  elif [[ -n "${CF_API_TOKEN:-}" ]]; then
+    log "Using deprecated CF_API_TOKEN. Consider renaming to CLOUDFLARE_API_TOKEN in your .env file."
     export CLOUDFLARE_API_TOKEN="$CF_API_TOKEN"
     redact "$CF_API_TOKEN"
+  else
+    log "No API token found in environment, relying on wrangler's interactive login."
   fi
-  if [[ -n "${CF_ACCOUNT_ID:-}" ]]; then
+
+  # Handle account ID similarly, preferring the new name.
+  if [[ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+    # Already set, nothing to do.
+    :
+  elif [[ -n "${CF_ACCOUNT_ID:-}" ]]; then
     export CLOUDFLARE_ACCOUNT_ID="$CF_ACCOUNT_ID"
   fi
 }

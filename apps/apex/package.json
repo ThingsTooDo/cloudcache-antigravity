@@ -1,10 +1,10 @@
 {
-  "name": "Cloudcache",
+  "name": "@cloudcache/apex",
   "private": true,
   "scripts": {
     "build": "tsup",
     "build:bundle": "tsup",
-    "dev": "pnpm build && pnpm exec wrangler dev --port 8788 --inspector-port 9231 --no-bundle"
+    "dev": "wrangler dev --port 8788 --inspector-port 9231 --no-bundle"
   },
   "devDependencies": {
     "tsup": "^8.2.2",

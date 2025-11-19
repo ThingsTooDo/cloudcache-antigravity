@@ -33,6 +33,7 @@ id = "5df224d061fb4f869a1a713f1ebd7252"
 name = "app-worker-preview"
 # Preview has no routes - uses workers.dev subdomain
 routes = []
+workers_dev = true
 
 [[env.preview.kv_namespaces]]
 binding = "APP_KV"

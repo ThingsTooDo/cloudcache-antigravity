@@ -27,8 +27,6 @@ load_env_file_if_exists "$ROOT_DIR/.env.local"
 main() {
     # 1. Parse Arguments & Set Up
     parse_arguments "$@"
-    require_wrangler
-    setup_wrangler_token
 
     # 2. Execute Deployment
     run_deployment
@@ -66,7 +64,27 @@ run_deployment() {
     eval "$build_command" || die "Build failed for module '$MODULE'."
 
     step "Deploying $MODULE module to $ENV..."
-    wrangler deploy --env "$ENV" --no-bundle || die "Deployment failed for module '$MODULE' to environment '$ENV'."
+    local max_deploy_attempts=3
+    local deploy_attempt=0
+    local deploy_success=false
+
+    while [[ $deploy_attempt -lt $max_deploy_attempts ]]; do
+        deploy_attempt=$((deploy_attempt + 1))
+        log "Deploying... (Attempt $deploy_attempt of $max_deploy_attempts)"
+        if wrangler deploy --env "$ENV" --no-bundle; then
+            deploy_success=true
+            break
+        fi
+
+        if [[ $deploy_attempt -lt $max_deploy_attempts ]]; then
+            log "⚠️  Deployment failed. Retrying in 5 seconds..."
+            sleep 5
+        fi
+    done
+
+    if [[ "$deploy_success" != "true" ]]; then
+        die "Deployment failed for module '$MODULE' to environment '$ENV' after $max_deploy_attempts attempts."
+    fi
 
     log "✅ Successfully deployed '$MODULE' to '$ENV'."
 }

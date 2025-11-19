@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 #
-# Start Local Development Servers
+# Start Local Development Servers Sequentially
 #
-# Helper script to build and start local development servers for all modules
+# This script builds and starts local development servers for all modules
+# in a specific, controlled order, with health checks at each step.
+# This avoids race conditions and ensures a stable startup for validation.
+#
 
 set -euo pipefail
 IFS=$'\n\t'
@@ -12,56 +15,59 @@ ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 source "$SCRIPT_DIR/lib/core.sh"
 
-# Clean up any stale processes on dev ports using centralized kill_ports function
-step "Checking for stale processes on dev ports..."
-# APP: 8789 (dev) + 9229 (inspector)
-# ADMIN: 8787 (dev) + 9230 (inspector)  
-# APEX: 8788 (dev) + 9231 (inspector)
-kill_ports 8789 8787 8788 9229 9230 9231 || true
+# --- Health Check Function ---
+# Checks if a server is responsive on a given port.
+# Usage: wait_for_server <port> <server_name>
+wait_for_server() {
+    local port="$1"
+    local name="$2"
+    local max_attempts=30
+    local attempt=0
 
-# Colors for output
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+    step "Waiting for $name server to start on port $port..."
 
+    while [[ $attempt -lt $max_attempts ]]; do
+        if curl -s --head --fail "http://localhost:$port" >/dev/null 2>&1; then
+            log "✅ $name server is up and running."
+            return 0
+        fi
+        sleep 2
+        ((attempt++))
+    done
+
+    die "❌ $name server failed to start on port $port within the timeout."
+}
+
+# --- Main Logic ---
+
+# 1. Stop any running dev servers to ensure a clean start.
+step "Stopping any existing development servers..."
+bash "$SCRIPT_DIR/dev-stop.sh"
+
+# 2. Build all modules sequentially.
 step "Building all modules for local development..."
+cd "$ROOT_DIR"
+pnpm build:dev
 
-# Build APP module
-step "Building APP module..."
-cd "$ROOT_DIR/apps/app"
-pnpm build || die "APP build failed"
-log "✅ APP built successfully"
+# 3. Start servers sequentially in the background.
+step "Starting development servers in order..."
 
-# Build ADMIN module
-step "Building ADMIN module..."
 cd "$ROOT_DIR/apps/admin"
-pnpm build || die "ADMIN build failed"
-log "✅ ADMIN built successfully"
+pnpm dev &
+wait_for_server 8787 "Admin"
 
-# Build APEX module
-step "Building APEX module..."
 cd "$ROOT_DIR/apps/apex"
-pnpm exec tsup src/index.ts --format esm || die "APEX build failed"
-log "✅ APEX built successfully"
+pnpm dev &
+wait_for_server 8788 "Apex"
 
+cd "$ROOT_DIR/apps/app"
+pnpm dev &
+wait_for_server 8789 "App"
+
+log "🎉 All local development servers started successfully!"
+echo "  - Admin: http://localhost:8787"
+echo "  - Apex:  http://localhost:8788"
+echo "  - App:   http://localhost:8789"
 echo ""
-log "🎉 All modules built successfully!"
-echo ""
-echo -e "${GREEN}Local Development URLs:${NC}"
-echo -e "  ${BLUE}APP:${NC}   http://localhost:8789"
-echo -e "  ${BLUE}ADMIN:${NC} http://localhost:8787"
-echo -e "  ${BLUE}APEX:${NC}  http://localhost:8788"
-echo ""
-echo -e "${YELLOW}To start development servers, run:${NC}"
-echo "  pnpm dev:app    # Start APP on port 8789"
-echo "  pnpm dev:admin  # Start ADMIN on port 8787"
-echo "  pnpm dev:apex   # Start APEX on port 8788"
-echo "  pnpm dev        # Start all modules concurrently"
-echo ""
-echo -e "${YELLOW}Or start individually:${NC}"
-echo "  cd apps/app && pnpm dev"
-echo "  cd apps/admin && pnpm dev"
-echo "  cd apps/apex && pnpm dev"
-echo ""
+echo "Press Ctrl+C to stop all servers."
 

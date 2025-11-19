@@ -1,4 +1,5 @@
 import { getEnv, AdminEnvSchema, type AdminEnv } from "@cloudcache/platform-env";
+import { getCloudcacheValidatedBadge } from "@cloudcache/worker-utils";
 import { createLoggerFromRequest, getCorrelationId } from "@cloudcache/platform-logging";
 import {
   createErrorResponse,
@@ -151,6 +152,7 @@ export default {
   <div class="main-content">
     <h1>Hello World I am Cloudcache <span class="admin">Admin</span></h1>
   </div>
+  ${getCloudcacheValidatedBadge()}
 </body>
 </html>
       `.trim();
@@ -158,8 +160,8 @@ export default {
         headers: {
           "Content-Type": "text/html; charset=utf-8",
           "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
-          "Pragma": "no-cache",
-          "Expires": "0",
+          Pragma: "no-cache",
+          Expires: "0",
         },
       });
       return addSecurityHeaders(response, correlationId);

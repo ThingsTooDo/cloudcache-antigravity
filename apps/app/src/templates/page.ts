@@ -1,8 +1,9 @@
-import { AnnouncementBar } from '../components/AnnouncementBar';
-import { Navigation, type NavItem } from '../components/Navigation';
-import { Dashboard } from '../components/Dashboard';
-import { Footer } from '../components/Footer';
-import { styles } from '../components/styles';
+import { AnnouncementBar } from "../components/AnnouncementBar";
+import { Navigation, type NavItem } from "../components/Navigation";
+import { Dashboard } from "../components/Dashboard";
+import { Footer } from "../components/Footer";
+import { styles } from "../components/styles";
+import { getCloudcacheValidatedBadge } from "@cloudcache/worker-utils";
 
 export interface PageProps {
   faviconBase64?: string;
@@ -22,7 +23,7 @@ export interface PageProps {
   }>;
   announcement?: {
     message?: string;
-    type?: 'info' | 'warning' | 'success';
+    type?: "info" | "warning" | "success";
   };
   footer?: {
     copyright?: string;
@@ -46,59 +47,69 @@ export function renderPage(props: PageProps = {}): string {
     footer,
   } = props;
 
-  const faviconLinks = faviconBase64 ? `
+  const faviconLinks = faviconBase64
+    ? `
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,${faviconBase64}">
     <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;base64,${faviconBase64}">
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
-  ` : '';
+  `
+    : "";
 
   // Determine if we need layout adjustments (nav/footer/announcement)
   const hasNav = navItems.length > 0;
   const hasFooter = footer && (footer.copyright || (footer.links && footer.links.length > 0));
   const hasAnnouncement = announcement && announcement.message;
-  
-  // Adjust container margin if nav exists
-  const containerStyle = hasNav ? '' : 'style="margin-left: 0; margin-top: 0;"';
-  const bodyStyle = hasNav || hasAnnouncement || hasFooter ? '' : 'style="justify-content: center; align-items: center;"';
+
+  // Adjust body style based on layout components
+  const bodyStyle =
+    hasNav || hasAnnouncement || hasFooter
+      ? ""
+      : 'style="justify-content: center; align-items: center;"';
 
   // Safely render components with error handling
-  let announcementHtml = '';
-  let navHtml = '';
-  let dashboardHtml = '';
-  let footerHtml = '';
-  
+  let announcementHtml = "";
+  let navHtml = "";
+  let dashboardHtml = "";
+  let footerHtml = "";
+
   try {
     if (hasAnnouncement && announcement) {
       announcementHtml = AnnouncementBar(announcement);
     }
-  } catch (e) {
+  } catch {
     // Silently fail announcement bar
   }
-  
+
   try {
     if (hasNav && navItems.length > 0) {
       navHtml = Navigation({ items: navItems, activeItem: activeNavItem });
     }
-  } catch (e) {
+  } catch {
     // Silently fail navigation
   }
-  
+
   try {
     if (dashboardContent) {
       dashboardHtml = Dashboard({ content: dashboardContent });
     } else {
-      dashboardHtml = Dashboard({ title: dashboardTitle, storeName, planName, connectButtonText, optimizations });
+      dashboardHtml = Dashboard({
+        title: dashboardTitle,
+        storeName,
+        planName,
+        connectButtonText,
+        optimizations,
+      });
     }
-  } catch (e) {
+  } catch {
     dashboardHtml = '<div class="container"><h1>Error loading dashboard</h1></div>';
   }
-  
+
   try {
     if (hasFooter && footer) {
       footerHtml = Footer(footer);
     }
-  } catch (e) {
+  } catch {
     // Silently fail footer
   }
 
@@ -109,10 +120,10 @@ export function renderPage(props: PageProps = {}): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   ${faviconLinks}
-  <title>${title || 'CloudCache Dashboard'}</title>
-  <style>${styles || ''}</style>
+  <title>${title || "CloudCache Dashboard"}</title>
+  <style>${styles || ""}</style>
 </head>
-<body ${bodyStyle || ''}>
+<body ${bodyStyle || ""}>
   ${announcementHtml}
   ${navHtml}
   ${dashboardHtml}
@@ -191,6 +202,7 @@ export function renderPage(props: PageProps = {}): string {
       });
     });
   </script>
+  ${getCloudcacheValidatedBadge()}
 </body>
 </html>
   `.trim();

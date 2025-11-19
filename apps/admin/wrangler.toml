@@ -24,3 +24,4 @@ routes = [
 name = "admin-worker-preview"
 # Preview has no routes - uses workers.dev subdomain
 routes = []
+workers_dev = true

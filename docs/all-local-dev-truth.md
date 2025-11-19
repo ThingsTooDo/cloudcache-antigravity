@@ -4,18 +4,18 @@
 **Rule Reference**: `.cursor/rules/all-code-truth.mdc`
 **Related**: `docs/all-system-truth.md`
 
-This guide explains how to develop locally using Cloudcache's **no-local-secrets** approach with remote bindings.
+This guide explains how to develop locally using Cloudcache's **local-first** approach with `.dev.vars`.
 
 ## Overview
 
-Local development uses **remote bindings** to fetch secrets from Cloudflare, eliminating the need for `.env` or `.dev.vars` files for runtime secrets.
+Local development uses **local bindings** configured via `.dev.vars` files to simulate runtime environment variables. This ensures fast, offline-capable development loops without requiring `wrangler login` for every session.
 
 ## Prerequisites
 
-1. **Wrangler CLI** installed and authenticated:
+1. **Wrangler CLI** installed:
    ```bash
    npm install -g wrangler
-   wrangler login
+   # No login required for local-only dev
    ```
 2. **pnpm** installed (see root `package.json`)
 3. **Dependencies** installed: `pnpm install`
@@ -33,36 +33,38 @@ Local development uses **remote bindings** to fetch secrets from Cloudflare, eli
 > - `bash scripts/dev-local.sh` builds all modules, clears stale ports, and starts servers sequentially with health checks.
 > - `bash scripts/dev-stop.sh` stops every dev server (or press `Ctrl+C` inside the `dev-local.sh` terminal).
 
-## Remote Bindings Configuration
+## Local Bindings Configuration
 
-Remote bindings are configured in `wrangler.toml`:
+Local bindings are configured implicitly by Wrangler when not using the `--remote` flag.
 
-```toml
-[dev]
-remote = true
-```
+The `wrangler.toml` should **NOT** have `remote = true` in the `[dev]` section (or it should be set to false/removed).
 
 This tells Wrangler to:
 
-- Fetch secrets from Cloudflare (not local files)
-- Use remote Workers runtime for accurate testing
-- Avoid exposing secrets locally
+- Use local resources
+- Use `.dev.vars` for secrets
+- Avoid remote authentication checks during startup
 
 ## Environment Variables
 
 ### Required for Local Dev
 
-Only these config values are needed locally (can be in `.env`):
+**Runtime secrets** (e.g., `SHOPIFY_API_KEY`, `CF_ACCESS_CLIENT_ID`) are required for the worker to start correctly.
 
-- `CF_API_TOKEN`: For Wrangler CLI operations
-- `CF_ACCOUNT_ID`: For Wrangler CLI operations
-- `CF_ZONE_ID`: For DNS/routing operations (if needed)
+1. **Create `.dev.vars`** in the module directory (e.g., `apps/app/.dev.vars`).
+2. **Populate with dummy values** for local testing (or real dev keys if needed):
 
-**Note**: Runtime secrets (`SHOPIFY_API_KEY`, `CF_ACCESS_CLIENT_ID`, etc.) are **not** needed locally - they're fetched from Cloudflare.
+   ```bash
+   SHOPIFY_API_KEY="dummy_key"
+   SHOPIFY_API_SECRET="dummy_secret"
+   CF_ACCESS_CLIENT_ID="dummy_id"
+   CF_ACCESS_CLIENT_SECRET="dummy_secret"
+   ```
 
 ### Optional Local Config
 
-You can create `.env.local` for local-only overrides (not committed).
+- `.env`: Can be used for build-time variables or CLI tokens (`CF_API_TOKEN`), but `.dev.vars` is preferred for Worker runtime secrets.
+
 
 ## Testing
 
@@ -134,8 +136,8 @@ return new Response(html, {
 
 ## Best Practices
 
-1. **Use remote bindings** - Don't create `.dev.vars` files
-2. **Test locally** before pushing
-3. **Use Preview Deployments** for testing in a cloud environment
-4. **Check logs** for correlation IDs when debugging
-5. **Verify secrets** with `scripts/cloudcache verify` if issues occur
+1. **Use `.dev.vars`** for local secrets - Ensure it is git-ignored.
+2. **Test locally** before pushing.
+3. **Use Preview Deployments** for testing in a cloud environment with real remote secrets.
+4. **Check logs** for correlation IDs when debugging.
+

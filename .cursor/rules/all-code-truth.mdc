@@ -11,7 +11,7 @@ Each truth file must stay in lock‑step with the code and scripts listed below.
 - **`docs/all-system-truth.md`** – Defines the Golden Path, ownership model, and script manifest. Includes a table that maps every active shell script to its purpose and authoritative documentation.
 - **`docs/all-git-truth.md`** – Covers commit policies, hook behavior, the `scripts/all-git-truth.sh` utility (`--pre-commit`, `--validate-md`, `--git-safe`), and mitigation steps for EPERM or lint-staged failures.
 - **`docs/all-deployment-truth.md`** – Canonical reference for deploying individual modules or the full stack. Documents preview/staging URLs, health endpoints, and validation/verification commands.
-- **`docs/all-local-dev-truth.md`** – Explains remote bindings, local ports, `pnpm dev:*` flows, and troubleshooting steps (cache resets, `scripts/dev-local.sh`, etc.).
+- **`docs/all-local-dev-truth.md`** – Explains local bindings (`.dev.vars`), local ports, `pnpm dev:*` flows, and troubleshooting steps (cache resets, `scripts/dev-local.sh`, etc.).
 
 ### Supporting Guides (link up to the truth docs)
 

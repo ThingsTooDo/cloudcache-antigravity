@@ -65,7 +65,6 @@ This tells Wrangler to:
 
 - `.env`: Can be used for build-time variables or CLI tokens (`CF_API_TOKEN`), but `.dev.vars` is preferred for Worker runtime secrets.
 
-
 ## Testing
 
 ### Unit Tests
@@ -140,4 +139,3 @@ return new Response(html, {
 2. **Test locally** before pushing.
 3. **Use Preview Deployments** for testing in a cloud environment with real remote secrets.
 4. **Check logs** for correlation IDs when debugging.
-

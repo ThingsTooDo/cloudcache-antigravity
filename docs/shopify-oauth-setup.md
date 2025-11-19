@@ -1,5 +1,11 @@
 # Shopify OAuth Setup Guide
 
+**Last Updated**: 2025-11-19
+**Rule Reference**: `.cursor/rules/all-code-truth.mdc`
+**Canonical Source**: `docs/all-deployment-truth.md`
+
+---
+
 This guide explains how to configure Shopify OAuth for the Cloudcache app module.
 
 ## Overview
@@ -242,4 +248,4 @@ If you encounter issues not covered in this guide:
 1. Check Cloudflare Worker logs: `wrangler tail`
 2. Check Shopify app logs in Partners dashboard
 3. Verify environment configuration: `scripts/cloudcache verify app <env>`
-4. Review CTO review findings: `docs/cto-review-2025-11-14.md`
+4. Review CTO review findings: `docs/archive/cto-review-2025-11-14.md` (archived)

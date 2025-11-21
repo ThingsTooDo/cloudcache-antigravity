@@ -43,269 +43,41 @@ export default {
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1">
   <title>CloudCache Dashboard</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      width: 100%;
-    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #000000;
-      color: #ffffff;
-      display: flex;
       margin: 0;
       padding: 0;
-    }
-    .nav {
-      width: 250px;
-      min-width: 250px;
-      background: #000000;
-      padding: 0;
-      height: 100vh;
-      overflow-y: auto;
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 1000;
       display: flex;
       flex-direction: column;
-    }
-    .nav-item {
-      color: #ffffff;
-      text-decoration: none;
-      padding: 15px 20px;
-      background: #000000;
-      transition: background 0.2s;
-      border-radius: 8px;
-      margin: 0;
-      display: block;
-    }
-    .nav-item.active {
-      background: #F48120;
-      color: #000000;
-    }
-    .nav-item:not(.active) {
-      background: #000000;
-      color: #ffffff;
-    }
-    .nav-item:not(.active):hover {
-      background: #F48120;
-      color: #000000;
-    }
-    .nav-item-text {
-      font-size: 14px;
-      font-weight: 500;
-    }
-    .nav-item-subtext {
-      font-size: 12px;
-      margin-top: 4px;
-      opacity: 0.8;
-    }
-    .nav-item.active .nav-item-subtext {
-      opacity: 0.7;
-    }
-    .container {
-      flex: 1;
-      margin-left: 250px;
-      max-width: calc(100% - 250px);
-      padding: 40px 20px;
-    }
-    h1 {
-      color: #ffffff;
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-    .store-info {
-      color: #ffffff;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    .plan-info {
-      color: #ffffff;
-      margin-bottom: 30px;
-      font-size: 16px;
-    }
-    .connect-button {
-      background: #F48120;
-      color: #000000;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-bottom: 40px;
-      transition: background 0.2s;
-    }
-    .connect-button:hover {
-      background: #FC7C1E;
-    }
-    .optimization-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .optimization-item {
-      background: #1a1a1a;
-      padding: 20px;
-      border-radius: 8px;
-      display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      gap: 20px;
+      height: 100vh;
+      background: #000000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-    .optimization-content {
-      flex: 1;
+    .title {
+      font-size: 30px;
+      color: red;
+      margin-bottom: 20px;
+      text-align: center;
     }
-    .optimization-title {
-      color: #ffffff;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .optimization-description {
-      color: #cccccc;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .toggle-container {
-      position: relative;
-      width: 50px;
-      height: 28px;
-      flex-shrink: 0;
-    }
-    .toggle-input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .toggle-slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      transition: 0.3s;
-      border-radius: 28px;
-    }
-    .toggle-slider:before {
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.3s;
-      border-radius: 50%;
-    }
-    .toggle-input:checked + .toggle-slider {
-      background-color: #F48120;
-    }
-    .toggle-input:not(:checked) + .toggle-slider {
-      background-color: #d3d3d3;
-    }
-    .toggle-input:checked + .toggle-slider:before {
-      transform: translateX(22px);
+    .icon {
+      color: red;
+      width: 64px;
+      height: 64px;
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <a href="#" class="nav-item active">
-      <div class="nav-item-text">Free</div>
-      <div class="nav-item-subtext">5 free optimizations</div>
-    </a>
-    <a href="#" class="nav-item">
-      <div class="nav-item-text">Section A</div>
-      <div class="nav-item-subtext">10 website optimizations 1-click instant</div>
-    </a>
-    <a href="#" class="nav-item">
-      <div class="nav-item-text">Section B</div>
-      <div class="nav-item-subtext">10 webpage optimizations</div>
-    </a>
-    <a href="#" class="nav-item">
-      <div class="nav-item-text">Section C</div>
-      <div class="nav-item-subtext">10 website optimizations</div>
-    </a>
-    <a href="#" class="nav-item">
-      <div class="nav-item-text">Section D</div>
-      <div class="nav-item-subtext">10 webpage optimizations</div>
-    </a>
-    <a href="#" class="nav-item">
-      <div class="nav-item-text">Section E</div>
-      <div class="nav-item-subtext">10 websi</div>
-    </a>
-  </nav>
-  <div class="container">
-    <h1>CloudCache Dashboard</h1>
-    <div class="store-info">Store: cloudcache01.myshopify.com</div>
-    <div class="plan-info">Current Plan: Free</div>
-    <button class="connect-button">Connect Store to Shopify</button>
-    
-    <div class="optimization-list">
-      <div class="optimization-item">
-        <div class="optimization-content">
-          <div class="optimization-title">Rocket Loader</div>
-          <div class="optimization-description">Automatically optimizes your website's loading performance by deferring JavaScript execution.</div>
-        </div>
-        <label class="toggle-container">
-          <input type="checkbox" class="toggle-input" checked>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-      
-      <div class="optimization-item">
-        <div class="optimization-content">
-          <div class="optimization-title">Early Hints</div>
-          <div class="optimization-description">Sends HTTP 103 responses to preload critical resources before the main response.</div>
-        </div>
-        <label class="toggle-container">
-          <input type="checkbox" class="toggle-input" checked>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-      
-      <div class="optimization-item">
-        <div class="optimization-content">
-          <div class="optimization-title">Brotli Compression</div>
-          <div class="optimization-description">Uses Brotli compression algorithm for better compression ratios and faster loading.</div>
-        </div>
-        <label class="toggle-container">
-          <input type="checkbox" class="toggle-input">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-      
-      <div class="optimization-item">
-        <div class="optimization-content">
-          <div class="optimization-title">Auto Minify</div>
-          <div class="optimization-description">Automatically minifies CSS, JavaScript, and HTML to reduce file sizes.</div>
-        </div>
-        <label class="toggle-container">
-          <input type="checkbox" class="toggle-input">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-      
-      <div class="optimization-item">
-        <div class="optimization-content">
-          <div class="optimization-title">HTTP/2</div>
-          <div class="optimization-description">Enables HTTP/2 protocol for improved performance and multiplexing.</div>
-        </div>
-        <label class="toggle-container">
-          <input type="checkbox" class="toggle-input">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-    </div>
+  <div id="splash-title" class="title">I love anti-gravity.</div>
+  <svg id="splash-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+  </svg>
+  <div id="splash-footer">
+    ${getCloudcacheValidatedBadge()}
   </div>
-  ${getCloudcacheValidatedBadge()}
 </body>
 </html>
       `.trim();

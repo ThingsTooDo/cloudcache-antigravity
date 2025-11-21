@@ -121,87 +121,39 @@ export function renderPage(props: PageProps = {}): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   ${faviconLinks}
   <title>${title || "CloudCache Dashboard"}</title>
-  <style>${styles || ""}</style>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #000000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .title {
+      font-size: 30px;
+      color: red;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .icon {
+      color: red;
+      width: 64px;
+      height: 64px;
+    }
+  </style>
 </head>
-<body ${bodyStyle || ""}>
-  ${announcementHtml}
-  ${navHtml}
-  ${dashboardHtml}
-  ${footerHtml}
-  <script>
-    // Handle optimization toggle switches
-    document.addEventListener('DOMContentLoaded', function() {
-      const toggleInputs = document.querySelectorAll('.toggle-input[data-optimization-id]');
-      
-      toggleInputs.forEach(toggle => {
-        toggle.addEventListener('change', async function() {
-          const optimizationId = this.getAttribute('data-optimization-id');
-          const enabled = this.checked;
-          const originalState = !enabled;
-          
-          // Disable toggle while processing
-          this.disabled = true;
-          
-          try {
-            // Only handle rocket-loader for now
-            if (optimizationId === 'rocket-loader') {
-              const response = await fetch('/api/v1/optimizations/rocket-loader', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ enabled }),
-              });
-              
-              let errorMessage = 'Failed to toggle Rocket Loader. Please try again.';
-              
-              if (!response.ok) {
-                try {
-                  const errorData = await response.json();
-                  errorMessage = errorData.message || errorData.error || errorMessage;
-                  console.error('Failed to toggle Rocket Loader:', {
-                    status: response.status,
-                    statusText: response.statusText,
-                    error: errorData,
-                  });
-                } catch (parseError) {
-                  const errorText = await response.text();
-                  errorMessage = 'Server error (' + response.status + '): ' + (errorText || response.statusText);
-                  console.error('Failed to parse error response:', parseError, 'Raw response:', errorText);
-                }
-                
-                // Revert toggle on error
-                this.checked = originalState;
-                alert(errorMessage);
-              } else {
-                try {
-                  const result = await response.json();
-                  console.log('Rocket Loader toggled successfully:', result);
-                } catch (parseError) {
-                  console.warn('Success response but failed to parse JSON:', parseError);
-                }
-              }
-            } else {
-              // For other optimizations, just log (not implemented yet)
-              console.log('Toggle for', optimizationId, 'changed to', enabled);
-              // Revert since not implemented
-              this.checked = originalState;
-              alert('This optimization is not yet implemented.');
-            }
-          } catch (error) {
-            console.error('Error toggling optimization:', error);
-            // Revert toggle on error
-            this.checked = originalState;
-            const errorMsg = error instanceof Error ? error.message : String(error);
-            alert('An error occurred: ' + errorMsg);
-          } finally {
-            // Re-enable toggle
-            this.disabled = false;
-          }
-        });
-      });
-    });
-  </script>
+<body>
+  <div class="title">I love anti-gravity.</div>
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+  </svg>
   ${getCloudcacheValidatedBadge()}
 </body>
 </html>

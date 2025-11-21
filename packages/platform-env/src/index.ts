@@ -6,6 +6,7 @@ import { z } from "zod";
 export const AppEnvSchema = z
   .object({
     APP_KV: z.any(), // KV Namespace binding
+    APP_D1: z.any(), // D1 Database binding
     SHOPIFY_API_KEY: z.string().min(1, "SHOPIFY_API_KEY is required"),
     SHOPIFY_API_SECRET: z.string().min(1, "SHOPIFY_API_SECRET is required"),
     CF_ACCESS_CLIENT_ID: z.string().min(1, "CF_ACCESS_CLIENT_ID is required"),

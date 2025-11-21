@@ -76,6 +76,18 @@ bash scripts/deploy-module.sh <module> <environment>
 - ADMIN: 119.96 KB (22.56 KB gzipped)
 - APEX: 11.16 KB (3.90 KB gzipped)
 
+### D1 Database Migrations
+
+When deploying changes that affect the database schema (e.g., multi-tenant toggles), you must run migrations:
+
+```bash
+# Apply to local dev
+wrangler d1 execute app-db --file=apps/app/migrations/0002_create_customer_toggles.sql
+
+# Apply to preview
+wrangler d1 execute app-db --file=apps/app/migrations/0002_create_customer_toggles.sql --env preview
+```
+
 ## Verified URLs
 
 The following URLs have been manually verified to be correct and functional after a successful deployment:

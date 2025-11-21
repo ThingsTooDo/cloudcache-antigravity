@@ -12,61 +12,20 @@ import {
   createJSONResponse,
 } from "@cloudcache/platform-http";
 import { renderPage } from "./templates/page";
+import { ToggleManager } from "./lib/toggle-manager";
+import { getCustomerContext } from "./lib/customer-context";
+import { CustomerZoneManager } from "./lib/customer-zones";
+import scheduled from "./scheduled";
 
 declare const __VERSION__: string;
 
 const FAVICON_BASE64 =
   "AAABAAIAEBAAAAEAIADGAQAAJgAAACAgAAABACAAiwMAAOwBAACJUE5HDQoaCgAAAA1JSERSAAAAEAAAABAIBgAAAB/z/2EAAAABc1JHQgCuzhzpAAAARGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAADoAEAAwAAAAEAAQAAoAIABAAAAAEAAAAQoAMABAAAAAEAAAAQAAAAADRVcfIAAAEwSURBVDgR7ZC/L0NRFMc/9762GIjGYhGmjn62EjFa+AvEIhKdJN1IRCLpIGIhsXXqJlY2C4MBbWKukJA0BqQWVNVr33GfvtfQ0L+gd7jfc8/9/jg50DqqcQWyOd5DOHBE0RlmJHhLp97CNqyiXuVd+ilYeyp+vOjrtF/UscKcEUe5qwbI2RGUpHFIg0QQ2sCZl92paZ8f8AsXZTm6gdIrvDi1dq4KuRL0WTDaDsoMLBiN7BtC2CX9nkB0wnyGeJWagXubTMZC3tv0XRMoe40GAyiZBBgKwqQnmjDY8TPHEDTJ/wySXgLcVw7oUpcMWI/Pn91Pa5n42/XhFYVMNq8SJ6k/DdR2NqXWL5RaOFNmiTc82DMqdto7e74zaIv+HrvyUc774qYoS7FYU0Lrs76BL/LgWyHfgEGBAAAAAElFTSuQmCCiVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAC9UlEQVRYCe1UTUhUURT+7hsdhzQhoUXUmEaLsEKNJswgLSgQghZhGzcp9EtQllCLIMJVEmVBPwTtrI1RtIigoCbaFCS0KAqslAyiJEsdf0Zn3u07d94bx9c8kXDXHOa+c8695+c7331vgJzkGMgx8L8zoOZLgL5Z0wRbncZvew3WB+MI4gtC6jGKrE5VHe2XOvr51nIkrGOYtHZiWpdiGnGMI4rJxFF18MW3bL3mBUBfYPNiqwsjNtCXBFYHgHV5QAHTF1tTsHCcjcCGnUiooLETPJvWwAR1Qt1TLU/3ZAPAKvMQjRPQLDZKACIfCUIyK/PFC0LjmhhQmfMw3vW1rjfnWR5Wlr2/txQqTLERFnXlA0G8TdDjntlmcwEpkm5sHHmU6BvbB/TFbXXiZIovA3pffQjh8aukuZEJIcQ5/VRmKu13BCDLlTCvJlIwAyiFjKfCjF5BYOdp1Ljhon0BoDh2BirQkg4eS1vZDfbFhmBqesMA2RBtSEnba73Jc1yB1WiS3SIx5/69FVx/ExGEnHLmKpzmMryI7Cnw3mbLHAB0WSrUjADEHD07P+WVk/pSLlcM49542VRRN8TV/legMEHEwqn5oYKhQdry6eVxReOpGiGqLQxz40xfyXEB0Daik0jqdsdJK38GNNFKDaEuXVSK0RnKYLKWzUNOkxTN6eIpwxQhINWm2p71eA7neAmh2jnULq6ADDfrExtIvOFOFcKWxirS4Xx20v/Jp0o79v77RO3g3UJJswqCWBRefrvobG+nt7n4vgyoK696OGyboVaGcF9Grc5hyF5CRINYae2gfsA1TIDD9380vL48dtK6VdpR+LJkt+lnx6cw2vu5zjhZHg53WU58tvShqjIE8vtg23vV9Z7uzLCGS/1NSvEvm7K/rxWbh4iNorX+uqwrGTaO5+HLgCduxrWsejrd3uYS8Ki17E7k18OO5v5TP2sympPJA3K+IKIPb+zQzdVLF6TYvxTRRyKRf8nL5eQYyDGQY8CPgT8p4ed9RS416QAAAABJRU5ErkJggg==";
 
-const ROCKET_LOADER_KV_KEY = "settings:rocket_loader";
 
-async function getRocketLoaderState(
-  env: AppEnv,
-  kv: KVNamespace,
-  logger: ReturnType<typeof createLoggerFromRequest>
-): Promise<boolean> {
-  // 1. Try to get from KV first
-  try {
-    const kvState = await kv.get(ROCKET_LOADER_KV_KEY);
-    if (kvState === "on") return true;
-    if (kvState === "off") return false;
-  } catch (kvError) {
-    logger.error("Failed to read Rocket Loader state from KV", { error: kvError });
-  }
-
-  // 2. If not in KV, fetch from Cloudflare API
-  logger.info("Rocket Loader state not in KV, fetching from API");
-  let apiStateEnabled = false; // Default to off
-  try {
-    const cfApiUrl = `https://api.cloudflare.com/client/v4/zones/${env.CF_ZONE_ID}/settings/rocket_loader`;
-    const cfResponse = await fetch(cfApiUrl, {
-      method: "GET",
-      headers: {
-        "Authorization": `Bearer ${env.CF_API_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (cfResponse.ok) {
-      const data: any = await cfResponse.json();
-      if (data.success && data.result) {
-        apiStateEnabled = data.result.value === "on";
-        logger.info("Fetched Rocket Loader state from API", { enabled: apiStateEnabled });
-        
-        // 3. Store in KV for next time (don't block response for this)
-        await kv.put(ROCKET_LOADER_KV_KEY, apiStateEnabled ? "on" : "off");
-      }
-    } else {
-      logger.error("Failed to fetch Rocket Loader state from Cloudflare API", { status: cfResponse.status });
-    }
-  } catch (apiError) {
-    logger.error("Error calling Cloudflare API for Rocket Loader state", { error: apiError });
-  }
-
-  return apiStateEnabled;
-}
 
 export default {
+  scheduled: scheduled.scheduled,
   async fetch(request: Request, env: unknown): Promise<Response> {
     const correlationId = getCorrelationId(request);
     const url = new URL(request.url);
@@ -109,11 +68,35 @@ export default {
 
     // Handle root route with new page template
     if (pathname === "/") {
-      const rocketLoaderEnabled = await getRocketLoaderState(
-        appEnv,
-        appEnv.APP_KV as KVNamespace,
-        logger
-      );
+      const db = appEnv.APP_D1;
+      const toggleManager = new ToggleManager(db, appEnv);
+      const customerContext = await getCustomerContext(request, appEnv);
+
+      // Default to global env if no customer context (legacy/single-tenant fallback)
+      const customerId = customerContext?.customerId || "default";
+
+      // Try to get state from D1
+      let rocketLoaderEnabled = await toggleManager.getState(customerId, "rocket-loader");
+
+      // If null (not in D1), try to sync if we have credentials
+      if (rocketLoaderEnabled === null) {
+        const zoneId = appEnv.CF_ZONE_ID; // Fallback to global zone ID
+        if (zoneId && appEnv.CF_API_TOKEN) {
+          try {
+            await toggleManager.syncFromCloudflare(customerId, "rocket-loader", zoneId, appEnv.CF_API_TOKEN);
+            rocketLoaderEnabled = await toggleManager.getState(customerId, "rocket-loader");
+
+            // Also ensure zone mapping exists
+            const zoneManager = new CustomerZoneManager(db);
+            await zoneManager.setZoneId(customerId, zoneId);
+          } catch (e) {
+            logger.error("Failed to initial sync Rocket Loader", { error: e });
+          }
+        }
+      }
+
+      // Default to false if still null
+      if (rocketLoaderEnabled === null) rocketLoaderEnabled = false;
 
       const html = renderPage({
         faviconBase64: FAVICON_BASE64,
@@ -141,7 +124,7 @@ export default {
       });
       return addSecurityHeaders(response, correlationId);
     }
-    
+
     // Handle CORS preflight
     const corsResponse = handleCORS(request);
     if (corsResponse) {
@@ -255,61 +238,40 @@ async function handleAPIRoute(
         );
       }
 
+
+
       const enabled = body.enabled;
+      const db = env.APP_D1;
+      const toggleManager = new ToggleManager(db, env);
+      const customerContext = await getCustomerContext(request, env);
+      const customerId = customerContext?.customerId || "default";
 
-      // Toggle Rocket Loader via Cloudflare API
-      const cfApiUrl = `https://api.cloudflare.com/client/v4/zones/${env.CF_ZONE_ID}/settings/rocket_loader`;
-      
-      logger.info("Calling Cloudflare API", { url: cfApiUrl, enabled });
-      
-      const cfResponse = await fetch(cfApiUrl, {
-        method: "PATCH",
-        headers: {
-          "Authorization": `Bearer ${env.CF_API_TOKEN}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          value: enabled ? "on" : "off",
-        }),
-      });
+      // Get Zone ID
+      const zoneManager = new CustomerZoneManager(db);
+      let zoneId: string | null | undefined = await zoneManager.getZoneId(customerId);
 
-      const responseText = await cfResponse.text();
-      let cfData: any;
-      try {
-        cfData = JSON.parse(responseText);
-      } catch {
-        cfData = { raw: responseText };
+      if (!zoneId) {
+        // Fallback to global env
+        zoneId = env.CF_ZONE_ID;
+        if (zoneId) {
+          // Save for future
+          await zoneManager.setZoneId(customerId, zoneId);
+        }
       }
 
-      if (!cfResponse.ok) {
-        logger.error("Cloudflare API error", {
-          status: cfResponse.status,
-          statusText: cfResponse.statusText,
-          error: cfData,
-        });
-        
-        const errorMessage = cfData.errors && Array.isArray(cfData.errors) && cfData.errors.length > 0
-          ? cfData.errors.map((e: any) => e.message || e.code).join("; ")
-          : cfData.message || `Cloudflare API returned ${cfResponse.status}`;
-
+      if (!zoneId) {
         return createErrorResponse(
-          "CLOUDFLARE_API_ERROR",
-          `Failed to toggle Rocket Loader: ${errorMessage}`,
+          "CONFIGURATION_ERROR",
+          "No Zone ID found for customer",
           correlationId,
-          cfResponse.status >= 400 && cfResponse.status < 500 ? cfResponse.status : 500
+          500
         );
       }
 
-      logger.info("Rocket Loader toggled successfully", { enabled, success: cfData.success });
+      // Use ToggleManager to set state
+      await toggleManager.setState(customerId, "rocket-loader", enabled, zoneId, env.CF_API_TOKEN!);
 
-      // Update state in KV
-      try {
-        await env.APP_KV.put(ROCKET_LOADER_KV_KEY, enabled ? "on" : "off");
-        logger.info("Updated Rocket Loader state in KV", { enabled });
-      } catch (kvError) {
-        logger.error("Failed to update Rocket Loader state in KV", { error: kvError });
-        // Don't fail the request, just log the error
-      }
+      logger.info("Rocket Loader toggled successfully", { enabled });
 
       return createJSONResponse(
         {
@@ -323,7 +285,7 @@ async function handleAPIRoute(
       );
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
-      logger.error("Error toggling Rocket Loader", { 
+      logger.error("Error toggling Rocket Loader", {
         error: errorMessage,
         stack: error instanceof Error ? error.stack : undefined,
       });

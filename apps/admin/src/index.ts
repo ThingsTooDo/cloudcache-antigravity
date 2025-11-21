@@ -59,100 +59,41 @@ export default {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cloudcache ADMIN</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      width: 100%;
-      height: 100%;
-      background: white;
-      margin: 0;
-      padding: 0;
-    }
     body {
+      margin: 0;
+      padding: 0;
       display: flex;
-      flex-direction: row;
-      position: relative;
-    }
-    .nav {
-      width: 250px;
-      min-width: 250px;
-      background: #f5f5f5;
-      border-right: 1px solid #ddd;
-      padding: 20px 0;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
-      overflow-y: auto;
-      position: fixed;
-      left: 0;
-      top: 0;
-      z-index: 1000;
+      background: #000000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
-    .nav-item {
-      padding: 15px 20px;
-      border-bottom: 1px solid #e0e0e0;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .nav-item:hover {
-      background-color: #e8e8e8;
-    }
-    .nav-item-title {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 5px;
-    }
-    .nav-item-subtext {
-      font-size: 12px;
-      color: #666;
-      line-height: 1.4;
-    }
-    .main-content {
-      flex: 1;
-      padding: 20px;
-      margin-left: 250px;
-      width: calc(100% - 250px);
-    }
-    h1 {
+    .title {
+      font-size: 30px;
       color: red;
+      margin-bottom: 20px;
+      text-align: center;
     }
-    h1 .admin {
-      color: black;
+    .icon {
+      color: red;
+      width: 64px;
+      height: 64px;
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-item">
-      <div class="nav-item-title">Free</div>
-      <div class="nav-item-subtext">5 free optimizations</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-item-title">Section A</div>
-      <div class="nav-item-subtext">10 website optimizations 1-click instant</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-item-title">Section B</div>
-      <div class="nav-item-subtext">10 webpage optimizations</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-item-title">Section C</div>
-      <div class="nav-item-subtext">10 website optimizations</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-item-title">Section D</div>
-      <div class="nav-item-subtext">10 webpage optimizations</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-item-title">Section E</div>
-      <div class="nav-item-subtext">10 websi</div>
-    </div>
-  </nav>
-  <div class="main-content">
-    <h1>Hello World I am Cloudcache <span class="admin">Admin</span></h1>
+  <div id="splash-title" class="title">I love anti-gravity.</div>
+  <svg id="splash-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+  </svg>
+  <div id="splash-footer">
+    ${getCloudcacheValidatedBadge()}
   </div>
-  ${getCloudcacheValidatedBadge()}
 </body>
 </html>
       `.trim();

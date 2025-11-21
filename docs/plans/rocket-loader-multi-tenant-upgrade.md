@@ -15,12 +15,14 @@ The current Rocket Loader implementation is a **single-tenant MVP** that works f
 **Status**: ✅ Deployed and working at https://app-worker-preview.cloudcache.workers.dev
 
 **Architecture**:
+
 - Single global `CF_ZONE_ID` environment variable
 - KV key `settings:rocket_loader` (not customer-specific)
 - Direct Cloudflare API calls on cache miss
 - Suitable for single zone/customer deployments
 
 **Files**:
+
 - `apps/app/src/index.ts` (lines 21-67, 194-342)
 - `apps/app/src/templates/page.ts` (lines 131-204)
 - `apps/app/src/components/ToggleSection.ts`
@@ -42,6 +44,7 @@ The current Rocket Loader implementation is a **single-tenant MVP** that works f
 **Problem**: Current implementation uses single global `CF_ZONE_ID`
 
 **Solution**:
+
 - Extract customer ID from request (Shopify session/store domain)
 - Store customer → zone_id mapping in D1: `customer_zones` table
 - Isolate toggle state per customer in D1: `customer_toggles` table
@@ -49,12 +52,14 @@ The current Rocket Loader implementation is a **single-tenant MVP** that works f
 ### 2. D1 Database as Synchronized Cache
 
 **Requirements**:
+
 - Every page load shows current Cloudflare status (transparent)
 - No Cloudflare API calls on page load (read from D1)
 - Background sync keeps D1 fresh (every 15-30 minutes)
 - When customer toggles: Update Cloudflare → Update D1 immediately
 
 **Architecture**:
+
 - **Read Path**: Always read from D1 (fast, no API call)
 - **Stale Detection**: If `last_synced_at` > 1 hour, trigger async sync (non-blocking)
 - **Write Path**: Customer toggle → Cloudflare API → D1 with `last_synced_at = now()`
@@ -93,16 +98,19 @@ CREATE INDEX idx_customer_toggles_last_synced ON customer_toggles(last_synced_at
 ### Phase 2.1: Customer Context & D1 Setup
 
 **New Files**:
+
 1. `apps/app/src/lib/customer-context.ts` - Extract customer ID from request
 2. `apps/app/src/lib/customer-zones.ts` - Manage customer → zone_id mapping
 3. `apps/app/migrations/0002_create_customer_toggles.sql` - D1 schema
 
 **Modified Files**:
+
 - `apps/app/src/index.ts` - Extract customer context
 - `apps/app/wrangler.toml` - Add D1 database binding
 - `packages/platform-env/src/index.ts` - Add `APP_D1` binding to schema
 
 **Commands**:
+
 ```bash
 # Create D1 database
 wrangler d1 create app-db
@@ -120,14 +128,17 @@ database_id = "<generated-id>"
 ### Phase 2.2: Scalable Toggle Management
 
 **New Files**:
+
 1. `apps/app/src/lib/toggle-registry.ts` - Registry of all 50 toggle configurations
 2. `apps/app/src/lib/toggle-manager.ts` - Centralized toggle state management
 3. `apps/app/src/lib/cloudflare-api-client.ts` - Wrapped API client with rate limiting
 
 **Modified Files**:
+
 - `apps/app/src/index.ts` - Refactor to use `ToggleManager`
 
 **Key Functions**:
+
 - `getState(customerId, toggleId, db)` - Read from D1, check staleness
 - `setState(customerId, toggleId, enabled, db)` - Update Cloudflare + D1
 - `syncFromCloudflare(customerId, toggleId, zoneId, apiToken)` - Fetch from Cloudflare
@@ -135,39 +146,49 @@ database_id = "<generated-id>"
 ### Phase 2.3: Background Sync (Critical for Scale)
 
 **New Files**:
+
 1. `apps/app/src/scheduled.ts` - Cron trigger handler
 
 **Modified Files**:
+
 - `apps/app/wrangler.toml` - Add cron trigger
 - `apps/app/src/index.ts` - Export scheduled handler
 
 **Cron Trigger Config**:
+
 ```toml
 [triggers]
 crons = ["*/15 * * * *"]  # Every 15 minutes
 ```
 
 **Background Sync Logic**:
+
 ```typescript
 export default {
   async scheduled(event: ScheduledEvent, env: AppEnv): Promise<void> {
     // Query D1 for stale entries (last_synced_at < 15 minutes ago)
-    const staleToggles = await env.APP_D1
-      .prepare(`
+    const staleToggles = await env.APP_D1.prepare(
+      `
         SELECT ct.customer_id, ct.toggle_id, cz.zone_id 
         FROM customer_toggles ct
         JOIN customer_zones cz ON ct.customer_id = cz.customer_id
         WHERE ct.last_synced_at < ?
         LIMIT 100
-      `)
+      `
+    )
       .bind(Date.now() - 900000) // 15 minutes ago
       .all();
 
     // Batch sync to Cloudflare API (respect rate limits)
     for (const toggle of staleToggles.results) {
-      await syncFromCloudflare(toggle.customer_id, toggle.toggle_id, toggle.zone_id, env.CF_API_TOKEN);
+      await syncFromCloudflare(
+        toggle.customer_id,
+        toggle.toggle_id,
+        toggle.zone_id,
+        env.CF_API_TOKEN
+      );
     }
-  }
+  },
 };
 ```
 
@@ -182,7 +203,7 @@ Extract Customer ID (from Shopify session)
     ↓
 ToggleManager.getState(customerId, "rocket-loader", db)
     ↓
-SELECT state, last_synced_at FROM customer_toggles 
+SELECT state, last_synced_at FROM customer_toggles
 WHERE customer_id = ? AND toggle_id = 'rocket-loader'
     ↓
 Check last_synced_at:
@@ -204,7 +225,7 @@ Get zone_id: SELECT zone_id FROM customer_zones WHERE customer_id = ?
 ToggleManager.setState(customerId, "rocket-loader", enabled, db)
     ↓
 1. Call Cloudflare API: PATCH /zones/{zone_id}/settings/rocket_loader
-2. On success: UPDATE customer_toggles 
+2. On success: UPDATE customer_toggles
    SET state = ?, last_synced_at = unixepoch(), updated_at = unixepoch()
    WHERE customer_id = ? AND toggle_id = 'rocket-loader'
 3. Return response (customer sees immediate update)
@@ -229,6 +250,7 @@ D1 cache stays fresh (customers always see current Cloudflare state)
 **Cloudflare API Limits**: ~1,200 requests/5 minutes per token
 
 **Strategy**:
+
 - **Read Path**: 100% D1 cache hits (zero API calls on page load)
 - **Stale Detection**: If cache > 1 hour, trigger async sync (non-blocking)
 - **Write Path**: Only on explicit toggle (customer-initiated) → immediate API call
@@ -249,12 +271,14 @@ D1 cache stays fresh (customers always see current Cloudflare state)
 ## Testing Checklist
 
 **Pre-Deployment**:
+
 - [ ] Create D1 database for each environment
 - [ ] Run migrations successfully
 - [ ] Test customer context extraction
 - [ ] Verify Cloudflare API credentials per customer
 
 **Post-Deployment**:
+
 - [ ] Customer isolation: Toggle for Customer A doesn't affect Customer B
 - [ ] D1 caching: Dashboard loads without API calls (check logs)
 - [ ] Stale detection: Old timestamps trigger async sync
@@ -274,6 +298,7 @@ D1 cache stays fresh (customers always see current Cloudflare state)
 ## Documentation Updates
 
 When implementing Phase 2, update:
+
 - `docs/all-deployment-truth.md` - Add D1 migration steps
 - `docs/all-local-dev-truth.md` - Add D1 local development setup
 - `docs/secrets-management.md` - Document per-customer credentials
@@ -286,4 +311,3 @@ When implementing Phase 2, update:
 - D1 Database documentation: https://developers.cloudflare.com/d1/
 - KV documentation: https://developers.cloudflare.com/kv/
 - Cron Triggers documentation: https://developers.cloudflare.com/workers/configuration/cron-triggers/
-

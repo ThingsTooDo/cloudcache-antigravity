@@ -64,21 +64,28 @@ run_deployment() {
     eval "$build_command" || die "Build failed for module '$MODULE'."
 
     step "Deploying $MODULE module to $ENV..."
-    local max_deploy_attempts=3
+    local max_deploy_attempts=5
     local deploy_attempt=0
     local deploy_success=false
+    local sleep_duration=5
+
+    # Disable interactive prompts and telemetry for non-interactive deployment
+    export CI=true
+    export WRANGLER_SEND_METRICS=false
 
     while [[ $deploy_attempt -lt $max_deploy_attempts ]]; do
         deploy_attempt=$((deploy_attempt + 1))
         log "Deploying... (Attempt $deploy_attempt of $max_deploy_attempts)"
-        if wrangler deploy --env "$ENV" --no-bundle; then
+        if wrangler deploy --env "$ENV" --no-bundle 2>&1; then
             deploy_success=true
             break
         fi
 
         if [[ $deploy_attempt -lt $max_deploy_attempts ]]; then
-            log "⚠️  Deployment failed. Retrying in 5 seconds..."
-            sleep 5
+            log "⚠️  Deployment failed. Retrying in $sleep_duration seconds..."
+            sleep "$sleep_duration"
+            # Exponential backoff: double the sleep duration
+            sleep_duration=$((sleep_duration * 2))
         fi
     done
 

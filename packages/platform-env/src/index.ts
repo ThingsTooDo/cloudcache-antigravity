@@ -14,7 +14,11 @@ export const AppEnvSchema = z
     CF_ACCOUNT_ID: z.string().optional(),
     CF_ZONE_ID: z.string().optional(),
   })
-  .passthrough();
+  .passthrough()
+  .transform((val) => {
+    // Ensure optional Cloudflare API fields pass through when set as secrets
+    return val;
+  });
 
 export type AppEnv = z.infer<typeof AppEnvSchema>;
 

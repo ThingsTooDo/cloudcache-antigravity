@@ -29,6 +29,7 @@ export default defineConfig({
   splitting: false,
   sourcemap: false,
   clean: true,
+  minify: false,
   // Bundle workspace packages but keep external dependencies external
   noExternal: [/^@cloudcache/],
   esbuildOptions(options) {

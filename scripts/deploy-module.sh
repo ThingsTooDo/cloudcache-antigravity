@@ -76,11 +76,18 @@ run_deployment() {
     while [[ $deploy_attempt -lt $max_deploy_attempts ]]; do
         deploy_attempt=$((deploy_attempt + 1))
         log "Deploying... (Attempt $deploy_attempt of $max_deploy_attempts)"
-        if wrangler deploy --env "$ENV" --no-bundle 2>&1; then
-            deploy_success=true
-            break
+        if [[ "$MODULE" == "apex" && ( "$ENV" == "preview" || "$ENV" == "staging" ) ]]; then
+            # Pages deployment for Apex preview/staging
+            if wrangler pages publish dist --project-name apex 2>&1; then
+                deploy_success=true
+                break
+            fi
+        else
+            if wrangler deploy --env "$ENV" --no-bundle 2>&1; then
+                deploy_success=true
+                break
+            fi
         fi
-
         if [[ $deploy_attempt -lt $max_deploy_attempts ]]; then
             log "⚠️  Deployment failed. Retrying in $sleep_duration seconds..."
             sleep "$sleep_duration"

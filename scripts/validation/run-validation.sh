@@ -153,22 +153,24 @@ get_worker_name() {
     app)
       case "$mode" in
         preview) echo "app-worker-preview" ;;
-        staging) echo "app-worker-staging" ;;
-        production) echo "app-worker-production" ;;
+        staging) echo "app-staging" ;;
+        production) echo "app-production" ;;
       esac
       ;;
     admin)
       case "$mode" in
+        localhost) echo "admin-worker-local" ;;
         preview) echo "admin-worker-preview" ;;
-        staging) echo "admin-worker-staging" ;;
-        production) echo "admin-worker-production" ;;
+        staging) echo "admin-staging" ;;
+        production) echo "admin-production" ;;
       esac
       ;;
     apex)
       case "$mode" in
+        localhost) echo "apex-worker-local" ;;
         preview) echo "apex-worker-preview" ;;
-        staging) echo "apex-worker-staging" ;;
-        production) echo "apex-worker-production" ;;
+        staging) echo "apex-staging" ;;
+        production) echo "apex-production" ;;
       esac
       ;;
   esac

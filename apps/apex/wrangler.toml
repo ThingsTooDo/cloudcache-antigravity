@@ -1,31 +1,32 @@
-name = "apex-worker"
+name = "apex"
 main = "dist/index.mjs"
 compatibility_date = "2025-10-07"
 
-# Production routes
-routes = [
-  { pattern = "cloudcache.ai/*", zone_name = "cloudcache.ai" },
-  { pattern = "www.cloudcache.ai/*", zone_name = "cloudcache.ai" }
-]
+# Production routes (Pages domain)
+[pages]
+name = "apex"
+# The output directory produced by Astro (default .output/public)
+build_output = "dist"
 
-# Remote bindings for local dev (no .dev.vars needed)
-# Note: remote bindings are enabled by default in Wrangler v4
-[dev]
-port = 8788
+# Production routes (if any custom routes needed)
+# Note: Cloudflare Pages handles routing; keep empty for now
+routes = []
 
-# Staging environment
+# Staging environment (custom subdomain)
 [env.staging]
-name = "apex-worker-staging"
-routes = [
-  { pattern = "staging-apex.cloudcache.ai/*", zone_name = "cloudcache.ai" }
-]
+name = "apex-staging"
+# Pages staging uses a separate project name or branch; we keep same project
+# The deployment script will publish to the staging subdomain via wrangler pages publish
+routes = []
 
-# Preview environment
+# Preview environment (workers.dev preview for Astro preview)
 [env.preview]
 name = "apex-worker-preview"
 workers_dev = true
 routes = []
 
-# Pages configuration for Astro SSR
-# Note: Pages project should be created separately via scripts/cloudcache bootstrap
-# Build output directory should match Astro adapter output (.astro/output or .output/public)
+# D1 Database binding (used by Workers for API calls, keep for consistency)
+[[d1_databases]]
+binding = "APEX_D1"
+database_name = "apex-db"
+database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"

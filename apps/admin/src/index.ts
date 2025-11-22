@@ -57,43 +57,24 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloudcache ADMIN</title>
+  <title>Cloudcache Preview ADMIN</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: #000000;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    .title {
-      font-size: 30px;
-      color: red;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    .icon {
-      color: red;
-      width: 64px;
-      height: 64px;
-    }
+    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
+    .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; border-bottom: 1px solid #eee; }
+    .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; border-right: 1px solid #eee; }
+    .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; border-top: 1px solid #eee; }
+    .main { display: flex; justify-content: center; align-items: center; }
+    .title { font-size: 30px; color: #FF0000; }
+    .module-name { color: #000000; }
   </style>
 </head>
 <body>
-  <div id="splash-title" class="title">I love anti-gravity.</div>
-  <svg id="splash-icon" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-    <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-  </svg>
-  <div id="splash-footer">
-    ${getCloudcacheValidatedBadge()}
+  <div class="header">Header</div>
+  <div class="sidebar">Left Sidebar</div>
+  <div class="main">
+    <div class="title">This is Cloudcache preview <span class="module-name">ADMIN</span></div>
   </div>
+  <div class="footer">Footer</div>
 </body>
 </html>
       `.trim();

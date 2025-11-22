@@ -11,7 +11,7 @@ import {
   addSecurityHeaders,
   createJSONResponse,
 } from "@cloudcache/platform-http";
-import { renderPage } from "./templates/page";
+import { renderPage } from "./templates/splash";
 import { ToggleManager } from "./lib/toggle-manager";
 import { getCustomerContext } from "./lib/customer-context";
 import { CustomerZoneManager } from "./lib/customer-zones";

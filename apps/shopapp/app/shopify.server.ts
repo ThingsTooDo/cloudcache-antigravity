@@ -1,27 +1,47 @@
 import "@shopify/shopify-app-remix/adapters/web-api";
-import { shopifyApp, LATEST_API_VERSION, AppDistribution } from "@shopify/shopify-app-remix/server";
+import { shopifyApp, AppDistribution, ApiVersion } from "@shopify/shopify-app-remix/server";
+import { createKVSessionStorage, type Env } from "./session.server";
 
-// Note: In a real app, you would load these from environment variables
-// For Cloudflare, these come from the context, so we might need to initialize this
-// inside the loader/action or use a singleton pattern with context injection.
-// For now, this is a basic setup.
+// Note: For Cloudflare Workers, we need to initialize the Shopify app
+// with the KV namespace from the request context. This is a factory function
+// that creates the Shopify app instance with the proper session storage.
 
-export const shopify = shopifyApp({
-  apiKey: process.env.SHOPIFY_API_KEY || "SHOPIFY_API_KEY",
-  apiSecretKey: process.env.SHOPIFY_API_SECRET || "SHOPIFY_API_SECRET",
-  apiVersion: LATEST_API_VERSION,
-  scopes: process.env.SCOPES?.split(",") || ["read_products"],
-  appUrl: process.env.SHOPIFY_APP_URL || "https://shopapp.cloudcache.ai",
-  authPathPrefix: "/auth",
-  sessionStorage: undefined, // You'll need a session storage strategy (e.g., KV or D1)
-  distribution: AppDistribution.AppStore,
-  future: {
-    unstable_newEmbeddedAuthStrategy: true,
-  },
-});
+let shopifyInstance: ReturnType<typeof shopifyApp> | null = null;
 
-export const authenticate = shopify.authenticate;
-export const unauthenticated = shopify.unauthenticated;
-export const login = shopify.login;
-export const registerWebhooks = shopify.registerWebhooks;
-export const sessionStorage = shopify.sessionStorage;
+export function getShopify(env: Env) {
+  // Create a singleton instance per request context
+  if (!shopifyInstance) {
+    shopifyInstance = shopifyApp({
+      apiKey: env.SHOPIFY_API_KEY || "SHOPIFY_API_KEY",
+      apiSecretKey: env.SHOPIFY_API_SECRET || "SHOPIFY_API_SECRET",
+      apiVersion: ApiVersion.October24,
+      scopes: (env.SCOPES?.split(",") as any) || ["read_products"],
+      appUrl: env.SHOPIFY_APP_URL || "https://shopapp.cloudcache.ai",
+      authPathPrefix: "/auth",
+      sessionStorage: createKVSessionStorage(env.APP_KV),
+      distribution: AppDistribution.AppStore,
+      future: {
+        unstable_newEmbeddedAuthStrategy: true,
+      },
+    });
+  }
+  return shopifyInstance;
+}
+
+// Export helper functions that use the context-aware instance
+export function authenticate(env: Env) {
+  return getShopify(env).authenticate;
+}
+
+export function unauthenticated(env: Env) {
+  return getShopify(env).unauthenticated;
+}
+
+export function login(env: Env) {
+  return getShopify(env).login;
+}
+
+export function registerWebhooks(env: Env) {
+  return getShopify(env).registerWebhooks;
+}
+

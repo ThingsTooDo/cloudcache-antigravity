@@ -1,0 +1,17 @@
+# Shopify App Environment Variables
+# Copy this file to .dev.vars and fill in your actual values
+# NEVER commit .dev.vars to git!
+
+# Shopify App Credentials (from Shopify Partner Dashboard)
+SHOPIFY_API_KEY=your_shopify_api_key_here
+SHOPIFY_API_SECRET=your_shopify_api_secret_here
+
+# App URL (use ngrok or cloudflare tunnel for local dev)
+SHOPIFY_APP_URL=https://shopapp.cloudcache.ai
+
+# OAuth Scopes (comma-separated)
+SCOPES=write_products,read_products,read_orders
+
+# Cloudflare Access (for protected endpoints)
+CF_ACCESS_CLIENT_ID=your_cf_access_client_id
+CF_ACCESS_CLIENT_SECRET=your_cf_access_client_secret

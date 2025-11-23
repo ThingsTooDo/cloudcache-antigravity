@@ -63,6 +63,25 @@ This tells Wrangler to:
    CF_ACCESS_CLIENT_SECRET="dummy_secret"
    ```
 
+### Shopify App (SHOPAPP Module)
+
+For the `shopapp` module (Remix-based Shopify app), additional environment variables are required:
+
+1. **Create `apps/shopapp/.dev.vars`** using the template at `apps/shopapp/.dev.vars.example`
+2. **Required variables**:
+
+   ```bash
+   SHOPIFY_API_KEY=your_shopify_api_key
+   SHOPIFY_API_SECRET=your_shopify_api_secret
+   SHOPIFY_APP_URL=https://shopapp.cloudcache.ai  # or ngrok URL for local dev
+   SCOPES=write_products,read_products,read_orders
+   CF_ACCESS_CLIENT_ID=your_cf_access_client_id
+   CF_ACCESS_CLIENT_SECRET=your_cf_access_client_secret
+   ```
+
+3. **Session Storage**: The app uses Cloudflare KV (`APP_KV` binding) for Shopify session persistence
+4. **Local Development**: Use `pnpm dev:shopapp` to start the Remix dev server on port 8789
+
 ### Optional Local Config
 
 - `.env`: Can be used for build-time variables or CLI tokens (`CF_API_TOKEN`), but `.dev.vars` is preferred for Worker runtime secrets.

@@ -1,10 +1,8 @@
 import { defineConfig } from 'astro/config';
-import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-    output: 'static', // SSG for Phase I (no dynamic features yet)
-    adapter: cloudflare(),
+    // Static site generation - no adapter needed for Cloudflare Pages
     build: {
         format: 'directory'
     }

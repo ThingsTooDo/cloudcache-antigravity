@@ -1,8 +1,8 @@
 name = "shopapp-worker"
 main = "./build/server/index.js"
 compatibility_date = "2025-10-07"
-[build]
-command = "pnpm run build"
+# [build]
+# command = "pnpm run build"
 
 
 
@@ -35,18 +35,19 @@ id = "5df224d061fb4f869a1a713f1ebd7252"
 # Preview environment
 [env.preview]
 name = "shopapp-worker-preview"
-# Preview has no routes - uses workers.dev subdomain
-routes = []
-workers_dev = true
+routes = [
+  { pattern = "shopapp-worker-preview.cloudcache.workers.dev/*", zone_name = "" }
+]
 
 [[env.preview.kv_namespaces]]
 binding = "APP_KV"
 id = "58050e98476b42578f917f32582b6647"
 
-[[env.preview.d1_databases]]
-binding = "APP_D1"
-database_name = "app-db"
-database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+# Commented out D1 for preview - causing ES module issues
+# [[env.preview.d1_databases]]
+# binding = "APP_D1"
+# database_name = "app-db"
+# database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
 
 # D1 Database Binding
 

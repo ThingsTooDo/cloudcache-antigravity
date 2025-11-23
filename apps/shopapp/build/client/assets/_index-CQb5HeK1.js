@@ -1,16 +1,4 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "This is Cloudcache Shopapp Preview" },
-  ];
-};
-
-export default function Index() {
-  return (
-    <html>
-      <head>
-        <style>{`
+import{j as e}from"./jsx-runtime-BgjmLhhW.js";const s=()=>[{title:"This is Cloudcache Shopapp Preview"}];function t(){return e.jsxs("html",{children:[e.jsx("head",{children:e.jsx("style",{children:`
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body { font-family: Arial, sans-serif; }
           .container {
@@ -67,23 +55,4 @@ export default function Index() {
             padding: 20px;
             border-top: 1px solid #ccc;
           }
-        `}</style>
-      </head>
-      <body>
-        <div className="container">
-          <div className="header">Header</div>
-          <div className="main">
-            <div className="sidebar">Left sidebar</div>
-            <div className="content">
-              <div className="title">
-                <span className="title-red">This is Cloudcache Shopapp </span>
-                <span className="title-black">Preview</span>
-              </div>
-            </div>
-          </div>
-          <div className="footer">Footer</div>
-        </div>
-      </body>
-    </html>
-  );
-}
+        `})}),e.jsx("body",{children:e.jsxs("div",{className:"container",children:[e.jsx("div",{className:"header",children:"Header"}),e.jsxs("div",{className:"main",children:[e.jsx("div",{className:"sidebar",children:"Left sidebar"}),e.jsx("div",{className:"content",children:e.jsxs("div",{className:"title",children:[e.jsx("span",{className:"title-red",children:"This is Cloudcache Shopapp "}),e.jsx("span",{className:"title-black",children:"Preview"})]})})]}),e.jsx("div",{className:"footer",children:"Footer"})]})})]})}export{t as default,s as meta};

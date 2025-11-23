@@ -7,17 +7,17 @@ import { shopifyApp, LATEST_API_VERSION, AppDistribution } from "@shopify/shopif
 // For now, this is a basic setup.
 
 export const shopify = shopifyApp({
-    apiKey: process.env.SHOPIFY_API_KEY || "SHOPIFY_API_KEY",
-    apiSecretKey: process.env.SHOPIFY_API_SECRET || "SHOPIFY_API_SECRET",
-    apiVersion: LATEST_API_VERSION,
-    scopes: process.env.SCOPES?.split(",") || ["read_products"],
-    appUrl: process.env.SHOPIFY_APP_URL || "https://shopapp.cloudcache.ai",
-    authPathPrefix: "/auth",
-    sessionStorage: undefined, // You'll need a session storage strategy (e.g., KV or D1)
-    distribution: AppDistribution.AppStore,
-    future: {
-        unstable_newEmbeddedAuthStrategy: true,
-    },
+  apiKey: process.env.SHOPIFY_API_KEY || "SHOPIFY_API_KEY",
+  apiSecretKey: process.env.SHOPIFY_API_SECRET || "SHOPIFY_API_SECRET",
+  apiVersion: LATEST_API_VERSION,
+  scopes: process.env.SCOPES?.split(",") || ["read_products"],
+  appUrl: process.env.SHOPIFY_APP_URL || "https://shopapp.cloudcache.ai",
+  authPathPrefix: "/auth",
+  sessionStorage: undefined, // You'll need a session storage strategy (e.g., KV or D1)
+  distribution: AppDistribution.AppStore,
+  future: {
+    unstable_newEmbeddedAuthStrategy: true,
+  },
 });
 
 export const authenticate = shopify.authenticate;

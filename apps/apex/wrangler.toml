@@ -1,31 +1,13 @@
+# Cloudflare Pages configuration for APEX (Astro SSG)
 name = "apex"
-main = "dist/index.mjs"
+pages_build_output_dir = "dist"
 compatibility_date = "2025-10-07"
 
-# Production routes (Pages domain)
-[pages]
-name = "apex"
-# The output directory produced by Astro (default .output/public)
-build_output = "dist"
+# Production will bind to cloudcache.ai via custom domain
+# Staging uses staging-apex.cloudcache.ai
+# Preview generates dynamic *.pages.dev URLs
 
-# Production routes (if any custom routes needed)
-# Note: Cloudflare Pages handles routing; keep empty for now
-routes = []
-
-# Staging environment (custom subdomain)
-[env.staging]
-name = "apex-staging"
-# Pages staging uses a separate project name or branch; we keep same project
-# The deployment script will publish to the staging subdomain via wrangler pages publish
-routes = []
-
-# Preview environment (workers.dev preview for Astro preview)
-[env.preview]
-name = "apex-worker-preview"
-workers_dev = true
-routes = []
-
-# D1 Database binding (used by Workers for API calls, keep for consistency)
+# D1 Database binding (for future SSR functions if needed)
 [[d1_databases]]
 binding = "APEX_D1"
 database_name = "apex-db"

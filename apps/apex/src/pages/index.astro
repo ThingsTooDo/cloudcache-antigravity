@@ -1,0 +1,30 @@
+---
+// Phase I - Preview UI for APEX
+const mode = 'preview';
+const moduleName = 'APEX';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX {mode}</title>
+  <style>
+    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
+    .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .main { display: flex; justify-content: center; align-items: center; }
+    .title { font-size: 30px; color: #000000; }
+  </style>
+</head>
+<body>
+  <div class="header">Header</div>
+  <div class="sidebar">Left Sidebar</div>
+  <div class="main">
+    <div class="title">This is Cloudcache <span style="color:#FF0000;">{mode}</span> <span style="color:#000000;">{moduleName}</span></div>
+  </div>
+  <div class="footer">Footer</div>
+</body>
+</html>

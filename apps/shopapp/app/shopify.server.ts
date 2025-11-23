@@ -1,4 +1,3 @@
-import "@shopify/shopify-app-remix/adapters/web-api";
 import { shopifyApp, AppDistribution, ApiVersion } from "@shopify/shopify-app-remix/server";
 import { createKVSessionStorage, type Env } from "./session.server";
 

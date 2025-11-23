@@ -1,9 +1,7 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: "This is Cloudcache Shopapp Preview" },
-  ];
+  return [{ title: "This is Cloudcache Shopapp Preview" }];
 };
 
 export default function Index() {

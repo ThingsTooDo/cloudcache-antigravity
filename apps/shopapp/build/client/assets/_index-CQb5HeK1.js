@@ -1,4 +1,11 @@
-import{j as e}from"./jsx-runtime-BgjmLhhW.js";const s=()=>[{title:"This is Cloudcache Shopapp Preview"}];function t(){return e.jsxs("html",{children:[e.jsx("head",{children:e.jsx("style",{children:`
+import { j as e } from "./jsx-runtime-BgjmLhhW.js";
+const s = () => [{ title: "This is Cloudcache Shopapp Preview" }];
+function t() {
+  return e.jsxs("html", {
+    children: [
+      e.jsx("head", {
+        children: e.jsx("style", {
+          children: `
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body { font-family: Arial, sans-serif; }
           .container {
@@ -55,4 +62,38 @@ import{j as e}from"./jsx-runtime-BgjmLhhW.js";const s=()=>[{title:"This is Cloud
             padding: 20px;
             border-top: 1px solid #ccc;
           }
-        `})}),e.jsx("body",{children:e.jsxs("div",{className:"container",children:[e.jsx("div",{className:"header",children:"Header"}),e.jsxs("div",{className:"main",children:[e.jsx("div",{className:"sidebar",children:"Left sidebar"}),e.jsx("div",{className:"content",children:e.jsxs("div",{className:"title",children:[e.jsx("span",{className:"title-red",children:"This is Cloudcache Shopapp "}),e.jsx("span",{className:"title-black",children:"Preview"})]})})]}),e.jsx("div",{className:"footer",children:"Footer"})]})})]})}export{t as default,s as meta};
+        `,
+        }),
+      }),
+      e.jsx("body", {
+        children: e.jsxs("div", {
+          className: "container",
+          children: [
+            e.jsx("div", { className: "header", children: "Header" }),
+            e.jsxs("div", {
+              className: "main",
+              children: [
+                e.jsx("div", { className: "sidebar", children: "Left sidebar" }),
+                e.jsx("div", {
+                  className: "content",
+                  children: e.jsxs("div", {
+                    className: "title",
+                    children: [
+                      e.jsx("span", {
+                        className: "title-red",
+                        children: "This is Cloudcache Shopapp ",
+                      }),
+                      e.jsx("span", { className: "title-black", children: "Preview" }),
+                    ],
+                  }),
+                }),
+              ],
+            }),
+            e.jsx("div", { className: "footer", children: "Footer" }),
+          ],
+        }),
+      }),
+    ],
+  });
+}
+export { t as default, s as meta };

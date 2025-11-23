@@ -31,7 +31,10 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
      export default {
        async fetch(request, env, ctx) {
          try {
-           return await getAssetFromKV(request, { mapRequestToAsset: (req) => new Request(`${new URL(req.url).origin}/static${new URL(req.url).pathname}`, req) });
+           return await getAssetFromKV(request, {
+             mapRequestToAsset: (req) =>
+               new Request(`${new URL(req.url).origin}/static${new URL(req.url).pathname}`, req),
+           });
          } catch (e) {
            return new Response("Not found", { status: 404 });
          }
@@ -76,11 +79,11 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Asset size exceeds Worker limit (10 MB) | Deployment failure | Use KV asset handler or split large assets into separate KV namespaces; keep bundle under limit.
-| Cache‑control headers missing | Stale content | Ensure Astro build outputs proper `Cache-Control` and Worker forwards them.
-| Existing Pages URLs break | 404 for users | Add redirects from old `*.pages.dev` to new Worker URL during transition.
+| Risk                                    | Impact             | Mitigation                                                                                       |
+| --------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------ |
+| Asset size exceeds Worker limit (10 MB) | Deployment failure | Use KV asset handler or split large assets into separate KV namespaces; keep bundle under limit. |
+| Cache‑control headers missing           | Stale content      | Ensure Astro build outputs proper `Cache-Control` and Worker forwards them.                      |
+| Existing Pages URLs break               | 404 for users      | Add redirects from old `*.pages.dev` to new Worker URL during transition.                        |
 
 ## Acceptance Criteria
 
@@ -90,4 +93,5 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 - No Pages‑specific configuration remains in the repository.
 
 ---
-*All changes respect the project's naming conventions (lowercase, hyphenated) and are linked to the appropriate truth files.*
+
+_All changes respect the project's naming conventions (lowercase, hyphenated) and are linked to the appropriate truth files._

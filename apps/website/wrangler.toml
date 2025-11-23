@@ -1,14 +1,27 @@
-# Cloudflare Pages configuration for APEX (Astro SSG)
-name = "apex"
-pages_build_output_dir = "dist"
+name = "website-worker"
+main = "./dist-worker/worker.mjs"
 compatibility_date = "2025-10-07"
 
-# Production will bind to cloudcache.ai via custom domain
-# Staging uses staging-apex.cloudcache.ai
-# Preview generates dynamic *.pages.dev URLs
+# Production routes
+routes = [
+  { pattern = "cloudcache.ai/*", zone_name = "cloudcache.ai" },
+  { pattern = "www.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+]
 
-# D1 Database binding (for future SSR functions if needed)
-[[d1_databases]]
-binding = "APEX_D1"
-database_name = "apex-db"
-database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+[site]
+  bucket = "./dist"
+
+# Staging environment
+[env.staging]
+name = "website-worker-staging"
+main = "./dist-worker/worker.mjs"
+routes = [
+  { pattern = "staging-website.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+]
+
+# Preview environment
+[env.preview]
+name = "website-worker-preview"
+main = "./dist-worker/worker.mjs"
+workers_dev = true
+routes = []

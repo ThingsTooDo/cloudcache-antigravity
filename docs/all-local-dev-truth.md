@@ -26,7 +26,7 @@ Local development uses **local bindings** configured via `.dev.vars` files to si
 
 | Module  | Root Command       | Module Command                | Port |
 | ------- | ------------------ | ----------------------------- | ---- |
-| SHOPAPP | `pnpm dev:shopapp` | `cd apps/shopapp && pnpm dev` | 8789 |
+| SHOPIFY | `pnpm dev:shopify` | `cd apps/shopify && pnpm dev` | 8789 |
 | ADMIN   | `pnpm dev:admin`   | `cd apps/admin && pnpm dev`   | 8787 |
 | WEBSITE | `pnpm dev:website` | `cd apps/website && pnpm dev` | 8788 |
 
@@ -63,24 +63,24 @@ This tells Wrangler to:
    CF_ACCESS_CLIENT_SECRET="dummy_secret"
    ```
 
-### Shopify App (SHOPAPP Module)
+### Shopify App (SHOPIFY Module)
 
-For the `shopapp` module (Remix-based Shopify app), additional environment variables are required:
+For the `shopify` module (Remix-based Shopify app), additional environment variables are required:
 
-1. **Create `apps/shopapp/.dev.vars`** using the template at `apps/shopapp/.dev.vars.example`
+1. **Create `apps/shopify/.dev.vars`** using the template at `apps/shopify/.dev.vars.example`
 2. **Required variables**:
 
    ```bash
    SHOPIFY_API_KEY=your_shopify_api_key
    SHOPIFY_API_SECRET=your_shopify_api_secret
-   SHOPIFY_APP_URL=https://shopapp.cloudcache.ai  # or ngrok URL for local dev
+   SHOPIFY_APP_URL=https://shopify.cloudcache.ai  # or ngrok URL for local dev
    SCOPES=write_products,read_products,read_orders
    CF_ACCESS_CLIENT_ID=your_cf_access_client_id
    CF_ACCESS_CLIENT_SECRET=your_cf_access_client_secret
    ```
 
 3. **Session Storage**: The app uses Cloudflare KV (`APP_KV` binding) for Shopify session persistence
-4. **Local Development**: Use `pnpm dev:shopapp` to start the Remix dev server on port 8789
+4. **Local Development**: Use `pnpm dev:shopify` to start the Remix dev server on port 8789
 
 ### Optional Local Config
 
@@ -92,7 +92,7 @@ For the `shopapp` module (Remix-based Shopify app), additional environment varia
 
 ```bash
 # Run tests for a specific module
-pnpm --filter @cloudcache/shopapp test
+pnpm --filter @cloudcache/shopify test
 
 # Run all tests
 pnpm test
@@ -104,7 +104,7 @@ Use Miniflare for local integration testing (see `packages/test-utils`).
 
 ### Manual Testing
 
-1. Start local dev server: `pnpm dev:shopapp`
+1. Start local dev server: `pnpm dev:shopify`
 2. Make requests: `curl http://localhost:8789/healthz`
 3. Check logs in terminal
 

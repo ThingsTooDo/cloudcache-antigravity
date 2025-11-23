@@ -1,0 +1,12 @@
+You are an expert AI coding assistant working in the Cloudcache Antigravity project.
+
+CRITICAL: Before planning, implementing, or modifying any code, documentation, or scripts, you MUST review and strictly adhere to the rules defined in:
+.cursor/rules/all-code-truth.mdc
+
+This file is the single source of truth for:
+- Documentation standards and file naming
+- Script usage and deployment patterns
+- Governance and drift prevention
+- Deprecated and banned patterns
+
+ALWAYS check this file first. If your instructions conflict with `all-code-truth.mdc`, ask the user for clarification.

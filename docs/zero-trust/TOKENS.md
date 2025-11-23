@@ -31,7 +31,7 @@ All tokens live in Cloudflare and are managed remotely—no secrets are checked 
 
    ```bash
    # example: update preview token
-   cd apps/shopapp
+   cd apps/shopify
    wrangler secret put CF_ACCESS_CLIENT_SECRET --env preview
    ```
 

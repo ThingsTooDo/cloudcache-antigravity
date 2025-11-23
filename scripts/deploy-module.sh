@@ -39,8 +39,9 @@ parse_arguments() {
     ENV="${2?Missing environment name. Must be one of 'preview', 'staging', or 'production'.}"
 
     # Validate inputs
-    if [[ ! "$MODULE" =~ ^(app|admin|apex)$ ]]; then
-        die "Invalid module '$MODULE'. Must be one of 'app', 'admin', or 'apex'."
+    # Validate inputs
+    if [[ ! "$MODULE" =~ ^(app|shopify|admin|apex|website)$ ]]; then
+        die "Invalid module '$MODULE'. Must be one of 'app', 'shopify', 'admin', 'apex', or 'website'."
     fi
     if [[ ! "$ENV" =~ ^(preview|staging|production)$ ]]; then
         die "Invalid environment '$ENV'. Must be one of 'preview', 'staging', or 'production'."
@@ -52,12 +53,29 @@ parse_arguments() {
 run_deployment() {
     step "Executing deployment for '$MODULE' in '$ENV' environment..."
 
-    local module_dir="$ROOT_DIR/apps/$MODULE"
+    local module_dir_name="$MODULE"
+    # Map 'shopify' module name to 'shopify' directory
+    if [[ "$MODULE" == "shopify" ]]; then
+        module_dir_name="shopify"
+    elif [[ "$MODULE" == "app" ]]; then
+        module_dir_name="shopify"
+    fi
+
+    local module_dir="$ROOT_DIR/apps/$module_dir_name"
     cd "$module_dir" || die "Failed to change directory to $module_dir"
 
     local build_command="pnpm build:bundle"
+
+    # Added support for website module (Workers deployment)
+    if [[ "$MODULE" == "website" ]]; then
+        # Build Astro static site AND Worker bundle
+        build_command="pnpm build && pnpm exec vite build -c vite.worker.config.ts"
+    fi
     if [[ "$MODULE" == "apex" ]]; then
         build_command="pnpm build"
+    fi
+    if [[ "$MODULE" == "shopify" || "$MODULE" == "app" ]]; then
+        build_command="pnpm build && pnpm exec vite build -c vite.worker.config.ts"
     fi
 
     step "Building $MODULE module..."
@@ -92,7 +110,7 @@ run_deployment() {
                 break
             fi
         else
-            # APP/ADMIN: Cloudflare Workers deployment
+            # APP/ADMIN/WEBSITE: Cloudflare Workers deployment (pre-bundled)
             if wrangler deploy --env "$ENV" --no-bundle 2>&1; then
                 deploy_success=true
                 break

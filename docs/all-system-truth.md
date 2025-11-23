@@ -23,7 +23,7 @@ We use a single, master script for all deployments. It is parameterized to targe
 
 **Usage Examples:**
 
-- Deploy `shopapp` to preview: `bash scripts/deploy-module.sh shopapp preview`
+- Deploy `shopify` to preview: `bash scripts/deploy-module.sh shopify preview`
 - Deploy `website` to staging: `bash scripts/deploy-module.sh website staging`
 
 ### To Deploy All Modules to Preview

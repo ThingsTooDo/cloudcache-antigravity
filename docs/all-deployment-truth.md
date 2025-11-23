@@ -10,13 +10,13 @@ This document is the canonical source for all deployment, preview, and verificat
 
 1. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
 2. **Hybrid Architecture**:
-   - **SHOPAPP & ADMIN**: Cloudflare Workers (Workers-first).
+   - **SHOPIFY & ADMIN**: Cloudflare Workers (Workers-first).
    - **WEBSITE**: Cloudflare Pages (Astro-first).
 3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
 4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
 5. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
 6. **Hybrid Architecture**:
-   - **SHOPAPP & ADMIN**: Cloudflare Workers (Workers-first).
+   - **SHOPIFY & ADMIN**: Cloudflare Workers (Workers-first).
    - **WEBSITE**: Cloudflare Pages (Astro-first).
 7. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
 8. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
@@ -46,7 +46,7 @@ bash scripts/deploy-preview.sh
 
 **Expected Behavior:**
 
-- SHOPAPP module deploys first (~137 KB bundled, ~26 KB gzipped)
+- SHOPIFY module deploys first (~137 KB bundled, ~26 KB gzipped)
 - 5-second pause for API settling
 - ADMIN module deploys second (~120 KB bundled, ~22 KB gzipped)
 - 5-second pause for API settling
@@ -70,17 +70,17 @@ bash scripts/deploy-preview.sh
 
 ```bash
 bash scripts/deploy-module.sh <module> <environment>
-# Example: bash scripts/deploy-module.sh shopapp preview
+# Example: bash scripts/deploy-module.sh shopify preview
 ```
 
 **Build Commands:**
 
-- SHOPAPP/ADMIN: `pnpm build:bundle` (creates `dist/index.js`)
+- SHOPIFY/ADMIN: `pnpm build:bundle` (creates `dist/index.js`)
 - WEBSITE: `pnpm build` (Astro build, creates `dist/` static assets)
 
 **Current Bundle Sizes (as of 2025-11-21):**
 
-- SHOPAPP: 137.45 KB (26.56 KB gzipped) - includes component architecture
+- SHOPIFY: 137.45 KB (26.56 KB gzipped) - includes component architecture
 - ADMIN: 119.96 KB (22.56 KB gzipped)
 - WEBSITE: N/A (Static Site)
 
@@ -90,10 +90,10 @@ When deploying changes that affect the database schema (e.g., multi-tenant toggl
 
 ```bash
 # Apply to local dev
-wrangler d1 execute app-db --file=apps/shopapp/migrations/0002_create_customer_toggles.sql
+wrangler d1 execute app-db --file=apps/shopify/migrations/0002_create_customer_toggles.sql
 
 # Apply to preview
-wrangler d1 execute app-db --file=apps/shopapp/migrations/0002_create_customer_toggles.sql --env preview
+wrangler d1 execute app-db --file=apps/shopify/migrations/0002_create_customer_toggles.sql --env preview
 ```
 
 ## Verified URLs
@@ -102,17 +102,17 @@ The following URLs have been manually verified to be correct and functional afte
 
 | Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
 | :-------- | :------------------------------------------------------ | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| `shopapp` | `https://shopapp-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
+| `shopify` | `https://shopify-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
 | `admin`   | `https://admin-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
-| `website` | `https://preview.website-8h2.pages.dev`                 | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
+| `website` | `https://website-worker-preview.cloudcache.workers.dev` | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
 
 ### Health Endpoints
 
-**SHOPAPP Module**
+**SHOPIFY Module**
 
-- Health: `https://shopapp-worker-preview.cloudcache.workers.dev/healthz`
-- Ready: `https://shopapp-worker-preview.cloudcache.workers.dev/readyz`
-- Ping: `https://shopapp-worker-preview.cloudcache.workers.dev/api/v1/ping`
+- Health: `https://shopify-worker-preview.cloudcache.workers.dev/healthz`
+- Ready: `https://shopify-worker-preview.cloudcache.workers.dev/readyz`
+- Ping: `https://shopify-worker-preview.cloudcache.workers.dev/api/v1/ping`
 
 **ADMIN Module**
 
@@ -135,7 +135,7 @@ Run these commands to automatically test all preview deployments:
 pnpm test:validation
 
 # Test specific module
-scripts/cloudcache test-preview shopapp
+scripts/cloudcache test-preview shopify
 scripts/cloudcache test-preview admin
 scripts/cloudcache test-preview website
 ```
@@ -147,7 +147,7 @@ scripts/cloudcache test-preview website
 - ✅ Builds all modules for local development
 - ✅ Starts local servers sequentially with health checks
 - ✅ Validates 12 deployment targets:
-  - 3 modules (shopapp, admin, website)
+  - 3 modules (shopify, admin, website)
   - 2 environments (localhost, cloudflare preview)
   - 2 checks per target: Health & Version Check, Badge Verification
 - ✅ Generates timestamped validation report in `docs/reports/validation/`
@@ -173,7 +173,7 @@ If you want to **visually see** the green markers in your browser:
    - [ ] Page loads without errors
    - [ ] Green text is visible (bright green #00FF00)
    - [ ] Text is centered horizontally and vertically
-   - [ ] Text matches module name (e.g., "I love Cloudcache SHOPAPP")
+   - [ ] Text matches module name (e.g., "I love Cloudcache SHOPIFY")
 
 ## Preview Policy
 

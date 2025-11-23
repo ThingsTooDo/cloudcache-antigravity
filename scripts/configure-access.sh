@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Configure Cloudflare Access policies for all modules
-# Usage: bash scripts/configure-access.sh [all|shopapp|admin|website]
+# Usage: bash scripts/configure-access.sh [all|shopify|admin|website]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -270,8 +270,8 @@ configure_all() {
   log "Configuring Access policies for all modules and environments"
   
   # App module
-  configure_module_env "shopapp" "production" "shopapp.cloudcache.ai" "monitor-readyz-shopapp-prod"
-  configure_module_env "shopapp" "staging" "staging-shopapp.cloudcache.ai" "monitor-readyz-shopapp-staging"
+  configure_module_env "shopify" "production" "shopify.cloudcache.ai" "monitor-readyz-shopify-prod"
+  configure_module_env "shopify" "staging" "staging-shopify.cloudcache.ai" "monitor-readyz-shopify-staging"
   
   # Admin module
   configure_module_env "admin" "production" "admin.cloudcache.ai" "monitor-readyz-admin-prod"
@@ -293,9 +293,9 @@ case "$MODULE_ARG" in
   all)
     configure_all
     ;;
-  shopapp)
-    configure_module_env "shopapp" "production" "shopapp.cloudcache.ai" "monitor-readyz-shopapp-prod"
-    configure_module_env "shopapp" "staging" "staging-shopapp.cloudcache.ai" "monitor-readyz-shopapp-staging"
+  shopify)
+    configure_module_env "shopify" "production" "shopify.cloudcache.ai" "monitor-readyz-shopify-prod"
+    configure_module_env "shopify" "staging" "staging-shopify.cloudcache.ai" "monitor-readyz-shopify-staging"
     ;;
   admin)
     configure_module_env "admin" "production" "admin.cloudcache.ai" "monitor-readyz-admin-prod"
@@ -306,7 +306,7 @@ case "$MODULE_ARG" in
     configure_module_env "website" "staging" "staging-website.cloudcache.ai" "monitor-readyz-website-staging"
     ;;
   *)
-    die "Unknown module: $MODULE_ARG. Use: all|shopapp|admin|website"
+    die "Unknown module: $MODULE_ARG. Use: all|shopify|admin|website"
     ;;
 esac
 

@@ -4,7 +4,7 @@ import * as build from "./build/server/index.js";
 const handleRequest = createRequestHandler(build, "production");
 
 export default {
-    fetch(request, env, ctx) {
-        return handleRequest(request, env, ctx);
-    },
+  fetch(request, env, ctx) {
+    return handleRequest(request, env, ctx);
+  },
 };

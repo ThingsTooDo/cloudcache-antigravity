@@ -1,5 +1,5 @@
-name = "shopapp-worker"
-main = "./build/server/index.js"
+name = "shopify-worker"
+main = "./dist-worker/worker.js"
 compatibility_date = "2025-10-07"
 # [build]
 # command = "pnpm run build"
@@ -8,7 +8,7 @@ compatibility_date = "2025-10-07"
 
 # Production routes
 routes = [
-  { pattern = "shopapp.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+  { pattern = "shopify.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 # Remote bindings for local dev (no .dev.vars needed)
@@ -23,9 +23,9 @@ id = "0b01afadb4984342a5e0ef09d7ff5fcd"
 
 # Staging environment
 [env.staging]
-name = "shopapp-worker-staging"
+name = "shopify-worker-staging"
 routes = [
-  { pattern = "staging-shopapp.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+  { pattern = "staging-shopify.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 [[env.staging.kv_namespaces]]
@@ -34,20 +34,19 @@ id = "5df224d061fb4f869a1a713f1ebd7252"
 
 # Preview environment
 [env.preview]
-name = "shopapp-worker-preview"
-routes = [
-  { pattern = "shopapp-worker-preview.cloudcache.workers.dev/*", zone_name = "" }
-]
+name = "shopify-worker-preview"
+workers_dev = true
+routes = []
 
 [[env.preview.kv_namespaces]]
 binding = "APP_KV"
 id = "58050e98476b42578f917f32582b6647"
 
-# Commented out D1 for preview - causing ES module issues
-# [[env.preview.d1_databases]]
-# binding = "APP_D1"
-# database_name = "app-db"
-# database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+# Add D1 database binding for preview (same as production)
+[[env.preview.d1_databases]]
+binding = "APP_D1"
+database_name = "app-db"
+database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
 
 # D1 Database Binding
 

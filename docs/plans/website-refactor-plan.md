@@ -6,7 +6,7 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 
 ## Operational Impact
 
-- **SHOPAPP** and **ADMIN** remain unchanged (Workers‑first).
+- **SHOPIFY** and **ADMIN** remain unchanged (Workers‑first).
 - **WEBSITE** will no longer use `wrangler pages` or any Pages‑specific configuration.
 - All static assets (HTML, CSS, JS, images) will be bundled into the Worker and served via the Worker’s routing logic.
 - Deployment scripts, documentation, and truth files must be updated to reflect the new workflow.
@@ -91,6 +91,48 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 - All automated tests pass (`scripts/cloudcache test-preview website`).
 - Documentation reflects the new deployment path and URLs.
 - No Pages‑specific configuration remains in the repository.
+
+---
+
+## Naming Conventions Review
+
+**Preview URLs** (Workers.dev subdomains):
+
+- Shopify: `https://shopify-worker-preview.cloudcache.workers.dev`
+- Admin: `https://admin-worker-preview.cloudcache.workers.dev`
+- Website: `https://website-worker-preview.cloudcache.workers.dev`
+
+**Staging URLs** (custom domain subdomains):
+
+- Shopify: `https://staging-shopify.cloudcache.ai`
+- Admin: `https://staging-admin.cloudcache.ai`
+- Website: `https://staging-website.cloudcache.ai`
+
+**Production URLs**:
+
+- Shopify: `https://shopify.cloudcache.ai`
+- Admin: `https://admin.cloudcache.ai`
+- Website: `https://cloudcache.ai` (primary) and `https://www.cloudcache.ai` (www alias)
+
+> **Best‑practice check:**
+>
+> - All URLs are lower‑case, hyphenated, and use the appropriate domain for the environment.
+> - Preview URLs correctly use the Cloudflare Workers `.workers.dev` domain, matching the Workers‑first deployment model.
+> - Staging and production URLs use the custom `cloudcache.ai` domain with clear subdomain prefixes.
+> - No conflicts with existing bindings or DNS records are evident.
+> - Therefore the naming conventions conform to Cloudflare and organizational standards.
+
+---
+
+## Refactor Ordering Note
+
+The **SHOPAPP → SHOPIFY** refactor (renaming/realigning the module) can be scheduled as one of the early steps in the overall migration plan. Suggested placement:
+
+1. **Step 1** – Audit current Pages setup (already part of the website refactor).
+2. **Step 2** – **SHOPAPP > SHOPIFY** refactor (update module name, bindings, and URLs).
+3. **Step 3** – Update build pipeline and worker entry point for WEBSITE.
+
+If you prefer a different ordering, let me know and I will adjust the plan accordingly.
 
 ---
 

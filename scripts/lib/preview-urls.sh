@@ -53,7 +53,7 @@ get_module_preview_url() {
   local worker_name_or_url="${2:-}"
   
   case "$module" in
-    website|shopapp|admin)
+    website|shopify|admin)
       if [[ -n "$worker_name_or_url" ]]; then
         # If it's already a URL, return it
         if [[ "$worker_name_or_url" =~ ^https?:// ]]; then
@@ -69,7 +69,7 @@ get_module_preview_url() {
       fi
       ;;
     *)
-      die "Unknown module: $module. Must be one of: website, shopapp, admin"
+      die "Unknown module: $module. Must be one of: website, shopify, admin"
       ;;
   esac
 }

@@ -250,7 +250,7 @@ setup_wrangler_token() {
 
 # Get a value from a wrangler.toml file
 # usage: get_toml_value <path_to_toml> <key>
-# example: get_toml_value "apps/shopapp/wrangler.toml" "name"
+# example: get_toml_value "apps/shopify/wrangler.toml" "name"
 get_toml_value() {
   local toml_path="$1"
   local key="$2"

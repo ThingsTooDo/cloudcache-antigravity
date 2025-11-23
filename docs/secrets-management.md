@@ -14,13 +14,13 @@ All runtime secrets are stored in Cloudflare (Workers secrets or Pages environme
 
 ## Secret Placement
 
-### Workers (APP, ADMIN, & APEX modules)
+### Workers (SHOPIFY, ADMIN, & APEX modules)
 
 Secrets are stored per Worker and per environment using `wrangler secret put`:
 
-- **app-worker** (production): `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
-- **app-worker-staging**: Same secrets, different values
-- **app-worker-preview**: Same secrets, different values
+- **shopify-worker** (production): `SHOPIFY_API_KEY`, `SHOPIFY_API_SECRET`, `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
+- **shopify-worker-staging**: Same secrets, different values
+- **shopify-worker-preview**: Same secrets, different values
 - **admin-worker** (production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
 - **admin-worker-staging**: Same secrets, different values
 - **admin-worker-preview**: Same secrets, different values
@@ -42,7 +42,7 @@ Secrets are stored per Worker and per environment using `wrangler secret put`:
 scripts/cloudcache bootstrap <module> <env>
 
 # Examples:
-scripts/cloudcache bootstrap app prod
+scripts/cloudcache bootstrap shopify prod
 scripts/cloudcache bootstrap admin staging
 scripts/cloudcache bootstrap website preview
 ```
@@ -54,7 +54,7 @@ scripts/cloudcache bootstrap website preview
 scripts/cloudcache bind <module> <env>
 
 # Examples:
-scripts/cloudcache bind app prod
+scripts/cloudcache bind shopify prod
 scripts/cloudcache bind admin staging
 scripts/cloudcache bind website preview
 ```
@@ -66,7 +66,7 @@ scripts/cloudcache bind website preview
 scripts/cloudcache verify <module> <env>
 
 # Examples:
-scripts/cloudcache verify app prod
+scripts/cloudcache verify shopify prod
 scripts/cloudcache verify admin staging
 scripts/cloudcache verify website preview
 ```
@@ -83,8 +83,8 @@ wrangler secret put SECRET_NAME --name <worker-name> --env <env>
 wrangler secret list --name <worker-name> --env <env>
 
 # Examples:
-wrangler secret put SHOPIFY_API_KEY --name app-worker --env staging
-wrangler secret list --name app-worker --env staging
+wrangler secret put SHOPIFY_API_KEY --name shopify-worker --env staging
+wrangler secret list --name shopify-worker --env staging
 ```
 
 ## Local Development
@@ -94,7 +94,7 @@ wrangler secret list --name app-worker --env staging
 Use `wrangler dev --remote` to run locally with remote bindings:
 
 ```bash
-cd apps/shopapp
+cd apps/shopify
 pnpm dev  # Uses wrangler dev --remote automatically
 ```
 

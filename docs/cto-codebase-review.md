@@ -21,17 +21,17 @@ To achieve an **A+ Grade**, we must align with Shopify's modern Remix-based arch
 ### ❌ Critical Issues
 
 1. **Root Pollution**:
-    - `wrangler.toml` in root points to a non-existent `src/apex/index.ts`. This is confusing and dangerous.
-    - `folder_structure.txt` is a manual artifact that inevitably drifts from reality.
+   - `wrangler.toml` in root points to a non-existent `src/apex/index.ts`. This is confusing and dangerous.
+   - `folder_structure.txt` is a manual artifact that inevitably drifts from reality.
 2. **Shopify Alignment Gap**:
-    - **Missing Config**: No `shopify.app.toml` found.
-    - **Missing Libraries**: `apps/app` has no `@shopify/*` dependencies.
-    - **Architecture Mismatch**: Modern Shopify apps typically use Remix. The current `apps/app` is a generic Worker. It is unclear if this is intended to be the App Backend or a separate service.
+   - **Missing Config**: No `shopify.app.toml` found.
+   - **Missing Libraries**: `apps/app` has no `@shopify/*` dependencies.
+   - **Architecture Mismatch**: Modern Shopify apps typically use Remix. The current `apps/app` is a generic Worker. It is unclear if this is intended to be the App Backend or a separate service.
 3. **Ambiguous Naming**:
-    - `apps/app`: "App" is too generic. Is it the Shopify App? The Mobile App API? The Main Backend?
-    - `apps/admin`: Is this the Shopify Admin extension or a standalone admin tool?
+   - `apps/app`: "App" is too generic. Is it the Shopify App? The Mobile App API? The Main Backend?
+   - `apps/admin`: Is this the Shopify Admin extension or a standalone admin tool?
 4. **Script Sprawl**:
-    - `scripts/` contains 85+ files. This suggests a high maintenance burden and reliance on shell scripts over modern task runners like TurboRepo or Nx.
+   - `scripts/` contains 85+ files. This suggests a high maintenance burden and reliance on shell scripts over modern task runners like TurboRepo or Nx.
 
 ## 2. Recommendations for Refactoring
 
@@ -82,5 +82,6 @@ We should restructure `apps/` to be explicit about intent.
 4. **Scaffold Shopify**: Generate the standard Shopify app structure.
 
 ---
+
 **Decision Required**:
 Is `apps/app` intended to be the **Shopify App Backend** or a **General Purpose API**?

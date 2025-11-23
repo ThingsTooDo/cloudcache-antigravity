@@ -18,13 +18,13 @@ This document is the canonical source for all deployment, preview, and verificat
 
 ## Script Reference
 
-| Script                                                          | Purpose                                                                                                                                          |
-| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers and `wrangler pages deploy` for APEX.               |
-| `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                                           |
-| `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).                             |
-| `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                                        |
-| `scripts/lib/preview-urls.sh`                                   | Helper used by automation to print the current preview endpoints.                                                                                |
+| Script                                                          | Purpose                                                                                                                            |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers and `wrangler pages deploy` for APEX. |
+| `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                             |
+| `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).               |
+| `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                          |
+| `scripts/lib/preview-urls.sh`                                   | Helper used by automation to print the current preview endpoints.                                                                  |
 
 ## Deployment Procedures
 

@@ -1,1 +1,65 @@
-import{b as x,c as m,d as y,e as S,r as a,_ as w,u as f,j as e,M as j,L as g,O as M,S as k}from"./components-pL6DFRjL.js";let l="positions";function L({getKey:t,...o}){let{isSpaMode:c}=x(),i=m(),u=y();S({getKey:t,storageKey:l});let d=a.useMemo(()=>{if(!t)return null;let s=t(i,u);return s!==i.key?s:null},[]);if(c)return null;let p=((s,h)=>{if(!window.history.state||!window.history.state.key){let r=Math.random().toString(32).slice(2);window.history.replaceState({key:r},"")}try{let n=JSON.parse(sessionStorage.getItem(s)||"{}")[h||window.history.state.key];typeof n=="number"&&window.scrollTo(0,n)}catch(r){console.error(r),sessionStorage.removeItem(s)}}).toString();return a.createElement("script",w({},o,{suppressHydrationWarning:!0,dangerouslySetInnerHTML:{__html:`(${p})(${JSON.stringify(l)}, ${JSON.stringify(d)})`}}))}function R(){const{host:t,apiKey:o}=f();return e.jsxs("html",{children:[e.jsxs("head",{children:[e.jsx("meta",{charSet:"utf-8"}),e.jsx("meta",{name:"viewport",content:"width=device-width,initial-scale=1"}),e.jsx(j,{}),e.jsx(g,{})]}),e.jsxs("body",{children:[e.jsx(M,{context:{host:t,apiKey:o}}),e.jsx(L,{}),e.jsx(k,{})]})]})}export{R as default};
+import {
+  b as x,
+  c as m,
+  d as y,
+  e as S,
+  r as a,
+  _ as w,
+  u as f,
+  j as e,
+  M as j,
+  L as g,
+  O as M,
+  S as k,
+} from "./components-pL6DFRjL.js";
+let l = "positions";
+function L({ getKey: t, ...o }) {
+  let { isSpaMode: c } = x(),
+    i = m(),
+    u = y();
+  S({ getKey: t, storageKey: l });
+  let d = a.useMemo(() => {
+    if (!t) return null;
+    let s = t(i, u);
+    return s !== i.key ? s : null;
+  }, []);
+  if (c) return null;
+  let p = ((s, h) => {
+    if (!window.history.state || !window.history.state.key) {
+      let r = Math.random().toString(32).slice(2);
+      window.history.replaceState({ key: r }, "");
+    }
+    try {
+      let n = JSON.parse(sessionStorage.getItem(s) || "{}")[h || window.history.state.key];
+      typeof n == "number" && window.scrollTo(0, n);
+    } catch (r) {
+      (console.error(r), sessionStorage.removeItem(s));
+    }
+  }).toString();
+  return a.createElement(
+    "script",
+    w({}, o, {
+      suppressHydrationWarning: !0,
+      dangerouslySetInnerHTML: { __html: `(${p})(${JSON.stringify(l)}, ${JSON.stringify(d)})` },
+    })
+  );
+}
+function R() {
+  const { host: t, apiKey: o } = f();
+  return e.jsxs("html", {
+    children: [
+      e.jsxs("head", {
+        children: [
+          e.jsx("meta", { charSet: "utf-8" }),
+          e.jsx("meta", { name: "viewport", content: "width=device-width,initial-scale=1" }),
+          e.jsx(j, {}),
+          e.jsx(g, {}),
+        ],
+      }),
+      e.jsxs("body", {
+        children: [e.jsx(M, { context: { host: t, apiKey: o } }), e.jsx(L, {}), e.jsx(k, {})],
+      }),
+    ],
+  });
+}
+export { R as default };

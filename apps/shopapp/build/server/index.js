@@ -1,9 +1,30 @@
 import { jsx, jsxs } from "react/jsx-runtime";
-import { RemixServer, useLoaderData, Meta, Links, Outlet, ScrollRestoration, Scripts, useOutletContext, Form } from "@remix-run/react";
+import {
+  RemixServer,
+  useLoaderData,
+  Meta,
+  Links,
+  Outlet,
+  ScrollRestoration,
+  Scripts,
+  useOutletContext,
+  Form,
+} from "@remix-run/react";
 import * as isbotModule from "isbot";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
-import { Page, Layout, Card, Text, DataTable, BlockStack, FormLayout, TextField, Button, InlineStack } from "@shopify/polaris";
+import {
+  Page,
+  Layout,
+  Card,
+  Text,
+  DataTable,
+  BlockStack,
+  FormLayout,
+  TextField,
+  Button,
+  InlineStack,
+} from "@shopify/polaris";
 import require$$0, { useState } from "react";
 import require$$1 from "@shopify/app-bridge/utilities/index.js";
 import require$$1$1 from "@shopify/app-bridge/actions/ContextualSaveBar/index.js";
@@ -22,7 +43,13 @@ import require$$0$2 from "@shopify/app-bridge/MessageTransport.js";
 import require$$1$b from "@shopify/app-bridge/actions/ResourcePicker/index.js";
 import require$$2$1 from "@shopify/app-bridge/actions/TitleBar/index.js";
 import require$$1$c from "@shopify/app-bridge/actions/Picker/index.js";
-async function handleRequest(request2, responseStatusCode, responseHeaders, remixContext, loadContext) {
+async function handleRequest(
+  request2,
+  responseStatusCode,
+  responseHeaders,
+  remixContext,
+  loadContext
+) {
   const body = await renderToReadableStream(
     /* @__PURE__ */ jsx(RemixServer, { context: remixContext, url: request2.url }),
     {
@@ -32,7 +59,7 @@ async function handleRequest(request2, responseStatusCode, responseHeaders, remi
       onError(error) {
         console.error(error);
         responseStatusCode = 500;
-      }
+      },
     }
   );
   if (isBotRequest(request2.headers.get("user-agent"))) {
@@ -41,7 +68,7 @@ async function handleRequest(request2, responseStatusCode, responseHeaders, remi
   responseHeaders.set("Content-Type", "text/html");
   return new Response(body, {
     headers: responseHeaders,
-    status: responseStatusCode
+    status: responseStatusCode,
   });
 }
 function isBotRequest(userAgent) {
@@ -56,10 +83,16 @@ function isBotRequest(userAgent) {
   }
   return false;
 }
-const entryServer = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: handleRequest
-}, Symbol.toStringTag, { value: "Module" }));
+const entryServer = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      default: handleRequest,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 async function loader$5({ request: request2 }) {
   const url = new URL(request2.url);
   const host = url.searchParams.get("host");
@@ -68,25 +101,40 @@ async function loader$5({ request: request2 }) {
 }
 function App() {
   const { host, apiKey } = useLoaderData();
-  return /* @__PURE__ */ jsxs("html", { children: [
-    /* @__PURE__ */ jsxs("head", { children: [
-      /* @__PURE__ */ jsx("meta", { charSet: "utf-8" }),
-      /* @__PURE__ */ jsx("meta", { name: "viewport", content: "width=device-width,initial-scale=1" }),
-      /* @__PURE__ */ jsx(Meta, {}),
-      /* @__PURE__ */ jsx(Links, {})
-    ] }),
-    /* @__PURE__ */ jsxs("body", { children: [
-      /* @__PURE__ */ jsx(Outlet, { context: { host, apiKey } }),
-      /* @__PURE__ */ jsx(ScrollRestoration, {}),
-      /* @__PURE__ */ jsx(Scripts, {})
-    ] })
-  ] });
+  return /* @__PURE__ */ jsxs("html", {
+    children: [
+      /* @__PURE__ */ jsxs("head", {
+        children: [
+          /* @__PURE__ */ jsx("meta", { charSet: "utf-8" }),
+          /* @__PURE__ */ jsx("meta", {
+            name: "viewport",
+            content: "width=device-width,initial-scale=1",
+          }),
+          /* @__PURE__ */ jsx(Meta, {}),
+          /* @__PURE__ */ jsx(Links, {}),
+        ],
+      }),
+      /* @__PURE__ */ jsxs("body", {
+        children: [
+          /* @__PURE__ */ jsx(Outlet, { context: { host, apiKey } }),
+          /* @__PURE__ */ jsx(ScrollRestoration, {}),
+          /* @__PURE__ */ jsx(Scripts, {}),
+        ],
+      }),
+    ],
+  });
 }
-const route0 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: App,
-  loader: loader$5
-}, Symbol.toStringTag, { value: "Module" }));
+const route0 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      default: App,
+      loader: loader$5,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 }
@@ -114,7 +162,9 @@ function requireUseAppBridge() {
   function useAppBridge$1() {
     var appBridge = (0, react_1.useContext)(context_1.AppBridgeContext);
     if (!appBridge) {
-      throw new Error("No AppBridge context provided. Your component must be wrapped in the <Provider> component from App Bridge React.");
+      throw new Error(
+        "No AppBridge context provided. Your component must be wrapped in the <Provider> component from App Bridge React."
+      );
     }
     return appBridge;
   }
@@ -131,159 +181,205 @@ var hasRequiredUseAppBridgeState$1;
 function requireUseAppBridgeState$1() {
   if (hasRequiredUseAppBridgeState$1) return useAppBridgeState;
   hasRequiredUseAppBridgeState$1 = 1;
-  var __awaiter = useAppBridgeState && useAppBridgeState.__awaiter || function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve) {
-        resolve(value);
+  var __awaiter =
+    (useAppBridgeState && useAppBridgeState.__awaiter) ||
+    function (thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P
+          ? value
+          : new P(function (resolve) {
+              resolve(value);
+            });
+      }
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
-    }
-    return new (P || (P = Promise))(function(resolve, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
+    };
+  var __generator =
+    (useAppBridgeState && useAppBridgeState.__generator) ||
+    function (thisArg, body) {
+      var _ = {
+          label: 0,
+          sent: function () {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+          },
+          trys: [],
+          ops: [],
+        },
+        f,
+        y,
+        t,
+        g;
+      return (
+        (g = { next: verb(0), throw: verb(1), return: verb(2) }),
+        typeof Symbol === "function" &&
+          (g[Symbol.iterator] = function () {
+            return this;
+          }),
+        g
+      );
+      function verb(n) {
+        return function (v) {
+          return step([n, v]);
+        };
       }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while ((g && ((g = 0), op[0] && (_ = 0)), _))
+          try {
+            if (
+              ((f = 1),
+              y &&
+                (t =
+                  op[0] & 2
+                    ? y["return"]
+                    : op[0]
+                      ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
+                      : y.next) &&
+                !(t = t.call(y, op[1])).done)
+            )
+              return t;
+            if (((y = 0), t)) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+              case 0:
+              case 1:
+                t = op;
+                break;
+              case 4:
+                _.label++;
+                return { value: op[1], done: false };
+              case 5:
+                _.label++;
+                y = op[1];
+                op = [0];
+                continue;
+              case 7:
+                op = _.ops.pop();
+                _.trys.pop();
+                continue;
+              default:
+                if (
+                  !((t = _.trys), (t = t.length > 0 && t[t.length - 1])) &&
+                  (op[0] === 6 || op[0] === 2)
+                ) {
+                  _ = 0;
+                  continue;
+                }
+                if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                  _.label = op[1];
+                  break;
+                }
+                if (op[0] === 6 && _.label < t[1]) {
+                  _.label = t[1];
+                  t = op;
+                  break;
+                }
+                if (t && _.label < t[2]) {
+                  _.label = t[2];
+                  _.ops.push(op);
+                  break;
+                }
+                if (t[2]) _.ops.pop();
+                _.trys.pop();
+                continue;
+            }
+            op = body.call(thisArg, _);
+          } catch (e) {
+            op = [6, e];
+            y = 0;
+          } finally {
+            f = t = 0;
+          }
+        if (op[0] & 5) throw op[1];
+        return { value: op[0] ? op[1] : void 0, done: true };
       }
-      function step(result) {
-        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  var __generator = useAppBridgeState && useAppBridgeState.__generator || function(thisArg, body) {
-    var _ = { label: 0, sent: function() {
-      if (t[0] & 1) throw t[1];
-      return t[1];
-    }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-      return this;
-    }), g;
-    function verb(n) {
-      return function(v) {
-        return step([n, v]);
-      };
-    }
-    function step(op) {
-      if (f) throw new TypeError("Generator is already executing.");
-      while (g && (g = 0, op[0] && (_ = 0)), _) try {
-        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-        if (y = 0, t) op = [op[0] & 2, t.value];
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-          case 4:
-            _.label++;
-            return { value: op[1], done: false };
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-          case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-          default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-              _ = 0;
-              continue;
-            }
-            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            if (t[2]) _.ops.pop();
-            _.trys.pop();
-            continue;
-        }
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-      if (op[0] & 5) throw op[1];
-      return { value: op[0] ? op[1] : void 0, done: true };
-    }
-  };
+    };
   Object.defineProperty(useAppBridgeState, "__esModule", { value: true });
   useAppBridgeState.useAppBridgeState = void 0;
   var react_1 = require$$0;
   var useAppBridge_1 = /* @__PURE__ */ requireUseAppBridge();
-  var useAppBridgeState$12 = function(query) {
+  var useAppBridgeState$12 = function (query) {
     var app = (0, useAppBridge_1.useAppBridge)();
-    var _a = (0, react_1.useState)(), state = _a[0], setState = _a[1];
+    var _a = (0, react_1.useState)(),
+      state = _a[0],
+      setState = _a[1];
     var isUnmounted = (0, react_1.useRef)(false);
-    var refresh = (0, react_1.useCallback)(function() {
-      return __awaiter(void 0, void 0, void 0, function() {
-        var newState, _a2;
-        return __generator(this, function(_b) {
-          switch (_b.label) {
-            case 0:
-              if (!query) return [3, 2];
-              return [4, app.getState(query)];
-            case 1:
-              _a2 = _b.sent();
-              return [3, 4];
-            case 2:
-              return [4, app.getState()];
-            case 3:
-              _a2 = _b.sent();
-              _b.label = 4;
-            case 4:
-              newState = _a2;
-              if (isUnmounted.current) {
+    var refresh = (0, react_1.useCallback)(
+      function () {
+        return __awaiter(void 0, void 0, void 0, function () {
+          var newState, _a2;
+          return __generator(this, function (_b) {
+            switch (_b.label) {
+              case 0:
+                if (!query) return [3, 2];
+                return [4, app.getState(query)];
+              case 1:
+                _a2 = _b.sent();
+                return [3, 4];
+              case 2:
+                return [4, app.getState()];
+              case 3:
+                _a2 = _b.sent();
+                _b.label = 4;
+              case 4:
+                newState = _a2;
+                if (isUnmounted.current) {
+                  return [
+                    2,
+                    /*return*/
+                  ];
+                }
+                setState(function (currentState) {
+                  if (JSON.stringify(newState) === JSON.stringify(currentState)) {
+                    return currentState;
+                  }
+                  return newState;
+                });
                 return [
-                  2
+                  2,
                   /*return*/
                 ];
-              }
-              setState(function(currentState) {
-                if (JSON.stringify(newState) === JSON.stringify(currentState)) {
-                  return currentState;
-                }
-                return newState;
-              });
-              return [
-                2
-                /*return*/
-              ];
-          }
+            }
+          });
         });
-      });
-    }, [app, query]);
-    (0, react_1.useEffect)(function() {
-      refresh();
-      return app.subscribe(function() {
+      },
+      [app, query]
+    );
+    (0, react_1.useEffect)(
+      function () {
         refresh();
-      });
-    }, [app, refresh]);
-    (0, react_1.useEffect)(function() {
-      return function() {
-        isUnmounted.current = true;
-      };
-    }, [app]);
+        return app.subscribe(function () {
+          refresh();
+        });
+      },
+      [app, refresh]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        return function () {
+          isUnmounted.current = true;
+        };
+      },
+      [app]
+    );
     return state;
   };
   useAppBridgeState.useAppBridgeState = useAppBridgeState$12;
@@ -293,23 +389,34 @@ var hasRequiredUseAppBridgeState;
 function requireUseAppBridgeState() {
   if (hasRequiredUseAppBridgeState) return useAppBridgeState$1;
   hasRequiredUseAppBridgeState = 1;
-  (function(exports$1) {
-    var __createBinding = useAppBridgeState$1 && useAppBridgeState$1.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = useAppBridgeState$1 && useAppBridgeState$1.__exportStar || function(m, exports$12) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p)) __createBinding(exports$12, m, p);
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (useAppBridgeState$1 && useAppBridgeState$1.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __exportStar =
+      (useAppBridgeState$1 && useAppBridgeState$1.__exportStar) ||
+      function (m, exports$12) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p))
+            __createBinding(exports$12, m, p);
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     __exportStar(/* @__PURE__ */ requireUseAppBridgeState$1(), exports$1);
   })(useAppBridgeState$1);
@@ -331,9 +438,12 @@ function requireUseAuthenticatedFetch$1() {
       options = void 0;
     }
     var app = (0, useAppBridge_1.useAppBridge)();
-    var fetchFunction = (0, react_1.useMemo)(function() {
-      return (0, utilities_1.authenticatedFetch)(app, options);
-    }, [app, options]);
+    var fetchFunction = (0, react_1.useMemo)(
+      function () {
+        return (0, utilities_1.authenticatedFetch)(app, options);
+      },
+      [app, options]
+    );
     return fetchFunction;
   }
   useAuthenticatedFetch.useAuthenticatedFetch = useAuthenticatedFetch$12;
@@ -343,23 +453,34 @@ var hasRequiredUseAuthenticatedFetch;
 function requireUseAuthenticatedFetch() {
   if (hasRequiredUseAuthenticatedFetch) return useAuthenticatedFetch$1;
   hasRequiredUseAuthenticatedFetch = 1;
-  (function(exports$1) {
-    var __createBinding = useAuthenticatedFetch$1 && useAuthenticatedFetch$1.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = useAuthenticatedFetch$1 && useAuthenticatedFetch$1.__exportStar || function(m, exports$12) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p)) __createBinding(exports$12, m, p);
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (useAuthenticatedFetch$1 && useAuthenticatedFetch$1.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __exportStar =
+      (useAuthenticatedFetch$1 && useAuthenticatedFetch$1.__exportStar) ||
+      function (m, exports$12) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p))
+            __createBinding(exports$12, m, p);
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     __exportStar(/* @__PURE__ */ requireUseAuthenticatedFetch$1(), exports$1);
   })(useAuthenticatedFetch$1);
@@ -371,17 +492,19 @@ var hasRequiredUseContextualSaveBar$1;
 function requireUseContextualSaveBar$1() {
   if (hasRequiredUseContextualSaveBar$1) return useContextualSaveBar;
   hasRequiredUseContextualSaveBar$1 = 1;
-  var __rest = useContextualSaveBar && useContextualSaveBar.__rest || function(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-        if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-          t[p[i]] = s[p[i]];
-      }
-    return t;
-  };
+  var __rest =
+    (useContextualSaveBar && useContextualSaveBar.__rest) ||
+    function (s, e) {
+      var t = {};
+      for (var p in s)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+      if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            t[p[i]] = s[p[i]];
+        }
+      return t;
+    };
   Object.defineProperty(useContextualSaveBar, "__esModule", { value: true });
   useContextualSaveBar.useContextualSaveBar = void 0;
   var react_1 = require$$0;
@@ -390,63 +513,94 @@ function requireUseContextualSaveBar$1() {
   function useContextualSaveBar$12() {
     var app = (0, useAppBridge_1.useAppBridge)();
     var visibleRef = (0, react_1.useRef)(false);
-    var _a = (0, react_1.useState)(), onSaveAction = _a[0], setOnSaveAction = _a[1];
-    var _b = (0, react_1.useState)(), onDiscardAction = _b[0], setOnDiscardAction = _b[1];
-    var contextualSaveBar = (0, react_1.useMemo)(function() {
-      return (0, ContextualSaveBar_1.create)(app);
-    }, [app]);
-    var show = (0, react_1.useCallback)(function(options) {
-      if (options) {
-        contextualSaveBar.set(options, false);
-      }
-      contextualSaveBar.dispatch(ContextualSaveBar_1.Action.SHOW);
-      visibleRef.current = true;
-    }, [contextualSaveBar]);
-    var hide = (0, react_1.useCallback)(function() {
-      contextualSaveBar.dispatch(ContextualSaveBar_1.Action.HIDE);
-      visibleRef.current = false;
-    }, [contextualSaveBar]);
-    var saveAction = (0, react_1.useMemo)(function() {
-      return {
-        setOptions: function(_a2) {
-          var onAction = _a2.onAction, saveAction2 = __rest(_a2, ["onAction"]);
-          var shouldUpdate = JSON.stringify(contextualSaveBar.options.saveAction) !== JSON.stringify(saveAction2) && visibleRef.current;
-          setOnSaveAction(function() {
-            return onAction;
-          });
-          contextualSaveBar.set({ saveAction: saveAction2 }, shouldUpdate);
+    var _a = (0, react_1.useState)(),
+      onSaveAction = _a[0],
+      setOnSaveAction = _a[1];
+    var _b = (0, react_1.useState)(),
+      onDiscardAction = _b[0],
+      setOnDiscardAction = _b[1];
+    var contextualSaveBar = (0, react_1.useMemo)(
+      function () {
+        return (0, ContextualSaveBar_1.create)(app);
+      },
+      [app]
+    );
+    var show = (0, react_1.useCallback)(
+      function (options) {
+        if (options) {
+          contextualSaveBar.set(options, false);
         }
-      };
-    }, [contextualSaveBar]);
-    var discardAction = (0, react_1.useMemo)(function() {
-      return {
-        setOptions: function(_a2) {
-          var onAction = _a2.onAction, discardAction2 = __rest(_a2, ["onAction"]);
-          var shouldUpdate = JSON.stringify(contextualSaveBar.options.discardAction) !== JSON.stringify(discardAction2) && visibleRef.current;
-          setOnDiscardAction(function() {
-            return onAction;
-          });
-          contextualSaveBar.set({ discardAction: discardAction2 }, shouldUpdate);
-        }
-      };
-    }, [contextualSaveBar]);
-    (0, react_1.useEffect)(function() {
-      return function() {
+        contextualSaveBar.dispatch(ContextualSaveBar_1.Action.SHOW);
+        visibleRef.current = true;
+      },
+      [contextualSaveBar]
+    );
+    var hide = (0, react_1.useCallback)(
+      function () {
+        contextualSaveBar.dispatch(ContextualSaveBar_1.Action.HIDE);
+        visibleRef.current = false;
+      },
+      [contextualSaveBar]
+    );
+    var saveAction = (0, react_1.useMemo)(
+      function () {
+        return {
+          setOptions: function (_a2) {
+            var onAction = _a2.onAction,
+              saveAction2 = __rest(_a2, ["onAction"]);
+            var shouldUpdate =
+              JSON.stringify(contextualSaveBar.options.saveAction) !==
+                JSON.stringify(saveAction2) && visibleRef.current;
+            setOnSaveAction(function () {
+              return onAction;
+            });
+            contextualSaveBar.set({ saveAction: saveAction2 }, shouldUpdate);
+          },
+        };
+      },
+      [contextualSaveBar]
+    );
+    var discardAction = (0, react_1.useMemo)(
+      function () {
+        return {
+          setOptions: function (_a2) {
+            var onAction = _a2.onAction,
+              discardAction2 = __rest(_a2, ["onAction"]);
+            var shouldUpdate =
+              JSON.stringify(contextualSaveBar.options.discardAction) !==
+                JSON.stringify(discardAction2) && visibleRef.current;
+            setOnDiscardAction(function () {
+              return onAction;
+            });
+            contextualSaveBar.set({ discardAction: discardAction2 }, shouldUpdate);
+          },
+        };
+      },
+      [contextualSaveBar]
+    );
+    (0, react_1.useEffect)(function () {
+      return function () {
         if (visibleRef.current) {
           hide();
         }
       };
     }, []);
-    (0, react_1.useEffect)(function() {
-      return contextualSaveBar.subscribe(ContextualSaveBar_1.Action.DISCARD, function() {
-        onDiscardAction === null || onDiscardAction === void 0 ? void 0 : onDiscardAction();
-      });
-    }, [contextualSaveBar, onDiscardAction]);
-    (0, react_1.useEffect)(function() {
-      return contextualSaveBar.subscribe(ContextualSaveBar_1.Action.SAVE, function() {
-        onSaveAction === null || onSaveAction === void 0 ? void 0 : onSaveAction();
-      });
-    }, [contextualSaveBar, onSaveAction]);
+    (0, react_1.useEffect)(
+      function () {
+        return contextualSaveBar.subscribe(ContextualSaveBar_1.Action.DISCARD, function () {
+          onDiscardAction === null || onDiscardAction === void 0 ? void 0 : onDiscardAction();
+        });
+      },
+      [contextualSaveBar, onDiscardAction]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        return contextualSaveBar.subscribe(ContextualSaveBar_1.Action.SAVE, function () {
+          onSaveAction === null || onSaveAction === void 0 ? void 0 : onSaveAction();
+        });
+      },
+      [contextualSaveBar, onSaveAction]
+    );
     return { show, hide, saveAction, discardAction };
   }
   useContextualSaveBar.useContextualSaveBar = useContextualSaveBar$12;
@@ -456,13 +610,16 @@ var hasRequiredUseContextualSaveBar;
 function requireUseContextualSaveBar() {
   if (hasRequiredUseContextualSaveBar) return useContextualSaveBar$1;
   hasRequiredUseContextualSaveBar = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useContextualSaveBar = void 0;
     var useContextualSaveBar_1 = /* @__PURE__ */ requireUseContextualSaveBar$1();
-    Object.defineProperty(exports$1, "useContextualSaveBar", { enumerable: true, get: function() {
-      return useContextualSaveBar_1.useContextualSaveBar;
-    } });
+    Object.defineProperty(exports$1, "useContextualSaveBar", {
+      enumerable: true,
+      get: function () {
+        return useContextualSaveBar_1.useContextualSaveBar;
+      },
+    });
   })(useContextualSaveBar$1);
   return useContextualSaveBar$1;
 }
@@ -472,102 +629,137 @@ var hasRequiredUseFeaturesAvailable$1;
 function requireUseFeaturesAvailable$1() {
   if (hasRequiredUseFeaturesAvailable$1) return useFeaturesAvailable;
   hasRequiredUseFeaturesAvailable$1 = 1;
-  var __awaiter = useFeaturesAvailable && useFeaturesAvailable.__awaiter || function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve) {
-        resolve(value);
+  var __awaiter =
+    (useFeaturesAvailable && useFeaturesAvailable.__awaiter) ||
+    function (thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P
+          ? value
+          : new P(function (resolve) {
+              resolve(value);
+            });
+      }
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
-    }
-    return new (P || (P = Promise))(function(resolve, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
+    };
+  var __generator =
+    (useFeaturesAvailable && useFeaturesAvailable.__generator) ||
+    function (thisArg, body) {
+      var _ = {
+          label: 0,
+          sent: function () {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+          },
+          trys: [],
+          ops: [],
+        },
+        f,
+        y,
+        t,
+        g;
+      return (
+        (g = { next: verb(0), throw: verb(1), return: verb(2) }),
+        typeof Symbol === "function" &&
+          (g[Symbol.iterator] = function () {
+            return this;
+          }),
+        g
+      );
+      function verb(n) {
+        return function (v) {
+          return step([n, v]);
+        };
       }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while ((g && ((g = 0), op[0] && (_ = 0)), _))
+          try {
+            if (
+              ((f = 1),
+              y &&
+                (t =
+                  op[0] & 2
+                    ? y["return"]
+                    : op[0]
+                      ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
+                      : y.next) &&
+                !(t = t.call(y, op[1])).done)
+            )
+              return t;
+            if (((y = 0), t)) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+              case 0:
+              case 1:
+                t = op;
+                break;
+              case 4:
+                _.label++;
+                return { value: op[1], done: false };
+              case 5:
+                _.label++;
+                y = op[1];
+                op = [0];
+                continue;
+              case 7:
+                op = _.ops.pop();
+                _.trys.pop();
+                continue;
+              default:
+                if (
+                  !((t = _.trys), (t = t.length > 0 && t[t.length - 1])) &&
+                  (op[0] === 6 || op[0] === 2)
+                ) {
+                  _ = 0;
+                  continue;
+                }
+                if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                  _.label = op[1];
+                  break;
+                }
+                if (op[0] === 6 && _.label < t[1]) {
+                  _.label = t[1];
+                  t = op;
+                  break;
+                }
+                if (t && _.label < t[2]) {
+                  _.label = t[2];
+                  _.ops.push(op);
+                  break;
+                }
+                if (t[2]) _.ops.pop();
+                _.trys.pop();
+                continue;
+            }
+            op = body.call(thisArg, _);
+          } catch (e) {
+            op = [6, e];
+            y = 0;
+          } finally {
+            f = t = 0;
+          }
+        if (op[0] & 5) throw op[1];
+        return { value: op[0] ? op[1] : void 0, done: true };
       }
-      function step(result) {
-        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  var __generator = useFeaturesAvailable && useFeaturesAvailable.__generator || function(thisArg, body) {
-    var _ = { label: 0, sent: function() {
-      if (t[0] & 1) throw t[1];
-      return t[1];
-    }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-      return this;
-    }), g;
-    function verb(n) {
-      return function(v) {
-        return step([n, v]);
-      };
-    }
-    function step(op) {
-      if (f) throw new TypeError("Generator is already executing.");
-      while (g && (g = 0, op[0] && (_ = 0)), _) try {
-        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-        if (y = 0, t) op = [op[0] & 2, t.value];
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-          case 4:
-            _.label++;
-            return { value: op[1], done: false };
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-          case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-          default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-              _ = 0;
-              continue;
-            }
-            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            if (t[2]) _.ops.pop();
-            _.trys.pop();
-            continue;
-        }
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-      if (op[0] & 5) throw op[1];
-      return { value: op[0] ? op[1] : void 0, done: true };
-    }
-  };
+    };
   Object.defineProperty(useFeaturesAvailable, "__esModule", { value: true });
   useFeaturesAvailable.useFeaturesAvailable = void 0;
   var react_1 = require$$0;
@@ -580,53 +772,64 @@ function requireUseFeaturesAvailable$1() {
       query[_i] = arguments[_i];
     }
     var app = (0, useAppBridge_1.useAppBridge)();
-    var _a = (0, react_1.useState)(), state = _a[0], setState = _a[1];
+    var _a = (0, react_1.useState)(),
+      state = _a[0],
+      setState = _a[1];
     var queryRef = (0, react_1.useRef)([]);
-    var refresh = (0, react_1.useCallback)(function() {
-      var isUnmounted = false;
-      (function() {
-        return __awaiter(_this, void 0, void 0, function() {
-          var features;
-          return __generator(this, function(_a2) {
-            switch (_a2.label) {
-              case 0:
-                return [4, app.featuresAvailable.apply(app, queryRef.current)];
-              case 1:
-                features = _a2.sent();
-                if (!isUnmounted) {
-                  setState(function(currentFeatures) {
-                    if (JSON.stringify(currentFeatures) === JSON.stringify(features)) {
-                      return currentFeatures;
-                    }
-                    return features;
-                  });
-                }
-                return [
-                  2
-                  /*return*/
-                ];
-            }
+    var refresh = (0, react_1.useCallback)(
+      function () {
+        var isUnmounted = false;
+        (function () {
+          return __awaiter(_this, void 0, void 0, function () {
+            var features;
+            return __generator(this, function (_a2) {
+              switch (_a2.label) {
+                case 0:
+                  return [4, app.featuresAvailable.apply(app, queryRef.current)];
+                case 1:
+                  features = _a2.sent();
+                  if (!isUnmounted) {
+                    setState(function (currentFeatures) {
+                      if (JSON.stringify(currentFeatures) === JSON.stringify(features)) {
+                        return currentFeatures;
+                      }
+                      return features;
+                    });
+                  }
+                  return [
+                    2,
+                    /*return*/
+                  ];
+              }
+            });
           });
+        })();
+        return function () {
+          isUnmounted = true;
+        };
+      },
+      [app]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        queryRef.current = query;
+        return refresh();
+      },
+      [JSON.stringify(query)]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        var onRefreshCleanup;
+        var unsubscribe = app.subscribe(types_1.Action.UPDATE, function () {
+          onRefreshCleanup = refresh();
         });
-      })();
-      return function() {
-        isUnmounted = true;
-      };
-    }, [app]);
-    (0, react_1.useEffect)(function() {
-      queryRef.current = query;
-      return refresh();
-    }, [JSON.stringify(query)]);
-    (0, react_1.useEffect)(function() {
-      var onRefreshCleanup;
-      var unsubscribe = app.subscribe(types_1.Action.UPDATE, function() {
-        onRefreshCleanup = refresh();
-      });
-      return function() {
-        unsubscribe();
-        onRefreshCleanup === null || onRefreshCleanup === void 0 ? void 0 : onRefreshCleanup();
-      };
-    }, [app, refresh]);
+        return function () {
+          unsubscribe();
+          onRefreshCleanup === null || onRefreshCleanup === void 0 ? void 0 : onRefreshCleanup();
+        };
+      },
+      [app, refresh]
+    );
     return state;
   }
   useFeaturesAvailable.useFeaturesAvailable = useFeaturesAvailable$12;
@@ -636,13 +839,16 @@ var hasRequiredUseFeaturesAvailable;
 function requireUseFeaturesAvailable() {
   if (hasRequiredUseFeaturesAvailable) return useFeaturesAvailable$1;
   hasRequiredUseFeaturesAvailable = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useFeaturesAvailable = void 0;
     var useFeaturesAvailable_1 = /* @__PURE__ */ requireUseFeaturesAvailable$1();
-    Object.defineProperty(exports$1, "useFeaturesAvailable", { enumerable: true, get: function() {
-      return useFeaturesAvailable_1.useFeaturesAvailable;
-    } });
+    Object.defineProperty(exports$1, "useFeaturesAvailable", {
+      enumerable: true,
+      get: function () {
+        return useFeaturesAvailable_1.useFeaturesAvailable;
+      },
+    });
   })(useFeaturesAvailable$1);
   return useFeaturesAvailable$1;
 }
@@ -661,32 +867,57 @@ function requireUseFeatureRequest$1() {
   function useFeatureRequest$12(group, action2) {
     var app = (0, useAppBridge_1.useAppBridge)();
     var featuresAvailable = (0, useFeaturesAvailable_1.useFeaturesAvailable)();
-    var _a = (0, react_1.useState)(), feature = _a[0], setFeature = _a[1];
-    var handleFeatureUpdate = (0, react_1.useCallback)(function(featuresAvailable2) {
-      var updatedFeatures = featuresAvailable2 === null || featuresAvailable2 === void 0 ? void 0 : featuresAvailable2[group];
-      if (action2 && (updatedFeatures === null || updatedFeatures === void 0 ? void 0 : updatedFeatures[action2])) {
-        var actionPermission_1 = updatedFeatures === null || updatedFeatures === void 0 ? void 0 : updatedFeatures[action2];
-        setFeature(function(currentState) {
-          if (JSON.stringify(actionPermission_1) !== JSON.stringify(currentState)) {
-            return actionPermission_1;
+    var _a = (0, react_1.useState)(),
+      feature = _a[0],
+      setFeature = _a[1];
+    var handleFeatureUpdate = (0, react_1.useCallback)(
+      function (featuresAvailable2) {
+        var updatedFeatures =
+          featuresAvailable2 === null || featuresAvailable2 === void 0
+            ? void 0
+            : featuresAvailable2[group];
+        if (
+          action2 &&
+          (updatedFeatures === null || updatedFeatures === void 0
+            ? void 0
+            : updatedFeatures[action2])
+        ) {
+          var actionPermission_1 =
+            updatedFeatures === null || updatedFeatures === void 0
+              ? void 0
+              : updatedFeatures[action2];
+          setFeature(function (currentState) {
+            if (JSON.stringify(actionPermission_1) !== JSON.stringify(currentState)) {
+              return actionPermission_1;
+            }
+            return currentState;
+          });
+          return;
+        }
+        setFeature(function (currentState) {
+          if (JSON.stringify(updatedFeatures) !== JSON.stringify(currentState)) {
+            return updatedFeatures;
           }
           return currentState;
         });
-        return;
-      }
-      setFeature(function(currentState) {
-        if (JSON.stringify(updatedFeatures) !== JSON.stringify(currentState)) {
-          return updatedFeatures;
-        }
-        return currentState;
-      });
-    }, [group, action2]);
-    (0, react_1.useEffect)(function() {
-      (0, Features_1.create)(app).dispatch(Features_1.Action.REQUEST, { feature: group, action: action2 });
-    }, [app, group, action2]);
-    (0, react_1.useEffect)(function() {
-      handleFeatureUpdate(featuresAvailable);
-    }, [featuresAvailable, handleFeatureUpdate]);
+      },
+      [group, action2]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        (0, Features_1.create)(app).dispatch(Features_1.Action.REQUEST, {
+          feature: group,
+          action: action2,
+        });
+      },
+      [app, group, action2]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        handleFeatureUpdate(featuresAvailable);
+      },
+      [featuresAvailable, handleFeatureUpdate]
+    );
     return feature;
   }
   useFeatureRequest.useFeatureRequest = useFeatureRequest$12;
@@ -696,23 +927,34 @@ var hasRequiredUseFeatureRequest;
 function requireUseFeatureRequest() {
   if (hasRequiredUseFeatureRequest) return useFeatureRequest$1;
   hasRequiredUseFeatureRequest = 1;
-  (function(exports$1) {
-    var __createBinding = useFeatureRequest$1 && useFeatureRequest$1.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = useFeatureRequest$1 && useFeatureRequest$1.__exportStar || function(m, exports$12) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p)) __createBinding(exports$12, m, p);
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (useFeatureRequest$1 && useFeatureRequest$1.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __exportStar =
+      (useFeatureRequest$1 && useFeatureRequest$1.__exportStar) ||
+      function (m, exports$12) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p))
+            __createBinding(exports$12, m, p);
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     __exportStar(/* @__PURE__ */ requireUseFeatureRequest$1(), exports$1);
   })(useFeatureRequest$1);
@@ -737,13 +979,16 @@ var hasRequiredUseLocale;
 function requireUseLocale() {
   if (hasRequiredUseLocale) return useLocale$1;
   hasRequiredUseLocale = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useLocale = void 0;
     var useLocale_1 = /* @__PURE__ */ requireUseLocale$1();
-    Object.defineProperty(exports$1, "useLocale", { enumerable: true, get: function() {
-      return useLocale_1.useLocale;
-    } });
+    Object.defineProperty(exports$1, "useLocale", {
+      enumerable: true,
+      get: function () {
+        return useLocale_1.useLocale;
+      },
+    });
   })(useLocale$1);
   return useLocale$1;
 }
@@ -762,7 +1007,7 @@ function requireUseNavigationHistory$1() {
   var useAppBridge_1 = /* @__PURE__ */ requireUseAppBridge();
   function useNavigationHistory$12() {
     var app = (0, useAppBridge_1.useAppBridge)();
-    return (0, react_1.useMemo)(function() {
+    return (0, react_1.useMemo)(function () {
       var history = actions_1.History.create(app);
       function push(location2) {
         history.dispatch(actions_1.History.Action.PUSH, location2.pathname);
@@ -780,13 +1025,16 @@ var hasRequiredUseNavigationHistory;
 function requireUseNavigationHistory() {
   if (hasRequiredUseNavigationHistory) return useNavigationHistory$1;
   hasRequiredUseNavigationHistory = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useNavigationHistory = void 0;
     var useNavigationHistory_1 = /* @__PURE__ */ requireUseNavigationHistory$1();
-    Object.defineProperty(exports$1, "useNavigationHistory", { enumerable: true, get: function() {
-      return useNavigationHistory_1.useNavigationHistory;
-    } });
+    Object.defineProperty(exports$1, "useNavigationHistory", {
+      enumerable: true,
+      get: function () {
+        return useNavigationHistory_1.useNavigationHistory;
+      },
+    });
   })(useNavigationHistory$1);
   return useNavigationHistory$1;
 }
@@ -794,17 +1042,20 @@ var hasRequiredUseNavigate$1;
 function requireUseNavigate$1() {
   if (hasRequiredUseNavigate$1) return useNavigate;
   hasRequiredUseNavigate$1 = 1;
-  var __assign = useNavigate && useNavigate.__assign || function() {
-    __assign = Object.assign || function(t) {
-      for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-          t[p] = s[p];
-      }
-      return t;
+  var __assign =
+    (useNavigate && useNavigate.__assign) ||
+    function () {
+      __assign =
+        Object.assign ||
+        function (t) {
+          for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+          }
+          return t;
+        };
+      return __assign.apply(this, arguments);
     };
-    return __assign.apply(this, arguments);
-  };
   Object.defineProperty(useNavigate, "__esModule", { value: true });
   useNavigate.useNavigate = void 0;
   var react_1 = require$$0;
@@ -814,46 +1065,67 @@ function requireUseNavigate$1() {
   function useNavigate$12() {
     var app = (0, useAppBridge_1.useAppBridge)();
     var history = (0, useNavigationHistory_1.useNavigationHistory)();
-    var redirect3 = (0, react_1.useMemo)(function() {
-      return (0, Redirect_1.create)(app);
-    }, [app]);
-    var handleRedirect = (0, react_1.useCallback)(function(to, options) {
-      var url = (0, Redirect_1.normalizeUrl)(to);
-      var isAppUrl = url.startsWith(app.localOrigin);
-      var isHostUrl = url.startsWith(app.hostOrigin);
-      var isRelative = url.startsWith("/");
-      if (isAppUrl || isHostUrl || isRelative) {
-        var path = (0, Redirect_1.getRelativePath)(url);
-        if (isHostUrl || (options === null || options === void 0 ? void 0 : options.target) === "new" || (options === null || options === void 0 ? void 0 : options.target) === "host") {
-          redirect3.dispatch(Redirect_1.Action.ADMIN_PATH, {
-            path: path.replace(/^\/admin/, ""),
-            newContext: (options === null || options === void 0 ? void 0 : options.target) === "new"
+    var redirect3 = (0, react_1.useMemo)(
+      function () {
+        return (0, Redirect_1.create)(app);
+      },
+      [app]
+    );
+    var handleRedirect = (0, react_1.useCallback)(
+      function (to, options) {
+        var url = (0, Redirect_1.normalizeUrl)(to);
+        var isAppUrl = url.startsWith(app.localOrigin);
+        var isHostUrl = url.startsWith(app.hostOrigin);
+        var isRelative = url.startsWith("/");
+        if (isAppUrl || isHostUrl || isRelative) {
+          var path = (0, Redirect_1.getRelativePath)(url);
+          if (
+            isHostUrl ||
+            (options === null || options === void 0 ? void 0 : options.target) === "new" ||
+            (options === null || options === void 0 ? void 0 : options.target) === "host"
+          ) {
+            redirect3.dispatch(Redirect_1.Action.ADMIN_PATH, {
+              path: path.replace(/^\/admin/, ""),
+              newContext:
+                (options === null || options === void 0 ? void 0 : options.target) === "new",
+            });
+            return;
+          }
+          if (
+            ((options === null || options === void 0 ? void 0 : options.target) === "self" ||
+              !(options === null || options === void 0 ? void 0 : options.target)) &&
+            (options === null || options === void 0 ? void 0 : options.replace)
+          ) {
+            history.replace({ pathname: path });
+            return;
+          }
+          redirect3.dispatch(Redirect_1.Action.APP, path);
+          return;
+        }
+        redirect3.dispatch(Redirect_1.Action.REMOTE, {
+          url,
+          newContext: (options === null || options === void 0 ? void 0 : options.target) === "new",
+        });
+      },
+      [redirect3, history]
+    );
+    return (0, react_1.useCallback)(
+      function (to, options) {
+        if ((0, Redirect_1.isAdminSection)(to)) {
+          var convertedSection = __assign(__assign({}, to), {
+            name: Redirect_1.ResourceType[to.name],
+          });
+          redirect3.dispatch(Redirect_1.Action.ADMIN_SECTION, {
+            section: convertedSection,
+            newContext:
+              (options === null || options === void 0 ? void 0 : options.target) === "new",
           });
           return;
         }
-        if (((options === null || options === void 0 ? void 0 : options.target) === "self" || !(options === null || options === void 0 ? void 0 : options.target)) && (options === null || options === void 0 ? void 0 : options.replace)) {
-          history.replace({ pathname: path });
-          return;
-        }
-        redirect3.dispatch(Redirect_1.Action.APP, path);
-        return;
-      }
-      redirect3.dispatch(Redirect_1.Action.REMOTE, {
-        url,
-        newContext: (options === null || options === void 0 ? void 0 : options.target) === "new"
-      });
-    }, [redirect3, history]);
-    return (0, react_1.useCallback)(function(to, options) {
-      if ((0, Redirect_1.isAdminSection)(to)) {
-        var convertedSection = __assign(__assign({}, to), { name: Redirect_1.ResourceType[to.name] });
-        redirect3.dispatch(Redirect_1.Action.ADMIN_SECTION, {
-          section: convertedSection,
-          newContext: (options === null || options === void 0 ? void 0 : options.target) === "new"
-        });
-        return;
-      }
-      handleRedirect(to, options);
-    }, [handleRedirect, redirect3]);
+        handleRedirect(to, options);
+      },
+      [handleRedirect, redirect3]
+    );
   }
   useNavigate.useNavigate = useNavigate$12;
   return useNavigate;
@@ -862,13 +1134,16 @@ var hasRequiredUseNavigate;
 function requireUseNavigate() {
   if (hasRequiredUseNavigate) return useNavigate$1;
   hasRequiredUseNavigate = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useNavigate = void 0;
     var useNavigate_1 = /* @__PURE__ */ requireUseNavigate$1();
-    Object.defineProperty(exports$1, "useNavigate", { enumerable: true, get: function() {
-      return useNavigate_1.useNavigate;
-    } });
+    Object.defineProperty(exports$1, "useNavigate", {
+      enumerable: true,
+      get: function () {
+        return useNavigate_1.useNavigate;
+      },
+    });
   })(useNavigate$1);
   return useNavigate$1;
 }
@@ -878,7 +1153,7 @@ var hasRequiredUseToast$1;
 function requireUseToast$1() {
   if (hasRequiredUseToast$1) return useToast;
   hasRequiredUseToast$1 = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useToast = exports$1.DEFAULT_TOAST_DURATION = void 0;
     var react_1 = require$$0;
@@ -888,29 +1163,43 @@ function requireUseToast$1() {
     function useToast2() {
       var app = (0, useAppBridge_1.useAppBridge)();
       var toastList = (0, react_1.useRef)([]);
-      var show = (0, react_1.useCallback)(function(content, options) {
-        var toast = (0, Toast_1.create)(app, {
-          message: content,
-          isError: options === null || options === void 0 ? void 0 : options.isError,
-          duration: (options === null || options === void 0 ? void 0 : options.duration) || exports$1.DEFAULT_TOAST_DURATION,
-          action: options === null || options === void 0 ? void 0 : options.action
-        });
-        toast.dispatch(Toast_1.Action.SHOW);
-        toastList.current.push(toast);
-        toast.subscribe(Toast_1.Action.CLEAR, function() {
-          var _a;
-          (_a = options === null || options === void 0 ? void 0 : options.onDismiss) === null || _a === void 0 ? void 0 : _a.call(options);
-          toastList.current.splice(toastList.current.indexOf(toast), 1);
-          toast.unsubscribe();
-        });
-        toast.subscribe(Toast_1.Action.ACTION, function() {
-          var _a, _b;
-          (_b = (_a = options === null || options === void 0 ? void 0 : options.action) === null || _a === void 0 ? void 0 : _a.onAction) === null || _b === void 0 ? void 0 : _b.call(_a);
-        });
-      }, [app]);
-      (0, react_1.useEffect)(function() {
-        return function() {
-          toastList.current.forEach(function(toast) {
+      var show = (0, react_1.useCallback)(
+        function (content, options) {
+          var toast = (0, Toast_1.create)(app, {
+            message: content,
+            isError: options === null || options === void 0 ? void 0 : options.isError,
+            duration:
+              (options === null || options === void 0 ? void 0 : options.duration) ||
+              exports$1.DEFAULT_TOAST_DURATION,
+            action: options === null || options === void 0 ? void 0 : options.action,
+          });
+          toast.dispatch(Toast_1.Action.SHOW);
+          toastList.current.push(toast);
+          toast.subscribe(Toast_1.Action.CLEAR, function () {
+            var _a;
+            (_a = options === null || options === void 0 ? void 0 : options.onDismiss) === null ||
+            _a === void 0
+              ? void 0
+              : _a.call(options);
+            toastList.current.splice(toastList.current.indexOf(toast), 1);
+            toast.unsubscribe();
+          });
+          toast.subscribe(Toast_1.Action.ACTION, function () {
+            var _a, _b;
+            (_b =
+              (_a = options === null || options === void 0 ? void 0 : options.action) === null ||
+              _a === void 0
+                ? void 0
+                : _a.onAction) === null || _b === void 0
+              ? void 0
+              : _b.call(_a);
+          });
+        },
+        [app]
+      );
+      (0, react_1.useEffect)(function () {
+        return function () {
+          toastList.current.forEach(function (toast) {
             return toast === null || toast === void 0 ? void 0 : toast.unsubscribe();
           });
         };
@@ -925,13 +1214,16 @@ var hasRequiredUseToast;
 function requireUseToast() {
   if (hasRequiredUseToast) return useToast$1;
   hasRequiredUseToast = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useToast = void 0;
     var useToast_1 = /* @__PURE__ */ requireUseToast$1();
-    Object.defineProperty(exports$1, "useToast", { enumerable: true, get: function() {
-      return useToast_1.useToast;
-    } });
+    Object.defineProperty(exports$1, "useToast", {
+      enumerable: true,
+      get: function () {
+        return useToast_1.useToast;
+      },
+    });
   })(useToast$1);
   return useToast$1;
 }
@@ -939,45 +1231,81 @@ var hasRequiredHooks;
 function requireHooks() {
   if (hasRequiredHooks) return hooks;
   hasRequiredHooks = 1;
-  (function(exports$1) {
+  (function (exports$1) {
     Object.defineProperty(exports$1, "__esModule", { value: true });
-    exports$1.useToast = exports$1.useNavigationHistory = exports$1.useNavigate = exports$1.useLocale = exports$1.useFeatureRequest = exports$1.useFeaturesAvailable = exports$1.useContextualSaveBar = exports$1.useAuthenticatedFetch = exports$1.useAppBridgeState = void 0;
+    exports$1.useToast =
+      exports$1.useNavigationHistory =
+      exports$1.useNavigate =
+      exports$1.useLocale =
+      exports$1.useFeatureRequest =
+      exports$1.useFeaturesAvailable =
+      exports$1.useContextualSaveBar =
+      exports$1.useAuthenticatedFetch =
+      exports$1.useAppBridgeState =
+        void 0;
     var useAppBridgeState_1 = /* @__PURE__ */ requireUseAppBridgeState();
-    Object.defineProperty(exports$1, "useAppBridgeState", { enumerable: true, get: function() {
-      return useAppBridgeState_1.useAppBridgeState;
-    } });
+    Object.defineProperty(exports$1, "useAppBridgeState", {
+      enumerable: true,
+      get: function () {
+        return useAppBridgeState_1.useAppBridgeState;
+      },
+    });
     var useAuthenticatedFetch_1 = /* @__PURE__ */ requireUseAuthenticatedFetch();
-    Object.defineProperty(exports$1, "useAuthenticatedFetch", { enumerable: true, get: function() {
-      return useAuthenticatedFetch_1.useAuthenticatedFetch;
-    } });
+    Object.defineProperty(exports$1, "useAuthenticatedFetch", {
+      enumerable: true,
+      get: function () {
+        return useAuthenticatedFetch_1.useAuthenticatedFetch;
+      },
+    });
     var useContextualSaveBar_1 = /* @__PURE__ */ requireUseContextualSaveBar();
-    Object.defineProperty(exports$1, "useContextualSaveBar", { enumerable: true, get: function() {
-      return useContextualSaveBar_1.useContextualSaveBar;
-    } });
+    Object.defineProperty(exports$1, "useContextualSaveBar", {
+      enumerable: true,
+      get: function () {
+        return useContextualSaveBar_1.useContextualSaveBar;
+      },
+    });
     var useFeaturesAvailable_1 = /* @__PURE__ */ requireUseFeaturesAvailable();
-    Object.defineProperty(exports$1, "useFeaturesAvailable", { enumerable: true, get: function() {
-      return useFeaturesAvailable_1.useFeaturesAvailable;
-    } });
+    Object.defineProperty(exports$1, "useFeaturesAvailable", {
+      enumerable: true,
+      get: function () {
+        return useFeaturesAvailable_1.useFeaturesAvailable;
+      },
+    });
     var useFeatureRequest_1 = /* @__PURE__ */ requireUseFeatureRequest();
-    Object.defineProperty(exports$1, "useFeatureRequest", { enumerable: true, get: function() {
-      return useFeatureRequest_1.useFeatureRequest;
-    } });
+    Object.defineProperty(exports$1, "useFeatureRequest", {
+      enumerable: true,
+      get: function () {
+        return useFeatureRequest_1.useFeatureRequest;
+      },
+    });
     var useLocale_1 = /* @__PURE__ */ requireUseLocale();
-    Object.defineProperty(exports$1, "useLocale", { enumerable: true, get: function() {
-      return useLocale_1.useLocale;
-    } });
+    Object.defineProperty(exports$1, "useLocale", {
+      enumerable: true,
+      get: function () {
+        return useLocale_1.useLocale;
+      },
+    });
     var useNavigate_1 = /* @__PURE__ */ requireUseNavigate();
-    Object.defineProperty(exports$1, "useNavigate", { enumerable: true, get: function() {
-      return useNavigate_1.useNavigate;
-    } });
+    Object.defineProperty(exports$1, "useNavigate", {
+      enumerable: true,
+      get: function () {
+        return useNavigate_1.useNavigate;
+      },
+    });
     var useNavigationHistory_1 = /* @__PURE__ */ requireUseNavigationHistory();
-    Object.defineProperty(exports$1, "useNavigationHistory", { enumerable: true, get: function() {
-      return useNavigationHistory_1.useNavigationHistory;
-    } });
+    Object.defineProperty(exports$1, "useNavigationHistory", {
+      enumerable: true,
+      get: function () {
+        return useNavigationHistory_1.useNavigationHistory;
+      },
+    });
     var useToast_1 = /* @__PURE__ */ requireUseToast();
-    Object.defineProperty(exports$1, "useToast", { enumerable: true, get: function() {
-      return useToast_1.useToast;
-    } });
+    Object.defineProperty(exports$1, "useToast", {
+      enumerable: true,
+      get: function () {
+        return useToast_1.useToast;
+      },
+    });
   })(hooks);
   return hooks;
 }
@@ -989,21 +1317,40 @@ function requireContextualSaveBar$1() {
   var react_1 = require$$0;
   var hooks_1 = /* @__PURE__ */ requireHooks();
   function ContextualSaveBar$12(_a) {
-    var _b = _a.discardAction, discardAction = _b === void 0 ? {} : _b, _c = _a.saveAction, saveAction = _c === void 0 ? {} : _c, fullWidth = _a.fullWidth, leaveConfirmationDisable = _a.leaveConfirmationDisable, visible = _a.visible;
-    var _d = (0, hooks_1.useContextualSaveBar)(), show = _d.show, hide = _d.hide, saveActionSetOptions = _d.saveAction.setOptions, discardActionSetOptions = _d.discardAction.setOptions;
-    (0, react_1.useEffect)(function() {
-      saveActionSetOptions(saveAction);
-    }, [saveAction]);
-    (0, react_1.useEffect)(function() {
-      discardActionSetOptions(discardAction);
-    }, [discardAction]);
-    (0, react_1.useEffect)(function() {
-      if (visible) {
-        show({ fullWidth, leaveConfirmationDisable });
-      } else {
-        hide();
-      }
-    }, [fullWidth, leaveConfirmationDisable, visible]);
+    var _b = _a.discardAction,
+      discardAction = _b === void 0 ? {} : _b,
+      _c = _a.saveAction,
+      saveAction = _c === void 0 ? {} : _c,
+      fullWidth = _a.fullWidth,
+      leaveConfirmationDisable = _a.leaveConfirmationDisable,
+      visible = _a.visible;
+    var _d = (0, hooks_1.useContextualSaveBar)(),
+      show = _d.show,
+      hide = _d.hide,
+      saveActionSetOptions = _d.saveAction.setOptions,
+      discardActionSetOptions = _d.discardAction.setOptions;
+    (0, react_1.useEffect)(
+      function () {
+        saveActionSetOptions(saveAction);
+      },
+      [saveAction]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        discardActionSetOptions(discardAction);
+      },
+      [discardAction]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (visible) {
+          show({ fullWidth, leaveConfirmationDisable });
+        } else {
+          hide();
+        }
+      },
+      [fullWidth, leaveConfirmationDisable, visible]
+    );
     return null;
   }
   ContextualSaveBar.default = ContextualSaveBar$12;
@@ -1013,9 +1360,11 @@ var hasRequiredContextualSaveBar;
 function requireContextualSaveBar() {
   if (hasRequiredContextualSaveBar) return ContextualSaveBar$1;
   hasRequiredContextualSaveBar = 1;
-  var __importDefault = ContextualSaveBar$1 && ContextualSaveBar$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (ContextualSaveBar$1 && ContextualSaveBar$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(ContextualSaveBar$1, "__esModule", { value: true });
   var ContextualSaveBar_1 = __importDefault(/* @__PURE__ */ requireContextualSaveBar$1());
   ContextualSaveBar$1.default = ContextualSaveBar_1.default;
@@ -1027,58 +1376,65 @@ var hasRequiredLoading$1;
 function requireLoading$1() {
   if (hasRequiredLoading$1) return Loading;
   hasRequiredLoading$1 = 1;
-  var __extends = Loading && Loading.__extends || /* @__PURE__ */ function() {
-    var extendStatics = function(d, b) {
-      extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-        d2.__proto__ = b2;
-      } || function(d2, b2) {
-        for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+  var __extends =
+    (Loading && Loading.__extends) ||
+    /* @__PURE__ */ (function () {
+      var extendStatics = function (d, b) {
+        extendStatics =
+          Object.setPrototypeOf ||
+          ({ __proto__: [] } instanceof Array &&
+            function (d2, b2) {
+              d2.__proto__ = b2;
+            }) ||
+          function (d2, b2) {
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+          };
+        return extendStatics(d, b);
       };
-      return extendStatics(d, b);
+      return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
+      };
+    })();
+  var __importDefault =
+    (Loading && Loading.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
     };
-    return function(d, b) {
-      if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-      extendStatics(d, b);
-      function __() {
-        this.constructor = d;
-      }
-      d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-  }();
-  var __importDefault = Loading && Loading.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
   Object.defineProperty(Loading, "__esModule", { value: true });
   var react_1 = __importDefault(require$$0);
   var actions_1 = require$$1$4;
   var context_1 = /* @__PURE__ */ requireContext();
-  var Loading$12 = (
+  var Loading$12 =
     /** @class */
-    function(_super) {
+    (function (_super) {
       __extends(Loading2, _super);
       function Loading2() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return (_super !== null && _super.apply(this, arguments)) || this;
       }
-      Loading2.prototype.componentDidMount = function() {
+      Loading2.prototype.componentDidMount = function () {
         var app = this.context;
         this.loading = actions_1.Loading.create(app);
         if (this.loading != null) {
           this.loading.dispatch(actions_1.Loading.Action.START);
         }
       };
-      Loading2.prototype.componentWillUnmount = function() {
+      Loading2.prototype.componentWillUnmount = function () {
         if (this.loading != null) {
           this.loading.dispatch(actions_1.Loading.Action.STOP);
         }
       };
-      Loading2.prototype.render = function() {
+      Loading2.prototype.render = function () {
         return null;
       };
       Loading2.contextType = context_1.AppBridgeContext;
       return Loading2;
-    }(react_1.default.Component)
-  );
+    })(react_1.default.Component);
   Loading.default = Loading$12;
   return Loading;
 }
@@ -1086,9 +1442,11 @@ var hasRequiredLoading;
 function requireLoading() {
   if (hasRequiredLoading) return Loading$1;
   hasRequiredLoading = 1;
-  var __importDefault = Loading$1 && Loading$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (Loading$1 && Loading$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(Loading$1, "__esModule", { value: true });
   var Loading_1 = __importDefault(/* @__PURE__ */ requireLoading$1());
   Loading$1.default = Loading_1.default;
@@ -1101,42 +1459,60 @@ var hasRequiredTransformers;
 function requireTransformers() {
   if (hasRequiredTransformers) return transformers;
   hasRequiredTransformers = 1;
-  var __createBinding = transformers && transformers.__createBinding || (Object.create ? function(o, m, k, k2) {
-    if (k2 === void 0) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() {
-        return m[k];
-      } };
-    }
-    Object.defineProperty(o, k2, desc);
-  } : function(o, m, k, k2) {
-    if (k2 === void 0) k2 = k;
-    o[k2] = m[k];
-  });
-  var __setModuleDefault = transformers && transformers.__setModuleDefault || (Object.create ? function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-  } : function(o, v) {
-    o["default"] = v;
-  });
-  var __importStar = transformers && transformers.__importStar || function(mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) {
-      for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    }
-    __setModuleDefault(result, mod);
-    return result;
-  };
-  var __spreadArray = transformers && transformers.__spreadArray || function(to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-      if (ar || !(i in from)) {
-        if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-        ar[i] = from[i];
+  var __createBinding =
+    (transformers && transformers.__createBinding) ||
+    (Object.create
+      ? function (o, m, k, k2) {
+          if (k2 === void 0) k2 = k;
+          var desc = Object.getOwnPropertyDescriptor(m, k);
+          if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+            desc = {
+              enumerable: true,
+              get: function () {
+                return m[k];
+              },
+            };
+          }
+          Object.defineProperty(o, k2, desc);
+        }
+      : function (o, m, k, k2) {
+          if (k2 === void 0) k2 = k;
+          o[k2] = m[k];
+        });
+  var __setModuleDefault =
+    (transformers && transformers.__setModuleDefault) ||
+    (Object.create
+      ? function (o, v) {
+          Object.defineProperty(o, "default", { enumerable: true, value: v });
+        }
+      : function (o, v) {
+          o["default"] = v;
+        });
+  var __importStar =
+    (transformers && transformers.__importStar) ||
+    function (mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod)
+          if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+            __createBinding(result, mod, k);
       }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-  };
+      __setModuleDefault(result, mod);
+      return result;
+    };
+  var __spreadArray =
+    (transformers && transformers.__spreadArray) ||
+    function (to, from, pack) {
+      if (pack || arguments.length === 2)
+        for (var i = 0, l = from.length, ar; i < l; i++) {
+          if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+          }
+        }
+      return to.concat(ar || Array.prototype.slice.call(from));
+    };
   Object.defineProperty(transformers, "__esModule", { value: true });
   transformers.transformActions = transformers.generateRedirect = void 0;
   var Button2 = __importStar(require$$0$1);
@@ -1150,11 +1526,14 @@ function requireTransformers() {
       return void 0;
     }
     var redirect3 = Redirect.create(appBridge);
-    var payload = external === true ? {
-      url,
-      newContext: true
-    } : url;
-    return function() {
+    var payload =
+      external === true
+        ? {
+            url,
+            newContext: true,
+          }
+        : url;
+    return function () {
       redirect3.dispatch(redirectAction(target, external), payload);
     };
   }
@@ -1166,12 +1545,18 @@ function requireTransformers() {
     return Redirect.Action[target];
   }
   function transformActions(appBridge, _a) {
-    var primaryAction = _a.primaryAction, secondaryActions = _a.secondaryActions, actionGroups = _a.actionGroups;
+    var primaryAction = _a.primaryAction,
+      secondaryActions = _a.secondaryActions,
+      actionGroups = _a.actionGroups;
     var primary = transformPrimaryAction(appBridge, primaryAction);
-    var secondary = __spreadArray(__spreadArray([], transformSecondaryActions(appBridge, secondaryActions), true), transformActionGroups(appBridge, actionGroups), true);
+    var secondary = __spreadArray(
+      __spreadArray([], transformSecondaryActions(appBridge, secondaryActions), true),
+      transformActionGroups(appBridge, actionGroups),
+      true
+    );
     return {
       primary,
-      secondary
+      secondary,
     };
   }
   transformers.transformActions = transformActions;
@@ -1182,7 +1567,7 @@ function requireTransformers() {
       disabled: action2.disabled,
       loading: action2.loading,
       plain: action2.plain,
-      style
+      style,
     });
     if (action2.onAction) {
       button.subscribe(Button2.Action.CLICK, action2.onAction);
@@ -1204,21 +1589,29 @@ function requireTransformers() {
     if (secondaryActions === void 0) {
       secondaryActions = [];
     }
-    var secondary = __spreadArray([], secondaryActions.map(function(secondaryAction) {
-      return transformAction(appBridge, secondaryAction);
-    }), true);
+    var secondary = __spreadArray(
+      [],
+      secondaryActions.map(function (secondaryAction) {
+        return transformAction(appBridge, secondaryAction);
+      }),
+      true
+    );
     return secondary;
   }
   function transformActionGroups(appBridge, actionGroups) {
     if (actionGroups === void 0) {
       actionGroups = [];
     }
-    var buttonGroups = __spreadArray([], actionGroups.map(function(group) {
-      var buttons = group.actions.map(function(groupAction) {
-        return transformAction(appBridge, groupAction);
-      });
-      return ButtonGroup.create(appBridge, { label: group.title, plain: group.plain, buttons });
-    }), true);
+    var buttonGroups = __spreadArray(
+      [],
+      actionGroups.map(function (group) {
+        var buttons = group.actions.map(function (groupAction) {
+          return transformAction(appBridge, groupAction);
+        });
+        return ButtonGroup.create(appBridge, { label: group.title, plain: group.plain, buttons });
+      }),
+      true
+    );
     return buttonGroups;
   }
   return transformers;
@@ -1229,36 +1622,50 @@ var hasRequiredUseOnceEffect$1;
 function requireUseOnceEffect$1() {
   if (hasRequiredUseOnceEffect$1) return useOnceEffect;
   hasRequiredUseOnceEffect$1 = 1;
-  var __importDefault = useOnceEffect && useOnceEffect.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (useOnceEffect && useOnceEffect.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(useOnceEffect, "__esModule", { value: true });
   useOnceEffect.useOnceEffect = void 0;
   var react_1 = __importDefault(require$$0);
-  useOnceEffect.useOnceEffect = react_1.default.useInsertionEffect || react_1.default.useLayoutEffect;
+  useOnceEffect.useOnceEffect =
+    react_1.default.useInsertionEffect || react_1.default.useLayoutEffect;
   return useOnceEffect;
 }
 var hasRequiredUseOnceEffect;
 function requireUseOnceEffect() {
   if (hasRequiredUseOnceEffect) return useOnceEffect$1;
   hasRequiredUseOnceEffect = 1;
-  (function(exports$1) {
-    var __createBinding = useOnceEffect$1 && useOnceEffect$1.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = useOnceEffect$1 && useOnceEffect$1.__exportStar || function(m, exports$12) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p)) __createBinding(exports$12, m, p);
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (useOnceEffect$1 && useOnceEffect$1.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __exportStar =
+      (useOnceEffect$1 && useOnceEffect$1.__exportStar) ||
+      function (m, exports$12) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p))
+            __createBinding(exports$12, m, p);
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     __exportStar(/* @__PURE__ */ requireUseOnceEffect$1(), exports$1);
   })(useOnceEffect$1);
@@ -1268,28 +1675,33 @@ var hasRequiredModal$1;
 function requireModal$1() {
   if (hasRequiredModal$1) return Modal;
   hasRequiredModal$1 = 1;
-  var __assign = Modal && Modal.__assign || function() {
-    __assign = Object.assign || function(t) {
-      for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-          t[p] = s[p];
-      }
+  var __assign =
+    (Modal && Modal.__assign) ||
+    function () {
+      __assign =
+        Object.assign ||
+        function (t) {
+          for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+          }
+          return t;
+        };
+      return __assign.apply(this, arguments);
+    };
+  var __rest =
+    (Modal && Modal.__rest) ||
+    function (s, e) {
+      var t = {};
+      for (var p in s)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+      if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            t[p[i]] = s[p[i]];
+        }
       return t;
     };
-    return __assign.apply(this, arguments);
-  };
-  var __rest = Modal && Modal.__rest || function(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-        if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-          t[p[i]] = s[p[i]];
-      }
-    return t;
-  };
   Object.defineProperty(Modal, "__esModule", { value: true });
   var react_1 = require$$0;
   var Modal_1 = require$$1$8;
@@ -1302,50 +1714,56 @@ function requireModal$1() {
     var prevProps = (0, react_1.useRef)({ open: false });
     var open = props.open;
     var isUnmounted = (0, react_1.useRef)(false);
-    var modal = (0, react_1.useMemo)(function() {
-      props.primaryAction;
-      props.secondaryActions;
-      var rest = __rest(props, ["primaryAction", "secondaryActions"]);
-      return (0, Modal_1.create)(app, transformProps(app, rest));
-    }, [app]);
-    (0, react_1.useEffect)(function() {
-      if (isUnmounted.current) {
-        prevProps.current = props;
-        return;
-      }
-      var wasOpen = prevProps.current.open;
-      var openUpdated = wasOpen !== open;
-      if (open) {
-        var transformedProps = transformProps(app, props, wasOpen);
-        var shouldSendUpdate = !openUpdated;
-        if (isIframeModal(transformedProps)) {
-          modal.set(transformedProps, shouldSendUpdate);
-        } else {
-          modal.set(transformedProps, shouldSendUpdate);
+    var modal = (0, react_1.useMemo)(
+      function () {
+        props.primaryAction;
+        props.secondaryActions;
+        var rest = __rest(props, ["primaryAction", "secondaryActions"]);
+        return (0, Modal_1.create)(app, transformProps(app, rest));
+      },
+      [app]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (isUnmounted.current) {
+          prevProps.current = props;
+          return;
         }
-      }
-      if (openUpdated) {
+        var wasOpen = prevProps.current.open;
+        var openUpdated = wasOpen !== open;
         if (open) {
-          modal.dispatch(Modal_1.Action.OPEN);
-          focusReturnPoint.current = document.activeElement;
-        } else {
-          modal.dispatch(Modal_1.Action.CLOSE);
-          if (focusReturnPoint.current != null && document.contains(focusReturnPoint.current)) {
-            focusReturnPoint.current.focus();
-            focusReturnPoint.current = null;
+          var transformedProps = transformProps(app, props, wasOpen);
+          var shouldSendUpdate = !openUpdated;
+          if (isIframeModal(transformedProps)) {
+            modal.set(transformedProps, shouldSendUpdate);
+          } else {
+            modal.set(transformedProps, shouldSendUpdate);
           }
         }
-      }
-      if (props.onClose != null) {
-        modal.subscribe(Modal_1.Action.CLOSE, props.onClose);
-      }
-      prevProps.current = props;
-      return function() {
-        modal.unsubscribe();
-      };
-    }, [props, open]);
-    (0, useOnceEffect_1.useOnceEffect)(function() {
-      return function() {
+        if (openUpdated) {
+          if (open) {
+            modal.dispatch(Modal_1.Action.OPEN);
+            focusReturnPoint.current = document.activeElement;
+          } else {
+            modal.dispatch(Modal_1.Action.CLOSE);
+            if (focusReturnPoint.current != null && document.contains(focusReturnPoint.current)) {
+              focusReturnPoint.current.focus();
+              focusReturnPoint.current = null;
+            }
+          }
+        }
+        if (props.onClose != null) {
+          modal.subscribe(Modal_1.Action.CLOSE, props.onClose);
+        }
+        prevProps.current = props;
+        return function () {
+          modal.unsubscribe();
+        };
+      },
+      [props, open]
+    );
+    (0, useOnceEffect_1.useOnceEffect)(function () {
+      return function () {
         if (prevProps.current.open) {
           modal.dispatch(Modal_1.Action.CLOSE);
         }
@@ -1357,7 +1775,13 @@ function requireModal$1() {
     return typeof options.url === "string" || typeof options.path === "string";
   }
   function transformProps(app, props, wasOpen) {
-    var title = props.title, size = props.size, message2 = props.message, src = props.src, primaryAction = props.primaryAction, secondaryActions = props.secondaryActions, loading = props.loading;
+    var title = props.title,
+      size = props.size,
+      message2 = props.message,
+      src = props.src,
+      primaryAction = props.primaryAction,
+      secondaryActions = props.secondaryActions,
+      loading = props.loading;
     var safeSize = size == null ? void 0 : Modal_1.Size[size];
     var srcPayload = {};
     if (src != null) {
@@ -1367,12 +1791,15 @@ function requireModal$1() {
         srcPayload.path = src;
       }
     }
-    return __assign(__assign({ title, message: message2, size: safeSize }, srcPayload), { footer: {
-      buttons: (0, transformers_1.transformActions)(app, {
-        primaryAction,
-        secondaryActions
-      })
-    }, loading: wasOpen ? void 0 : loading });
+    return __assign(__assign({ title, message: message2, size: safeSize }, srcPayload), {
+      footer: {
+        buttons: (0, transformers_1.transformActions)(app, {
+          primaryAction,
+          secondaryActions,
+        }),
+      },
+      loading: wasOpen ? void 0 : loading,
+    });
   }
   Modal.default = Modal$12;
   return Modal;
@@ -1383,63 +1810,69 @@ var hasRequiredModalContent$1;
 function requireModalContent$1() {
   if (hasRequiredModalContent$1) return ModalContent;
   hasRequiredModalContent$1 = 1;
-  var __extends = ModalContent && ModalContent.__extends || /* @__PURE__ */ function() {
-    var extendStatics = function(d, b) {
-      extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-        d2.__proto__ = b2;
-      } || function(d2, b2) {
-        for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+  var __extends =
+    (ModalContent && ModalContent.__extends) ||
+    /* @__PURE__ */ (function () {
+      var extendStatics = function (d, b) {
+        extendStatics =
+          Object.setPrototypeOf ||
+          ({ __proto__: [] } instanceof Array &&
+            function (d2, b2) {
+              d2.__proto__ = b2;
+            }) ||
+          function (d2, b2) {
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+          };
+        return extendStatics(d, b);
       };
-      return extendStatics(d, b);
+      return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
+      };
+    })();
+  var __importDefault =
+    (ModalContent && ModalContent.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
     };
-    return function(d, b) {
-      if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-      extendStatics(d, b);
-      function __() {
-        this.constructor = d;
-      }
-      d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-  }();
-  var __importDefault = ModalContent && ModalContent.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
   Object.defineProperty(ModalContent, "__esModule", { value: true });
   var react_1 = __importDefault(require$$0);
   var actions_1 = require$$1$4;
   var context_1 = /* @__PURE__ */ requireContext();
-  var ModalContent$12 = (
+  var ModalContent$12 =
     /** @class */
-    function(_super) {
+    (function (_super) {
       __extends(ModalContent2, _super);
       function ModalContent2() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return (_super !== null && _super.apply(this, arguments)) || this;
       }
-      ModalContent2.prototype.componentDidMount = function() {
+      ModalContent2.prototype.componentDidMount = function () {
         var app = this.context;
         this.modalContent = actions_1.ModalContent.create(app);
         this.syncLoadingStatus();
       };
-      ModalContent2.prototype.componentDidUpdate = function() {
+      ModalContent2.prototype.componentDidUpdate = function () {
         this.syncLoadingStatus();
       };
-      ModalContent2.prototype.syncLoadingStatus = function() {
-        if (!this.modalContent)
-          return;
+      ModalContent2.prototype.syncLoadingStatus = function () {
+        if (!this.modalContent) return;
         if (this.props.loading) {
           this.modalContent.loading();
         } else {
           this.modalContent.loaded();
         }
       };
-      ModalContent2.prototype.render = function() {
+      ModalContent2.prototype.render = function () {
         return null;
       };
       ModalContent2.contextType = context_1.AppBridgeContext;
       return ModalContent2;
-    }(react_1.default.Component)
-  );
+    })(react_1.default.Component);
   ModalContent.default = ModalContent$12;
   return ModalContent;
 }
@@ -1447,9 +1880,11 @@ var hasRequiredModalContent;
 function requireModalContent() {
   if (hasRequiredModalContent) return ModalContent$1;
   hasRequiredModalContent = 1;
-  var __importDefault = ModalContent$1 && ModalContent$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (ModalContent$1 && ModalContent$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(ModalContent$1, "__esModule", { value: true });
   var ModalContent_1 = __importDefault(/* @__PURE__ */ requireModalContent$1());
   ModalContent$1.default = ModalContent_1.default;
@@ -1459,17 +1894,22 @@ var hasRequiredModal;
 function requireModal() {
   if (hasRequiredModal) return Modal$1;
   hasRequiredModal = 1;
-  (function(exports$1) {
-    var __importDefault = Modal$1 && Modal$1.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
+  (function (exports$1) {
+    var __importDefault =
+      (Modal$1 && Modal$1.__importDefault) ||
+      function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.ModalContent = void 0;
     var Modal_1 = __importDefault(/* @__PURE__ */ requireModal$1());
     var ModalContent_1 = /* @__PURE__ */ requireModalContent();
-    Object.defineProperty(exports$1, "ModalContent", { enumerable: true, get: function() {
-      return __importDefault(ModalContent_1).default;
-    } });
+    Object.defineProperty(exports$1, "ModalContent", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(ModalContent_1).default;
+      },
+    });
     exports$1.default = Modal_1.default;
   })(Modal$1);
   return Modal$1;
@@ -1488,7 +1928,7 @@ function requireRouter() {
   router.handleRouteChange = void 0;
   var actions_1 = require$$1$4;
   function handleRouteChange(app, history) {
-    return app.subscribe(actions_1.Redirect.Action.APP, function(_a) {
+    return app.subscribe(actions_1.Redirect.Action.APP, function (_a) {
       var path = _a.path;
       history.replace(path);
     });
@@ -1500,55 +1940,62 @@ var hasRequiredClientRouter$1;
 function requireClientRouter$1() {
   if (hasRequiredClientRouter$1) return ClientRouter;
   hasRequiredClientRouter$1 = 1;
-  var __extends = ClientRouter && ClientRouter.__extends || /* @__PURE__ */ function() {
-    var extendStatics = function(d, b) {
-      extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-        d2.__proto__ = b2;
-      } || function(d2, b2) {
-        for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+  var __extends =
+    (ClientRouter && ClientRouter.__extends) ||
+    /* @__PURE__ */ (function () {
+      var extendStatics = function (d, b) {
+        extendStatics =
+          Object.setPrototypeOf ||
+          ({ __proto__: [] } instanceof Array &&
+            function (d2, b2) {
+              d2.__proto__ = b2;
+            }) ||
+          function (d2, b2) {
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+          };
+        return extendStatics(d, b);
       };
-      return extendStatics(d, b);
+      return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
+      };
+    })();
+  var __importDefault =
+    (ClientRouter && ClientRouter.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
     };
-    return function(d, b) {
-      if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-      extendStatics(d, b);
-      function __() {
-        this.constructor = d;
-      }
-      d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-  }();
-  var __importDefault = ClientRouter && ClientRouter.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
   Object.defineProperty(ClientRouter, "__esModule", { value: true });
   var react_1 = __importDefault(require$$0);
   var context_1 = /* @__PURE__ */ requireContext();
   var router_1 = /* @__PURE__ */ requireRouter();
-  var ClientRouter$12 = (
+  var ClientRouter$12 =
     /** @class */
-    function(_super) {
+    (function (_super) {
       __extends(ClientRouter2, _super);
       function ClientRouter2() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return (_super !== null && _super.apply(this, arguments)) || this;
       }
-      ClientRouter2.prototype.componentDidMount = function() {
+      ClientRouter2.prototype.componentDidMount = function () {
         var history = this.props.history;
         this.unsubscribe = (0, router_1.handleRouteChange)(this.context, history);
       };
-      ClientRouter2.prototype.componentWillUnmount = function() {
+      ClientRouter2.prototype.componentWillUnmount = function () {
         if (this.unsubscribe) {
           this.unsubscribe();
         }
       };
-      ClientRouter2.prototype.render = function() {
+      ClientRouter2.prototype.render = function () {
         return null;
       };
       ClientRouter2.contextType = context_1.AppBridgeContext;
       return ClientRouter2;
-    }(react_1.default.Component)
-  );
+    })(react_1.default.Component);
   ClientRouter.default = ClientRouter$12;
   return ClientRouter;
 }
@@ -1563,9 +2010,12 @@ function requireHook$1() {
   var router_1 = /* @__PURE__ */ requireRouter();
   function useClientRouting(history) {
     var app = (0, useAppBridge_1.useAppBridge)();
-    (0, react_1.useEffect)(function() {
-      return (0, router_1.handleRouteChange)(app, history);
-    }, [app, history]);
+    (0, react_1.useEffect)(
+      function () {
+        return (0, router_1.handleRouteChange)(app, history);
+      },
+      [app, history]
+    );
   }
   hook$1.default = useClientRouting;
   return hook$1;
@@ -1574,20 +2024,28 @@ var hasRequiredClientRouter;
 function requireClientRouter() {
   if (hasRequiredClientRouter) return ClientRouter$1;
   hasRequiredClientRouter = 1;
-  (function(exports$1) {
-    var __importDefault = ClientRouter$1 && ClientRouter$1.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
+  (function (exports$1) {
+    var __importDefault =
+      (ClientRouter$1 && ClientRouter$1.__importDefault) ||
+      function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useClientRouting = exports$1.ClientRouter = void 0;
     var ClientRouter_1 = /* @__PURE__ */ requireClientRouter$1();
-    Object.defineProperty(exports$1, "ClientRouter", { enumerable: true, get: function() {
-      return __importDefault(ClientRouter_1).default;
-    } });
+    Object.defineProperty(exports$1, "ClientRouter", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(ClientRouter_1).default;
+      },
+    });
     var hook_1 = /* @__PURE__ */ requireHook$1();
-    Object.defineProperty(exports$1, "useClientRouting", { enumerable: true, get: function() {
-      return __importDefault(hook_1).default;
-    } });
+    Object.defineProperty(exports$1, "useClientRouting", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(hook_1).default;
+      },
+    });
   })(ClientRouter$1);
   return ClientRouter$1;
 }
@@ -1619,102 +2077,137 @@ var hasRequiredRoutePropagator$2;
 function requireRoutePropagator$2() {
   if (hasRequiredRoutePropagator$2) return routePropagator;
   hasRequiredRoutePropagator$2 = 1;
-  var __awaiter = routePropagator && routePropagator.__awaiter || function(thisArg, _arguments, P, generator) {
-    function adopt(value) {
-      return value instanceof P ? value : new P(function(resolve) {
-        resolve(value);
+  var __awaiter =
+    (routePropagator && routePropagator.__awaiter) ||
+    function (thisArg, _arguments, P, generator) {
+      function adopt(value) {
+        return value instanceof P
+          ? value
+          : new P(function (resolve) {
+              resolve(value);
+            });
+      }
+      return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) {
+          try {
+            step(generator.next(value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function rejected(value) {
+          try {
+            step(generator["throw"](value));
+          } catch (e) {
+            reject(e);
+          }
+        }
+        function step(result) {
+          result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+        }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
-    }
-    return new (P || (P = Promise))(function(resolve, reject) {
-      function fulfilled(value) {
-        try {
-          step(generator.next(value));
-        } catch (e) {
-          reject(e);
-        }
+    };
+  var __generator =
+    (routePropagator && routePropagator.__generator) ||
+    function (thisArg, body) {
+      var _ = {
+          label: 0,
+          sent: function () {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+          },
+          trys: [],
+          ops: [],
+        },
+        f,
+        y,
+        t,
+        g;
+      return (
+        (g = { next: verb(0), throw: verb(1), return: verb(2) }),
+        typeof Symbol === "function" &&
+          (g[Symbol.iterator] = function () {
+            return this;
+          }),
+        g
+      );
+      function verb(n) {
+        return function (v) {
+          return step([n, v]);
+        };
       }
-      function rejected(value) {
-        try {
-          step(generator["throw"](value));
-        } catch (e) {
-          reject(e);
-        }
+      function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while ((g && ((g = 0), op[0] && (_ = 0)), _))
+          try {
+            if (
+              ((f = 1),
+              y &&
+                (t =
+                  op[0] & 2
+                    ? y["return"]
+                    : op[0]
+                      ? y["throw"] || ((t = y["return"]) && t.call(y), 0)
+                      : y.next) &&
+                !(t = t.call(y, op[1])).done)
+            )
+              return t;
+            if (((y = 0), t)) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+              case 0:
+              case 1:
+                t = op;
+                break;
+              case 4:
+                _.label++;
+                return { value: op[1], done: false };
+              case 5:
+                _.label++;
+                y = op[1];
+                op = [0];
+                continue;
+              case 7:
+                op = _.ops.pop();
+                _.trys.pop();
+                continue;
+              default:
+                if (
+                  !((t = _.trys), (t = t.length > 0 && t[t.length - 1])) &&
+                  (op[0] === 6 || op[0] === 2)
+                ) {
+                  _ = 0;
+                  continue;
+                }
+                if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) {
+                  _.label = op[1];
+                  break;
+                }
+                if (op[0] === 6 && _.label < t[1]) {
+                  _.label = t[1];
+                  t = op;
+                  break;
+                }
+                if (t && _.label < t[2]) {
+                  _.label = t[2];
+                  _.ops.push(op);
+                  break;
+                }
+                if (t[2]) _.ops.pop();
+                _.trys.pop();
+                continue;
+            }
+            op = body.call(thisArg, _);
+          } catch (e) {
+            op = [6, e];
+            y = 0;
+          } finally {
+            f = t = 0;
+          }
+        if (op[0] & 5) throw op[1];
+        return { value: op[0] ? op[1] : void 0, done: true };
       }
-      function step(result) {
-        result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-      }
-      step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-  };
-  var __generator = routePropagator && routePropagator.__generator || function(thisArg, body) {
-    var _ = { label: 0, sent: function() {
-      if (t[0] & 1) throw t[1];
-      return t[1];
-    }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-      return this;
-    }), g;
-    function verb(n) {
-      return function(v) {
-        return step([n, v]);
-      };
-    }
-    function step(op) {
-      if (f) throw new TypeError("Generator is already executing.");
-      while (g && (g = 0, op[0] && (_ = 0)), _) try {
-        if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-        if (y = 0, t) op = [op[0] & 2, t.value];
-        switch (op[0]) {
-          case 0:
-          case 1:
-            t = op;
-            break;
-          case 4:
-            _.label++;
-            return { value: op[1], done: false };
-          case 5:
-            _.label++;
-            y = op[1];
-            op = [0];
-            continue;
-          case 7:
-            op = _.ops.pop();
-            _.trys.pop();
-            continue;
-          default:
-            if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-              _ = 0;
-              continue;
-            }
-            if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-              _.label = op[1];
-              break;
-            }
-            if (op[0] === 6 && _.label < t[1]) {
-              _.label = t[1];
-              t = op;
-              break;
-            }
-            if (t && _.label < t[2]) {
-              _.label = t[2];
-              _.ops.push(op);
-              break;
-            }
-            if (t[2]) _.ops.pop();
-            _.trys.pop();
-            continue;
-        }
-        op = body.call(thisArg, _);
-      } catch (e) {
-        op = [6, e];
-        y = 0;
-      } finally {
-        f = t = 0;
-      }
-      if (op[0] & 5) throw op[1];
-      return { value: op[0] ? op[1] : void 0, done: true };
-    }
-  };
+    };
   Object.defineProperty(routePropagator, "__esModule", { value: true });
   routePropagator.updateHistory = void 0;
   var MessageTransport_1 = require$$0$2;
@@ -1727,37 +2220,50 @@ function requireRoutePropagator$2() {
     "session",
     "shop",
     "timestamp",
-    "host"
+    "host",
   ];
   function updateHistory(app, location2) {
-    return __awaiter(this, void 0, void 0, function() {
-      var selfWindow, topWindow, renderedInTheTopWindow, renderedAsMainApp, normalizedLocation, pathname, search, hash, locationStr;
-      return __generator(this, function(_a) {
+    return __awaiter(this, void 0, void 0, function () {
+      var selfWindow,
+        topWindow,
+        renderedInTheTopWindow,
+        renderedAsMainApp,
+        normalizedLocation,
+        pathname,
+        search,
+        hash,
+        locationStr;
+      return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
             selfWindow = (0, globals_1.getSelfWindow)();
             topWindow = (0, globals_1.getTopWindow)();
             renderedInTheTopWindow = selfWindow === topWindow;
-            return [4, app.getState("context").then(function(context2) {
-              return context2 === MessageTransport_1.Context.Main;
-            })];
+            return [
+              4,
+              app.getState("context").then(function (context2) {
+                return context2 === MessageTransport_1.Context.Main;
+              }),
+            ];
           case 1:
             renderedAsMainApp = _a.sent();
             if (renderedInTheTopWindow || !renderedAsMainApp) {
               return [
-                2
+                2,
                 /*return*/
               ];
             }
             normalizedLocation = getNormalizedURL(location2);
-            embeddedFrameParamsToRemove2.forEach(function(param) {
+            embeddedFrameParamsToRemove2.forEach(function (param) {
               return normalizedLocation.searchParams.delete(param);
             });
-            pathname = normalizedLocation.pathname, search = normalizedLocation.search, hash = normalizedLocation.hash;
+            ((pathname = normalizedLocation.pathname),
+              (search = normalizedLocation.search),
+              (hash = normalizedLocation.hash));
             locationStr = "".concat(pathname).concat(search).concat(hash);
             actions_1.History.create(app).dispatch(actions_1.History.Action.REPLACE, locationStr);
             return [
-              2
+              2,
               /*return*/
             ];
         }
@@ -1770,7 +2276,9 @@ function requireRoutePropagator$2() {
     if (typeof location2 === "string") {
       return new URL(location2, origin);
     }
-    var pathname = location2.pathname, search = location2.search, hash = location2.hash;
+    var pathname = location2.pathname,
+      search = location2.search,
+      hash = location2.hash;
     return new URL("".concat(pathname).concat(search).concat(hash), origin);
   }
   return routePropagator;
@@ -1779,57 +2287,64 @@ var hasRequiredRoutePropagator$1;
 function requireRoutePropagator$1() {
   if (hasRequiredRoutePropagator$1) return RoutePropagator;
   hasRequiredRoutePropagator$1 = 1;
-  var __extends = RoutePropagator && RoutePropagator.__extends || /* @__PURE__ */ function() {
-    var extendStatics = function(d, b) {
-      extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-        d2.__proto__ = b2;
-      } || function(d2, b2) {
-        for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+  var __extends =
+    (RoutePropagator && RoutePropagator.__extends) ||
+    /* @__PURE__ */ (function () {
+      var extendStatics = function (d, b) {
+        extendStatics =
+          Object.setPrototypeOf ||
+          ({ __proto__: [] } instanceof Array &&
+            function (d2, b2) {
+              d2.__proto__ = b2;
+            }) ||
+          function (d2, b2) {
+            for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+          };
+        return extendStatics(d, b);
       };
-      return extendStatics(d, b);
+      return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
+      };
+    })();
+  var __importDefault =
+    (RoutePropagator && RoutePropagator.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
     };
-    return function(d, b) {
-      if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-      extendStatics(d, b);
-      function __() {
-        this.constructor = d;
-      }
-      d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-  }();
-  var __importDefault = RoutePropagator && RoutePropagator.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
   Object.defineProperty(RoutePropagator, "__esModule", { value: true });
   var react_1 = __importDefault(require$$0);
   var context_1 = /* @__PURE__ */ requireContext();
   var route_propagator_1 = /* @__PURE__ */ requireRoutePropagator$2();
-  var RoutePropagator$12 = (
+  var RoutePropagator$12 =
     /** @class */
-    function(_super) {
+    (function (_super) {
       __extends(RoutePropagator2, _super);
       function RoutePropagator2() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        return (_super !== null && _super.apply(this, arguments)) || this;
       }
-      RoutePropagator2.prototype.componentDidMount = function() {
+      RoutePropagator2.prototype.componentDidMount = function () {
         var location2 = this.props.location;
         (0, route_propagator_1.updateHistory)(this.context, location2);
       };
-      RoutePropagator2.prototype.componentDidUpdate = function(_a) {
+      RoutePropagator2.prototype.componentDidUpdate = function (_a) {
         var prevLocation = _a.location;
         var location2 = this.props.location;
         if (location2 !== prevLocation) {
           (0, route_propagator_1.updateHistory)(this.context, location2);
         }
       };
-      RoutePropagator2.prototype.render = function() {
+      RoutePropagator2.prototype.render = function () {
         return null;
       };
       RoutePropagator2.contextType = context_1.AppBridgeContext;
       return RoutePropagator2;
-    }(react_1.default.Component)
-  );
+    })(react_1.default.Component);
   RoutePropagator.default = RoutePropagator$12;
   return RoutePropagator;
 }
@@ -1844,9 +2359,12 @@ function requireHook() {
   var route_propagator_1 = /* @__PURE__ */ requireRoutePropagator$2();
   function useRoutePropagation(location2) {
     var app = (0, useAppBridge_1.useAppBridge)();
-    (0, react_1.useEffect)(function() {
-      (0, route_propagator_1.updateHistory)(app, location2);
-    }, [app, location2]);
+    (0, react_1.useEffect)(
+      function () {
+        (0, route_propagator_1.updateHistory)(app, location2);
+      },
+      [app, location2]
+    );
   }
   hook.default = useRoutePropagation;
   return hook;
@@ -1855,59 +2373,82 @@ var hasRequiredRoutePropagator;
 function requireRoutePropagator() {
   if (hasRequiredRoutePropagator) return RoutePropagator$1;
   hasRequiredRoutePropagator = 1;
-  (function(exports$1) {
-    var __importDefault = RoutePropagator$1 && RoutePropagator$1.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
+  (function (exports$1) {
+    var __importDefault =
+      (RoutePropagator$1 && RoutePropagator$1.__importDefault) ||
+      function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useRoutePropagation = exports$1.RoutePropagator = void 0;
     var RoutePropagator_1 = /* @__PURE__ */ requireRoutePropagator$1();
-    Object.defineProperty(exports$1, "RoutePropagator", { enumerable: true, get: function() {
-      return __importDefault(RoutePropagator_1).default;
-    } });
+    Object.defineProperty(exports$1, "RoutePropagator", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(RoutePropagator_1).default;
+      },
+    });
     var hook_1 = /* @__PURE__ */ requireHook();
-    Object.defineProperty(exports$1, "useRoutePropagation", { enumerable: true, get: function() {
-      return __importDefault(hook_1).default;
-    } });
+    Object.defineProperty(exports$1, "useRoutePropagation", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(hook_1).default;
+      },
+    });
   })(RoutePropagator$1);
   return RoutePropagator$1;
 }
 const version = "3.7.11";
 const require$$5 = {
-  version
+  version,
 };
 var hasRequiredProvider$1;
 function requireProvider$1() {
   if (hasRequiredProvider$1) return Provider$1;
   hasRequiredProvider$1 = 1;
-  (function(exports$1) {
-    var __createBinding = Provider$1 && Provider$1.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __setModuleDefault = Provider$1 && Provider$1.__setModuleDefault || (Object.create ? function(o, v) {
-      Object.defineProperty(o, "default", { enumerable: true, value: v });
-    } : function(o, v) {
-      o["default"] = v;
-    });
-    var __importStar = Provider$1 && Provider$1.__importStar || function(mod) {
-      if (mod && mod.__esModule) return mod;
-      var result = {};
-      if (mod != null) {
-        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-      }
-      __setModuleDefault(result, mod);
-      return result;
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (Provider$1 && Provider$1.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __setModuleDefault =
+      (Provider$1 && Provider$1.__setModuleDefault) ||
+      (Object.create
+        ? function (o, v) {
+            Object.defineProperty(o, "default", { enumerable: true, value: v });
+          }
+        : function (o, v) {
+            o["default"] = v;
+          });
+    var __importStar =
+      (Provider$1 && Provider$1.__importStar) ||
+      function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) {
+          for (var k in mod)
+            if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+              __createBinding(result, mod, k);
+        }
+        __setModuleDefault(result, mod);
+        return result;
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useRouter = exports$1.setClientInterfaceHook = void 0;
     var react_1 = __importStar(require$$0);
@@ -1917,23 +2458,39 @@ function requireProvider$1() {
     var RoutePropagator_1 = /* @__PURE__ */ requireRoutePropagator();
     var packageJson = require$$5;
     function Provider2(_a) {
-      var config = _a.config, router2 = _a.router, children = _a.children;
-      var app = (0, react_1.useMemo)(function() {
+      var config = _a.config,
+        router2 = _a.router,
+        children = _a.children;
+      var app = (0, react_1.useMemo)(function () {
         return (0, app_bridge_1.default)(config);
       }, []);
-      (0, react_1.useEffect)(function() {
-        if (app === null || app === void 0 ? void 0 : app.hooks) {
-          app.hooks.set(app_bridge_1.LifecycleHook.DispatchAction, exports$1.setClientInterfaceHook);
-        }
-      }, [app]);
-      var routerMarkup = (router2 === null || router2 === void 0 ? void 0 : router2.history) && (router2 === null || router2 === void 0 ? void 0 : router2.location) ? react_1.default.createElement(Router, { router: router2 }, children) : children;
-      return react_1.default.createElement(context_1.AppBridgeContext.Provider, { value: app }, routerMarkup);
+      (0, react_1.useEffect)(
+        function () {
+          if (app === null || app === void 0 ? void 0 : app.hooks) {
+            app.hooks.set(
+              app_bridge_1.LifecycleHook.DispatchAction,
+              exports$1.setClientInterfaceHook
+            );
+          }
+        },
+        [app]
+      );
+      var routerMarkup =
+        (router2 === null || router2 === void 0 ? void 0 : router2.history) &&
+        (router2 === null || router2 === void 0 ? void 0 : router2.location)
+          ? react_1.default.createElement(Router, { router: router2 }, children)
+          : children;
+      return react_1.default.createElement(
+        context_1.AppBridgeContext.Provider,
+        { value: app },
+        routerMarkup
+      );
     }
-    var setClientInterfaceHook = function(next) {
-      return function(action2) {
+    var setClientInterfaceHook = function (next) {
+      return function (action2) {
         action2.clientInterface = {
           name: "@shopify/app-bridge-react",
-          version: packageJson.version
+          version: packageJson.version,
         };
         return next(action2);
       };
@@ -1945,7 +2502,8 @@ function requireProvider$1() {
     }
     exports$1.useRouter = useRouter;
     function Router(_a) {
-      var router2 = _a.router, children = _a.children;
+      var router2 = _a.router,
+        children = _a.children;
       (0, ClientRouter_1.useClientRouting)(router2.history);
       (0, RoutePropagator_1.useRoutePropagation)(router2.location);
       return react_1.default.createElement(RouterContext.Provider, { value: router2 }, children);
@@ -1969,33 +2527,51 @@ function requireNavigationMenu$1() {
     return link.destination.replace(/\/$/, "") === pathname.replace(/\/$/, "");
   }
   function NavigationMenu$12(_a) {
-    var navigationLinks = _a.navigationLinks, _b = _a.matcher, matcher = _b === void 0 ? defaultMatcher : _b;
+    var navigationLinks = _a.navigationLinks,
+      _b = _a.matcher,
+      matcher = _b === void 0 ? defaultMatcher : _b;
     var app = (0, useAppBridge_1.useAppBridge)();
-    var _c = (0, react_1.useState)(), items = _c[0], setItems = _c[1];
+    var _c = (0, react_1.useState)(),
+      items = _c[0],
+      setItems = _c[1];
     var locationOrHref = ((0, Provider_1.useRouter)() || {}).location;
-    var location2 = (0, react_1.useMemo)(function() {
-      return locationOrHref !== null && locationOrHref !== void 0 ? locationOrHref : window.location;
-    }, [locationOrHref]);
-    (0, react_1.useEffect)(function() {
-      var items2 = navigationLinks.map(function(link) {
-        return (0, AppLink_1.create)(app, link);
-      });
-      setItems(items2);
-    }, [app, JSON.stringify(navigationLinks)]);
-    var activeLink = (0, react_1.useMemo)(function() {
-      var activeLinkIndex = (items || []).findIndex(function(link) {
-        return matcher(link, location2);
-      });
-      if (activeLinkIndex >= 0) {
-        return items === null || items === void 0 ? void 0 : items[activeLinkIndex];
-      }
-    }, [items, matcher, location2]);
-    (0, react_1.useEffect)(function() {
-      if (!items) {
-        return;
-      }
-      (0, NavigationMenu_1.create)(app, { items, active: activeLink });
-    }, [items, activeLink, app]);
+    var location2 = (0, react_1.useMemo)(
+      function () {
+        return locationOrHref !== null && locationOrHref !== void 0
+          ? locationOrHref
+          : window.location;
+      },
+      [locationOrHref]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        var items2 = navigationLinks.map(function (link) {
+          return (0, AppLink_1.create)(app, link);
+        });
+        setItems(items2);
+      },
+      [app, JSON.stringify(navigationLinks)]
+    );
+    var activeLink = (0, react_1.useMemo)(
+      function () {
+        var activeLinkIndex = (items || []).findIndex(function (link) {
+          return matcher(link, location2);
+        });
+        if (activeLinkIndex >= 0) {
+          return items === null || items === void 0 ? void 0 : items[activeLinkIndex];
+        }
+      },
+      [items, matcher, location2]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (!items) {
+          return;
+        }
+        (0, NavigationMenu_1.create)(app, { items, active: activeLink });
+      },
+      [items, activeLink, app]
+    );
     return null;
   }
   NavigationMenu.default = NavigationMenu$12;
@@ -2005,9 +2581,11 @@ var hasRequiredNavigationMenu;
 function requireNavigationMenu() {
   if (hasRequiredNavigationMenu) return NavigationMenu$1;
   hasRequiredNavigationMenu = 1;
-  var __importDefault = NavigationMenu$1 && NavigationMenu$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (NavigationMenu$1 && NavigationMenu$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(NavigationMenu$1, "__esModule", { value: true });
   var NavigationMenu_1 = __importDefault(/* @__PURE__ */ requireNavigationMenu$1());
   NavigationMenu$1.default = NavigationMenu_1.default;
@@ -2018,9 +2596,11 @@ var hasRequiredProvider;
 function requireProvider() {
   if (hasRequiredProvider) return Provider;
   hasRequiredProvider = 1;
-  var __importDefault = Provider && Provider.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (Provider && Provider.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(Provider, "__esModule", { value: true });
   var Provider_1 = __importDefault(/* @__PURE__ */ requireProvider$1());
   Provider.default = Provider_1.default;
@@ -2032,122 +2612,166 @@ var hasRequiredResourcePicker$1;
 function requireResourcePicker$1() {
   if (hasRequiredResourcePicker$1) return ResourcePicker;
   hasRequiredResourcePicker$1 = 1;
-  (function(exports$1) {
-    var __assign = ResourcePicker && ResourcePicker.__assign || function() {
-      __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-          s = arguments[i];
-          for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-        }
+  (function (exports$1) {
+    var __assign =
+      (ResourcePicker && ResourcePicker.__assign) ||
+      function () {
+        __assign =
+          Object.assign ||
+          function (t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+              s = arguments[i];
+              for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+          };
+        return __assign.apply(this, arguments);
+      };
+    var __rest =
+      (ResourcePicker && ResourcePicker.__rest) ||
+      function (s, e) {
+        var t = {};
+        for (var p in s)
+          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+              t[p[i]] = s[p[i]];
+          }
         return t;
       };
-      return __assign.apply(this, arguments);
-    };
-    var __rest = ResourcePicker && ResourcePicker.__rest || function(s, e) {
-      var t = {};
-      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-      if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-            t[p[i]] = s[p[i]];
-        }
-      return t;
-    };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.ResourceType = exports$1.ActionVerb = void 0;
     var react_1 = require$$0;
     var ResourcePicker_1 = require$$1$b;
-    Object.defineProperty(exports$1, "ActionVerb", { enumerable: true, get: function() {
-      return ResourcePicker_1.ActionVerb;
-    } });
-    Object.defineProperty(exports$1, "ResourceType", { enumerable: true, get: function() {
-      return ResourcePicker_1.ResourceType;
-    } });
+    Object.defineProperty(exports$1, "ActionVerb", {
+      enumerable: true,
+      get: function () {
+        return ResourcePicker_1.ActionVerb;
+      },
+    });
+    Object.defineProperty(exports$1, "ResourceType", {
+      enumerable: true,
+      get: function () {
+        return ResourcePicker_1.ResourceType;
+      },
+    });
     var useAppBridge_1 = /* @__PURE__ */ requireUseAppBridge();
     function ResourcePicker$12(_a) {
-      var open = _a.open, resourceType = _a.resourceType, onSelection = _a.onSelection, onCancel = _a.onCancel, allowMultiple = _a.allowMultiple, selectMultiple = _a.selectMultiple, props = __rest(_a, ["open", "resourceType", "onSelection", "onCancel", "allowMultiple", "selectMultiple"]);
-      var options = (0, react_1.useMemo)(function() {
-        return __assign(__assign({}, props), { selectMultiple: selectMultiple !== null && selectMultiple !== void 0 ? selectMultiple : allowMultiple });
-      }, [allowMultiple, props, selectMultiple]);
+      var open = _a.open,
+        resourceType = _a.resourceType,
+        onSelection = _a.onSelection,
+        onCancel = _a.onCancel,
+        allowMultiple = _a.allowMultiple,
+        selectMultiple = _a.selectMultiple,
+        props = __rest(_a, [
+          "open",
+          "resourceType",
+          "onSelection",
+          "onCancel",
+          "allowMultiple",
+          "selectMultiple",
+        ]);
+      var options = (0, react_1.useMemo)(
+        function () {
+          return __assign(__assign({}, props), {
+            selectMultiple:
+              selectMultiple !== null && selectMultiple !== void 0 ? selectMultiple : allowMultiple,
+          });
+        },
+        [allowMultiple, props, selectMultiple]
+      );
       var app = (0, useAppBridge_1.useAppBridge)();
       var isUnmountedRef = (0, react_1.useRef)(false);
-      (0, react_1.useEffect)(function() {
-        return function() {
+      (0, react_1.useEffect)(function () {
+        return function () {
           isUnmountedRef.current = true;
         };
       }, []);
       var openRef = (0, react_1.useRef)(false);
       var optionsRef = (0, react_1.useRef)(options);
-      var picker = (0, react_1.useMemo)(function() {
-        return (0, ResourcePicker_1.create)(app, {
-          resourceType: ResourcePicker_1.ResourceType[resourceType],
-          options: optionsRef.current
-        });
-      }, [app, resourceType]);
-      (0, react_1.useEffect)(function() {
-        openRef.current = false;
-        return function() {
-          if (openRef.current && isUnmountedRef.current) {
-            picker.dispatch(ResourcePicker_1.Action.CANCEL);
-          }
-        };
-      }, [picker]);
+      var picker = (0, react_1.useMemo)(
+        function () {
+          return (0, ResourcePicker_1.create)(app, {
+            resourceType: ResourcePicker_1.ResourceType[resourceType],
+            options: optionsRef.current,
+          });
+        },
+        [app, resourceType]
+      );
+      (0, react_1.useEffect)(
+        function () {
+          openRef.current = false;
+          return function () {
+            if (openRef.current && isUnmountedRef.current) {
+              picker.dispatch(ResourcePicker_1.Action.CANCEL);
+            }
+          };
+        },
+        [picker]
+      );
       var focusReturnPointRef = (0, react_1.useRef)(null);
-      var storeFocusReturnPoint = (0, react_1.useCallback)(function() {
+      var storeFocusReturnPoint = (0, react_1.useCallback)(function () {
         if (document.activeElement instanceof HTMLElement) {
           focusReturnPointRef.current = document.activeElement;
         }
       }, []);
-      var applyFocusReturnPoint = (0, react_1.useCallback)(function() {
+      var applyFocusReturnPoint = (0, react_1.useCallback)(function () {
         var focusReturnPoint = focusReturnPointRef.current;
         focusReturnPointRef.current = null;
         if (focusReturnPoint && document.contains(focusReturnPoint)) {
           focusReturnPoint.focus();
         }
       }, []);
-      (0, react_1.useEffect)(function() {
-        if (open === openRef.current)
-          return;
-        openRef.current = open;
-        if (open) {
-          picker.dispatch(ResourcePicker_1.Action.OPEN);
-          storeFocusReturnPoint();
-        } else {
-          picker.dispatch(ResourcePicker_1.Action.CLOSE);
-          applyFocusReturnPoint();
-        }
-      }, [picker, open, storeFocusReturnPoint, applyFocusReturnPoint]);
-      (0, react_1.useEffect)(function() {
-        if (!onSelection)
-          return;
-        return picker.subscribe(ResourcePicker_1.Action.SELECT, function() {
-          var args = [];
-          for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
+      (0, react_1.useEffect)(
+        function () {
+          if (open === openRef.current) return;
+          openRef.current = open;
+          if (open) {
+            picker.dispatch(ResourcePicker_1.Action.OPEN);
+            storeFocusReturnPoint();
+          } else {
+            picker.dispatch(ResourcePicker_1.Action.CLOSE);
+            applyFocusReturnPoint();
           }
-          openRef.current = false;
-          applyFocusReturnPoint();
-          return onSelection.apply(void 0, args);
-        });
-      }, [picker, onSelection, applyFocusReturnPoint]);
-      (0, react_1.useEffect)(function() {
-        if (!onCancel)
-          return;
-        return picker.subscribe(ResourcePicker_1.Action.CANCEL, function() {
-          openRef.current = false;
-          applyFocusReturnPoint();
-          return onCancel();
-        });
-      }, [picker, onCancel, applyFocusReturnPoint]);
-      (0, react_1.useEffect)(function() {
-        var shouldUpdate = JSON.stringify(options) !== JSON.stringify(optionsRef.current);
-        if (!shouldUpdate)
-          return;
-        optionsRef.current = options;
-        picker.set(options);
-      }, [picker, options]);
+        },
+        [picker, open, storeFocusReturnPoint, applyFocusReturnPoint]
+      );
+      (0, react_1.useEffect)(
+        function () {
+          if (!onSelection) return;
+          return picker.subscribe(ResourcePicker_1.Action.SELECT, function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+              args[_i] = arguments[_i];
+            }
+            openRef.current = false;
+            applyFocusReturnPoint();
+            return onSelection.apply(void 0, args);
+          });
+        },
+        [picker, onSelection, applyFocusReturnPoint]
+      );
+      (0, react_1.useEffect)(
+        function () {
+          if (!onCancel) return;
+          return picker.subscribe(ResourcePicker_1.Action.CANCEL, function () {
+            openRef.current = false;
+            applyFocusReturnPoint();
+            return onCancel();
+          });
+        },
+        [picker, onCancel, applyFocusReturnPoint]
+      );
+      (0, react_1.useEffect)(
+        function () {
+          var shouldUpdate = JSON.stringify(options) !== JSON.stringify(optionsRef.current);
+          if (!shouldUpdate) return;
+          optionsRef.current = options;
+          picker.set(options);
+        },
+        [picker, options]
+      );
       return null;
     }
     exports$1.default = ResourcePicker$12;
@@ -2158,9 +2782,11 @@ var hasRequiredResourcePicker;
 function requireResourcePicker() {
   if (hasRequiredResourcePicker) return ResourcePicker$1;
   hasRequiredResourcePicker = 1;
-  var __importDefault = ResourcePicker$1 && ResourcePicker$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (ResourcePicker$1 && ResourcePicker$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(ResourcePicker$1, "__esModule", { value: true });
   var ResourcePicker_1 = __importDefault(/* @__PURE__ */ requireResourcePicker$1());
   ResourcePicker$1.default = ResourcePicker_1.default;
@@ -2182,73 +2808,108 @@ function requireTitleBar$1() {
   function TitleBar$12(props) {
     var app = (0, useAppBridge_1.useAppBridge)();
     var currentProps = (0, react_1.useRef)();
-    var titleBar = (0, react_1.useMemo)(function() {
-      return (0, TitleBar_1.create)(app, {});
-    }, [app]);
-    (0, react_1.useEffect)(function() {
-      var _a;
-      var propsChanged = JSON.stringify(currentProps.current) !== JSON.stringify(props);
-      currentProps.current = props;
-      if (propsChanged) {
-        titleBar.set(transformProps(app, props));
-      } else {
-        var primaryAction = props.primaryAction, secondaryActions = props.secondaryActions, actionGroups = props.actionGroups, breadcrumbs = props.breadcrumbs;
-        var breadcrumb = Array.isArray(breadcrumbs) ? breadcrumbs[breadcrumbs.length - 1] : breadcrumbs;
-        updateButton(breadcrumb, titleBar.options.breadcrumbs);
-        updateButton(primaryAction, (_a = titleBar.options.buttons) === null || _a === void 0 ? void 0 : _a.primary);
-        updateSecondaryActions(titleBar, secondaryActions);
-        updateActionGroups(titleBar, actionGroups);
-      }
-      return function() {
-        titleBar.unsubscribe();
-      };
-    }, [titleBar, props]);
+    var titleBar = (0, react_1.useMemo)(
+      function () {
+        return (0, TitleBar_1.create)(app, {});
+      },
+      [app]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        var _a;
+        var propsChanged = JSON.stringify(currentProps.current) !== JSON.stringify(props);
+        currentProps.current = props;
+        if (propsChanged) {
+          titleBar.set(transformProps(app, props));
+        } else {
+          var primaryAction = props.primaryAction,
+            secondaryActions = props.secondaryActions,
+            actionGroups = props.actionGroups,
+            breadcrumbs = props.breadcrumbs;
+          var breadcrumb = Array.isArray(breadcrumbs)
+            ? breadcrumbs[breadcrumbs.length - 1]
+            : breadcrumbs;
+          updateButton(breadcrumb, titleBar.options.breadcrumbs);
+          updateButton(
+            primaryAction,
+            (_a = titleBar.options.buttons) === null || _a === void 0 ? void 0 : _a.primary
+          );
+          updateSecondaryActions(titleBar, secondaryActions);
+          updateActionGroups(titleBar, actionGroups);
+        }
+        return function () {
+          titleBar.unsubscribe();
+        };
+      },
+      [titleBar, props]
+    );
     return null;
   }
   TitleBar.default = TitleBar$12;
   function updateSecondaryActions(titleBar, secondaryActions) {
     var _a, _b;
-    var secondaryButtons = ((_b = (_a = titleBar.options.buttons) === null || _a === void 0 ? void 0 : _a.secondary) === null || _b === void 0 ? void 0 : _b.filter(function(button) {
-      return !(0, ButtonGroup_1.isGroupedButton)(button);
-    })) || [];
-    secondaryButtons === null || secondaryButtons === void 0 ? void 0 : secondaryButtons.forEach(function(secondaryButton, index) {
-      return updateButton(
-        secondaryActions === null || secondaryActions === void 0 ? void 0 : secondaryActions[index],
-        // This needs to be casted as the React TitleBar component doesn't accept button groups for secondary actions
-        secondaryButton
-      );
-    });
+    var secondaryButtons =
+      ((_b = (_a = titleBar.options.buttons) === null || _a === void 0 ? void 0 : _a.secondary) ===
+        null || _b === void 0
+        ? void 0
+        : _b.filter(function (button) {
+            return !(0, ButtonGroup_1.isGroupedButton)(button);
+          })) || [];
+    secondaryButtons === null || secondaryButtons === void 0
+      ? void 0
+      : secondaryButtons.forEach(function (secondaryButton, index) {
+          return updateButton(
+            secondaryActions === null || secondaryActions === void 0
+              ? void 0
+              : secondaryActions[index],
+            // This needs to be casted as the React TitleBar component doesn't accept button groups for secondary actions
+            secondaryButton
+          );
+        });
   }
   function updateActionGroups(titleBar, actionGroups) {
     var _a, _b;
-    var actionGroupButtons = ((_b = (_a = titleBar.options.buttons) === null || _a === void 0 ? void 0 : _a.secondary) === null || _b === void 0 ? void 0 : _b.filter(ButtonGroup_1.isGroupedButton)) || [];
-    actionGroupButtons === null || actionGroupButtons === void 0 ? void 0 : actionGroupButtons.forEach(function(actionBroupButton, index) {
-      var actionGroup = actionGroups === null || actionGroups === void 0 ? void 0 : actionGroups[index];
-      if (!actionGroup) {
-        return;
-      }
-      actionBroupButton.options.buttons.forEach(function(nestedButton, nestedIndex) {
-        return updateButton(actionGroup.actions[nestedIndex], nestedButton);
-      });
-    });
+    var actionGroupButtons =
+      ((_b = (_a = titleBar.options.buttons) === null || _a === void 0 ? void 0 : _a.secondary) ===
+        null || _b === void 0
+        ? void 0
+        : _b.filter(ButtonGroup_1.isGroupedButton)) || [];
+    actionGroupButtons === null || actionGroupButtons === void 0
+      ? void 0
+      : actionGroupButtons.forEach(function (actionBroupButton, index) {
+          var actionGroup =
+            actionGroups === null || actionGroups === void 0 ? void 0 : actionGroups[index];
+          if (!actionGroup) {
+            return;
+          }
+          actionBroupButton.options.buttons.forEach(function (nestedButton, nestedIndex) {
+            return updateButton(actionGroup.actions[nestedIndex], nestedButton);
+          });
+        });
   }
   function transformProps(app, _a) {
-    var actionGroups = _a.actionGroups, breadcrumbs = _a.breadcrumbs, primaryAction = _a.primaryAction, secondaryActions = _a.secondaryActions, title = _a.title;
+    var actionGroups = _a.actionGroups,
+      breadcrumbs = _a.breadcrumbs,
+      primaryAction = _a.primaryAction,
+      secondaryActions = _a.secondaryActions,
+      title = _a.title;
     var breadcrumb = Array.isArray(breadcrumbs) ? breadcrumbs[breadcrumbs.length - 1] : breadcrumbs;
     return {
       title,
       buttons: (0, transformers_1.transformActions)(app, {
         primaryAction,
         secondaryActions,
-        actionGroups
+        actionGroups,
       }),
-      breadcrumbs: breadcrumb ? transformBreadcrumb(app, breadcrumb) : void 0
+      breadcrumbs: breadcrumb ? transformBreadcrumb(app, breadcrumb) : void 0,
     };
   }
   function transformBreadcrumb(app, breadcrumb, updateBreadcrumb) {
-    var button = updateBreadcrumb || (0, Button_1.create)(app, {
-      label: breadcrumb.content || ""
-    });
+    var button =
+      updateBreadcrumb ||
+      (0, Button_1.create)(app, {
+        label: breadcrumb.content || "",
+      });
     updateButton(breadcrumb, button);
     return button;
   }
@@ -2256,7 +2917,12 @@ function requireTitleBar$1() {
     if (!actionProps || !button) {
       return;
     }
-    var redirect3 = (0, transformers_1.generateRedirect)(button.app, actionProps.url, actionProps.target, actionProps.external);
+    var redirect3 = (0, transformers_1.generateRedirect)(
+      button.app,
+      actionProps.url,
+      actionProps.target,
+      actionProps.external
+    );
     if (redirect3) {
       button.subscribe(Button_1.Action.CLICK, redirect3, button);
     }
@@ -2270,9 +2936,11 @@ var hasRequiredTitleBar;
 function requireTitleBar() {
   if (hasRequiredTitleBar) return TitleBar$1;
   hasRequiredTitleBar = 1;
-  var __importDefault = TitleBar$1 && TitleBar$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (TitleBar$1 && TitleBar$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(TitleBar$1, "__esModule", { value: true });
   var TitleBar_1 = __importDefault(/* @__PURE__ */ requireTitleBar$1());
   TitleBar$1.default = TitleBar_1.default;
@@ -2284,69 +2952,89 @@ var hasRequiredToast$1;
 function requireToast$1() {
   if (hasRequiredToast$1) return Toast;
   hasRequiredToast$1 = 1;
-  (function(exports$1) {
-    var __extends = Toast && Toast.__extends || /* @__PURE__ */ function() {
-      var extendStatics = function(d, b) {
-        extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d2, b2) {
-          d2.__proto__ = b2;
-        } || function(d2, b2) {
-          for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+  (function (exports$1) {
+    var __extends =
+      (Toast && Toast.__extends) ||
+      /* @__PURE__ */ (function () {
+        var extendStatics = function (d, b) {
+          extendStatics =
+            Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array &&
+              function (d2, b2) {
+                d2.__proto__ = b2;
+              }) ||
+            function (d2, b2) {
+              for (var p in b2) if (Object.prototype.hasOwnProperty.call(b2, p)) d2[p] = b2[p];
+            };
+          return extendStatics(d, b);
         };
-        return extendStatics(d, b);
+        return function (d, b) {
+          if (typeof b !== "function" && b !== null)
+            throw new TypeError(
+              "Class extends value " + String(b) + " is not a constructor or null"
+            );
+          extendStatics(d, b);
+          function __() {
+            this.constructor = d;
+          }
+          d.prototype = b === null ? Object.create(b) : ((__.prototype = b.prototype), new __());
+        };
+      })();
+    var __importDefault =
+      (Toast && Toast.__importDefault) ||
+      function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
       };
-      return function(d, b) {
-        if (typeof b !== "function" && b !== null)
-          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() {
-          this.constructor = d;
-        }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-      };
-    }();
-    var __importDefault = Toast && Toast.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.DEFAULT_TOAST_DURATION = void 0;
     var react_1 = __importDefault(require$$0);
     var actions_1 = require$$1$4;
     var context_1 = /* @__PURE__ */ requireContext();
     exports$1.DEFAULT_TOAST_DURATION = 5e3;
-    var Toast$12 = (
+    var Toast$12 =
       /** @class */
-      function(_super) {
+      (function (_super) {
         __extends(Toast2, _super);
         function Toast2() {
-          return _super !== null && _super.apply(this, arguments) || this;
+          return (_super !== null && _super.apply(this, arguments)) || this;
         }
-        Toast2.prototype.componentDidMount = function() {
+        Toast2.prototype.componentDidMount = function () {
           var app = this.context;
-          var _a = this.props, error = _a.error, content = _a.content, _b = _a.duration, duration = _b === void 0 ? exports$1.DEFAULT_TOAST_DURATION : _b, onDismiss = _a.onDismiss, action2 = _a.action;
+          var _a = this.props,
+            error = _a.error,
+            content = _a.content,
+            _b = _a.duration,
+            duration = _b === void 0 ? exports$1.DEFAULT_TOAST_DURATION : _b,
+            onDismiss = _a.onDismiss,
+            action2 = _a.action;
           this.toast = actions_1.Toast.create(app, {
             message: content,
             duration,
             isError: error,
-            action: (action2 === null || action2 === void 0 ? void 0 : action2.content) ? {
-              content: action2 === null || action2 === void 0 ? void 0 : action2.content
-            } : void 0
+            action: (action2 === null || action2 === void 0 ? void 0 : action2.content)
+              ? {
+                  content: action2 === null || action2 === void 0 ? void 0 : action2.content,
+                }
+              : void 0,
           });
           if (action2 === null || action2 === void 0 ? void 0 : action2.onAction) {
-            this.toast.subscribe(actions_1.Toast.Action.ACTION, action2 === null || action2 === void 0 ? void 0 : action2.onAction);
+            this.toast.subscribe(
+              actions_1.Toast.Action.ACTION,
+              action2 === null || action2 === void 0 ? void 0 : action2.onAction
+            );
           }
           this.toast.subscribe(actions_1.Toast.Action.CLEAR, onDismiss);
           this.toast.dispatch(actions_1.Toast.Action.SHOW);
         };
-        Toast2.prototype.componentWillUnmount = function() {
+        Toast2.prototype.componentWillUnmount = function () {
           this.toast.unsubscribe();
         };
-        Toast2.prototype.render = function() {
+        Toast2.prototype.render = function () {
           return null;
         };
         Toast2.contextType = context_1.AppBridgeContext;
         return Toast2;
-      }(react_1.default.PureComponent)
-    );
+      })(react_1.default.PureComponent);
     exports$1.default = Toast$12;
   })(Toast);
   return Toast;
@@ -2355,9 +3043,11 @@ var hasRequiredToast;
 function requireToast() {
   if (hasRequiredToast) return Toast$1;
   hasRequiredToast = 1;
-  var __importDefault = Toast$1 && Toast$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (Toast$1 && Toast$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(Toast$1, "__esModule", { value: true });
   var Toast_1 = __importDefault(/* @__PURE__ */ requireToast$1());
   Toast$1.default = Toast_1.default;
@@ -2369,90 +3059,115 @@ var hasRequiredUnstable_Picker$1;
 function requireUnstable_Picker$1() {
   if (hasRequiredUnstable_Picker$1) return unstable_Picker;
   hasRequiredUnstable_Picker$1 = 1;
-  var __rest = unstable_Picker && unstable_Picker.__rest || function(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-      t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-      for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-        if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-          t[p[i]] = s[p[i]];
-      }
-    return t;
-  };
+  var __rest =
+    (unstable_Picker && unstable_Picker.__rest) ||
+    function (s, e) {
+      var t = {};
+      for (var p in s)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+      if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+            t[p[i]] = s[p[i]];
+        }
+      return t;
+    };
   Object.defineProperty(unstable_Picker, "__esModule", { value: true });
   var react_1 = require$$0;
   var Picker_1 = require$$1$c;
   var useAppBridge_1 = /* @__PURE__ */ requireUseAppBridge();
   function Picker(_a) {
-    var open = _a.open, onCancel = _a.onCancel, onSelect = _a.onSelect, onSearch = _a.onSearch, onLoadMore = _a.onLoadMore, options = __rest(_a, ["open", "onCancel", "onSelect", "onSearch", "onLoadMore"]);
+    var open = _a.open,
+      onCancel = _a.onCancel,
+      onSelect = _a.onSelect,
+      onSearch = _a.onSearch,
+      onLoadMore = _a.onLoadMore,
+      options = __rest(_a, ["open", "onCancel", "onSelect", "onSearch", "onLoadMore"]);
     var app = (0, useAppBridge_1.useAppBridge)();
     var isUnmountedRef = (0, react_1.useRef)(false);
-    (0, react_1.useEffect)(function() {
-      return function() {
+    (0, react_1.useEffect)(function () {
+      return function () {
         isUnmountedRef.current = true;
       };
     }, []);
     var openRef = (0, react_1.useRef)(false);
     var optionsRef = (0, react_1.useRef)(options);
-    var picker = (0, react_1.useMemo)(function() {
-      return (0, Picker_1.create)(app, optionsRef.current);
-    }, [app]);
-    (0, react_1.useEffect)(function() {
-      openRef.current = false;
-      return function() {
-        if (openRef.current && isUnmountedRef.current) {
+    var picker = (0, react_1.useMemo)(
+      function () {
+        return (0, Picker_1.create)(app, optionsRef.current);
+      },
+      [app]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        openRef.current = false;
+        return function () {
+          if (openRef.current && isUnmountedRef.current) {
+            picker.dispatch(Picker_1.Action.CANCEL);
+          }
+        };
+      },
+      [picker]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (open === openRef.current) return;
+        openRef.current = open;
+        if (open) {
+          picker.dispatch(Picker_1.Action.OPEN);
+        } else {
           picker.dispatch(Picker_1.Action.CANCEL);
         }
-      };
-    }, [picker]);
-    (0, react_1.useEffect)(function() {
-      if (open === openRef.current)
-        return;
-      openRef.current = open;
-      if (open) {
-        picker.dispatch(Picker_1.Action.OPEN);
-      } else {
-        picker.dispatch(Picker_1.Action.CANCEL);
-      }
-    }, [picker, open]);
-    (0, react_1.useEffect)(function() {
-      if (!onSelect)
-        return;
-      return picker.subscribe(Picker_1.Action.SELECT, function() {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-          args[_i] = arguments[_i];
-        }
-        openRef.current = false;
-        return onSelect.apply(void 0, args);
-      });
-    }, [picker, onSelect]);
-    (0, react_1.useEffect)(function() {
-      if (!onCancel)
-        return;
-      return picker.subscribe(Picker_1.Action.CANCEL, function() {
-        openRef.current = false;
-        return onCancel();
-      });
-    }, [picker, onCancel]);
-    (0, react_1.useEffect)(function() {
-      if (!onSearch)
-        return;
-      return picker.subscribe(Picker_1.Action.SEARCH, onSearch);
-    }, [picker, onSearch]);
-    (0, react_1.useEffect)(function() {
-      if (!onLoadMore)
-        return;
-      return picker.subscribe(Picker_1.Action.LOAD_MORE, onLoadMore);
-    }, [picker, onLoadMore]);
-    (0, react_1.useEffect)(function() {
-      var shouldUpdate = JSON.stringify(options) !== JSON.stringify(optionsRef.current);
-      if (!shouldUpdate)
-        return;
-      optionsRef.current = options;
-      picker.set(options, openRef.current);
-    }, [picker, options]);
+      },
+      [picker, open]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (!onSelect) return;
+        return picker.subscribe(Picker_1.Action.SELECT, function () {
+          var args = [];
+          for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+          }
+          openRef.current = false;
+          return onSelect.apply(void 0, args);
+        });
+      },
+      [picker, onSelect]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (!onCancel) return;
+        return picker.subscribe(Picker_1.Action.CANCEL, function () {
+          openRef.current = false;
+          return onCancel();
+        });
+      },
+      [picker, onCancel]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (!onSearch) return;
+        return picker.subscribe(Picker_1.Action.SEARCH, onSearch);
+      },
+      [picker, onSearch]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        if (!onLoadMore) return;
+        return picker.subscribe(Picker_1.Action.LOAD_MORE, onLoadMore);
+      },
+      [picker, onLoadMore]
+    );
+    (0, react_1.useEffect)(
+      function () {
+        var shouldUpdate = JSON.stringify(options) !== JSON.stringify(optionsRef.current);
+        if (!shouldUpdate) return;
+        optionsRef.current = options;
+        picker.set(options, openRef.current);
+      },
+      [picker, options]
+    );
     return null;
   }
   unstable_Picker.default = Picker;
@@ -2462,9 +3177,11 @@ var hasRequiredUnstable_Picker;
 function requireUnstable_Picker() {
   if (hasRequiredUnstable_Picker) return unstable_Picker$1;
   hasRequiredUnstable_Picker = 1;
-  var __importDefault = unstable_Picker$1 && unstable_Picker$1.__importDefault || function(mod) {
-    return mod && mod.__esModule ? mod : { "default": mod };
-  };
+  var __importDefault =
+    (unstable_Picker$1 && unstable_Picker$1.__importDefault) ||
+    function (mod) {
+      return mod && mod.__esModule ? mod : { default: mod };
+    };
   Object.defineProperty(unstable_Picker$1, "__esModule", { value: true });
   var unstable_Picker_1 = __importDefault(/* @__PURE__ */ requireUnstable_Picker$1());
   unstable_Picker$1.default = unstable_Picker_1.default;
@@ -2474,67 +3191,120 @@ var hasRequiredComponents;
 function requireComponents() {
   if (hasRequiredComponents) return components;
   hasRequiredComponents = 1;
-  (function(exports$1) {
-    var __createBinding = components && components.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = components && components.__exportStar || function(m, exports$12) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p)) __createBinding(exports$12, m, p);
-    };
-    var __importDefault = components && components.__importDefault || function(mod) {
-      return mod && mod.__esModule ? mod : { "default": mod };
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (components && components.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __exportStar =
+      (components && components.__exportStar) ||
+      function (m, exports$12) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p))
+            __createBinding(exports$12, m, p);
+      };
+    var __importDefault =
+      (components && components.__importDefault) ||
+      function (mod) {
+        return mod && mod.__esModule ? mod : { default: mod };
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
-    exports$1.unstable_Picker = exports$1.Toast = exports$1.TitleBar = exports$1.ResourcePicker = exports$1.Provider = exports$1.NavigationMenu = exports$1.ModalContent = exports$1.Modal = exports$1.Loading = exports$1.ContextualSaveBar = void 0;
+    exports$1.unstable_Picker =
+      exports$1.Toast =
+      exports$1.TitleBar =
+      exports$1.ResourcePicker =
+      exports$1.Provider =
+      exports$1.NavigationMenu =
+      exports$1.ModalContent =
+      exports$1.Modal =
+      exports$1.Loading =
+      exports$1.ContextualSaveBar =
+        void 0;
     var ContextualSaveBar_1 = /* @__PURE__ */ requireContextualSaveBar();
-    Object.defineProperty(exports$1, "ContextualSaveBar", { enumerable: true, get: function() {
-      return __importDefault(ContextualSaveBar_1).default;
-    } });
+    Object.defineProperty(exports$1, "ContextualSaveBar", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(ContextualSaveBar_1).default;
+      },
+    });
     var Loading_1 = /* @__PURE__ */ requireLoading();
-    Object.defineProperty(exports$1, "Loading", { enumerable: true, get: function() {
-      return __importDefault(Loading_1).default;
-    } });
+    Object.defineProperty(exports$1, "Loading", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(Loading_1).default;
+      },
+    });
     var Modal_1 = /* @__PURE__ */ requireModal();
-    Object.defineProperty(exports$1, "Modal", { enumerable: true, get: function() {
-      return __importDefault(Modal_1).default;
-    } });
-    Object.defineProperty(exports$1, "ModalContent", { enumerable: true, get: function() {
-      return Modal_1.ModalContent;
-    } });
+    Object.defineProperty(exports$1, "Modal", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(Modal_1).default;
+      },
+    });
+    Object.defineProperty(exports$1, "ModalContent", {
+      enumerable: true,
+      get: function () {
+        return Modal_1.ModalContent;
+      },
+    });
     var NavigationMenu_1 = /* @__PURE__ */ requireNavigationMenu();
-    Object.defineProperty(exports$1, "NavigationMenu", { enumerable: true, get: function() {
-      return __importDefault(NavigationMenu_1).default;
-    } });
+    Object.defineProperty(exports$1, "NavigationMenu", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(NavigationMenu_1).default;
+      },
+    });
     var Provider_1 = /* @__PURE__ */ requireProvider();
-    Object.defineProperty(exports$1, "Provider", { enumerable: true, get: function() {
-      return __importDefault(Provider_1).default;
-    } });
+    Object.defineProperty(exports$1, "Provider", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(Provider_1).default;
+      },
+    });
     var ResourcePicker_1 = /* @__PURE__ */ requireResourcePicker();
-    Object.defineProperty(exports$1, "ResourcePicker", { enumerable: true, get: function() {
-      return __importDefault(ResourcePicker_1).default;
-    } });
+    Object.defineProperty(exports$1, "ResourcePicker", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(ResourcePicker_1).default;
+      },
+    });
     var TitleBar_1 = /* @__PURE__ */ requireTitleBar();
-    Object.defineProperty(exports$1, "TitleBar", { enumerable: true, get: function() {
-      return __importDefault(TitleBar_1).default;
-    } });
+    Object.defineProperty(exports$1, "TitleBar", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(TitleBar_1).default;
+      },
+    });
     var Toast_1 = /* @__PURE__ */ requireToast();
-    Object.defineProperty(exports$1, "Toast", { enumerable: true, get: function() {
-      return __importDefault(Toast_1).default;
-    } });
+    Object.defineProperty(exports$1, "Toast", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(Toast_1).default;
+      },
+    });
     var unstable_Picker_1 = /* @__PURE__ */ requireUnstable_Picker();
-    Object.defineProperty(exports$1, "unstable_Picker", { enumerable: true, get: function() {
-      return __importDefault(unstable_Picker_1).default;
-    } });
+    Object.defineProperty(exports$1, "unstable_Picker", {
+      enumerable: true,
+      get: function () {
+        return __importDefault(unstable_Picker_1).default;
+      },
+    });
     __exportStar(/* @__PURE__ */ requireRoutePropagator(), exports$1);
     __exportStar(/* @__PURE__ */ requireClientRouter(), exports$1);
   })(components);
@@ -2544,33 +3314,50 @@ var hasRequiredAppBridgeReact;
 function requireAppBridgeReact() {
   if (hasRequiredAppBridgeReact) return appBridgeReact;
   hasRequiredAppBridgeReact = 1;
-  (function(exports$1) {
-    var __createBinding = appBridgeReact && appBridgeReact.__createBinding || (Object.create ? function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
-          return m[k];
-        } };
-      }
-      Object.defineProperty(o, k2, desc);
-    } : function(o, m, k, k2) {
-      if (k2 === void 0) k2 = k;
-      o[k2] = m[k];
-    });
-    var __exportStar = appBridgeReact && appBridgeReact.__exportStar || function(m, exports$12) {
-      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p)) __createBinding(exports$12, m, p);
-    };
+  (function (exports$1) {
+    var __createBinding =
+      (appBridgeReact && appBridgeReact.__createBinding) ||
+      (Object.create
+        ? function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            var desc = Object.getOwnPropertyDescriptor(m, k);
+            if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+              desc = {
+                enumerable: true,
+                get: function () {
+                  return m[k];
+                },
+              };
+            }
+            Object.defineProperty(o, k2, desc);
+          }
+        : function (o, m, k, k2) {
+            if (k2 === void 0) k2 = k;
+            o[k2] = m[k];
+          });
+    var __exportStar =
+      (appBridgeReact && appBridgeReact.__exportStar) ||
+      function (m, exports$12) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports$12, p))
+            __createBinding(exports$12, m, p);
+      };
     Object.defineProperty(exports$1, "__esModule", { value: true });
     exports$1.useAppBridge = exports$1.Context = void 0;
     var context_1 = /* @__PURE__ */ requireContext();
-    Object.defineProperty(exports$1, "Context", { enumerable: true, get: function() {
-      return context_1.AppBridgeContext;
-    } });
+    Object.defineProperty(exports$1, "Context", {
+      enumerable: true,
+      get: function () {
+        return context_1.AppBridgeContext;
+      },
+    });
     var useAppBridge_1 = /* @__PURE__ */ requireUseAppBridge();
-    Object.defineProperty(exports$1, "useAppBridge", { enumerable: true, get: function() {
-      return useAppBridge_1.useAppBridge;
-    } });
+    Object.defineProperty(exports$1, "useAppBridge", {
+      enumerable: true,
+      get: function () {
+        return useAppBridge_1.useAppBridge;
+      },
+    });
     __exportStar(/* @__PURE__ */ requireComponents(), exports$1);
     __exportStar(/* @__PURE__ */ requireHooks(), exports$1);
   })(appBridgeReact);
@@ -2581,17 +3368,16 @@ function ShopifyAppBridge({ children, apiKey, host }) {
   const config = {
     apiKey,
     host,
-    forceRedirect: true
+    forceRedirect: true,
   };
   return /* @__PURE__ */ jsx(appBridgeReactExports.Provider, { config, children });
 }
 let cryptoVar;
 try {
   cryptoVar = crypto;
-} catch (_e) {
-}
+} catch (_e) {}
 var HashFormat;
-(function(HashFormat2) {
+(function (HashFormat2) {
   HashFormat2["Base64"] = "base64";
   HashFormat2["Hex"] = "hex";
 })(HashFormat || (HashFormat = {}));
@@ -2599,47 +3385,59 @@ function isOK(resp) {
   return resp.statusCode >= 200 && resp.statusCode <= 299;
 }
 let abstractFetch = () => {
-  throw new Error("Missing adapter implementation for 'abstractFetch' - make sure to import the appropriate adapter for your platform");
+  throw new Error(
+    "Missing adapter implementation for 'abstractFetch' - make sure to import the appropriate adapter for your platform"
+  );
 };
 function setAbstractFetchFunc(func) {
   abstractFetch = func;
 }
 let abstractConvertRequest = () => {
-  throw new Error("Missing adapter implementation for 'abstractConvertRequest' - make sure to import the appropriate adapter for your platform");
+  throw new Error(
+    "Missing adapter implementation for 'abstractConvertRequest' - make sure to import the appropriate adapter for your platform"
+  );
 };
 function setAbstractConvertRequestFunc(func) {
   abstractConvertRequest = func;
 }
 let abstractConvertIncomingResponse = () => Promise.resolve({});
 let abstractConvertResponse = () => {
-  throw new Error("Missing adapter implementation for 'abstractConvertResponse' - make sure to import the appropriate adapter for your platform");
+  throw new Error(
+    "Missing adapter implementation for 'abstractConvertResponse' - make sure to import the appropriate adapter for your platform"
+  );
 };
 function setAbstractConvertResponseFunc(func) {
   abstractConvertResponse = func;
 }
 let abstractConvertHeaders = () => {
-  throw new Error("Missing adapter implementation for 'abstractConvertHeaders' - make sure to import the appropriate adapter for your platform");
+  throw new Error(
+    "Missing adapter implementation for 'abstractConvertHeaders' - make sure to import the appropriate adapter for your platform"
+  );
 };
 function setAbstractConvertHeadersFunc(func) {
   abstractConvertHeaders = func;
 }
 let abstractRuntimeString = () => {
-  throw new Error("Missing adapter implementation for 'abstractRuntimeString' - make sure to import the appropriate adapter for your platform");
+  throw new Error(
+    "Missing adapter implementation for 'abstractRuntimeString' - make sure to import the appropriate adapter for your platform"
+  );
 };
 function setAbstractRuntimeString(func) {
   abstractRuntimeString = func;
 }
 function canonicalizeHeaderName(hdr) {
-  return hdr.replace(/(^|-)(\w+)/g, (_fullMatch, start, letters) => start + letters.slice(0, 1).toUpperCase() + letters.slice(1).toLowerCase());
+  return hdr.replace(
+    /(^|-)(\w+)/g,
+    (_fullMatch, start, letters) =>
+      start + letters.slice(0, 1).toUpperCase() + letters.slice(1).toLowerCase()
+  );
 }
 function getHeaders(headers, needle_) {
   const result = [];
-  if (!headers)
-    return result;
+  if (!headers) return result;
   const needle = canonicalizeHeaderName(needle_);
   for (const [key, values] of Object.entries(headers)) {
-    if (canonicalizeHeaderName(key) !== needle)
-      continue;
+    if (canonicalizeHeaderName(key) !== needle) continue;
     if (Array.isArray(values)) {
       result.push(...values);
     } else {
@@ -2649,8 +3447,7 @@ function getHeaders(headers, needle_) {
   return result;
 }
 function getHeader(headers, needle) {
-  if (!headers)
-    return void 0;
+  if (!headers) return void 0;
   return getHeaders(headers, needle)?.[0];
 }
 function addHeader(headers, key, value) {
@@ -2666,19 +3463,15 @@ function addHeader(headers, key, value) {
   list.push(value);
 }
 function canonicalizeValue(value) {
-  if (typeof value === "number")
-    return value.toString();
+  if (typeof value === "number") return value.toString();
   return value;
 }
 function canonicalizeHeaders(hdr) {
   for (const [key, values] of Object.entries(hdr)) {
     const canonKey = canonicalizeHeaderName(key);
-    if (!hdr[canonKey])
-      hdr[canonKey] = [];
-    if (!Array.isArray(hdr[canonKey]))
-      hdr[canonKey] = [canonicalizeValue(hdr[canonKey])];
-    if (key === canonKey)
-      continue;
+    if (!hdr[canonKey]) hdr[canonKey] = [];
+    if (!Array.isArray(hdr[canonKey])) hdr[canonKey] = [canonicalizeValue(hdr[canonKey])];
+    if (key === canonKey) continue;
     delete hdr[key];
     hdr[canonKey].push(...[values].flat().map((value) => canonicalizeValue(value)));
   }
@@ -2690,9 +3483,10 @@ function removeHeader(headers, needle) {
   delete headers[canonKey];
 }
 function flatHeaders(headers) {
-  if (!headers)
-    return [];
-  return Object.entries(headers).flatMap(([header, values]) => Array.isArray(values) ? values.map((value) => [header, value]) : [[header, values]]);
+  if (!headers) return [];
+  return Object.entries(headers).flatMap(([header, values]) =>
+    Array.isArray(values) ? values.map((value) => [header, value]) : [[header, values]]
+  );
 }
 async function webApiConvertRequest(adapterArgs) {
   const request2 = adapterArgs.rawRequest;
@@ -2703,7 +3497,7 @@ async function webApiConvertRequest(adapterArgs) {
   return {
     headers,
     method: request2.method ?? "GET",
-    url: new URL(request2.url).toString()
+    url: new URL(request2.url).toString(),
   };
 }
 async function webApiConvertHeaders(headers, _adapterArgs) {
@@ -2715,7 +3509,7 @@ async function webApiConvertResponse(resp, adapterArgs) {
   return new Response(resp.body, {
     status: resp.statusCode,
     statusText: resp.statusText,
-    headers: await webApiConvertHeaders(resp.headers ?? {})
+    headers: await webApiConvertHeaders(resp.headers ?? {}),
   });
 }
 function webApiRuntimeString() {
@@ -2732,26 +3526,16 @@ class ShopifyError extends Error {
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
-class InvalidHmacError extends ShopifyError {
-}
-class InvalidShopError extends ShopifyError {
-}
-class InvalidHostError extends ShopifyError {
-}
-class InvalidJwtError extends ShopifyError {
-}
-class MissingJwtTokenError extends ShopifyError {
-}
-class InvalidDeliveryMethodError extends ShopifyError {
-}
-class SafeCompareError extends ShopifyError {
-}
-class PrivateAppError extends ShopifyError {
-}
-class HttpRequestError extends ShopifyError {
-}
-class HttpMaxRetriesError extends ShopifyError {
-}
+class InvalidHmacError extends ShopifyError {}
+class InvalidShopError extends ShopifyError {}
+class InvalidHostError extends ShopifyError {}
+class InvalidJwtError extends ShopifyError {}
+class MissingJwtTokenError extends ShopifyError {}
+class InvalidDeliveryMethodError extends ShopifyError {}
+class SafeCompareError extends ShopifyError {}
+class PrivateAppError extends ShopifyError {}
+class HttpRequestError extends ShopifyError {}
+class HttpMaxRetriesError extends ShopifyError {}
 class HttpResponseError extends ShopifyError {
   response;
   constructor({ message: message2, code, statusText, body, headers }) {
@@ -2760,14 +3544,12 @@ class HttpResponseError extends ShopifyError {
       code,
       statusText,
       body,
-      headers
+      headers,
     };
   }
 }
-class HttpRetriableError extends HttpResponseError {
-}
-class HttpInternalError extends HttpRetriableError {
-}
+class HttpRetriableError extends HttpResponseError {}
+class HttpInternalError extends HttpRetriableError {}
 class HttpThrottlingError extends HttpRetriableError {
   constructor({ retryAfter, ...params }) {
     super(params);
@@ -2785,14 +3567,10 @@ class GraphqlQueryError extends ShopifyError {
     this.body = body;
   }
 }
-class InvalidOAuthError extends ShopifyError {
-}
-class BotActivityDetected extends ShopifyError {
-}
-class CookieNotFound extends ShopifyError {
-}
-class InvalidSession extends ShopifyError {
-}
+class InvalidOAuthError extends ShopifyError {}
+class BotActivityDetected extends ShopifyError {}
+class CookieNotFound extends ShopifyError {}
+class InvalidSession extends ShopifyError {}
 class InvalidWebhookError extends ShopifyError {
   response;
   constructor({ message: message2, response }) {
@@ -2800,12 +3578,9 @@ class InvalidWebhookError extends ShopifyError {
     this.response = response;
   }
 }
-class MissingWebhookCallbackError extends InvalidWebhookError {
-}
-class MissingRequiredArgument extends ShopifyError {
-}
-class InvalidRequestError extends ShopifyError {
-}
+class MissingWebhookCallbackError extends InvalidWebhookError {}
+class MissingRequiredArgument extends ShopifyError {}
+class InvalidRequestError extends ShopifyError {}
 class BillingError extends ShopifyError {
   errorData;
   constructor({ message: message2, errorData }) {
@@ -2813,15 +3588,20 @@ class BillingError extends ShopifyError {
     this.errorData = errorData;
   }
 }
-class FeatureDeprecatedError extends ShopifyError {
-}
+class FeatureDeprecatedError extends ShopifyError {}
 async function createSHA256HMAC(secret, payload, returnFormat = HashFormat.Base64) {
   const cryptoLib = typeof cryptoVar?.webcrypto === "undefined" ? cryptoVar : cryptoVar.webcrypto;
   const enc = new TextEncoder();
-  const key = await cryptoLib.subtle.importKey("raw", enc.encode(secret), {
-    name: "HMAC",
-    hash: { name: "SHA-256" }
-  }, false, ["sign"]);
+  const key = await cryptoLib.subtle.importKey(
+    "raw",
+    enc.encode(secret),
+    {
+      name: "HMAC",
+      hash: { name: "SHA-256" },
+    },
+    false,
+    ["sign"]
+  );
   const signature = await cryptoLib.subtle.sign("HMAC", key, enc.encode(payload));
   return returnFormat === HashFormat.Base64 ? asBase64(signature) : asHex(signature);
 }
@@ -2837,8 +3617,8 @@ function asBase64(buffer) {
     const byte2 = input[i++];
     const byte3 = input[i++];
     const enc1 = byte1 >> 2;
-    const enc2 = (byte1 & 3) << 4 | byte2 >> 4;
-    let enc3 = (byte2 & 15) << 2 | byte3 >> 6;
+    const enc2 = ((byte1 & 3) << 4) | (byte2 >> 4);
+    let enc3 = ((byte2 & 15) << 2) | (byte3 >> 6);
     let enc4 = byte3 & 63;
     if (isNaN(byte2)) {
       enc3 = 64;
@@ -2869,18 +3649,22 @@ function splitN(str, sep, maxNumParts) {
 class Cookies {
   response;
   static parseCookies(hdrs) {
-    const entries = hdrs.filter((hdr) => hdr.trim().length > 0).map((cookieDef) => {
-      const [keyval, ...opts] = cookieDef.split(";");
-      const [name, value] = splitN(keyval, "=", 2).map((value2) => value2.trim());
-      return [
-        name,
-        {
+    const entries = hdrs
+      .filter((hdr) => hdr.trim().length > 0)
+      .map((cookieDef) => {
+        const [keyval, ...opts] = cookieDef.split(";");
+        const [name, value] = splitN(keyval, "=", 2).map((value2) => value2.trim());
+        return [
           name,
-          value,
-          ...Object.fromEntries(opts.map((opt) => splitN(opt, "=", 2).map((value2) => value2.trim())))
-        }
-      ];
-    });
+          {
+            name,
+            value,
+            ...Object.fromEntries(
+              opts.map((opt) => splitN(opt, "=", 2).map((value2) => value2.trim()))
+            ),
+          },
+        ];
+      });
     const jar = Object.fromEntries(entries);
     for (const cookie of Object.values(jar)) {
       if (typeof cookie.expires === "string") {
@@ -2892,7 +3676,10 @@ class Cookies {
   static encodeCookie(data) {
     let result = "";
     result += `${data.name}=${data.value};`;
-    result += Object.entries(data).filter(([key]) => !["name", "value", "expires"].includes(key)).map(([key, value]) => `${key}=${value}`).join("; ");
+    result += Object.entries(data)
+      .filter(([key]) => !["name", "value", "expires"].includes(key))
+      .map(([key, value]) => `${key}=${value}`)
+      .join("; ");
     if (data.expires) {
       result += ";";
       result += `expires=${data.expires.toUTCString()}`;
@@ -2904,8 +3691,7 @@ class Cookies {
   keys = [];
   constructor(request2, response, { keys = [] } = {}) {
     this.response = response;
-    if (keys)
-      this.keys = keys;
+    if (keys) this.keys = keys;
     const cookieReqHdr = getHeader(request2.headers, "Cookie") ?? "";
     this.receivedCookieJar = Cookies.parseCookies(cookieReqHdr.split(";"));
     const cookieResHdr = getHeaders(response.headers, "Set-Cookie") ?? [];
@@ -2927,14 +3713,13 @@ class Cookies {
   deleteCookie(name) {
     this.set(name, "", {
       path: "/",
-      expires: /* @__PURE__ */ new Date(0)
+      expires: /* @__PURE__ */ new Date(0),
     });
   }
   async getAndVerify(name) {
     const value = this.get(name);
-    if (!value)
-      return void 0;
-    if (!await this.isSignedCookieValid(name)) {
+    if (!value) return void 0;
+    if (!(await this.isSignedCookieValid(name))) {
       return void 0;
     }
     return value;
@@ -2946,7 +3731,7 @@ class Cookies {
     this.outgoingCookieJar[name] = {
       ...opts,
       name,
-      value
+      value,
     };
     this.updateHeader();
   }
@@ -2972,7 +3757,9 @@ class Cookies {
       this.deleteInvalidCookies(cookieName, signedCookieName);
       return false;
     }
-    const allCheckSignatures = await Promise.all(this.keys.map((key) => createSHA256HMAC(key, cookieValue)));
+    const allCheckSignatures = await Promise.all(
+      this.keys.map((key) => createSHA256HMAC(key, cookieValue))
+    );
     if (!allCheckSignatures.includes(signature)) {
       this.deleteInvalidCookies(cookieName, signedCookieName);
       return false;
@@ -2986,7 +3773,8 @@ class Cookies {
     cookieNames.forEach((cookieName) => this.deleteCookie(cookieName));
   }
 }
-const semver$3 = /^[v^~<>=]*?(\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+))?(?:-([\da-z\-]+(?:\.[\da-z\-]+)*))?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
+const semver$3 =
+  /^[v^~<>=]*?(\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+)(?:\.([x*]|\d+))?(?:-([\da-z\-]+(?:\.[\da-z\-]+)*))?(?:\+[\da-z\-]+(?:\.[\da-z\-]+)*)?)?)?$/i;
 const validateAndParse = (version2) => {
   if (typeof version2 !== "string") {
     throw new TypeError("Invalid argument expected string");
@@ -3003,22 +3791,18 @@ const tryParse = (v) => {
   const n = parseInt(v, 10);
   return isNaN(n) ? v : n;
 };
-const forceType = (a, b) => typeof a !== typeof b ? [String(a), String(b)] : [a, b];
+const forceType = (a, b) => (typeof a !== typeof b ? [String(a), String(b)] : [a, b]);
 const compareStrings = (a, b) => {
-  if (isWildcard(a) || isWildcard(b))
-    return 0;
+  if (isWildcard(a) || isWildcard(b)) return 0;
   const [ap, bp] = forceType(tryParse(a), tryParse(b));
-  if (ap > bp)
-    return 1;
-  if (ap < bp)
-    return -1;
+  if (ap > bp) return 1;
+  if (ap < bp) return -1;
   return 0;
 };
 const compareSegments = (a, b) => {
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
     const r = compareStrings(a[i] || "0", b[i] || "0");
-    if (r !== 0)
-      return r;
+    if (r !== 0) return r;
   }
   return 0;
 };
@@ -3028,8 +3812,7 @@ const compareVersions = (v1, v2) => {
   const p1 = n1.pop();
   const p2 = n2.pop();
   const r = compareSegments(n1, n2);
-  if (r !== 0)
-    return r;
+  if (r !== 0) return r;
   if (p1 && p2) {
     return compareSegments(p1.split("."), p2.split("."));
   } else if (p1 || p2) {
@@ -3048,7 +3831,7 @@ const operatorResMap = {
   "=": [0],
   "<=": [-1, 0],
   "<": [-1],
-  "!=": [-1, 1]
+  "!=": [-1, 1],
 };
 const allowedOperators = Object.keys(operatorResMap);
 const assertValidOperator = (op) => {
@@ -3057,14 +3840,14 @@ const assertValidOperator = (op) => {
   }
 };
 var LogSeverity;
-(function(LogSeverity2) {
-  LogSeverity2[LogSeverity2["Error"] = 0] = "Error";
-  LogSeverity2[LogSeverity2["Warning"] = 1] = "Warning";
-  LogSeverity2[LogSeverity2["Info"] = 2] = "Info";
-  LogSeverity2[LogSeverity2["Debug"] = 3] = "Debug";
+(function (LogSeverity2) {
+  LogSeverity2[(LogSeverity2["Error"] = 0)] = "Error";
+  LogSeverity2[(LogSeverity2["Warning"] = 1)] = "Warning";
+  LogSeverity2[(LogSeverity2["Info"] = 2)] = "Info";
+  LogSeverity2[(LogSeverity2["Debug"] = 3)] = "Debug";
 })(LogSeverity || (LogSeverity = {}));
 var ApiVersion;
-(function(ApiVersion2) {
+(function (ApiVersion2) {
   ApiVersion2["October22"] = "2022-10";
   ApiVersion2["January23"] = "2023-01";
   ApiVersion2["April23"] = "2023-04";
@@ -3084,7 +3867,7 @@ const LIBRARY_NAME = "Shopify API Library";
 const LATEST_API_VERSION = ApiVersion.July25;
 ApiVersion.October25;
 var ShopifyHeader;
-(function(ShopifyHeader2) {
+(function (ShopifyHeader2) {
   ShopifyHeader2["AccessToken"] = "X-Shopify-Access-Token";
   ShopifyHeader2["ApiVersion"] = "X-Shopify-API-Version";
   ShopifyHeader2["Domain"] = "X-Shopify-Shop-Domain";
@@ -3097,37 +3880,33 @@ var ShopifyHeader;
   ShopifyHeader2["StorefrontSDKVersion"] = "X-SDK-Version";
 })(ShopifyHeader || (ShopifyHeader = {}));
 var ClientType;
-(function(ClientType2) {
+(function (ClientType2) {
   ClientType2["Rest"] = "rest";
   ClientType2["Graphql"] = "graphql";
 })(ClientType || (ClientType = {}));
-const privacyTopics = [
-  "CUSTOMERS_DATA_REQUEST",
-  "CUSTOMERS_REDACT",
-  "SHOP_REDACT"
-];
+const privacyTopics = ["CUSTOMERS_DATA_REQUEST", "CUSTOMERS_REDACT", "SHOP_REDACT"];
 var BillingInterval;
-(function(BillingInterval2) {
+(function (BillingInterval2) {
   BillingInterval2["OneTime"] = "ONE_TIME";
   BillingInterval2["Every30Days"] = "EVERY_30_DAYS";
   BillingInterval2["Annual"] = "ANNUAL";
   BillingInterval2["Usage"] = "USAGE";
 })(BillingInterval || (BillingInterval = {}));
 var BillingReplacementBehavior;
-(function(BillingReplacementBehavior2) {
+(function (BillingReplacementBehavior2) {
   BillingReplacementBehavior2["ApplyImmediately"] = "APPLY_IMMEDIATELY";
   BillingReplacementBehavior2["ApplyOnNextBillingCycle"] = "APPLY_ON_NEXT_BILLING_CYCLE";
   BillingReplacementBehavior2["Standard"] = "STANDARD";
 })(BillingReplacementBehavior || (BillingReplacementBehavior = {}));
 const SHOPIFY_API_LIBRARY_VERSION = "11.14.1";
 function log(config) {
-  return function(severity, message2, context2 = {}) {
+  return function (severity, message2, context2 = {}) {
     if (severity > config.logger.level) {
       return;
     }
     const prefix = [];
     if (config.logger.timestamps) {
-      prefix.push(`${(/* @__PURE__ */ new Date()).toISOString().slice(0, -5)}Z`);
+      prefix.push(`${/* @__PURE__ */ new Date().toISOString().slice(0, -5)}Z`);
     }
     let packageString = context2.package || "shopify-api";
     delete context2.package;
@@ -3163,13 +3942,14 @@ function logger(config) {
     log: logFunction,
     debug: async (message2, context2 = {}) => logFunction(LogSeverity.Debug, message2, context2),
     info: async (message2, context2 = {}) => logFunction(LogSeverity.Info, message2, context2),
-    warning: async (message2, context2 = {}) => logFunction(LogSeverity.Warning, message2, context2),
+    warning: async (message2, context2 = {}) =>
+      logFunction(LogSeverity.Warning, message2, context2),
     error: async (message2, context2 = {}) => logFunction(LogSeverity.Error, message2, context2),
-    deprecated: deprecated(logFunction)
+    deprecated: deprecated(logFunction),
   };
 }
 function deprecated(logFunction) {
-  return function(version2, message2) {
+  return function (version2, message2) {
     if (compare(SHOPIFY_API_LIBRARY_VERSION, version2, ">=")) {
       throw new FeatureDeprecatedError(`Feature was deprecated in version ${version2}`);
     }
@@ -3179,52 +3959,68 @@ function deprecated(logFunction) {
 function loadRestResources({ resources, config, RestClient: RestClient2 }) {
   const firstResource = Object.keys(resources)[0];
   if (config.apiVersion !== resources[firstResource].apiVersion) {
-    logger(config).warning(`Loading REST resources for API version ${resources[firstResource].apiVersion}, which doesn't match the default ${config.apiVersion}`);
+    logger(config).warning(
+      `Loading REST resources for API version ${resources[firstResource].apiVersion}, which doesn't match the default ${config.apiVersion}`
+    );
   }
-  return Object.fromEntries(Object.entries(resources).map(([name, resource]) => {
-    class NewResource extends resource {
-    }
-    NewResource.setClassProperties({
-      Client: RestClient2,
-      config
-    });
-    Object.entries(NewResource.hasOne).map(([_attribute, klass]) => {
-      klass.setClassProperties({
+  return Object.fromEntries(
+    Object.entries(resources).map(([name, resource]) => {
+      class NewResource extends resource {}
+      NewResource.setClassProperties({
         Client: RestClient2,
-        config
+        config,
       });
-    });
-    Object.entries(NewResource.hasMany).map(([_attribute, klass]) => {
-      klass.setClassProperties({
-        Client: RestClient2,
-        config
+      Object.entries(NewResource.hasOne).map(([_attribute, klass]) => {
+        klass.setClassProperties({
+          Client: RestClient2,
+          config,
+        });
       });
-    });
-    Reflect.defineProperty(NewResource, "name", {
-      value: name
-    });
-    return [name, NewResource];
-  }));
+      Object.entries(NewResource.hasMany).map(([_attribute, klass]) => {
+        klass.setClassProperties({
+          Client: RestClient2,
+          config,
+        });
+      });
+      Reflect.defineProperty(NewResource, "name", {
+        value: name,
+      });
+      return [name, NewResource];
+    })
+  );
 }
 function logDisabledFutureFlags$1(config, logger2) {
   if (!config._logDisabledFutureFlags) {
     return;
   }
-  const logFlag = (flag, message2) => logger2.info(`Future flag ${flag} is disabled.
+  const logFlag = (flag, message2) =>
+    logger2.info(`Future flag ${flag} is disabled.
 
   ${message2}
 `);
   if (!config.future?.lineItemBilling) {
-    logFlag("lineItemBilling", "Enable this flag to use the new billing API, that supports multiple line items per plan.");
+    logFlag(
+      "lineItemBilling",
+      "Enable this flag to use the new billing API, that supports multiple line items per plan."
+    );
   }
   if (config.future?.v10_lineItemBilling) {
-    logger2.deprecated("12.0.0", "v10_lineItemBilling will become enabled in v11. Use flag lineItemBilling instead");
+    logger2.deprecated(
+      "12.0.0",
+      "v10_lineItemBilling will become enabled in v11. Use flag lineItemBilling instead"
+    );
   }
   if (!config.future?.customerAddressDefaultFix) {
-    logFlag("customerAddressDefaultFix", "Enable this flag to change the CustomerAddress classes to expose a 'is_default' property instead of 'default' when fetching data.");
+    logFlag(
+      "customerAddressDefaultFix",
+      "Enable this flag to change the CustomerAddress classes to expose a 'is_default' property instead of 'default' when fetching data."
+    );
   }
   if (!config.future?.unstable_managedPricingSupport) {
-    logFlag("unstable_managedPricingSupport", "Enable this flag to support managed pricing, so apps can check for payments without needing a billing config. Learn more at https://shopify.dev/docs/apps/launch/billing/managed-pricing");
+    logFlag(
+      "unstable_managedPricingSupport",
+      "Enable this flag to support managed pricing, so apps can check for payments without needing a billing config. Learn more at https://shopify.dev/docs/apps/launch/billing/managed-pricing"
+    );
   }
 }
 class AuthScopes {
@@ -3271,7 +4067,10 @@ class AuthScopes {
     } else {
       other = new AuthScopes(otherScopes);
     }
-    return this.compressedScopes.size === other.compressedScopes.size && this.toArray().filter((x) => !other.has(x)).length === 0;
+    return (
+      this.compressedScopes.size === other.compressedScopes.size &&
+      this.toArray().filter((x) => !other.has(x)).length === 0
+    );
   }
   /**
    * Returns a comma-separated string with the current set of scopes.
@@ -3308,10 +4107,10 @@ function validateConfig(params) {
       log: defaultLogFunction,
       level: LogSeverity.Info,
       httpRequests: false,
-      timestamps: false
+      timestamps: false,
     },
     future: {},
-    _logDisabledFutureFlags: true
+    _logDisabledFutureFlags: true,
   };
   const mandatory = ["apiSecretKey", "hostName"];
   if (!("isCustomStoreApp" in params) || !params.isCustomStoreApp) {
@@ -3329,13 +4128,27 @@ function validateConfig(params) {
     }
   });
   if (missing.length) {
-    throw new ShopifyError(`Cannot initialize Shopify API Library. Missing values for: ${missing.join(", ")}`);
+    throw new ShopifyError(
+      `Cannot initialize Shopify API Library. Missing values for: ${missing.join(", ")}`
+    );
   }
-  const future2 = params.future?.v10_lineItemBilling ? {
-    lineItemBilling: params.future?.v10_lineItemBilling,
-    ...params.future
-  } : params.future;
-  const { hostScheme, isCustomStoreApp, adminApiAccessToken, userAgentPrefix, logger: logger$1, privateAppStorefrontAccessToken, customShopDomains, billing, ...mandatoryParams } = params;
+  const future2 = params.future?.v10_lineItemBilling
+    ? {
+        lineItemBilling: params.future?.v10_lineItemBilling,
+        ...params.future,
+      }
+    : params.future;
+  const {
+    hostScheme,
+    isCustomStoreApp,
+    adminApiAccessToken,
+    userAgentPrefix,
+    logger: logger$1,
+    privateAppStorefrontAccessToken,
+    customShopDomains,
+    billing,
+    ...mandatoryParams
+  } = params;
   let scopes;
   if (params.scopes === void 0) {
     scopes = void 0;
@@ -3351,14 +4164,17 @@ function validateConfig(params) {
     isCustomStoreApp: isCustomStoreApp ?? config.isCustomStoreApp,
     adminApiAccessToken: adminApiAccessToken ?? config.adminApiAccessToken,
     userAgentPrefix: userAgentPrefix ?? config.userAgentPrefix,
-    logger: { ...config.logger, ...logger$1 || {} },
-    privateAppStorefrontAccessToken: privateAppStorefrontAccessToken ?? config.privateAppStorefrontAccessToken,
+    logger: { ...config.logger, ...(logger$1 || {}) },
+    privateAppStorefrontAccessToken:
+      privateAppStorefrontAccessToken ?? config.privateAppStorefrontAccessToken,
     customShopDomains: customShopDomains ?? config.customShopDomains,
     billing: billing ?? config.billing,
-    future: future2 ?? config.future
+    future: future2 ?? config.future,
   });
   if (config.isCustomStoreApp && params.adminApiAccessToken === params.apiSecretKey) {
-    logger(config).warning("adminApiAccessToken is set to the same value as apiSecretKey. adminApiAccessToken should be set to the Admin API access token for custom store apps; apiSecretKey should be set to the custom store app's API secret key.");
+    logger(config).warning(
+      "adminApiAccessToken is set to the same value as apiSecretKey. adminApiAccessToken should be set to the Admin API access token for custom store apps; apiSecretKey should be set to the custom store app's API secret key."
+    );
   }
   return config;
 }
@@ -3387,12 +4203,14 @@ function defaultLogFunction(severity, message2) {
 const CLIENT$2 = "GraphQL Client";
 const MIN_RETRIES = 0;
 const MAX_RETRIES = 3;
-const GQL_API_ERROR = "An error occurred while fetching from the API. Review 'graphQLErrors' for details.";
+const GQL_API_ERROR =
+  "An error occurred while fetching from the API. Review 'graphQLErrors' for details.";
 const UNEXPECTED_CONTENT_TYPE_ERROR = "Response returned unexpected Content-Type:";
-const NO_DATA_OR_ERRORS_ERROR = "An unknown error has occurred. The API did not return a data object or any errors in its response.";
+const NO_DATA_OR_ERRORS_ERROR =
+  "An unknown error has occurred. The API did not return a data object or any errors in its response.";
 const CONTENT_TYPES = {
   json: "application/json",
-  multipart: "multipart/mixed"
+  multipart: "multipart/mixed",
 };
 const SDK_VARIANT_HEADER$1 = "X-SDK-Variant";
 const SDK_VERSION_HEADER$1 = "X-SDK-Version";
@@ -3419,12 +4237,22 @@ function combineErrors(dataArray) {
   });
 }
 function validateRetries({ client, retries }) {
-  if (retries !== void 0 && (typeof retries !== "number" || retries < MIN_RETRIES || retries > MAX_RETRIES)) {
-    throw new Error(`${client}: The provided "retries" value (${retries}) is invalid - it cannot be less than ${MIN_RETRIES} or greater than ${MAX_RETRIES}`);
+  if (
+    retries !== void 0 &&
+    (typeof retries !== "number" || retries < MIN_RETRIES || retries > MAX_RETRIES)
+  ) {
+    throw new Error(
+      `${client}: The provided "retries" value (${retries}) is invalid - it cannot be less than ${MIN_RETRIES} or greater than ${MAX_RETRIES}`
+    );
   }
 }
 function getKeyValueIfValid(key, value) {
-  return value && (typeof value !== "object" || Array.isArray(value) || typeof value === "object" && Object.keys(value).length > 0) ? { [key]: value } : {};
+  return value &&
+    (typeof value !== "object" ||
+      Array.isArray(value) ||
+      (typeof value === "object" && Object.keys(value).length > 0))
+    ? { [key]: value }
+    : {};
 }
 function buildDataObjectByPath(path, data) {
   if (path.length === 0) {
@@ -3432,7 +4260,7 @@ function buildDataObjectByPath(path, data) {
   }
   const key = path.pop();
   const newData = {
-    [key]: data
+    [key]: data,
   };
   if (path.length === 0) {
     return newData;
@@ -3440,19 +4268,31 @@ function buildDataObjectByPath(path, data) {
   return buildDataObjectByPath(path, newData);
 }
 function combineObjects(baseObject, newObject) {
-  return Object.keys(newObject || {}).reduce((acc, key) => {
-    if ((typeof newObject[key] === "object" || Array.isArray(newObject[key])) && baseObject[key]) {
-      acc[key] = combineObjects(baseObject[key], newObject[key]);
+  return Object.keys(newObject || {}).reduce(
+    (acc, key) => {
+      if (
+        (typeof newObject[key] === "object" || Array.isArray(newObject[key])) &&
+        baseObject[key]
+      ) {
+        acc[key] = combineObjects(baseObject[key], newObject[key]);
+        return acc;
+      }
+      acc[key] = newObject[key];
       return acc;
-    }
-    acc[key] = newObject[key];
-    return acc;
-  }, Array.isArray(baseObject) ? [...baseObject] : { ...baseObject });
+    },
+    Array.isArray(baseObject) ? [...baseObject] : { ...baseObject }
+  );
 }
 function buildCombinedDataObject([initialDatum, ...remainingData]) {
   return remainingData.reduce(combineObjects, { ...initialDatum });
 }
-function generateHttpFetch({ clientLogger, customFetchApi = fetch, client = CLIENT$2, defaultRetryWaitTime = RETRY_WAIT_TIME, retriableCodes = RETRIABLE_STATUS_CODES$1 }) {
+function generateHttpFetch({
+  clientLogger,
+  customFetchApi = fetch,
+  client = CLIENT$2,
+  defaultRetryWaitTime = RETRY_WAIT_TIME,
+  retriableCodes = RETRIABLE_STATUS_CODES$1,
+}) {
   const httpFetch = async (requestParams, count, maxRetries) => {
     const nextCount = count + 1;
     const maxTries = maxRetries + 1;
@@ -3463,8 +4303,8 @@ function generateHttpFetch({ clientLogger, customFetchApi = fetch, client = CLIE
         type: "HTTP-Response",
         content: {
           requestParams,
-          response
-        }
+          response,
+        },
       });
       if (!response.ok && retriableCodes.includes(response.status) && nextCount <= maxTries) {
         throw new Error();
@@ -3475,8 +4315,8 @@ function generateHttpFetch({ clientLogger, customFetchApi = fetch, client = CLIE
           type: "HTTP-Response-GraphQL-Deprecation-Notice",
           content: {
             requestParams,
-            deprecationNotice
-          }
+            deprecationNotice,
+          },
         });
       }
       return response;
@@ -3490,12 +4330,17 @@ function generateHttpFetch({ clientLogger, customFetchApi = fetch, client = CLIE
             requestParams,
             lastResponse: response,
             retryAttempt: count,
-            maxRetries
-          }
+            maxRetries,
+          },
         });
         return httpFetch(requestParams, nextCount, maxRetries);
       }
-      throw new Error(formatErrorMessage(`${maxRetries > 0 ? `Attempted maximum number of ${maxRetries} network retries. Last message - ` : ""}${getErrorMessage(error)}`, client));
+      throw new Error(
+        formatErrorMessage(
+          `${maxRetries > 0 ? `Attempted maximum number of ${maxRetries} network retries. Last message - ` : ""}${getErrorMessage(error)}`,
+          client
+        )
+      );
     }
   };
   return httpFetch;
@@ -3503,18 +4348,24 @@ function generateHttpFetch({ clientLogger, customFetchApi = fetch, client = CLIE
 async function sleep(waitTime) {
   return new Promise((resolve) => setTimeout(resolve, waitTime));
 }
-function createGraphQLClient({ headers, url, customFetchApi = fetch, retries = 0, logger: logger2 }) {
+function createGraphQLClient({
+  headers,
+  url,
+  customFetchApi = fetch,
+  retries = 0,
+  logger: logger2,
+}) {
   validateRetries({ client: CLIENT$2, retries });
   const config = {
     headers,
     url,
-    retries
+    retries,
   };
   const clientLogger = generateClientLogger$1(logger2);
   const httpFetch = generateHttpFetch({
     customFetchApi,
     clientLogger,
-    defaultRetryWaitTime: RETRY_WAIT_TIME
+    defaultRetryWaitTime: RETRY_WAIT_TIME,
   });
   const fetchFn = generateFetch(httpFetch, config);
   const request2 = generateRequest(fetchFn);
@@ -3523,7 +4374,7 @@ function createGraphQLClient({ headers, url, customFetchApi = fetch, retries = 0
     config,
     fetch: fetchFn,
     request: request2,
-    requestStream
+    requestStream,
   };
 }
 function generateClientLogger$1(logger2) {
@@ -3539,27 +4390,36 @@ async function processJSONResponse(response) {
     ...getKeyValueIfValid("data", data),
     ...getKeyValueIfValid("extensions", extensions),
     headers: response.headers,
-    ...errors || !data ? {
-      errors: {
-        networkStatusCode: response.status,
-        message: formatErrorMessage(errors ? GQL_API_ERROR : NO_DATA_OR_ERRORS_ERROR),
-        ...getKeyValueIfValid("graphQLErrors", errors),
-        response
-      }
-    } : {}
+    ...(errors || !data
+      ? {
+          errors: {
+            networkStatusCode: response.status,
+            message: formatErrorMessage(errors ? GQL_API_ERROR : NO_DATA_OR_ERRORS_ERROR),
+            ...getKeyValueIfValid("graphQLErrors", errors),
+            response,
+          },
+        }
+      : {}),
   };
 }
 function generateFetch(httpFetch, { url, headers, retries }) {
   return async (operation, options = {}) => {
-    const { variables, headers: overrideHeaders, url: overrideUrl, retries: overrideRetries, keepalive, signal } = options;
+    const {
+      variables,
+      headers: overrideHeaders,
+      url: overrideUrl,
+      retries: overrideRetries,
+      keepalive,
+      signal,
+    } = options;
     const body = JSON.stringify({
       query: operation,
-      variables
+      variables,
     });
     validateRetries({ client: CLIENT$2, retries: overrideRetries });
     const flatHeaders2 = Object.entries({
       ...headers,
-      ...overrideHeaders
+      ...overrideHeaders,
     }).reduce((headers2, [key, value]) => {
       headers2[key] = Array.isArray(value) ? value.join(", ") : value.toString();
       return headers2;
@@ -3575,8 +4435,8 @@ function generateFetch(httpFetch, { url, headers, retries }) {
         headers: flatHeaders2,
         body,
         signal,
-        keepalive
-      }
+        keepalive,
+      },
     ];
     return httpFetch(fetchParams, 1, overrideRetries ?? retries);
   };
@@ -3584,7 +4444,11 @@ function generateFetch(httpFetch, { url, headers, retries }) {
 function generateRequest(fetchFn) {
   return async (...props) => {
     if (DEFER_OPERATION_REGEX.test(props[0])) {
-      throw new Error(formatErrorMessage("This operation will result in a streamable response - use requestStream() instead."));
+      throw new Error(
+        formatErrorMessage(
+          "This operation will result in a streamable response - use requestStream() instead."
+        )
+      );
     }
     let response = null;
     try {
@@ -3596,8 +4460,8 @@ function generateRequest(fetchFn) {
           errors: {
             networkStatusCode: status,
             message: formatErrorMessage(statusText),
-            response
-          }
+            response,
+          },
         };
       }
       if (!contentType.includes(CONTENT_TYPES.json)) {
@@ -3605,8 +4469,8 @@ function generateRequest(fetchFn) {
           errors: {
             networkStatusCode: status,
             message: formatErrorMessage(`${UNEXPECTED_CONTENT_TYPE_ERROR} ${contentType}`),
-            response
-          }
+            response,
+          },
         };
       }
       return await processJSONResponse(response);
@@ -3614,11 +4478,13 @@ function generateRequest(fetchFn) {
       return {
         errors: {
           message: getErrorMessage(error),
-          ...response == null ? {} : {
-            networkStatusCode: response.status,
-            response
-          }
-        }
+          ...(response == null
+            ? {}
+            : {
+                networkStatusCode: response.status,
+                response,
+              }),
+        },
       };
     }
   };
@@ -3651,10 +4517,15 @@ function readStreamChunk(streamBodyIterator, boundary) {
           if (buffer.indexOf(boundary) > -1) {
             const lastBoundaryIndex = buffer.lastIndexOf(boundary);
             const fullResponses = buffer.slice(0, lastBoundaryIndex);
-            const chunkBodies = fullResponses.split(boundary).filter((chunk) => chunk.trim().length > 0).map((chunk) => {
-              const body = chunk.slice(chunk.indexOf(HEADER_SEPARATOR) + HEADER_SEPARATOR.length).trim();
-              return body;
-            });
+            const chunkBodies = fullResponses
+              .split(boundary)
+              .filter((chunk) => chunk.trim().length > 0)
+              .map((chunk) => {
+                const body = chunk
+                  .slice(chunk.indexOf(HEADER_SEPARATOR) + HEADER_SEPARATOR.length)
+                  .trim();
+                return body;
+              });
             if (chunkBodies.length > 0) {
               yield chunkBodies;
             }
@@ -3665,9 +4536,11 @@ function readStreamChunk(streamBodyIterator, boundary) {
           }
         }
       } catch (error) {
-        throw new Error(`Error occured while processing stream payload - ${getErrorMessage(error)}`);
+        throw new Error(
+          `Error occured while processing stream payload - ${getErrorMessage(error)}`
+        );
       }
-    }
+    },
   };
 }
 function createJsonResponseAsyncIterator(response) {
@@ -3676,49 +4549,52 @@ function createJsonResponseAsyncIterator(response) {
       const processedResponse = await processJSONResponse(response);
       yield {
         ...processedResponse,
-        hasNext: false
+        hasNext: false,
       };
-    }
+    },
   };
 }
 function getResponseDataFromChunkBodies(chunkBodies) {
-  return chunkBodies.map((value) => {
-    try {
-      return JSON.parse(value);
-    } catch (error) {
-      throw new Error(`Error in parsing multipart response - ${getErrorMessage(error)}`);
-    }
-  }).map((payload) => {
-    const { data, incremental, hasNext, extensions, errors } = payload;
-    if (!incremental) {
+  return chunkBodies
+    .map((value) => {
+      try {
+        return JSON.parse(value);
+      } catch (error) {
+        throw new Error(`Error in parsing multipart response - ${getErrorMessage(error)}`);
+      }
+    })
+    .map((payload) => {
+      const { data, incremental, hasNext, extensions, errors } = payload;
+      if (!incremental) {
+        return {
+          data: data || {},
+          ...getKeyValueIfValid("errors", errors),
+          ...getKeyValueIfValid("extensions", extensions),
+          hasNext,
+        };
+      }
+      const incrementalArray = incremental.map(({ data: data2, path, errors: errors2 }) => {
+        return {
+          data: data2 && path ? buildDataObjectByPath(path, data2) : {},
+          ...getKeyValueIfValid("errors", errors2),
+        };
+      });
       return {
-        data: data || {},
-        ...getKeyValueIfValid("errors", errors),
-        ...getKeyValueIfValid("extensions", extensions),
-        hasNext
-      };
-    }
-    const incrementalArray = incremental.map(({ data: data2, path, errors: errors2 }) => {
-      return {
-        data: data2 && path ? buildDataObjectByPath(path, data2) : {},
-        ...getKeyValueIfValid("errors", errors2)
+        data:
+          incrementalArray.length === 1
+            ? incrementalArray[0].data
+            : buildCombinedDataObject([...incrementalArray.map(({ data: data2 }) => data2)]),
+        ...getKeyValueIfValid("errors", combineErrors(incrementalArray)),
+        hasNext,
       };
     });
-    return {
-      data: incrementalArray.length === 1 ? incrementalArray[0].data : buildCombinedDataObject([
-        ...incrementalArray.map(({ data: data2 }) => data2)
-      ]),
-      ...getKeyValueIfValid("errors", combineErrors(incrementalArray)),
-      hasNext
-    };
-  });
 }
 function validateResponseData(responseErrors, combinedData) {
   if (responseErrors.length > 0) {
     throw new Error(GQL_API_ERROR, {
       cause: {
-        graphQLErrors: responseErrors
-      }
+        graphQLErrors: responseErrors,
+      },
     });
   }
   if (Object.keys(combinedData).length === 0) {
@@ -3730,7 +4606,7 @@ function createMultipartResponseAsyncInterator(response, responseContentType) {
   const boundary = `--${boundaryHeader ? boundaryHeader[1] : "-"}`;
   if (!response.body?.getReader && !response.body?.[Symbol.asyncIterator]) {
     throw new Error("API multipart response did not return an iterable body", {
-      cause: response
+      cause: response,
     });
   }
   const streamBodyIterator = getStreamBodyIterator(response);
@@ -3742,18 +4618,19 @@ function createMultipartResponseAsyncInterator(response, responseContentType) {
         let streamHasNext = true;
         for await (const chunkBodies of readStreamChunk(streamBodyIterator, boundary)) {
           const responseData = getResponseDataFromChunkBodies(chunkBodies);
-          responseExtensions = responseData.find((datum) => datum.extensions)?.extensions ?? responseExtensions;
+          responseExtensions =
+            responseData.find((datum) => datum.extensions)?.extensions ?? responseExtensions;
           const responseErrors = combineErrors(responseData);
           combinedData = buildCombinedDataObject([
             combinedData,
-            ...responseData.map(({ data }) => data)
+            ...responseData.map(({ data }) => data),
           ]);
           streamHasNext = responseData.slice(-1)[0].hasNext;
           validateResponseData(responseErrors, combinedData);
           yield {
             ...getKeyValueIfValid("data", combinedData),
             ...getKeyValueIfValid("extensions", responseExtensions),
-            hasNext: streamHasNext
+            hasNext: streamHasNext,
           };
         }
         if (streamHasNext) {
@@ -3768,18 +4645,22 @@ function createMultipartResponseAsyncInterator(response, responseContentType) {
             message: formatErrorMessage(getErrorMessage(error)),
             networkStatusCode: response.status,
             ...getKeyValueIfValid("graphQLErrors", cause?.graphQLErrors),
-            response
+            response,
           },
-          hasNext: false
+          hasNext: false,
         };
       }
-    }
+    },
   };
 }
 function generateRequestStream(fetchFn) {
   return async (...props) => {
     if (!DEFER_OPERATION_REGEX.test(props[0])) {
-      throw new Error(formatErrorMessage("This operation does not result in a streamable response - use request() instead."));
+      throw new Error(
+        formatErrorMessage(
+          "This operation does not result in a streamable response - use request() instead."
+        )
+      );
     }
     try {
       const response = await fetchFn(...props);
@@ -3794,7 +4675,9 @@ function generateRequestStream(fetchFn) {
         case responseContentType.includes(CONTENT_TYPES.multipart):
           return createMultipartResponseAsyncInterator(response, responseContentType);
         default:
-          throw new Error(`${UNEXPECTED_CONTENT_TYPE_ERROR} ${responseContentType}`, { cause: response });
+          throw new Error(`${UNEXPECTED_CONTENT_TYPE_ERROR} ${responseContentType}`, {
+            cause: response,
+          });
       }
     } catch (error) {
       return {
@@ -3804,11 +4687,11 @@ function generateRequestStream(fetchFn) {
             errors: {
               message: formatErrorMessage(getErrorMessage(error)),
               ...getKeyValueIfValid("networkStatusCode", response?.status),
-              ...getKeyValueIfValid("response", response)
+              ...getKeyValueIfValid("response", response),
             },
-            hasNext: false
+            hasNext: false,
           };
-        }
+        },
       };
     }
   };
@@ -3819,12 +4702,16 @@ function validateDomainAndGetStoreUrl({ client, storeDomain }) {
       throw new Error();
     }
     const trimmedDomain = storeDomain.trim();
-    const protocolUrl = trimmedDomain.match(/^https?:/) ? trimmedDomain : `https://${trimmedDomain}`;
+    const protocolUrl = trimmedDomain.match(/^https?:/)
+      ? trimmedDomain
+      : `https://${trimmedDomain}`;
     const url = new URL(protocolUrl);
     url.protocol = "https";
     return url.origin;
   } catch (error) {
-    throw new Error(`${client}: a valid store domain ("${storeDomain}") must be provided`, { cause: error });
+    throw new Error(`${client}: a valid store domain ("${storeDomain}") must be provided`, {
+      cause: error,
+    });
   }
 }
 function validateApiVersion({ client, currentSupportedApiVersions, apiVersion, logger: logger2 }) {
@@ -3840,8 +4727,8 @@ function validateApiVersion({ client, currentSupportedApiVersions, apiVersion, l
         type: "Unsupported_Api_Version",
         content: {
           apiVersion,
-          supportedApiVersions: currentSupportedApiVersions
-        }
+          supportedApiVersions: currentSupportedApiVersions,
+        },
       });
     } else {
       console.warn(`${versionError} is likely deprecated or not supported. ${supportedVersion}`);
@@ -3867,24 +4754,25 @@ function getCurrentApiVersion() {
   return {
     year: year2,
     quarter,
-    version: `${year2}-${getQuarterMonth(quarter)}`
+    version: `${year2}-${getQuarterMonth(quarter)}`,
   };
 }
 function getCurrentSupportedApiVersions() {
   const { year: year2, quarter, version: currentVersion } = getCurrentApiVersion();
-  const nextVersion = quarter === 4 ? `${year2 + 1}-01` : `${year2}-${getQuarterMonth(quarter + 1)}`;
+  const nextVersion =
+    quarter === 4 ? `${year2 + 1}-01` : `${year2}-${getQuarterMonth(quarter + 1)}`;
   return [
     getPrevousVersion(year2, quarter, 3),
     getPrevousVersion(year2, quarter, 2),
     getPrevousVersion(year2, quarter, 1),
     currentVersion,
     nextVersion,
-    "unstable"
+    "unstable",
   ];
 }
 function generateGetHeaders(config) {
   return (customHeaders) => {
-    return { ...customHeaders ?? {}, ...config.headers };
+    return { ...(customHeaders ?? {}), ...config.headers };
   };
 }
 function generateGetGQLClientParams({ getHeaders: getHeaders2, getApiUrl }) {
@@ -3893,11 +4781,11 @@ function generateGetGQLClientParams({ getHeaders: getHeaders2, getApiUrl }) {
     if (options && Object.keys(options).length > 0) {
       const { variables, apiVersion: propApiVersion, headers, retries, signal } = options;
       props.push({
-        ...variables ? { variables } : {},
-        ...headers ? { headers: getHeaders2(headers) } : {},
-        ...propApiVersion ? { url: getApiUrl(propApiVersion) } : {},
-        ...retries ? { retries } : {},
-        ...signal ? { signal } : {}
+        ...(variables ? { variables } : {}),
+        ...(headers ? { headers: getHeaders2(headers) } : {}),
+        ...(propApiVersion ? { url: getApiUrl(propApiVersion) } : {}),
+        ...(retries ? { retries } : {}),
+        ...(signal ? { signal } : {}),
       });
     }
     return props;
@@ -3919,26 +4807,39 @@ function validateServerSideUsage(isTesting = false) {
     throw new Error(`${CLIENT$1}: this client should not be used in the browser`);
   }
 }
-function createAdminApiClient({ storeDomain, apiVersion, accessToken, userAgentPrefix, retries = 0, customFetchApi, logger: logger2, isTesting }) {
+function createAdminApiClient({
+  storeDomain,
+  apiVersion,
+  accessToken,
+  userAgentPrefix,
+  retries = 0,
+  customFetchApi,
+  logger: logger2,
+  isTesting,
+}) {
   const currentSupportedApiVersions = getCurrentSupportedApiVersions();
   const storeUrl = validateDomainAndGetStoreUrl({
     client: CLIENT$1,
-    storeDomain
+    storeDomain,
   });
   const baseApiVersionValidationParams = {
     client: CLIENT$1,
     currentSupportedApiVersions,
-    logger: logger2
+    logger: logger2,
   };
   validateServerSideUsage(isTesting);
   validateApiVersion({
     client: CLIENT$1,
     currentSupportedApiVersions,
     apiVersion,
-    logger: logger2
+    logger: logger2,
   });
   validateRequiredAccessToken(accessToken);
-  const apiUrlFormatter = generateApiUrlFormatter$2(storeUrl, apiVersion, baseApiVersionValidationParams);
+  const apiUrlFormatter = generateApiUrlFormatter$2(
+    storeUrl,
+    apiVersion,
+    baseApiVersionValidationParams
+  );
   const config = {
     storeDomain: storeUrl,
     apiVersion,
@@ -3947,23 +4848,23 @@ function createAdminApiClient({ storeDomain, apiVersion, accessToken, userAgentP
       "Content-Type": DEFAULT_CONTENT_TYPE$1,
       Accept: DEFAULT_CONTENT_TYPE$1,
       [ACCESS_TOKEN_HEADER]: accessToken,
-      "User-Agent": `${userAgentPrefix ? `${userAgentPrefix} | ` : ""}${CLIENT$1} v${DEFAULT_CLIENT_VERSION$1}`
+      "User-Agent": `${userAgentPrefix ? `${userAgentPrefix} | ` : ""}${CLIENT$1} v${DEFAULT_CLIENT_VERSION$1}`,
     },
     apiUrl: apiUrlFormatter(),
-    userAgentPrefix
+    userAgentPrefix,
   };
   const graphqlClient = createGraphQLClient({
     headers: config.headers,
     url: config.apiUrl,
     retries,
     customFetchApi,
-    logger: logger2
+    logger: logger2,
   });
   const getHeaders2 = generateGetHeaders(config);
   const getApiUrl = generateGetApiUrl$1(config, apiUrlFormatter);
   const getGQLClientParams = generateGetGQLClientParams({
     getHeaders: getHeaders2,
-    getApiUrl
+    getApiUrl,
   });
   const client = {
     config,
@@ -3974,7 +4875,7 @@ function createAdminApiClient({ storeDomain, apiVersion, accessToken, userAgentP
     },
     request: (...props) => {
       return graphqlClient.request(...getGQLClientParams(...props));
-    }
+    },
   };
   return Object.freeze(client);
 }
@@ -3983,7 +4884,7 @@ function generateApiUrlFormatter$2(storeUrl, defaultApiVersion, baseApiVersionVa
     if (apiVersion) {
       validateApiVersion({
         ...baseApiVersionValidationParams,
-        apiVersion
+        apiVersion,
       });
     }
     const urlApiVersion = (apiVersion ?? defaultApiVersion).trim();
@@ -3996,73 +4897,102 @@ function generateGetApiUrl$1(config, apiUrlFormatter) {
   };
 }
 var Method$1;
-(function(Method2) {
+(function (Method2) {
   Method2["Get"] = "GET";
   Method2["Post"] = "POST";
   Method2["Put"] = "PUT";
   Method2["Delete"] = "DELETE";
 })(Method$1 || (Method$1 = {}));
-function createAdminRestApiClient({ storeDomain, apiVersion, accessToken, userAgentPrefix, logger: logger2, customFetchApi = fetch, retries: clientRetries = 0, scheme = "https", defaultRetryTime = DEFAULT_RETRY_WAIT_TIME, formatPaths = true, isTesting }) {
+function createAdminRestApiClient({
+  storeDomain,
+  apiVersion,
+  accessToken,
+  userAgentPrefix,
+  logger: logger2,
+  customFetchApi = fetch,
+  retries: clientRetries = 0,
+  scheme = "https",
+  defaultRetryTime = DEFAULT_RETRY_WAIT_TIME,
+  formatPaths = true,
+  isTesting,
+}) {
   const currentSupportedApiVersions = getCurrentSupportedApiVersions();
   const storeUrl = validateDomainAndGetStoreUrl({
     client: CLIENT$1,
-    storeDomain
+    storeDomain,
   }).replace("https://", `${scheme}://`);
   const baseApiVersionValidationParams = {
     client: CLIENT$1,
     currentSupportedApiVersions,
-    logger: logger2
+    logger: logger2,
   };
   validateServerSideUsage(isTesting);
   validateApiVersion({
     client: CLIENT$1,
     currentSupportedApiVersions,
     apiVersion,
-    logger: logger2
+    logger: logger2,
   });
   validateRequiredAccessToken(accessToken);
   validateRetries({ client: CLIENT$1, retries: clientRetries });
-  const apiUrlFormatter = generateApiUrlFormatter$1(storeUrl, apiVersion, baseApiVersionValidationParams, formatPaths);
+  const apiUrlFormatter = generateApiUrlFormatter$1(
+    storeUrl,
+    apiVersion,
+    baseApiVersionValidationParams,
+    formatPaths
+  );
   const clientLogger = generateClientLogger(logger2);
   const httpFetch = generateHttpFetch({
     customFetchApi,
     clientLogger,
     defaultRetryWaitTime: defaultRetryTime,
     client: CLIENT$1,
-    retriableCodes: RETRIABLE_STATUS_CODES
+    retriableCodes: RETRIABLE_STATUS_CODES,
   });
-  const request2 = async (path, { method, data, headers: requestHeadersObj, searchParams, retries = 0, apiVersion: apiVersion2 }) => {
+  const request2 = async (
+    path,
+    { method, data, headers: requestHeadersObj, searchParams, retries = 0, apiVersion: apiVersion2 }
+  ) => {
     validateRetries({ client: CLIENT$1, retries });
     const url = apiUrlFormatter(path, searchParams ?? {}, apiVersion2);
     const requestHeaders = normalizedHeaders(requestHeadersObj ?? {});
     const userAgent = [
-      ...requestHeaders["user-agent"] ? [requestHeaders["user-agent"]] : [],
-      ...userAgentPrefix ? [userAgentPrefix] : [],
-      `${CLIENT$1} v${DEFAULT_CLIENT_VERSION$1}`
+      ...(requestHeaders["user-agent"] ? [requestHeaders["user-agent"]] : []),
+      ...(userAgentPrefix ? [userAgentPrefix] : []),
+      `${CLIENT$1} v${DEFAULT_CLIENT_VERSION$1}`,
     ].join(" | ");
     const headers = normalizedHeaders({
       "Content-Type": DEFAULT_CONTENT_TYPE$1,
       ...requestHeaders,
       Accept: DEFAULT_CONTENT_TYPE$1,
       [ACCESS_TOKEN_HEADER]: accessToken,
-      "User-Agent": userAgent
+      "User-Agent": userAgent,
     });
     const body = data && typeof data !== "string" ? JSON.stringify(data) : data;
-    return httpFetch([url, { method, headers, ...body ? { body } : void 0 }], 1, retries ?? clientRetries);
+    return httpFetch(
+      [url, { method, headers, ...(body ? { body } : void 0) }],
+      1,
+      retries ?? clientRetries
+    );
   };
   return {
     get: (path, options) => request2(path, { method: Method$1.Get, ...options }),
     put: (path, options) => request2(path, { method: Method$1.Put, ...options }),
     post: (path, options) => request2(path, { method: Method$1.Post, ...options }),
-    delete: (path, options) => request2(path, { method: Method$1.Delete, ...options })
+    delete: (path, options) => request2(path, { method: Method$1.Delete, ...options }),
   };
 }
-function generateApiUrlFormatter$1(storeUrl, defaultApiVersion, baseApiVersionValidationParams, formatPaths = true) {
+function generateApiUrlFormatter$1(
+  storeUrl,
+  defaultApiVersion,
+  baseApiVersionValidationParams,
+  formatPaths = true
+) {
   return (path, searchParams, apiVersion) => {
     if (apiVersion) {
       validateApiVersion({
         ...baseApiVersionValidationParams,
-        apiVersion
+        apiVersion,
       });
     }
     function convertValue(params2, key, value) {
@@ -4070,7 +5000,9 @@ function generateApiUrlFormatter$1(storeUrl, defaultApiVersion, baseApiVersionVa
         value.forEach((arrayValue) => convertValue(params2, `${key}[]`, arrayValue));
         return;
       } else if (typeof value === "object") {
-        Object.entries(value).forEach(([objKey, objValue]) => convertValue(params2, `${key}[${objKey}]`, objValue));
+        Object.entries(value).forEach(([objKey, objValue]) =>
+          convertValue(params2, `${key}[${objKey}]`, objValue)
+        );
         return;
       }
       params2.append(key, String(value));
@@ -4110,7 +5042,7 @@ function normalizedHeaders(headersObj) {
   return normalizedHeaders2;
 }
 let Method;
-(function(Method2) {
+(function (Method2) {
   Method2["Get"] = "GET";
   Method2["Post"] = "POST";
   Method2["Put"] = "PUT";
@@ -4121,53 +5053,53 @@ let Method;
   Method2["Connect"] = "CONNECT";
 })(Method || (Method = {}));
 let StatusCode;
-(function(StatusCode2) {
-  StatusCode2[StatusCode2["Continue"] = 100] = "Continue";
-  StatusCode2[StatusCode2["SwitchingProtocols"] = 101] = "SwitchingProtocols";
-  StatusCode2[StatusCode2["Ok"] = 200] = "Ok";
-  StatusCode2[StatusCode2["Created"] = 201] = "Created";
-  StatusCode2[StatusCode2["Accepted"] = 202] = "Accepted";
-  StatusCode2[StatusCode2["NonAuthoritativeInformation"] = 203] = "NonAuthoritativeInformation";
-  StatusCode2[StatusCode2["NoContent"] = 204] = "NoContent";
-  StatusCode2[StatusCode2["ResetContent"] = 205] = "ResetContent";
-  StatusCode2[StatusCode2["PartialContent"] = 206] = "PartialContent";
-  StatusCode2[StatusCode2["MultipleChoices"] = 300] = "MultipleChoices";
-  StatusCode2[StatusCode2["MovedPermanently"] = 301] = "MovedPermanently";
-  StatusCode2[StatusCode2["Found"] = 302] = "Found";
-  StatusCode2[StatusCode2["SeeOther"] = 303] = "SeeOther";
-  StatusCode2[StatusCode2["NotModified"] = 304] = "NotModified";
-  StatusCode2[StatusCode2["UseProxy"] = 305] = "UseProxy";
-  StatusCode2[StatusCode2["TemporaryRedirect"] = 307] = "TemporaryRedirect";
-  StatusCode2[StatusCode2["BadRequest"] = 400] = "BadRequest";
-  StatusCode2[StatusCode2["Unauthorized"] = 401] = "Unauthorized";
-  StatusCode2[StatusCode2["PaymentRequired"] = 402] = "PaymentRequired";
-  StatusCode2[StatusCode2["Forbidden"] = 403] = "Forbidden";
-  StatusCode2[StatusCode2["NotFound"] = 404] = "NotFound";
-  StatusCode2[StatusCode2["MethodNotAllowed"] = 405] = "MethodNotAllowed";
-  StatusCode2[StatusCode2["NotAcceptable"] = 406] = "NotAcceptable";
-  StatusCode2[StatusCode2["ProxyAuthenticationRequired"] = 407] = "ProxyAuthenticationRequired";
-  StatusCode2[StatusCode2["RequestTimeout"] = 408] = "RequestTimeout";
-  StatusCode2[StatusCode2["Conflict"] = 409] = "Conflict";
-  StatusCode2[StatusCode2["Gone"] = 410] = "Gone";
-  StatusCode2[StatusCode2["LengthRequired"] = 411] = "LengthRequired";
-  StatusCode2[StatusCode2["PreconditionFailed"] = 412] = "PreconditionFailed";
-  StatusCode2[StatusCode2["RequestEntityTooLarge"] = 413] = "RequestEntityTooLarge";
-  StatusCode2[StatusCode2["RequestUriTooLong"] = 414] = "RequestUriTooLong";
-  StatusCode2[StatusCode2["UnsupportedMediaType"] = 415] = "UnsupportedMediaType";
-  StatusCode2[StatusCode2["RequestedRangeNotSatisfiable"] = 416] = "RequestedRangeNotSatisfiable";
-  StatusCode2[StatusCode2["ExpectationFailed"] = 417] = "ExpectationFailed";
-  StatusCode2[StatusCode2["ImATeapot"] = 418] = "ImATeapot";
-  StatusCode2[StatusCode2["UnprocessableEntity"] = 422] = "UnprocessableEntity";
-  StatusCode2[StatusCode2["TooManyRequests"] = 429] = "TooManyRequests";
-  StatusCode2[StatusCode2["InternalServerError"] = 500] = "InternalServerError";
-  StatusCode2[StatusCode2["NotImplemented"] = 501] = "NotImplemented";
-  StatusCode2[StatusCode2["BadGateway"] = 502] = "BadGateway";
-  StatusCode2[StatusCode2["ServiceUnavailable"] = 503] = "ServiceUnavailable";
-  StatusCode2[StatusCode2["GatewayTimeout"] = 504] = "GatewayTimeout";
-  StatusCode2[StatusCode2["HttpVersionNotSupported"] = 505] = "HttpVersionNotSupported";
+(function (StatusCode2) {
+  StatusCode2[(StatusCode2["Continue"] = 100)] = "Continue";
+  StatusCode2[(StatusCode2["SwitchingProtocols"] = 101)] = "SwitchingProtocols";
+  StatusCode2[(StatusCode2["Ok"] = 200)] = "Ok";
+  StatusCode2[(StatusCode2["Created"] = 201)] = "Created";
+  StatusCode2[(StatusCode2["Accepted"] = 202)] = "Accepted";
+  StatusCode2[(StatusCode2["NonAuthoritativeInformation"] = 203)] = "NonAuthoritativeInformation";
+  StatusCode2[(StatusCode2["NoContent"] = 204)] = "NoContent";
+  StatusCode2[(StatusCode2["ResetContent"] = 205)] = "ResetContent";
+  StatusCode2[(StatusCode2["PartialContent"] = 206)] = "PartialContent";
+  StatusCode2[(StatusCode2["MultipleChoices"] = 300)] = "MultipleChoices";
+  StatusCode2[(StatusCode2["MovedPermanently"] = 301)] = "MovedPermanently";
+  StatusCode2[(StatusCode2["Found"] = 302)] = "Found";
+  StatusCode2[(StatusCode2["SeeOther"] = 303)] = "SeeOther";
+  StatusCode2[(StatusCode2["NotModified"] = 304)] = "NotModified";
+  StatusCode2[(StatusCode2["UseProxy"] = 305)] = "UseProxy";
+  StatusCode2[(StatusCode2["TemporaryRedirect"] = 307)] = "TemporaryRedirect";
+  StatusCode2[(StatusCode2["BadRequest"] = 400)] = "BadRequest";
+  StatusCode2[(StatusCode2["Unauthorized"] = 401)] = "Unauthorized";
+  StatusCode2[(StatusCode2["PaymentRequired"] = 402)] = "PaymentRequired";
+  StatusCode2[(StatusCode2["Forbidden"] = 403)] = "Forbidden";
+  StatusCode2[(StatusCode2["NotFound"] = 404)] = "NotFound";
+  StatusCode2[(StatusCode2["MethodNotAllowed"] = 405)] = "MethodNotAllowed";
+  StatusCode2[(StatusCode2["NotAcceptable"] = 406)] = "NotAcceptable";
+  StatusCode2[(StatusCode2["ProxyAuthenticationRequired"] = 407)] = "ProxyAuthenticationRequired";
+  StatusCode2[(StatusCode2["RequestTimeout"] = 408)] = "RequestTimeout";
+  StatusCode2[(StatusCode2["Conflict"] = 409)] = "Conflict";
+  StatusCode2[(StatusCode2["Gone"] = 410)] = "Gone";
+  StatusCode2[(StatusCode2["LengthRequired"] = 411)] = "LengthRequired";
+  StatusCode2[(StatusCode2["PreconditionFailed"] = 412)] = "PreconditionFailed";
+  StatusCode2[(StatusCode2["RequestEntityTooLarge"] = 413)] = "RequestEntityTooLarge";
+  StatusCode2[(StatusCode2["RequestUriTooLong"] = 414)] = "RequestUriTooLong";
+  StatusCode2[(StatusCode2["UnsupportedMediaType"] = 415)] = "UnsupportedMediaType";
+  StatusCode2[(StatusCode2["RequestedRangeNotSatisfiable"] = 416)] = "RequestedRangeNotSatisfiable";
+  StatusCode2[(StatusCode2["ExpectationFailed"] = 417)] = "ExpectationFailed";
+  StatusCode2[(StatusCode2["ImATeapot"] = 418)] = "ImATeapot";
+  StatusCode2[(StatusCode2["UnprocessableEntity"] = 422)] = "UnprocessableEntity";
+  StatusCode2[(StatusCode2["TooManyRequests"] = 429)] = "TooManyRequests";
+  StatusCode2[(StatusCode2["InternalServerError"] = 500)] = "InternalServerError";
+  StatusCode2[(StatusCode2["NotImplemented"] = 501)] = "NotImplemented";
+  StatusCode2[(StatusCode2["BadGateway"] = 502)] = "BadGateway";
+  StatusCode2[(StatusCode2["ServiceUnavailable"] = 503)] = "ServiceUnavailable";
+  StatusCode2[(StatusCode2["GatewayTimeout"] = 504)] = "GatewayTimeout";
+  StatusCode2[(StatusCode2["HttpVersionNotSupported"] = 505)] = "HttpVersionNotSupported";
 })(StatusCode || (StatusCode = {}));
 let Header;
-(function(Header2) {
+(function (Header2) {
   Header2["Accept"] = "Accept";
   Header2["AcceptEncoding"] = "Accept-Encoding";
   Header2["AcceptLanguage"] = "Accept-Language";
@@ -4225,7 +5157,7 @@ let Header;
   Header2["XXssProtection"] = "X-XSS-Protection";
 })(Header || (Header = {}));
 let CspDirective;
-(function(CspDirective2) {
+(function (CspDirective2) {
   CspDirective2["ChildSrc"] = "child-src";
   CspDirective2["ConnectSrc"] = "connect-src";
   CspDirective2["DefaultSrc"] = "default-src";
@@ -4251,7 +5183,7 @@ let CspDirective;
   CspDirective2["UpgradeInsecureRequests"] = "upgrade-insecure-requests";
 })(CspDirective || (CspDirective = {}));
 let CspSandboxAllow;
-(function(CspSandboxAllow2) {
+(function (CspSandboxAllow2) {
   CspSandboxAllow2["Forms"] = "allow-forms";
   CspSandboxAllow2["SameOrigin"] = "allow-same-origin";
   CspSandboxAllow2["Scripts"] = "allow-scripts";
@@ -4264,7 +5196,7 @@ let CspSandboxAllow;
   CspSandboxAllow2["TopNavigation"] = "allow-top-navigation";
 })(CspSandboxAllow || (CspSandboxAllow = {}));
 let SpecialSource;
-(function(SpecialSource2) {
+(function (SpecialSource2) {
   SpecialSource2["Any"] = "*";
   SpecialSource2["Self"] = "'self'";
   SpecialSource2["UnsafeInline"] = "'unsafe-inline'";
@@ -4277,18 +5209,18 @@ let SpecialSource;
   SpecialSource2["FileSystem"] = "filesystem:";
 })(SpecialSource || (SpecialSource = {}));
 let SriAsset;
-(function(SriAsset2) {
+(function (SriAsset2) {
   SriAsset2["Script"] = "script";
   SriAsset2["Style"] = "style";
 })(SriAsset || (SriAsset = {}));
 let HashAlgorithm;
-(function(HashAlgorithm2) {
+(function (HashAlgorithm2) {
   HashAlgorithm2["Sha256"] = "sha256";
   HashAlgorithm2["Sha384"] = "sha384";
   HashAlgorithm2["Sha512"] = "sha512";
 })(HashAlgorithm || (HashAlgorithm = {}));
 let ResponseType;
-(function(ResponseType2) {
+(function (ResponseType2) {
   ResponseType2["Informational"] = "1xx";
   ResponseType2["Success"] = "2xx";
   ResponseType2["Redirection"] = "3xx";
@@ -4297,7 +5229,7 @@ let ResponseType;
   ResponseType2["Unknown"] = "Unknown";
 })(ResponseType || (ResponseType = {}));
 let CacheControl;
-(function(CacheControl2) {
+(function (CacheControl2) {
   CacheControl2["NoCache"] = "no-cache";
   CacheControl2["NoStore"] = "no-store";
   CacheControl2["MustRevalidate"] = "must-revalidate";
@@ -4323,7 +5255,7 @@ function serializeResponse(response) {
       ok,
       redirected,
       type,
-      url
+      url,
     };
     if (headers?.entries) {
       serialized.headers = Object.fromEntries(headers.entries());
@@ -4343,7 +5275,7 @@ function clientLoggerFactory(config) {
           const responseLog = logContent.content;
           logger(config).debug("Received response for HTTP request", {
             requestParams: JSON.stringify(responseLog.requestParams),
-            response: JSON.stringify(serializeResponse(responseLog.response))
+            response: JSON.stringify(serializeResponse(responseLog.response)),
           });
           break;
         }
@@ -4353,7 +5285,9 @@ function clientLoggerFactory(config) {
             requestParams: JSON.stringify(responseLog.requestParams),
             retryAttempt: responseLog.retryAttempt,
             maxRetries: responseLog.maxRetries,
-            response: responseLog.lastResponse ? JSON.stringify(serializeResponse(responseLog.lastResponse)) : "undefined"
+            response: responseLog.lastResponse
+              ? JSON.stringify(serializeResponse(responseLog.lastResponse))
+              : "undefined",
           });
           break;
         }
@@ -4361,7 +5295,7 @@ function clientLoggerFactory(config) {
           const responseLog = logContent.content;
           logger(config).debug("Received response containing Deprecated GraphQL Notice", {
             requestParams: JSON.stringify(responseLog.requestParams),
-            deprecationNotice: responseLog.deprecationNotice
+            deprecationNotice: responseLog.deprecationNotice,
           });
           break;
         }
@@ -4384,7 +5318,7 @@ function throwFailedRequest(body, atMaxRetries, response) {
       message: body.errors.graphQLErrors?.[0].message ?? "GraphQL operation failed",
       response,
       headers: responseHeaders,
-      body
+      body,
     });
   }
   const errorMessages = [];
@@ -4395,8 +5329,10 @@ function throwFailedRequest(body, atMaxRetries, response) {
   if (xRequestId) {
     errorMessages.push(`If you report this error, please include this id: ${xRequestId}`);
   }
-  const errorMessage = errorMessages.length ? `:
-${errorMessages.join("\n")}` : "";
+  const errorMessage = errorMessages.length
+    ? `:
+${errorMessages.join("\n")}`
+    : "";
   const code = response.status;
   const statusText = response.statusText;
   switch (true) {
@@ -4411,7 +5347,7 @@ ${errorMessages.join("\n")}` : "";
           statusText,
           body,
           headers: responseHeaders,
-          retryAfter: retryAfter ? parseFloat(retryAfter) : void 0
+          retryAfter: retryAfter ? parseFloat(retryAfter) : void 0,
         });
       }
     }
@@ -4424,7 +5360,7 @@ ${errorMessages.join("\n")}` : "";
           code,
           statusText,
           body,
-          headers: responseHeaders
+          headers: responseHeaders,
         });
       }
     default:
@@ -4433,7 +5369,7 @@ ${errorMessages.join("\n")}` : "";
         code,
         statusText,
         body,
-        headers: responseHeaders
+        headers: responseHeaders,
       });
   }
 }
@@ -4448,7 +5384,10 @@ class GraphqlClient {
       throw new MissingRequiredArgument("Missing access token when creating GraphQL client");
     }
     if (params.apiVersion) {
-      const message2 = params.apiVersion === config.apiVersion ? `Admin client has a redundant API version override to the default ${params.apiVersion}` : `Admin client overriding default API version ${config.apiVersion} with ${params.apiVersion}`;
+      const message2 =
+        params.apiVersion === config.apiVersion
+          ? `Admin client has a redundant API version override to the default ${params.apiVersion}`
+          : `Admin client overriding default API version ${config.apiVersion} with ${params.apiVersion}`;
       logger(config).debug(message2);
     }
     this.session = params.session;
@@ -4460,12 +5399,18 @@ class GraphqlClient {
       customFetchApi: abstractFetch,
       logger: clientLoggerFactory(config),
       userAgentPrefix: getUserAgent(config),
-      isTesting: config.isTesting
+      isTesting: config.isTesting,
     });
   }
   async query(params) {
-    logger(this.graphqlClass().config).deprecated("12.0.0", "The query method is deprecated, and was replaced with the request method.\nSee the migration guide: https://github.com/Shopify/shopify-app-js/blob/main/packages/apps/shopify-api/docs/migrating-to-v9.md#using-the-new-clients.");
-    if (typeof params.data === "string" && params.data.length === 0 || Object.entries(params.data).length === 0) {
+    logger(this.graphqlClass().config).deprecated(
+      "12.0.0",
+      "The query method is deprecated, and was replaced with the request method.\nSee the migration guide: https://github.com/Shopify/shopify-app-js/blob/main/packages/apps/shopify-api/docs/migrating-to-v9.md#using-the-new-clients."
+    );
+    if (
+      (typeof params.data === "string" && params.data.length === 0) ||
+      Object.entries(params.data).length === 0
+    ) {
       throw new MissingRequiredArgument("Query missing.");
     }
     let operation;
@@ -4476,21 +5421,23 @@ class GraphqlClient {
       operation = params.data.query;
       variables = params.data.variables;
     }
-    const headers = Object.fromEntries(Object.entries(params?.extraHeaders ?? {}).map(([key, value]) => [
-      key,
-      Array.isArray(value) ? value.join(", ") : value.toString()
-    ]));
+    const headers = Object.fromEntries(
+      Object.entries(params?.extraHeaders ?? {}).map(([key, value]) => [
+        key,
+        Array.isArray(value) ? value.join(", ") : value.toString(),
+      ])
+    );
     const response = await this.request(operation, {
       headers,
       retries: params.tries ? params.tries - 1 : void 0,
-      variables
+      variables,
     });
     return { body: response, headers: {} };
   }
   async request(operation, options) {
     const response = await this.client.request(operation, {
       apiVersion: this.apiVersion || this.graphqlClass().config.apiVersion,
-      ...options
+      ...options,
     });
     if (response.errors) {
       const fetchResponse = response.errors.response;
@@ -4499,7 +5446,7 @@ class GraphqlClient {
     const headerObject = Object.fromEntries(response.headers ? response.headers.entries() : []);
     return {
       ...response,
-      headers: canonicalizeHeaders(headerObject ?? {})
+      headers: canonicalizeHeaders(headerObject ?? {}),
     };
   }
   graphqlClass() {
@@ -4511,7 +5458,7 @@ function graphqlClientClass({ config }) {
     static config = config;
   }
   Reflect.defineProperty(NewGraphqlClient, "name", {
-    value: "GraphqlClient"
+    value: "GraphqlClient",
   });
   return NewGraphqlClient;
 }
@@ -4532,7 +5479,10 @@ class RestClient {
       throw new MissingRequiredArgument("Missing access token when creating REST client");
     }
     if (apiVersion) {
-      const message2 = apiVersion === config.apiVersion ? `REST client has a redundant API version override to the default ${apiVersion}` : `REST client overriding default API version ${config.apiVersion} with ${apiVersion}`;
+      const message2 =
+        apiVersion === config.apiVersion
+          ? `REST client has a redundant API version override to the default ${apiVersion}`
+          : `REST client overriding default API version ${config.apiVersion} with ${apiVersion}`;
       logger(config).debug(message2);
     }
     const customStoreAppAccessToken = config.adminApiAccessToken ?? config.apiSecretKey;
@@ -4548,7 +5498,7 @@ class RestClient {
       userAgentPrefix: getUserAgent(config),
       defaultRetryTime: this.restClass().RETRY_WAIT_TIME,
       formatPaths: this.restClass().formatPaths,
-      isTesting: config.isTesting
+      isTesting: config.isTesting,
     });
   }
   /**
@@ -4579,10 +5529,10 @@ class RestClient {
     const requestParams = {
       headers: {
         ...params.extraHeaders,
-        ...params.type ? { "Content-Type": params.type.toString() } : {}
+        ...(params.type ? { "Content-Type": params.type.toString() } : {}),
       },
       retries: params.tries ? params.tries - 1 : void 0,
-      searchParams: params.query
+      searchParams: params.query,
     };
     let response;
     switch (params.method) {
@@ -4592,13 +5542,13 @@ class RestClient {
       case Method.Put:
         response = await this.client.put(params.path, {
           ...requestParams,
-          data: params.data
+          data: params.data,
         });
         break;
       case Method.Post:
         response = await this.client.post(params.path, {
           ...requestParams,
-          data: params.data
+          data: params.data,
         });
         break;
       case Method.Delete:
@@ -4615,18 +5565,21 @@ class RestClient {
     }
     const requestReturn = {
       body,
-      headers: responseHeaders
+      headers: responseHeaders,
     };
-    await this.logDeprecations({
-      method: params.method,
-      url: params.path,
-      headers: requestParams.headers,
-      body: params.data ? JSON.stringify(params.data) : void 0
-    }, requestReturn);
+    await this.logDeprecations(
+      {
+        method: params.method,
+        url: params.path,
+        headers: requestParams.headers,
+        body: params.data ? JSON.stringify(params.data) : void 0,
+      },
+      requestReturn
+    );
     const link = response.headers.get("Link");
     if (link !== void 0) {
       const pageInfo = {
-        limit: params.query?.limit ? params.query?.limit.toString() : RestClient.DEFAULT_LIMIT
+        limit: params.query?.limit ? params.query?.limit.toString() : RestClient.DEFAULT_LIMIT,
       };
       if (link) {
         const links = link.split(", ");
@@ -4669,7 +5622,7 @@ class RestClient {
     const path = url.pathname.replace(new RegExp(pattern), "$1");
     return {
       path,
-      query: Object.fromEntries(url.searchParams.entries())
+      query: Object.fromEntries(url.searchParams.entries()),
     };
   }
   async logDeprecations(request2, response) {
@@ -4678,16 +5631,23 @@ class RestClient {
     if (deprecationReason) {
       const deprecation = {
         message: deprecationReason,
-        path: request2.url
+        path: request2.url,
       };
       if (request2.body) {
         deprecation.body = `${request2.body.substring(0, 100)}...`;
       }
-      const depHash = await createSHA256HMAC(config.apiSecretKey, JSON.stringify(deprecation), HashFormat.Hex);
-      if (!Object.keys(this.loggedDeprecations).includes(depHash) || Date.now() - this.loggedDeprecations[depHash] >= RestClient.DEPRECATION_ALERT_DELAY) {
+      const depHash = await createSHA256HMAC(
+        config.apiSecretKey,
+        JSON.stringify(deprecation),
+        HashFormat.Hex
+      );
+      if (
+        !Object.keys(this.loggedDeprecations).includes(depHash) ||
+        Date.now() - this.loggedDeprecations[depHash] >= RestClient.DEPRECATION_ALERT_DELAY
+      ) {
         this.loggedDeprecations[depHash] = Date.now();
         const stack = new Error().stack;
-        const message2 = `API Deprecation Notice ${(/* @__PURE__ */ new Date()).toLocaleString()} : ${JSON.stringify(deprecation)}  -  Stack Trace: ${stack}`;
+        const message2 = `API Deprecation Notice ${/* @__PURE__ */ new Date().toLocaleString()} : ${JSON.stringify(deprecation)}  -  Stack Trace: ${stack}`;
         await logger(config).warning(message2);
       }
     }
@@ -4700,7 +5660,7 @@ function restClientClass(params) {
     static formatPaths = formatPaths === void 0 ? true : formatPaths;
   }
   Reflect.defineProperty(NewRestClient, "name", {
-    value: "RestClient"
+    value: "RestClient",
   });
   return NewRestClient;
 }
@@ -4715,7 +5675,9 @@ const SDK_VARIANT_SOURCE_HEADER = "X-SDK-Variant-Source";
 const CLIENT = "Storefront API Client";
 function validatePrivateAccessTokenUsage(privateAccessToken) {
   if (privateAccessToken && typeof window !== "undefined") {
-    throw new Error(`${CLIENT}: private access tokens and headers should only be used in a server-to-server implementation. Use the public API access token in nonserver environments.`);
+    throw new Error(
+      `${CLIENT}: private access tokens and headers should only be used in a server-to-server implementation. Use the public API access token in nonserver environments.`
+    );
   }
 }
 function validateRequiredAccessTokens(publicAccessToken, privateAccessToken) {
@@ -4726,50 +5688,67 @@ function validateRequiredAccessTokens(publicAccessToken, privateAccessToken) {
     throw new Error(`${CLIENT}: only provide either a public or private access token`);
   }
 }
-function createStorefrontApiClient({ storeDomain, apiVersion, publicAccessToken, privateAccessToken, clientName, retries = 0, customFetchApi, logger: logger2 }) {
+function createStorefrontApiClient({
+  storeDomain,
+  apiVersion,
+  publicAccessToken,
+  privateAccessToken,
+  clientName,
+  retries = 0,
+  customFetchApi,
+  logger: logger2,
+}) {
   const currentSupportedApiVersions = getCurrentSupportedApiVersions();
   const storeUrl = validateDomainAndGetStoreUrl({
     client: CLIENT,
-    storeDomain
+    storeDomain,
   });
   const baseApiVersionValidationParams = {
     client: CLIENT,
     currentSupportedApiVersions,
-    logger: logger2
+    logger: logger2,
   };
   validateApiVersion({ ...baseApiVersionValidationParams, apiVersion });
   validateRequiredAccessTokens(publicAccessToken, privateAccessToken);
   validatePrivateAccessTokenUsage(privateAccessToken);
-  const apiUrlFormatter = generateApiUrlFormatter(storeUrl, apiVersion, baseApiVersionValidationParams);
+  const apiUrlFormatter = generateApiUrlFormatter(
+    storeUrl,
+    apiVersion,
+    baseApiVersionValidationParams
+  );
   const config = {
     storeDomain: storeUrl,
     apiVersion,
-    ...publicAccessToken ? { publicAccessToken } : {
-      privateAccessToken
-    },
+    ...(publicAccessToken
+      ? { publicAccessToken }
+      : {
+          privateAccessToken,
+        }),
     headers: {
       "Content-Type": DEFAULT_CONTENT_TYPE,
       Accept: DEFAULT_CONTENT_TYPE,
       [SDK_VARIANT_HEADER]: DEFAULT_SDK_VARIANT,
       [SDK_VERSION_HEADER]: DEFAULT_CLIENT_VERSION,
-      ...clientName ? { [SDK_VARIANT_SOURCE_HEADER]: clientName } : {},
-      ...publicAccessToken ? { [PUBLIC_ACCESS_TOKEN_HEADER]: publicAccessToken } : { [PRIVATE_ACCESS_TOKEN_HEADER]: privateAccessToken }
+      ...(clientName ? { [SDK_VARIANT_SOURCE_HEADER]: clientName } : {}),
+      ...(publicAccessToken
+        ? { [PUBLIC_ACCESS_TOKEN_HEADER]: publicAccessToken }
+        : { [PRIVATE_ACCESS_TOKEN_HEADER]: privateAccessToken }),
     },
     apiUrl: apiUrlFormatter(),
-    clientName
+    clientName,
   };
   const graphqlClient = createGraphQLClient({
     headers: config.headers,
     url: config.apiUrl,
     retries,
     customFetchApi,
-    logger: logger2
+    logger: logger2,
   });
   const getHeaders2 = generateGetHeaders(config);
   const getApiUrl = generateGetApiUrl(config, apiUrlFormatter);
   const getGQLClientParams = generateGetGQLClientParams({
     getHeaders: getHeaders2,
-    getApiUrl
+    getApiUrl,
   });
   const client = {
     config,
@@ -4783,7 +5762,7 @@ function createStorefrontApiClient({ storeDomain, apiVersion, publicAccessToken,
     },
     requestStream: (...props) => {
       return graphqlClient.requestStream(...getGQLClientParams(...props));
-    }
+    },
   };
   return Object.freeze(client);
 }
@@ -4792,7 +5771,7 @@ function generateApiUrlFormatter(storeUrl, defaultApiVersion, baseApiVersionVali
     if (apiVersion) {
       validateApiVersion({
         ...baseApiVersionValidationParams,
-        apiVersion
+        apiVersion,
       });
     }
     const urlApiVersion = (apiVersion ?? defaultApiVersion).trim();
@@ -4815,14 +5794,19 @@ class StorefrontClient {
       throw new MissingRequiredArgument("Missing access token when creating GraphQL client");
     }
     if (params.apiVersion) {
-      const message2 = params.apiVersion === config.apiVersion ? `Storefront client has a redundant API version override to the default ${params.apiVersion}` : `Storefront client overriding default API version ${config.apiVersion} with ${params.apiVersion}`;
+      const message2 =
+        params.apiVersion === config.apiVersion
+          ? `Storefront client has a redundant API version override to the default ${params.apiVersion}`
+          : `Storefront client overriding default API version ${config.apiVersion} with ${params.apiVersion}`;
       logger(config).debug(message2);
     }
     let accessToken;
     if (config.isCustomStoreApp) {
       accessToken = config.privateAppStorefrontAccessToken;
       if (!accessToken) {
-        throw new MissingRequiredArgument("Custom store apps must set the privateAppStorefrontAccessToken property to call the Storefront API.");
+        throw new MissingRequiredArgument(
+          "Custom store apps must set the privateAppStorefrontAccessToken property to call the Storefront API."
+        );
       }
     } else {
       accessToken = params.session.accessToken;
@@ -4838,12 +5822,18 @@ class StorefrontClient {
       storeDomain: this.session.shop,
       customFetchApi: abstractFetch,
       logger: clientLoggerFactory(config),
-      clientName: getUserAgent(config)
+      clientName: getUserAgent(config),
     });
   }
   async query(params) {
-    logger(this.storefrontClass().config).deprecated("12.0.0", "The query method is deprecated, and was replaced with the request method.\nSee the migration guide: https://github.com/Shopify/shopify-app-js/blob/main/packages/apps/shopify-api/docs/migrating-to-v9.md#using-the-new-clients.");
-    if (typeof params.data === "string" && params.data.length === 0 || Object.entries(params.data).length === 0) {
+    logger(this.storefrontClass().config).deprecated(
+      "12.0.0",
+      "The query method is deprecated, and was replaced with the request method.\nSee the migration guide: https://github.com/Shopify/shopify-app-js/blob/main/packages/apps/shopify-api/docs/migrating-to-v9.md#using-the-new-clients."
+    );
+    if (
+      (typeof params.data === "string" && params.data.length === 0) ||
+      Object.entries(params.data).length === 0
+    ) {
       throw new MissingRequiredArgument("Query missing.");
     }
     let operation;
@@ -4854,21 +5844,23 @@ class StorefrontClient {
       operation = params.data.query;
       variables = params.data.variables;
     }
-    const headers = Object.fromEntries(Object.entries(params?.extraHeaders ?? {}).map(([key, value]) => [
-      key,
-      Array.isArray(value) ? value.join(", ") : value.toString()
-    ]));
+    const headers = Object.fromEntries(
+      Object.entries(params?.extraHeaders ?? {}).map(([key, value]) => [
+        key,
+        Array.isArray(value) ? value.join(", ") : value.toString(),
+      ])
+    );
     const response = await this.request(operation, {
       headers,
       retries: params.tries ? params.tries - 1 : void 0,
-      variables
+      variables,
     });
     return { body: response, headers: {} };
   }
   async request(operation, options) {
     const response = await this.client.request(operation, {
       apiVersion: this.apiVersion || this.storefrontClass().config.apiVersion,
-      ...options
+      ...options,
     });
     if (response.errors) {
       const fetchResponse = response.errors.response;
@@ -4886,7 +5878,7 @@ function storefrontClientClass(params) {
     static config = config;
   }
   Reflect.defineProperty(NewStorefrontClient, "name", {
-    value: "StorefrontClient"
+    value: "StorefrontClient",
   });
   return NewStorefrontClient;
 }
@@ -4918,13 +5910,12 @@ function clientClasses(config) {
     Rest: restClientClass({ config }),
     Graphql: graphqlClientClass({ config }),
     Storefront: storefrontClientClass({ config }),
-    graphqlProxy: graphqlProxy(config)
+    graphqlProxy: graphqlProxy(config),
   };
 }
 class ProcessedQuery {
   static stringify(keyValuePairs) {
-    if (!keyValuePairs || Object.keys(keyValuePairs).length === 0)
-      return "";
+    if (!keyValuePairs || Object.keys(keyValuePairs).length === 0) return "";
     return new ProcessedQuery().putAll(keyValuePairs).stringify();
   }
   processedQuery;
@@ -4983,7 +5974,7 @@ function timingSafeEqual(bufA, bufB) {
   return out === 0;
 }
 var HmacValidationType;
-(function(HmacValidationType2) {
+(function (HmacValidationType2) {
   HmacValidationType2["Flow"] = "flow";
   HmacValidationType2["Webhook"] = "webhook";
   HmacValidationType2["FulfillmentService"] = "fulfillment_service";
@@ -4991,23 +5982,28 @@ var HmacValidationType;
 const ValidationErrorReason = {
   MissingBody: "missing_body",
   InvalidHmac: "invalid_hmac",
-  MissingHmac: "missing_hmac"
+  MissingHmac: "missing_hmac",
 };
 const HMAC_TIMESTAMP_PERMITTED_CLOCK_TOLERANCE_SEC = 90;
 function stringifyQueryForAdmin(query) {
   const processedQuery = new ProcessedQuery();
-  Object.keys(query).sort((val1, val2) => val1.localeCompare(val2)).forEach((key) => processedQuery.put(key, query[key]));
+  Object.keys(query)
+    .sort((val1, val2) => val1.localeCompare(val2))
+    .forEach((key) => processedQuery.put(key, query[key]));
   return processedQuery.stringify(true);
 }
 function stringifyQueryForAppProxy(query) {
-  return Object.entries(query).sort(([val1], [val2]) => val1.localeCompare(val2)).reduce((acc, [key, value]) => {
-    return `${acc}${key}=${Array.isArray(value) ? value.join(",") : value}`;
-  }, "");
+  return Object.entries(query)
+    .sort(([val1], [val2]) => val1.localeCompare(val2))
+    .reduce((acc, [key, value]) => {
+      return `${acc}${key}=${Array.isArray(value) ? value.join(",") : value}`;
+    }, "");
 }
 function generateLocalHmac(config) {
   return async (params, signator = "admin") => {
     const { hmac, signature, ...query } = params;
-    const queryString = signator === "admin" ? stringifyQueryForAdmin(query) : stringifyQueryForAppProxy(query);
+    const queryString =
+      signator === "admin" ? stringifyQueryForAdmin(query) : stringifyQueryForAppProxy(query);
     return createSHA256HMAC(config.apiSecretKey, queryString, HashFormat.Hex);
   };
 }
@@ -5050,7 +6046,10 @@ function validateHmacFromRequestFactory(config) {
   };
 }
 function validateHmacTimestamp(query) {
-  if (Math.abs(getCurrentTimeInSec() - Number(query.timestamp)) > HMAC_TIMESTAMP_PERMITTED_CLOCK_TOLERANCE_SEC) {
+  if (
+    Math.abs(getCurrentTimeInSec() - Number(query.timestamp)) >
+    HMAC_TIMESTAMP_PERMITTED_CLOCK_TOLERANCE_SEC
+  ) {
     throw new InvalidHmacError("HMAC timestamp is outside of the tolerance range");
   }
 }
@@ -5059,14 +6058,14 @@ async function fail(reason, type, config) {
   await log2.debug(`${type} request is not valid`, { reason });
   return {
     valid: false,
-    reason
+    reason,
   };
 }
 async function succeed(type, config) {
   const log2 = logger(config);
   await log2.debug(`${type} request is valid`);
   return {
-    valid: true
+    valid: true,
   };
 }
 function decodeHost(host) {
@@ -5162,17 +6161,20 @@ function removeProtocol(url) {
 function sanitizeShop(config) {
   return (shop, throwOnInvalid = false) => {
     let shopUrl = shop;
-    const domainsRegex = [
-      "myshopify\\.com",
-      "shopify\\.com",
-      "myshopify\\.io",
-      "shop\\.dev"
-    ];
+    const domainsRegex = ["myshopify\\.com", "shopify\\.com", "myshopify\\.io", "shop\\.dev"];
     if (config.customShopDomains) {
-      domainsRegex.push(...config.customShopDomains.map((regex) => typeof regex === "string" ? regex : regex.source));
+      domainsRegex.push(
+        ...config.customShopDomains.map((regex) =>
+          typeof regex === "string" ? regex : regex.source
+        )
+      );
     }
-    const shopUrlRegex = new RegExp(`^[a-zA-Z0-9][a-zA-Z0-9-_]*\\.(${domainsRegex.join("|")})[/]*$`);
-    const shopAdminRegex = new RegExp(`^admin\\.(${domainsRegex.join("|")})/store/([a-zA-Z0-9][a-zA-Z0-9-_]*)$`);
+    const shopUrlRegex = new RegExp(
+      `^[a-zA-Z0-9][a-zA-Z0-9-_]*\\.(${domainsRegex.join("|")})[/]*$`
+    );
+    const shopAdminRegex = new RegExp(
+      `^admin\\.(${domainsRegex.join("|")})/store/([a-zA-Z0-9][a-zA-Z0-9-_]*)$`
+    );
     const isShopAdminUrl = shopAdminRegex.test(shopUrl);
     if (isShopAdminUrl) {
       shopUrl = shopAdminUrlToLegacyUrl(shopUrl) || "";
@@ -5195,7 +6197,7 @@ function sanitizeHost() {
         "shopify\\.com",
         "myshopify\\.io",
         "spin\\.dev",
-        "shop\\.dev"
+        "shop\\.dev",
       ];
       const hostRegex = new RegExp(`\\.(${originsRegex.join("|")})$`);
       if (!hostRegex.test(hostname)) {
@@ -5209,7 +6211,7 @@ function sanitizeHost() {
   };
 }
 var DataType;
-(function(DataType2) {
+(function (DataType2) {
   DataType2["JSON"] = "application/json";
   DataType2["GraphQL"] = "application/graphql";
   DataType2["URLEncoded"] = "application/x-www-form-urlencoded";
@@ -5222,7 +6224,7 @@ function fetchRequestFactory(config) {
       log2.debug("Making HTTP request", {
         method: options?.method || "GET",
         url,
-        ...options?.body && { body: options?.body }
+        ...(options?.body && { body: options?.body }),
       });
     }
     const response = await abstractFetch(url, options);
@@ -5230,7 +6232,7 @@ function fetchRequestFactory(config) {
       log2.debug("HTTP request completed", {
         method: options?.method || "GET",
         url,
-        status: response.status
+        status: response.status,
       });
     }
     return response;
@@ -5241,9 +6243,11 @@ const STATE_COOKIE_NAME = "shopify_app_state";
 function nonce() {
   const length = 15;
   const bytes = cryptoVar.getRandomValues(new Uint8Array(length));
-  const nonce2 = bytes.map((byte) => {
-    return byte % 10;
-  }).join("");
+  const nonce2 = bytes
+    .map((byte) => {
+      return byte % 10;
+    })
+    .join("");
   return nonce2;
 }
 const byteToHex = [];
@@ -5251,20 +6255,44 @@ for (let i = 0; i < 256; ++i) {
   byteToHex.push((i + 256).toString(16).slice(1));
 }
 function unsafeStringify(arr, offset = 0) {
-  return (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
+  return (
+    byteToHex[arr[offset + 0]] +
+    byteToHex[arr[offset + 1]] +
+    byteToHex[arr[offset + 2]] +
+    byteToHex[arr[offset + 3]] +
+    "-" +
+    byteToHex[arr[offset + 4]] +
+    byteToHex[arr[offset + 5]] +
+    "-" +
+    byteToHex[arr[offset + 6]] +
+    byteToHex[arr[offset + 7]] +
+    "-" +
+    byteToHex[arr[offset + 8]] +
+    byteToHex[arr[offset + 9]] +
+    "-" +
+    byteToHex[arr[offset + 10]] +
+    byteToHex[arr[offset + 11]] +
+    byteToHex[arr[offset + 12]] +
+    byteToHex[arr[offset + 13]] +
+    byteToHex[arr[offset + 14]] +
+    byteToHex[arr[offset + 15]]
+  ).toLowerCase();
 }
 let getRandomValues;
 const rnds8 = new Uint8Array(16);
 function rng() {
   if (!getRandomValues) {
     if (typeof crypto === "undefined" || !crypto.getRandomValues) {
-      throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");
+      throw new Error(
+        "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported"
+      );
     }
     getRandomValues = crypto.getRandomValues.bind(crypto);
   }
   return getRandomValues(rnds8);
 }
-const randomUUID = typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID.bind(crypto);
+const randomUUID =
+  typeof crypto !== "undefined" && crypto.randomUUID && crypto.randomUUID.bind(crypto);
 const native = { randomUUID };
 function v4(options, buf, offset) {
   if (native.randomUUID && true && !options) {
@@ -5275,8 +6303,8 @@ function v4(options, buf, offset) {
   if (rnds.length < 16) {
     throw new Error("Random bytes length must be >= 16");
   }
-  rnds[6] = rnds[6] & 15 | 64;
-  rnds[8] = rnds[8] & 63 | 128;
+  rnds[6] = (rnds[6] & 15) | 64;
+  rnds[8] = (rnds[8] & 63) | 128;
   return unsafeStringify(rnds);
 }
 const propertiesToSave = [
@@ -5287,38 +6315,44 @@ const propertiesToSave = [
   "scope",
   "accessToken",
   "expires",
-  "onlineAccessInfo"
+  "onlineAccessInfo",
 ];
 class Session {
   static fromPropertyArray(entries, returnUserData = false) {
     if (!Array.isArray(entries)) {
-      throw new InvalidSession("The parameter is not an array: a Session cannot be created from this object.");
+      throw new InvalidSession(
+        "The parameter is not an array: a Session cannot be created from this object."
+      );
     }
-    const obj = Object.fromEntries(entries.filter(([_key, value]) => value !== null && value !== void 0).map(([key, value]) => {
-      switch (key.toLowerCase()) {
-        case "isonline":
-          return ["isOnline", value];
-        case "accesstoken":
-          return ["accessToken", value];
-        case "onlineaccessinfo":
-          return ["onlineAccessInfo", value];
-        case "userid":
-          return ["userId", value];
-        case "firstname":
-          return ["firstName", value];
-        case "lastname":
-          return ["lastName", value];
-        case "accountowner":
-          return ["accountOwner", value];
-        case "emailverified":
-          return ["emailVerified", value];
-        default:
-          return [key.toLowerCase(), value];
-      }
-    }));
+    const obj = Object.fromEntries(
+      entries
+        .filter(([_key, value]) => value !== null && value !== void 0)
+        .map(([key, value]) => {
+          switch (key.toLowerCase()) {
+            case "isonline":
+              return ["isOnline", value];
+            case "accesstoken":
+              return ["accessToken", value];
+            case "onlineaccessinfo":
+              return ["onlineAccessInfo", value];
+            case "userid":
+              return ["userId", value];
+            case "firstname":
+              return ["firstName", value];
+            case "lastname":
+              return ["lastName", value];
+            case "accountowner":
+              return ["accountOwner", value];
+            case "emailverified":
+              return ["emailVerified", value];
+            default:
+              return [key.toLowerCase(), value];
+          }
+        })
+    );
     const sessionData = {};
     const onlineAccessInfo = {
-      associated_user: {}
+      associated_user: {},
     };
     Object.entries(obj).forEach(([key, value]) => {
       switch (key) {
@@ -5457,7 +6491,9 @@ class Session {
    * Whether the access token is expired.
    */
   isExpired(withinMillisecondsOfExpiry = 0) {
-    return Boolean(this.expires && this.expires.getTime() - withinMillisecondsOfExpiry < Date.now());
+    return Boolean(
+      this.expires && this.expires.getTime() - withinMillisecondsOfExpiry < Date.now()
+    );
   }
   /**
    * Converts an object with data into a Session.
@@ -5467,7 +6503,7 @@ class Session {
       id: this.id,
       shop: this.shop,
       state: this.state,
-      isOnline: this.isOnline
+      isOnline: this.isOnline,
     };
     if (this.scope) {
       object.scope = this.scope;
@@ -5487,44 +6523,51 @@ class Session {
    * Checks whether the given session is equal to this session.
    */
   equals(other) {
-    if (!other)
-      return false;
-    const mandatoryPropsMatch = this.id === other.id && this.shop === other.shop && this.state === other.state && this.isOnline === other.isOnline;
-    if (!mandatoryPropsMatch)
-      return false;
+    if (!other) return false;
+    const mandatoryPropsMatch =
+      this.id === other.id &&
+      this.shop === other.shop &&
+      this.state === other.state &&
+      this.isOnline === other.isOnline;
+    if (!mandatoryPropsMatch) return false;
     const copyA = this.toPropertyArray(true);
-    copyA.sort(([k1], [k2]) => k1 < k2 ? -1 : 1);
+    copyA.sort(([k1], [k2]) => (k1 < k2 ? -1 : 1));
     const copyB = other.toPropertyArray(true);
-    copyB.sort(([k1], [k2]) => k1 < k2 ? -1 : 1);
+    copyB.sort(([k1], [k2]) => (k1 < k2 ? -1 : 1));
     return JSON.stringify(copyA) === JSON.stringify(copyB);
   }
   /**
    * Converts the session into an array of key-value pairs.
    */
   toPropertyArray(returnUserData = false) {
-    return Object.entries(this).filter(([key, value]) => propertiesToSave.includes(key) && value !== void 0 && value !== null).flatMap(([key, value]) => {
-      switch (key) {
-        case "expires":
-          return [[key, value ? value.getTime() : void 0]];
-        case "onlineAccessInfo":
-          if (!returnUserData) {
-            return [[key, value.associated_user.id]];
-          } else {
-            return [
-              ["userId", value?.associated_user?.id],
-              ["firstName", value?.associated_user?.first_name],
-              ["lastName", value?.associated_user?.last_name],
-              ["email", value?.associated_user?.email],
-              ["locale", value?.associated_user?.locale],
-              ["emailVerified", value?.associated_user?.email_verified],
-              ["accountOwner", value?.associated_user?.account_owner],
-              ["collaborator", value?.associated_user?.collaborator]
-            ];
-          }
-        default:
-          return [[key, value]];
-      }
-    }).filter(([_key, value]) => value !== void 0);
+    return Object.entries(this)
+      .filter(
+        ([key, value]) => propertiesToSave.includes(key) && value !== void 0 && value !== null
+      )
+      .flatMap(([key, value]) => {
+        switch (key) {
+          case "expires":
+            return [[key, value ? value.getTime() : void 0]];
+          case "onlineAccessInfo":
+            if (!returnUserData) {
+              return [[key, value.associated_user.id]];
+            } else {
+              return [
+                ["userId", value?.associated_user?.id],
+                ["firstName", value?.associated_user?.first_name],
+                ["lastName", value?.associated_user?.last_name],
+                ["email", value?.associated_user?.email],
+                ["locale", value?.associated_user?.locale],
+                ["emailVerified", value?.associated_user?.email_verified],
+                ["accountOwner", value?.associated_user?.account_owner],
+                ["collaborator", value?.associated_user?.collaborator],
+              ];
+            }
+          default:
+            return [[key, value]];
+        }
+      })
+      .filter(([_key, value]) => value !== void 0);
   }
 }
 const crypto$1 = crypto;
@@ -5714,34 +6757,28 @@ function checkSigCryptoKey(key, alg, ...usages) {
     case "HS256":
     case "HS384":
     case "HS512": {
-      if (!isAlgorithm(key.algorithm, "HMAC"))
-        throw unusable("HMAC");
+      if (!isAlgorithm(key.algorithm, "HMAC")) throw unusable("HMAC");
       const expected = parseInt(alg.slice(2), 10);
       const actual = getHashLength(key.algorithm.hash);
-      if (actual !== expected)
-        throw unusable(`SHA-${expected}`, "algorithm.hash");
+      if (actual !== expected) throw unusable(`SHA-${expected}`, "algorithm.hash");
       break;
     }
     case "RS256":
     case "RS384":
     case "RS512": {
-      if (!isAlgorithm(key.algorithm, "RSASSA-PKCS1-v1_5"))
-        throw unusable("RSASSA-PKCS1-v1_5");
+      if (!isAlgorithm(key.algorithm, "RSASSA-PKCS1-v1_5")) throw unusable("RSASSA-PKCS1-v1_5");
       const expected = parseInt(alg.slice(2), 10);
       const actual = getHashLength(key.algorithm.hash);
-      if (actual !== expected)
-        throw unusable(`SHA-${expected}`, "algorithm.hash");
+      if (actual !== expected) throw unusable(`SHA-${expected}`, "algorithm.hash");
       break;
     }
     case "PS256":
     case "PS384":
     case "PS512": {
-      if (!isAlgorithm(key.algorithm, "RSA-PSS"))
-        throw unusable("RSA-PSS");
+      if (!isAlgorithm(key.algorithm, "RSA-PSS")) throw unusable("RSA-PSS");
       const expected = parseInt(alg.slice(2), 10);
       const actual = getHashLength(key.algorithm.hash);
-      if (actual !== expected)
-        throw unusable(`SHA-${expected}`, "algorithm.hash");
+      if (actual !== expected) throw unusable(`SHA-${expected}`, "algorithm.hash");
       break;
     }
     case "EdDSA": {
@@ -5751,19 +6788,16 @@ function checkSigCryptoKey(key, alg, ...usages) {
       break;
     }
     case "Ed25519": {
-      if (!isAlgorithm(key.algorithm, "Ed25519"))
-        throw unusable("Ed25519");
+      if (!isAlgorithm(key.algorithm, "Ed25519")) throw unusable("Ed25519");
       break;
     }
     case "ES256":
     case "ES384":
     case "ES512": {
-      if (!isAlgorithm(key.algorithm, "ECDSA"))
-        throw unusable("ECDSA");
+      if (!isAlgorithm(key.algorithm, "ECDSA")) throw unusable("ECDSA");
       const expected = getNamedCurve(alg);
       const actual = key.algorithm.namedCurve;
-      if (actual !== expected)
-        throw unusable(expected, "algorithm.namedCurve");
+      if (actual !== expected) throw unusable(expected, "algorithm.namedCurve");
       break;
     }
     default:
@@ -5886,12 +6920,14 @@ function subtleMapping(jwk) {
         case "RSA-OAEP-512":
           algorithm = {
             name: "RSA-OAEP",
-            hash: `SHA-${parseInt(jwk.alg.slice(-3), 10) || 1}`
+            hash: `SHA-${parseInt(jwk.alg.slice(-3), 10) || 1}`,
           };
           keyUsages = jwk.d ? ["decrypt", "unwrapKey"] : ["encrypt", "wrapKey"];
           break;
         default:
-          throw new JOSENotSupported('Invalid or unsupported JWK "alg" (Algorithm) Parameter value');
+          throw new JOSENotSupported(
+            'Invalid or unsupported JWK "alg" (Algorithm) Parameter value'
+          );
       }
       break;
     }
@@ -5917,7 +6953,9 @@ function subtleMapping(jwk) {
           keyUsages = jwk.d ? ["deriveBits"] : [];
           break;
         default:
-          throw new JOSENotSupported('Invalid or unsupported JWK "alg" (Algorithm) Parameter value');
+          throw new JOSENotSupported(
+            'Invalid or unsupported JWK "alg" (Algorithm) Parameter value'
+          );
       }
       break;
     }
@@ -5939,7 +6977,9 @@ function subtleMapping(jwk) {
           keyUsages = jwk.d ? ["deriveBits"] : [];
           break;
         default:
-          throw new JOSENotSupported('Invalid or unsupported JWK "alg" (Algorithm) Parameter value');
+          throw new JOSENotSupported(
+            'Invalid or unsupported JWK "alg" (Algorithm) Parameter value'
+          );
       }
       break;
     }
@@ -5953,11 +6993,7 @@ const parse = async (jwk) => {
     throw new TypeError('"alg" argument is required when "jwk.alg" is not present');
   }
   const { algorithm, keyUsages } = subtleMapping(jwk);
-  const rest = [
-    algorithm,
-    jwk.ext ?? false,
-    jwk.key_ops ?? keyUsages
-  ];
+  const rest = [algorithm, jwk.ext ?? false, jwk.key_ops ?? keyUsages];
   const keyData = { ...jwk };
   delete keyData.alg;
   delete keyData.use;
@@ -5975,8 +7011,7 @@ const importAndCache = async (cache, key, jwk, alg, freeze = false) => {
     return cached[alg];
   }
   const cryptoKey = await parse({ ...jwk, alg });
-  if (freeze)
-    Object.freeze(key);
+  if (freeze) Object.freeze(key);
   if (!cached) {
     cache.set(key, { [alg]: cryptoKey });
   } else {
@@ -6000,8 +7035,7 @@ const normalizePublicKey = (key, alg) => {
     return importAndCache(pubCache, key, jwk, alg);
   }
   if (isJWK(key)) {
-    if (key.k)
-      return decode(key.k);
+    if (key.k) return decode(key.k);
     pubCache || (pubCache = /* @__PURE__ */ new WeakMap());
     const cryptoKey = importAndCache(pubCache, key, key, alg, true);
     return cryptoKey;
@@ -6018,8 +7052,7 @@ const normalizePrivateKey = (key, alg) => {
     return importAndCache(privCache, key, jwk, alg);
   }
   if (isJWK(key)) {
-    if (key.k)
-      return decode(key.k);
+    if (key.k) return decode(key.k);
     privCache || (privCache = /* @__PURE__ */ new WeakMap());
     const cryptoKey = importAndCache(privCache, key, key, alg, true);
     return cryptoKey;
@@ -6040,7 +7073,9 @@ async function importJWK(jwk, alg) {
       return decode(jwk.k);
     case "RSA":
       if ("oth" in jwk && jwk.oth !== void 0) {
-        throw new JOSENotSupported('RSA JWK "oth" (Other Primes Info) Parameter value is not supported');
+        throw new JOSENotSupported(
+          'RSA JWK "oth" (Other Primes Info) Parameter value is not supported'
+        );
       }
     case "EC":
     case "OKP":
@@ -6055,7 +7090,9 @@ const jwkMatchesOp = (alg, key, usage) => {
     throw new TypeError("Invalid key for this operation, when present its use must be sig");
   }
   if (key.key_ops !== void 0 && key.key_ops.includes?.(usage) !== true) {
-    throw new TypeError(`Invalid key for this operation, when present its key_ops must include ${usage}`);
+    throw new TypeError(
+      `Invalid key for this operation, when present its key_ops must include ${usage}`
+    );
   }
   if (key.alg !== void 0 && key.alg !== alg) {
     throw new TypeError(`Invalid key for this operation, when present its alg must be ${alg}`);
@@ -6063,15 +7100,17 @@ const jwkMatchesOp = (alg, key, usage) => {
   return true;
 };
 const symmetricTypeCheck = (alg, key, usage, allowJwk) => {
-  if (key instanceof Uint8Array)
-    return;
+  if (key instanceof Uint8Array) return;
   if (allowJwk && isJWK(key)) {
-    if (isSecretJWK(key) && jwkMatchesOp(alg, key, usage))
-      return;
-    throw new TypeError(`JSON Web Key for symmetric algorithms must have JWK "kty" (Key Type) equal to "oct" and the JWK "k" (Key Value) present`);
+    if (isSecretJWK(key) && jwkMatchesOp(alg, key, usage)) return;
+    throw new TypeError(
+      `JSON Web Key for symmetric algorithms must have JWK "kty" (Key Type) equal to "oct" and the JWK "k" (Key Value) present`
+    );
   }
   if (!isKeyLike(key)) {
-    throw new TypeError(withAlg(alg, key, ...types, "Uint8Array", allowJwk ? "JSON Web Key" : null));
+    throw new TypeError(
+      withAlg(alg, key, ...types, "Uint8Array", allowJwk ? "JSON Web Key" : null)
+    );
   }
   if (key.type !== "secret") {
     throw new TypeError(`${tag(key)} instances for symmetric algorithms must be of type "secret"`);
@@ -6081,12 +7120,10 @@ const asymmetricTypeCheck = (alg, key, usage, allowJwk) => {
   if (allowJwk && isJWK(key)) {
     switch (usage) {
       case "sign":
-        if (isPrivateJWK(key) && jwkMatchesOp(alg, key, usage))
-          return;
+        if (isPrivateJWK(key) && jwkMatchesOp(alg, key, usage)) return;
         throw new TypeError(`JSON Web Key for this operation be a private JWK`);
       case "verify":
-        if (isPublicJWK(key) && jwkMatchesOp(alg, key, usage))
-          return;
+        if (isPublicJWK(key) && jwkMatchesOp(alg, key, usage)) return;
         throw new TypeError(`JSON Web Key for this operation be a public JWK`);
     }
   }
@@ -6094,23 +7131,37 @@ const asymmetricTypeCheck = (alg, key, usage, allowJwk) => {
     throw new TypeError(withAlg(alg, key, ...types, allowJwk ? "JSON Web Key" : null));
   }
   if (key.type === "secret") {
-    throw new TypeError(`${tag(key)} instances for asymmetric algorithms must not be of type "secret"`);
+    throw new TypeError(
+      `${tag(key)} instances for asymmetric algorithms must not be of type "secret"`
+    );
   }
   if (usage === "sign" && key.type === "public") {
-    throw new TypeError(`${tag(key)} instances for asymmetric algorithm signing must be of type "private"`);
+    throw new TypeError(
+      `${tag(key)} instances for asymmetric algorithm signing must be of type "private"`
+    );
   }
   if (usage === "decrypt" && key.type === "public") {
-    throw new TypeError(`${tag(key)} instances for asymmetric algorithm decryption must be of type "private"`);
+    throw new TypeError(
+      `${tag(key)} instances for asymmetric algorithm decryption must be of type "private"`
+    );
   }
   if (key.algorithm && usage === "verify" && key.type === "private") {
-    throw new TypeError(`${tag(key)} instances for asymmetric algorithm verifying must be of type "public"`);
+    throw new TypeError(
+      `${tag(key)} instances for asymmetric algorithm verifying must be of type "public"`
+    );
   }
   if (key.algorithm && usage === "encrypt" && key.type === "private") {
-    throw new TypeError(`${tag(key)} instances for asymmetric algorithm encryption must be of type "public"`);
+    throw new TypeError(
+      `${tag(key)} instances for asymmetric algorithm encryption must be of type "public"`
+    );
   }
 };
 function checkKeyType(allowJwk, alg, key, usage) {
-  const symmetric = alg.startsWith("HS") || alg === "dir" || alg.startsWith("PBES2") || /^A\d{3}(?:GCM)?KW$/.test(alg);
+  const symmetric =
+    alg.startsWith("HS") ||
+    alg === "dir" ||
+    alg.startsWith("PBES2") ||
+    /^A\d{3}(?:GCM)?KW$/.test(alg);
   if (symmetric) {
     symmetricTypeCheck(alg, key, usage, allowJwk);
   } else {
@@ -6126,8 +7177,14 @@ function validateCrit(Err, recognizedDefault, recognizedOption, protectedHeader,
   if (!protectedHeader || protectedHeader.crit === void 0) {
     return /* @__PURE__ */ new Set();
   }
-  if (!Array.isArray(protectedHeader.crit) || protectedHeader.crit.length === 0 || protectedHeader.crit.some((input) => typeof input !== "string" || input.length === 0)) {
-    throw new Err('"crit" (Critical) Header Parameter MUST be an array of non-empty strings when present');
+  if (
+    !Array.isArray(protectedHeader.crit) ||
+    protectedHeader.crit.length === 0 ||
+    protectedHeader.crit.some((input) => typeof input !== "string" || input.length === 0)
+  ) {
+    throw new Err(
+      '"crit" (Critical) Header Parameter MUST be an array of non-empty strings when present'
+    );
   }
   let recognized;
   if (recognizedOption !== void 0) {
@@ -6149,7 +7206,10 @@ function validateCrit(Err, recognizedDefault, recognizedOption, protectedHeader,
   return new Set(protectedHeader.crit);
 }
 const validateAlgorithms = (option, algorithms) => {
-  if (algorithms !== void 0 && (!Array.isArray(algorithms) || algorithms.some((s) => typeof s !== "string"))) {
+  if (
+    algorithms !== void 0 &&
+    (!Array.isArray(algorithms) || algorithms.some((s) => typeof s !== "string"))
+  ) {
     throw new TypeError(`"${option}" option must be an array of strings`);
   }
   if (!algorithms) {
@@ -6181,7 +7241,9 @@ function subtleDsa(alg, algorithm) {
     case "EdDSA":
       return { name: algorithm.name };
     default:
-      throw new JOSENotSupported(`alg ${alg} is not supported either by JOSE or your javascript runtime`);
+      throw new JOSENotSupported(
+        `alg ${alg} is not supported either by JOSE or your javascript runtime`
+      );
   }
 }
 async function getCryptoKey(alg, key, usage) {
@@ -6196,7 +7258,13 @@ async function getCryptoKey(alg, key, usage) {
     if (!alg.startsWith("HS")) {
       throw new TypeError(invalidKeyInput(key, ...types));
     }
-    return crypto$1.subtle.importKey("raw", key, { hash: `SHA-${alg.slice(-3)}`, name: "HMAC" }, false, [usage]);
+    return crypto$1.subtle.importKey(
+      "raw",
+      key,
+      { hash: `SHA-${alg.slice(-3)}`, name: "HMAC" },
+      false,
+      [usage]
+    );
   }
   throw new TypeError(invalidKeyInput(key, ...types, "Uint8Array", "JSON Web Key"));
 }
@@ -6239,18 +7307,28 @@ async function flattenedVerify(jws, key, options) {
     }
   }
   if (!isDisjoint(parsedProt, jws.header)) {
-    throw new JWSInvalid("JWS Protected and JWS Unprotected Header Parameter names must be disjoint");
+    throw new JWSInvalid(
+      "JWS Protected and JWS Unprotected Header Parameter names must be disjoint"
+    );
   }
   const joseHeader = {
     ...parsedProt,
-    ...jws.header
+    ...jws.header,
   };
-  const extensions = validateCrit(JWSInvalid, /* @__PURE__ */ new Map([["b64", true]]), options?.crit, parsedProt, joseHeader);
+  const extensions = validateCrit(
+    JWSInvalid,
+    /* @__PURE__ */ new Map([["b64", true]]),
+    options?.crit,
+    parsedProt,
+    joseHeader
+  );
   let b64 = true;
   if (extensions.has("b64")) {
     b64 = parsedProt.b64;
     if (typeof b64 !== "boolean") {
-      throw new JWSInvalid('The "b64" (base64url-encode payload) Header Parameter must be a boolean');
+      throw new JWSInvalid(
+        'The "b64" (base64url-encode payload) Header Parameter must be a boolean'
+      );
     }
   }
   const { alg } = joseHeader;
@@ -6279,7 +7357,11 @@ async function flattenedVerify(jws, key, options) {
   } else {
     checkKeyTypeWithJwk(alg, key, "verify");
   }
-  const data = concat(encoder.encode(jws.protected ?? ""), encoder.encode("."), typeof jws.payload === "string" ? encoder.encode(jws.payload) : jws.payload);
+  const data = concat(
+    encoder.encode(jws.protected ?? ""),
+    encoder.encode("."),
+    typeof jws.payload === "string" ? encoder.encode(jws.payload) : jws.payload
+  );
   let signature;
   try {
     signature = decode(jws.signature);
@@ -6325,7 +7407,11 @@ async function compactVerify(jws, key, options) {
   if (length !== 3) {
     throw new JWSInvalid("Invalid Compact JWS");
   }
-  const verified = await flattenedVerify({ payload, protected: protectedHeader, signature }, key, options);
+  const verified = await flattenedVerify(
+    { payload, protected: protectedHeader, signature },
+    key,
+    options
+  );
   const result = { payload: verified.payload, protectedHeader: verified.protectedHeader };
   if (typeof key === "function") {
     return { ...result, key: verified.key };
@@ -6338,10 +7424,11 @@ const hour = minute * 60;
 const day = hour * 24;
 const week = day * 7;
 const year = day * 365.25;
-const REGEX = /^(\+|\-)? ?(\d+|\d+\.\d+) ?(seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)(?: (ago|from now))?$/i;
+const REGEX =
+  /^(\+|\-)? ?(\d+|\d+\.\d+) ?(seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|weeks?|w|years?|yrs?|y)(?: (ago|from now))?$/i;
 const secs = (str) => {
   const matched = REGEX.exec(str);
-  if (!matched || matched[4] && matched[1]) {
+  if (!matched || (matched[4] && matched[1])) {
     throw new TypeError("Invalid time period format");
   }
   const value = parseFloat(matched[2]);
@@ -6402,38 +7489,65 @@ const jwtPayload = (protectedHeader, encodedPayload, options = {}) => {
   let payload;
   try {
     payload = JSON.parse(decoder.decode(encodedPayload));
-  } catch {
-  }
+  } catch {}
   if (!isObject(payload)) {
     throw new JWTInvalid("JWT Claims Set must be a top-level JSON object");
   }
   const { typ } = options;
-  if (typ && (typeof protectedHeader.typ !== "string" || normalizeTyp(protectedHeader.typ) !== normalizeTyp(typ))) {
-    throw new JWTClaimValidationFailed('unexpected "typ" JWT header value', payload, "typ", "check_failed");
+  if (
+    typ &&
+    (typeof protectedHeader.typ !== "string" ||
+      normalizeTyp(protectedHeader.typ) !== normalizeTyp(typ))
+  ) {
+    throw new JWTClaimValidationFailed(
+      'unexpected "typ" JWT header value',
+      payload,
+      "typ",
+      "check_failed"
+    );
   }
   const { requiredClaims = [], issuer, subject, audience, maxTokenAge } = options;
   const presenceCheck = [...requiredClaims];
-  if (maxTokenAge !== void 0)
-    presenceCheck.push("iat");
-  if (audience !== void 0)
-    presenceCheck.push("aud");
-  if (subject !== void 0)
-    presenceCheck.push("sub");
-  if (issuer !== void 0)
-    presenceCheck.push("iss");
+  if (maxTokenAge !== void 0) presenceCheck.push("iat");
+  if (audience !== void 0) presenceCheck.push("aud");
+  if (subject !== void 0) presenceCheck.push("sub");
+  if (issuer !== void 0) presenceCheck.push("iss");
   for (const claim of new Set(presenceCheck.reverse())) {
     if (!(claim in payload)) {
-      throw new JWTClaimValidationFailed(`missing required "${claim}" claim`, payload, claim, "missing");
+      throw new JWTClaimValidationFailed(
+        `missing required "${claim}" claim`,
+        payload,
+        claim,
+        "missing"
+      );
     }
   }
   if (issuer && !(Array.isArray(issuer) ? issuer : [issuer]).includes(payload.iss)) {
-    throw new JWTClaimValidationFailed('unexpected "iss" claim value', payload, "iss", "check_failed");
+    throw new JWTClaimValidationFailed(
+      'unexpected "iss" claim value',
+      payload,
+      "iss",
+      "check_failed"
+    );
   }
   if (subject && payload.sub !== subject) {
-    throw new JWTClaimValidationFailed('unexpected "sub" claim value', payload, "sub", "check_failed");
+    throw new JWTClaimValidationFailed(
+      'unexpected "sub" claim value',
+      payload,
+      "sub",
+      "check_failed"
+    );
   }
-  if (audience && !checkAudiencePresence(payload.aud, typeof audience === "string" ? [audience] : audience)) {
-    throw new JWTClaimValidationFailed('unexpected "aud" claim value', payload, "aud", "check_failed");
+  if (
+    audience &&
+    !checkAudiencePresence(payload.aud, typeof audience === "string" ? [audience] : audience)
+  ) {
+    throw new JWTClaimValidationFailed(
+      'unexpected "aud" claim value',
+      payload,
+      "aud",
+      "check_failed"
+    );
   }
   let tolerance;
   switch (typeof options.clockTolerance) {
@@ -6459,7 +7573,12 @@ const jwtPayload = (protectedHeader, encodedPayload, options = {}) => {
       throw new JWTClaimValidationFailed('"nbf" claim must be a number', payload, "nbf", "invalid");
     }
     if (payload.nbf > now + tolerance) {
-      throw new JWTClaimValidationFailed('"nbf" claim timestamp check failed', payload, "nbf", "check_failed");
+      throw new JWTClaimValidationFailed(
+        '"nbf" claim timestamp check failed',
+        payload,
+        "nbf",
+        "check_failed"
+      );
     }
   }
   if (payload.exp !== void 0) {
@@ -6474,10 +7593,20 @@ const jwtPayload = (protectedHeader, encodedPayload, options = {}) => {
     const age = now - payload.iat;
     const max = typeof maxTokenAge === "number" ? maxTokenAge : secs(maxTokenAge);
     if (age - tolerance > max) {
-      throw new JWTExpired('"iat" claim timestamp check failed (too far in the past)', payload, "iat", "check_failed");
+      throw new JWTExpired(
+        '"iat" claim timestamp check failed (too far in the past)',
+        payload,
+        "iat",
+        "check_failed"
+      );
     }
     if (age < 0 - tolerance) {
-      throw new JWTClaimValidationFailed('"iat" claim timestamp check failed (it should be in the past)', payload, "iat", "check_failed");
+      throw new JWTClaimValidationFailed(
+        '"iat" claim timestamp check failed (it should be in the past)',
+        payload,
+        "iat",
+        "check_failed"
+      );
     }
   }
   return payload;
@@ -6506,10 +7635,12 @@ function decodeSessionToken(config) {
   return async (token, { checkAudience = true } = {}) => {
     let payload;
     try {
-      payload = (await jwtVerify(token, getHMACKey(config.apiSecretKey), {
-        algorithms: ["HS256"],
-        clockTolerance: JWT_PERMITTED_CLOCK_TOLERANCE
-      })).payload;
+      payload = (
+        await jwtVerify(token, getHMACKey(config.apiSecretKey), {
+          algorithms: ["HS256"],
+          clockTolerance: JWT_PERMITTED_CLOCK_TOLERANCE,
+        })
+      ).payload;
     } catch (error) {
       throw new InvalidJwtError(`Failed to parse session token '${token}': ${error.message}`);
     }
@@ -6535,11 +7666,13 @@ function getCurrentSessionId(config) {
     const log2 = logger(config);
     if (config.isEmbeddedApp) {
       log2.debug("App is embedded, looking for session id in JWT payload", {
-        isOnline
+        isOnline,
       });
       const authHeader = request2.headers.Authorization;
       if (authHeader) {
-        const matches = (typeof authHeader === "string" ? authHeader : authHeader[0]).match(/^Bearer (.+)$/);
+        const matches = (typeof authHeader === "string" ? authHeader : authHeader[0]).match(
+          /^Bearer (.+)$/
+        );
         if (!matches) {
           log2.error("Missing Bearer token in authorization header", { isOnline });
           throw new MissingJwtTokenError("Missing Bearer token in authorization header");
@@ -6553,15 +7686,21 @@ function getCurrentSessionId(config) {
           return getOfflineId(config)(shop);
         }
       } else {
-        log2.error("Missing Authorization header, was the request made with authenticatedFetch?", { isOnline });
+        log2.error("Missing Authorization header, was the request made with authenticatedFetch?", {
+          isOnline,
+        });
       }
     } else {
       log2.debug("App is not embedded, looking for session id in cookies", {
-        isOnline
+        isOnline,
       });
-      const cookies = new Cookies(request2, {}, {
-        keys: [config.apiSecretKey]
-      });
+      const cookies = new Cookies(
+        request2,
+        {},
+        {
+          keys: [config.apiSecretKey],
+        }
+      );
       return cookies.getAndVerify(SESSION_COOKIE_NAME);
     }
     return void 0;
@@ -6573,7 +7712,7 @@ function customAppSession(config) {
       id: "",
       shop: `${sanitizeShop(config)(shop, true)}`,
       state: "",
-      isOnline: false
+      isOnline: false,
     });
   };
 }
@@ -6584,18 +7723,20 @@ function createSession({ config, accessTokenResponse, shop, state }) {
   const getSessionExpiration = (expires_in) => new Date(Date.now() + expires_in * 1e3);
   const getOnlineSessionProperties = (responseBody) => {
     const { access_token, scope, ...rest } = responseBody;
-    const sessionId = config.isEmbeddedApp ? getJwtSessionId(config)(shop, `${rest.associated_user.id}`) : v4();
+    const sessionId = config.isEmbeddedApp
+      ? getJwtSessionId(config)(shop, `${rest.associated_user.id}`)
+      : v4();
     return {
       id: sessionId,
       onlineAccessInfo: rest,
-      expires: getSessionExpiration(rest.expires_in)
+      expires: getSessionExpiration(rest.expires_in),
     };
   };
   const getOfflineSessionProperties = (responseBody) => {
     const { expires_in } = responseBody;
     return {
       id: getOfflineId(config)(shop),
-      ...expires_in && { expires: getSessionExpiration(expires_in) }
+      ...(expires_in && { expires: getSessionExpiration(expires_in) }),
     };
   };
   return new Session({
@@ -6604,12 +7745,14 @@ function createSession({ config, accessTokenResponse, shop, state }) {
     isOnline,
     accessToken: accessTokenResponse.access_token,
     scope: accessTokenResponse.scope,
-    ...isOnline ? getOnlineSessionProperties(accessTokenResponse) : getOfflineSessionProperties(accessTokenResponse)
+    ...(isOnline
+      ? getOnlineSessionProperties(accessTokenResponse)
+      : getOfflineSessionProperties(accessTokenResponse)),
   });
 }
 const logForBot = ({ request: request2, log: log2, func }) => {
   log2.debug(`Possible bot request to auth ${func}: `, {
-    userAgent: request2.headers["User-Agent"]
+    userAgent: request2.headers["User-Agent"],
   });
 };
 function begin(config) {
@@ -6630,14 +7773,14 @@ function begin(config) {
     }
     const cookies = new Cookies(request2, response, {
       keys: [config.apiSecretKey],
-      secure: true
+      secure: true,
     });
     const state = nonce();
     await cookies.setAndSign(STATE_COOKIE_NAME, state, {
       expires: new Date(Date.now() + 6e4),
       sameSite: "lax",
       secure: true,
-      path: callbackPath
+      path: callbackPath,
     });
     const scopes = config.scopes ? config.scopes.toString() : "";
     const query = {
@@ -6645,7 +7788,7 @@ function begin(config) {
       scope: scopes,
       redirect_uri: `${config.hostScheme}://${config.hostName}${callbackPath}`,
       state,
-      "grant_options[]": isOnline ? "per-user" : ""
+      "grant_options[]": isOnline ? "per-user" : "",
     };
     const processedQuery = new ProcessedQuery();
     processedQuery.putAll(query);
@@ -6656,7 +7799,7 @@ function begin(config) {
     response.headers = {
       ...response.headers,
       ...cookies.response.headers,
-      Location: redirectUrl
+      Location: redirectUrl,
     };
     log2.debug(`OAuth started, redirecting to ${redirectUrl}`, { shop, isOnline });
     return abstractConvertResponse(response, adapterArgs);
@@ -6681,16 +7824,18 @@ function callback(config) {
     log2.info("Completing OAuth", { shop });
     const cookies = new Cookies(request2, response, {
       keys: [config.apiSecretKey],
-      secure: true
+      secure: true,
     });
     const stateFromCookie = await cookies.getAndVerify(STATE_COOKIE_NAME);
     cookies.deleteCookie(STATE_COOKIE_NAME);
     if (!stateFromCookie) {
       log2.error("Could not find OAuth cookie", { shop });
-      throw new CookieNotFound(`Cannot complete OAuth process. Could not find an OAuth cookie for shop url: ${shop}`);
+      throw new CookieNotFound(
+        `Cannot complete OAuth process. Could not find an OAuth cookie for shop url: ${shop}`
+      );
     }
     const authQuery = Object.fromEntries(query.entries());
-    if (!await validQuery({ config, query: authQuery, stateFromCookie })) {
+    if (!(await validQuery({ config, query: authQuery, stateFromCookie }))) {
       log2.error("Invalid OAuth callback", { shop, stateFromCookie });
       throw new InvalidOAuthError("Invalid OAuth callback.");
     }
@@ -6698,17 +7843,20 @@ function callback(config) {
     const body = {
       client_id: config.apiKey,
       client_secret: config.apiSecretKey,
-      code: query.get("code")
+      code: query.get("code"),
     };
     const cleanShop = sanitizeShop(config)(query.get("shop"), true);
-    const postResponse = await fetchRequestFactory(config)(`https://${cleanShop}/admin/oauth/access_token`, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": DataType.JSON,
-        Accept: DataType.JSON
+    const postResponse = await fetchRequestFactory(config)(
+      `https://${cleanShop}/admin/oauth/access_token`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": DataType.JSON,
+          Accept: DataType.JSON,
+        },
       }
-    });
+    );
     if (!postResponse.ok) {
       throwFailedRequest(await postResponse.json(), false, postResponse);
     }
@@ -6716,24 +7864,24 @@ function callback(config) {
       accessTokenResponse: await postResponse.json(),
       shop: cleanShop,
       state: stateFromCookie,
-      config
+      config,
     });
     if (!config.isEmbeddedApp) {
       await cookies.setAndSign(SESSION_COOKIE_NAME, session.id, {
         expires: session.expires,
         sameSite: "lax",
         secure: true,
-        path: "/"
+        path: "/",
       });
     }
     return {
       headers: await abstractConvertHeaders(cookies.response.headers, adapterArgs),
-      session
+      session,
     };
   };
 }
 async function validQuery({ config, query, stateFromCookie }) {
-  return await validateHmac(config)(query) && safeCompare(query.state, stateFromCookie);
+  return (await validateHmac(config)(query)) && safeCompare(query.state, stateFromCookie);
 }
 function throwIfCustomStoreApp(isCustomStoreApp, message2) {
   if (isCustomStoreApp) {
@@ -6765,9 +7913,11 @@ function buildEmbeddedAppUrl(config) {
   };
 }
 var RequestedTokenType;
-(function(RequestedTokenType2) {
-  RequestedTokenType2["OnlineAccessToken"] = "urn:shopify:params:oauth:token-type:online-access-token";
-  RequestedTokenType2["OfflineAccessToken"] = "urn:shopify:params:oauth:token-type:offline-access-token";
+(function (RequestedTokenType2) {
+  RequestedTokenType2["OnlineAccessToken"] =
+    "urn:shopify:params:oauth:token-type:online-access-token";
+  RequestedTokenType2["OfflineAccessToken"] =
+    "urn:shopify:params:oauth:token-type:offline-access-token";
 })(RequestedTokenType || (RequestedTokenType = {}));
 const TokenExchangeGrantType = "urn:ietf:params:oauth:grant-type:token-exchange";
 const IdTokenType = "urn:ietf:params:oauth:token-type:id_token";
@@ -6780,17 +7930,20 @@ function tokenExchange(config) {
       grant_type: TokenExchangeGrantType,
       subject_token: sessionToken,
       subject_token_type: IdTokenType,
-      requested_token_type: requestedTokenType
+      requested_token_type: requestedTokenType,
     };
     const cleanShop = sanitizeShop(config)(shop, true);
-    const postResponse = await fetchRequestFactory(config)(`https://${cleanShop}/admin/oauth/access_token`, {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": DataType.JSON,
-        Accept: DataType.JSON
+    const postResponse = await fetchRequestFactory(config)(
+      `https://${cleanShop}/admin/oauth/access_token`,
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": DataType.JSON,
+          Accept: DataType.JSON,
+        },
       }
-    });
+    );
     if (!postResponse.ok) {
       throwFailedRequest(await postResponse.json(), false, postResponse);
     }
@@ -6800,8 +7953,8 @@ function tokenExchange(config) {
         shop: cleanShop,
         // We need to keep this as an empty string as our template DB schemas have this required
         state: "",
-        config
-      })
+        config,
+      }),
     };
   };
 }
@@ -6814,14 +7967,17 @@ function clientCredentials(config) {
       body: JSON.stringify({
         client_id: config.apiKey,
         client_secret: config.apiSecretKey,
-        grant_type: ClientCredentialsGrantType
+        grant_type: ClientCredentialsGrantType,
       }),
       headers: {
         "Content-Type": DataType.JSON,
-        Accept: DataType.JSON
-      }
+        Accept: DataType.JSON,
+      },
     };
-    const postResponse = await fetchRequestFactory(config)(`https://${cleanShop}/admin/oauth/access_token`, requestConfig);
+    const postResponse = await fetchRequestFactory(config)(
+      `https://${cleanShop}/admin/oauth/access_token`,
+      requestConfig
+    );
     const responseData = await postResponse.json();
     if (!postResponse.ok) {
       throwFailedRequest(responseData, false, postResponse);
@@ -6832,8 +7988,8 @@ function clientCredentials(config) {
         shop: cleanShop,
         // We need to keep this as an empty string as our template DB schemas have this required
         state: "",
-        config
-      })
+        config,
+      }),
     };
   };
 }
@@ -6846,7 +8002,7 @@ function shopifyAuth(config) {
     getEmbeddedAppUrl: getEmbeddedAppUrl(config),
     buildEmbeddedAppUrl: buildEmbeddedAppUrl(config),
     tokenExchange: tokenExchange(config),
-    clientCredentials: clientCredentials(config)
+    clientCredentials: clientCredentials(config),
   };
   return shopify;
 }
@@ -6856,7 +8012,7 @@ function shopifySession(config) {
     getCurrentId: getCurrentSessionId(config),
     getOfflineId: getOfflineId(config),
     getJwtSessionId: getJwtSessionId(config),
-    decodeSessionToken: decodeSessionToken(config)
+    decodeSessionToken: decodeSessionToken(config),
   };
 }
 function versionCompatible(config) {
@@ -6883,24 +8039,24 @@ function shopifyUtils(config) {
     versionCompatible: versionCompatible(config),
     versionPriorTo: versionPriorTo(config),
     shopAdminUrlToLegacyUrl,
-    legacyUrlToShopAdminUrl
+    legacyUrlToShopAdminUrl,
   };
 }
 var DeliveryMethod;
-(function(DeliveryMethod2) {
+(function (DeliveryMethod2) {
   DeliveryMethod2["Http"] = "http";
   DeliveryMethod2["EventBridge"] = "eventbridge";
   DeliveryMethod2["PubSub"] = "pubsub";
 })(DeliveryMethod || (DeliveryMethod = {}));
 var WebhookOperation;
-(function(WebhookOperation2) {
+(function (WebhookOperation2) {
   WebhookOperation2["Create"] = "create";
   WebhookOperation2["Update"] = "update";
   WebhookOperation2["Delete"] = "delete";
 })(WebhookOperation || (WebhookOperation = {}));
 const WebhookValidationErrorReason = {
   ...ValidationErrorReason,
-  MissingHeaders: "missing_headers"
+  MissingHeaders: "missing_headers",
 };
 function registry() {
   return {};
@@ -6942,7 +8098,9 @@ function handlerIdentifier(config, handler) {
     case DeliveryMethod.PubSub:
       return `${prefix}_${handler.pubSubProject}:${handler.pubSubTopic}`;
     default:
-      throw new InvalidDeliveryMethodError(`Unrecognized delivery method '${handler.deliveryMethod}'`);
+      throw new InvalidDeliveryMethodError(
+        `Unrecognized delivery method '${handler.deliveryMethod}'`
+      );
   }
 }
 function addHostToCallbackUrl(config, callbackUrl) {
@@ -6971,10 +8129,14 @@ function mergeOrAddHandler(config, webhookRegistry, topic, handler) {
       continue;
     }
     if (handler.deliveryMethod === DeliveryMethod.Http) {
-      log2.info(`Detected multiple handlers for '${topic}', webhooks.process will call them sequentially`);
+      log2.info(
+        `Detected multiple handlers for '${topic}', webhooks.process will call them sequentially`
+      );
       break;
     } else {
-      throw new InvalidDeliveryMethodError(`Can only add multiple handlers for a topic when deliveryMethod is Http. Please be sure that you used addHandler method once after creating ShopifyApi instance in your app.  Invalid handler: ${JSON.stringify(handler)}`);
+      throw new InvalidDeliveryMethodError(
+        `Can only add multiple handlers for a topic when deliveryMethod is Http. Please be sure that you used addHandler method once after creating ShopifyApi instance in your app.  Invalid handler: ${JSON.stringify(handler)}`
+      );
     }
   }
   webhookRegistry[topic].push(handler);
@@ -6995,7 +8157,9 @@ function register(config, webhookRegistry) {
       return acc;
     }, {});
     const existingHandlers = await getExistingHandlers(config, session);
-    log2.debug(`Existing topics: [${Object.keys(existingHandlers).join(", ")}]`, { shop: session.shop });
+    log2.debug(`Existing topics: [${Object.keys(existingHandlers).join(", ")}]`, {
+      shop: session.shop,
+    });
     for (const topic in webhookRegistry) {
       if (!Object.prototype.hasOwnProperty.call(webhookRegistry, topic)) {
         continue;
@@ -7008,7 +8172,7 @@ function register(config, webhookRegistry) {
         session,
         topic,
         existingHandlers: existingHandlers[topic] || [],
-        handlers: getHandlers(webhookRegistry)(topic)
+        handlers: getHandlers(webhookRegistry)(topic),
       });
       delete existingHandlers[topic];
     }
@@ -7023,7 +8187,7 @@ function register(config, webhookRegistry) {
         client,
         topic,
         handlers: existingHandlers[topic],
-        operation: WebhookOperation.Delete
+        operation: WebhookOperation.Delete,
       });
     }
     return registerReturn;
@@ -7052,7 +8216,7 @@ async function getExistingHandlers(config, session) {
 }
 function buildCheckQuery(endCursor) {
   return queryTemplate(TEMPLATE_GET_HANDLERS, {
-    END_CURSOR: JSON.stringify(endCursor)
+    END_CURSOR: JSON.stringify(endCursor),
   });
 }
 function buildHandlerFromNode(edge) {
@@ -7064,21 +8228,20 @@ function buildHandlerFromNode(edge) {
         deliveryMethod: DeliveryMethod.Http,
         callbackUrl: endpoint.callbackUrl,
         // This is a dummy for now because we don't really care about it
-        callback: async () => {
-        }
+        callback: async () => {},
       };
       break;
     case "WebhookEventBridgeEndpoint":
       handler = {
         deliveryMethod: DeliveryMethod.EventBridge,
-        arn: endpoint.arn
+        arn: endpoint.arn,
       };
       break;
     case "WebhookPubSubEndpoint":
       handler = {
         deliveryMethod: DeliveryMethod.PubSub,
         pubSubProject: endpoint.pubSubProject,
-        pubSubTopic: endpoint.pubSubTopic
+        pubSubTopic: endpoint.pubSubTopic,
       };
       break;
   }
@@ -7095,11 +8258,17 @@ async function registerTopic({ config, session, topic, existingHandlers, handler
   const GraphqlClient2 = graphqlClientClass({ config });
   const client = new GraphqlClient2({ session });
   let operation = WebhookOperation.Create;
-  registerResults = registerResults.concat(await runMutations({ config, client, topic, operation, handlers: toCreate }));
+  registerResults = registerResults.concat(
+    await runMutations({ config, client, topic, operation, handlers: toCreate })
+  );
   operation = WebhookOperation.Update;
-  registerResults = registerResults.concat(await runMutations({ config, client, topic, operation, handlers: toUpdate }));
+  registerResults = registerResults.concat(
+    await runMutations({ config, client, topic, operation, handlers: toUpdate })
+  );
   operation = WebhookOperation.Delete;
-  registerResults = registerResults.concat(await runMutations({ config, client, topic, operation, handlers: toDelete }));
+  registerResults = registerResults.concat(
+    await runMutations({ config, client, topic, operation, handlers: toDelete })
+  );
   return registerResults;
 }
 function categorizeHandlers(config, existingHandlers, handlers) {
@@ -7133,12 +8302,15 @@ function categorizeHandlers(config, existingHandlers, handlers) {
   return {
     toCreate: Object.values(toCreate),
     toUpdate: Object.values(toUpdate),
-    toDelete: Object.values(toDelete)
+    toDelete: Object.values(toDelete),
   };
 }
 function areHandlerFieldsEqual(arr1, arr2) {
   const includeFieldsEqual = arraysEqual(arr1.includeFields || [], arr2.includeFields || []);
-  const metafieldNamespacesEqual = arraysEqual(arr1.metafieldNamespaces || [], arr2.metafieldNamespaces || []);
+  const metafieldNamespacesEqual = arraysEqual(
+    arr1.metafieldNamespaces || [],
+    arr2.metafieldNamespaces || []
+  );
   return includeFieldsEqual && metafieldNamespacesEqual;
 }
 function arraysEqual(arr1, arr2) {
@@ -7169,7 +8341,7 @@ async function runMutation({ config, client, topic, handler, operation }) {
       deliveryMethod: handler.deliveryMethod,
       success: isSuccess(result, handler, operation),
       result,
-      operation
+      operation,
     };
   } catch (error) {
     if (error instanceof InvalidDeliveryMethodError) {
@@ -7177,7 +8349,7 @@ async function runMutation({ config, client, topic, handler, operation }) {
         deliveryMethod: handler.deliveryMethod,
         success: false,
         result: { message: error.message },
-        operation
+        operation,
       };
     } else {
       throw error;
@@ -7196,7 +8368,7 @@ function buildMutation(config, topic, handler, operation) {
   const mutationArguments = {
     MUTATION_NAME: getMutationName(handler, operation),
     IDENTIFIER: identifier,
-    MUTATION_PARAMS: ""
+    MUTATION_PARAMS: "",
   };
   if (operation !== WebhookOperation.Delete) {
     switch (handler.deliveryMethod) {
@@ -7211,7 +8383,9 @@ function buildMutation(config, topic, handler, operation) {
         params.pubSubTopic = `"${handler.pubSubTopic}"`;
         break;
       default:
-        throw new InvalidDeliveryMethodError(`Unrecognized delivery method '${handler.deliveryMethod}'`);
+        throw new InvalidDeliveryMethodError(
+          `Unrecognized delivery method '${handler.deliveryMethod}'`
+        );
     }
     if (handler.includeFields) {
       params.includeFields = JSON.stringify(handler.includeFields);
@@ -7223,7 +8397,9 @@ function buildMutation(config, topic, handler, operation) {
       const subTopicString = `subTopic: "${handler.subTopic}",`;
       mutationArguments.MUTATION_PARAMS = subTopicString;
     }
-    const paramsString = Object.entries(params).map(([key, value]) => `${key}: ${value}`).join(", ");
+    const paramsString = Object.entries(params)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join(", ");
     mutationArguments.MUTATION_PARAMS += `webhookSubscription: {${paramsString}}`;
   }
   return queryTemplate(TEMPLATE_MUTATION, mutationArguments);
@@ -7254,7 +8430,9 @@ function getEndpoint(handler) {
 }
 function isSuccess(result, handler, operation) {
   const mutationName = getMutationName(handler, operation);
-  return Boolean(result.data && result.data[mutationName] && result.data[mutationName].userErrors.length === 0);
+  return Boolean(
+    result.data && result.data[mutationName] && result.data[mutationName].userErrors.length === 0
+  );
 }
 const TEMPLATE_GET_HANDLERS = `query shopifyApiReadWebhookSubscriptions {
   webhookSubscriptions(
@@ -7302,7 +8480,7 @@ const TEMPLATE_MUTATION = `
   }
 `;
 const OPTIONAL_HANDLER_PROPERTIES = {
-  subTopic: ShopifyHeader.SubTopic
+  subTopic: ShopifyHeader.SubTopic,
 };
 const HANDLER_PROPERTIES = {
   apiVersion: ShopifyHeader.ApiVersion,
@@ -7310,7 +8488,7 @@ const HANDLER_PROPERTIES = {
   hmac: ShopifyHeader.Hmac,
   topic: ShopifyHeader.Topic,
   webhookId: ShopifyHeader.WebhookId,
-  ...OPTIONAL_HANDLER_PROPERTIES
+  ...OPTIONAL_HANDLER_PROPERTIES,
 };
 function validateFactory$2(config) {
   return async function validate({ rawBody, ...adapterArgs }) {
@@ -7318,12 +8496,14 @@ function validateFactory$2(config) {
     const validHmacResult = await validateHmacFromRequestFactory(config)({
       type: HmacValidationType.Webhook,
       rawBody,
-      ...adapterArgs
+      ...adapterArgs,
     });
     if (!validHmacResult.valid) {
       if (validHmacResult.reason === ValidationErrorReason.InvalidHmac) {
         const log2 = logger(config);
-        await log2.debug("Webhook HMAC validation failed. Please note that events manually triggered from a store's Notifications settings will fail this validation. To test this, please use the CLI or trigger the actual event in a development store.");
+        await log2.debug(
+          "Webhook HMAC validation failed. Please note that events manually triggered from a store's Notifications settings will fail this validation. To test this, please use the CLI or trigger the actual event in a development store."
+        );
       }
       return validHmacResult;
     }
@@ -7346,14 +8526,14 @@ function checkWebhookHeaders(headers) {
     return {
       valid: false,
       reason: WebhookValidationErrorReason.MissingHeaders,
-      missingHeaders
+      missingHeaders,
     };
   } else {
     return {
       valid: true,
       ...headerValues,
-      ...headerValues.subTopic ? { subTopic: headerValues.subTopic } : {},
-      topic: topicForStorage(headerValues.topic)
+      ...(headerValues.subTopic ? { subTopic: headerValues.subTopic } : {}),
+      topic: topicForStorage(headerValues.topic),
     };
   }
 }
@@ -7362,23 +8542,29 @@ const STATUS_TEXT_LOOKUP = {
   [StatusCode.BadRequest]: "Bad Request",
   [StatusCode.Unauthorized]: "Unauthorized",
   [StatusCode.NotFound]: "Not Found",
-  [StatusCode.InternalServerError]: "Internal Server Error"
+  [StatusCode.InternalServerError]: "Internal Server Error",
 };
 function process$1(config, webhookRegistry) {
   return async function process2({ context: context2, rawBody, ...adapterArgs }) {
     const response = {
       statusCode: StatusCode.Ok,
       statusText: STATUS_TEXT_LOOKUP[StatusCode.Ok],
-      headers: {}
+      headers: {},
     };
     await logger(config).info("Receiving webhook request");
     const webhookCheck = await validateFactory$2(config)({
       rawBody,
-      ...adapterArgs
+      ...adapterArgs,
     });
     let errorMessage = "Unknown error while handling webhook";
     if (webhookCheck.valid) {
-      const handlerResult = await callWebhookHandlers(config, webhookRegistry, webhookCheck, rawBody, context2);
+      const handlerResult = await callWebhookHandlers(
+        config,
+        webhookRegistry,
+        webhookCheck,
+        rawBody,
+        context2
+      );
       response.statusCode = handlerResult.statusCode;
       if (!isOK(response)) {
         errorMessage = handlerResult.errorMessage || errorMessage;
@@ -7393,7 +8579,7 @@ function process$1(config, webhookRegistry) {
     if (!isOK(response)) {
       throw new InvalidWebhookError({
         message: errorMessage,
-        response: returnResponse
+        response: returnResponse,
       });
     }
     return Promise.resolve(returnResponse);
@@ -7412,16 +8598,25 @@ async function callWebhookHandlers(config, webhookRegistry, webhookCheck, rawBod
     }
     if (!handler.callback) {
       response.statusCode = StatusCode.InternalServerError;
-      response.errorMessage = "Cannot call webhooks.process with a webhook handler that doesn't have a callback";
+      response.errorMessage =
+        "Cannot call webhooks.process with a webhook handler that doesn't have a callback";
       throw new MissingWebhookCallbackError({
         message: response.errorMessage,
-        response
+        response,
       });
     }
     found = true;
     await log2.debug("Found HTTP handler, triggering it", loggingContext);
     try {
-      await handler.callback(webhookCheck.topic, webhookCheck.domain, rawBody, webhookCheck.webhookId, webhookCheck.apiVersion, ...webhookCheck?.subTopic ? webhookCheck.subTopic : "", context2);
+      await handler.callback(
+        webhookCheck.topic,
+        webhookCheck.domain,
+        rawBody,
+        webhookCheck.webhookId,
+        webhookCheck.apiVersion,
+        ...(webhookCheck?.subTopic ? webhookCheck.subTopic : ""),
+        context2
+      );
     } catch (error) {
       response.statusCode = StatusCode.InternalServerError;
       response.errorMessage = error.message;
@@ -7437,7 +8632,7 @@ async function callWebhookHandlers(config, webhookRegistry, webhookCheck, rawBod
 async function handleInvalidWebhook(config, webhookCheck) {
   const response = {
     statusCode: StatusCode.InternalServerError,
-    errorMessage: "Unknown error while handling webhook"
+    errorMessage: "Unknown error while handling webhook",
   };
   switch (webhookCheck.reason) {
     case WebhookValidationErrorReason.MissingHeaders:
@@ -7457,7 +8652,9 @@ async function handleInvalidWebhook(config, webhookCheck) {
       response.errorMessage = `Could not validate request HMAC`;
       break;
   }
-  await logger(config).debug(`Webhook request is invalid, returning ${response.statusCode}: ${response.errorMessage}`);
+  await logger(config).debug(
+    `Webhook request is invalid, returning ${response.statusCode}: ${response.errorMessage}`
+  );
   return response;
 }
 function shopifyWebhooks(config) {
@@ -7468,7 +8665,7 @@ function shopifyWebhooks(config) {
     getHandlers: getHandlers(webhookRegistry),
     register: register(config, webhookRegistry),
     process: process$1(config, webhookRegistry),
-    validate: validateFactory$2(config)
+    validate: validateFactory$2(config),
   };
 }
 const APP_SUBSCRIPTION_FRAGMENT = `
@@ -7527,33 +8724,35 @@ const APP_SUBSCRIPTION_FRAGMENT = `
   }
 `;
 function convertMoneyAmount(data) {
-  if (!data)
-    return data;
+  if (!data) return data;
   convertAppUsagePricingMoney(data);
   convertAppRecurringPricingMoney(data);
   convertAppDiscountMoney(data);
   return data;
 }
 function convertAppRecurringPricingMoney(data) {
-  if (!data)
-    return;
+  if (!data) return;
   if (data.price?.amount && typeof data.price.amount === "string") {
     data.price.amount = parseFloat(data.price.amount);
   }
 }
 function convertAppDiscountMoney(data) {
-  if (!data)
-    return;
-  if (data.discount?.priceAfterDiscount?.amount && typeof data.discount.priceAfterDiscount.amount === "string") {
+  if (!data) return;
+  if (
+    data.discount?.priceAfterDiscount?.amount &&
+    typeof data.discount.priceAfterDiscount.amount === "string"
+  ) {
     data.discount.priceAfterDiscount.amount = parseFloat(data.discount.priceAfterDiscount.amount);
   }
-  if (data.discount?.value?.amount?.amount && typeof data.discount.value.amount.amount === "string") {
+  if (
+    data.discount?.value?.amount?.amount &&
+    typeof data.discount.value.amount.amount === "string"
+  ) {
     data.discount.value.amount.amount = parseFloat(data.discount.value.amount.amount);
   }
 }
 function convertAppUsagePricingMoney(data) {
-  if (!data)
-    return;
+  if (!data) return;
   if (data.balanceUsed?.amount && typeof data.balanceUsed.amount === "string") {
     data.balanceUsed.amount = parseFloat(data.balanceUsed.amount);
   }
@@ -7574,7 +8773,7 @@ function check(config) {
     if (!config.future?.unstable_managedPricingSupport && !config.billing) {
       throw new BillingError({
         message: "Attempted to look for purchases without billing configs",
-        errorData: []
+        errorData: [],
       });
     }
     const { session, isTest = true, plans } = params;
@@ -7593,12 +8792,14 @@ async function assessPayments({ client, isTest, plans }) {
   const returnValue = {
     hasActivePayment: false,
     oneTimePurchases: [],
-    appSubscriptions: []
+    appSubscriptions: [],
   };
   let installation;
   let endCursor = null;
   do {
-    const currentInstallations = await client.request(HAS_PAYMENTS_QUERY, { variables: { endCursor } });
+    const currentInstallations = await client.request(HAS_PAYMENTS_QUERY, {
+      variables: { endCursor },
+    });
     installation = currentInstallations.data?.currentAppInstallation;
     installation.activeSubscriptions.forEach((subscription) => {
       if (subscriptionMeetsCriteria({ subscription, isTest, plans })) {
@@ -7620,10 +8821,17 @@ async function assessPayments({ client, isTest, plans }) {
   return returnValue;
 }
 function subscriptionMeetsCriteria({ subscription, isTest, plans }) {
-  return (typeof plans === "undefined" || plans.includes(subscription.name)) && (isTest || !subscription.test);
+  return (
+    (typeof plans === "undefined" || plans.includes(subscription.name)) &&
+    (isTest || !subscription.test)
+  );
 }
 function purchaseMeetsCriteria({ purchase, isTest, plans }) {
-  return (typeof plans === "undefined" || plans.includes(purchase.name)) && (isTest || !purchase.test) && purchase.status === "ACTIVE";
+  return (
+    (typeof plans === "undefined" || plans.includes(purchase.name)) &&
+    (isTest || !purchase.test) &&
+    purchase.status === "ACTIVE"
+  );
 }
 const HAS_PAYMENTS_QUERY = `
   ${APP_SUBSCRIPTION_FRAGMENT}
@@ -7705,19 +8913,30 @@ const ONE_TIME_PURCHASE_MUTATION = `
   }
 `;
 function request(config) {
-  return async function({ session, plan, isTest = true, returnUrl: returnUrlParam, returnObject = false, ...overrides }) {
+  return async function ({
+    session,
+    plan,
+    isTest = true,
+    returnUrl: returnUrlParam,
+    returnObject = false,
+    ...overrides
+  }) {
     if (!config.billing || !config.billing[plan]) {
       throw new BillingError({
         message: `Could not find plan ${plan} in billing settings`,
-        errorData: []
+        errorData: [],
       });
     }
     const billingConfig = {
-      ...config.billing[plan]
+      ...config.billing[plan],
     };
-    const filteredOverrides = Object.fromEntries(Object.entries(overrides).filter(([_key, value]) => value !== void 0));
+    const filteredOverrides = Object.fromEntries(
+      Object.entries(overrides).filter(([_key, value]) => value !== void 0)
+    );
     const cleanShopName = session.shop.replace(".myshopify.com", "");
-    const embeddedAppUrl = buildEmbeddedAppUrl(config)(hashString(`admin.shopify.com/store/${cleanShopName}`, HashFormat.Base64));
+    const embeddedAppUrl = buildEmbeddedAppUrl(config)(
+      hashString(`admin.shopify.com/store/${cleanShopName}`, HashFormat.Base64)
+    );
     const appUrl = `${config.hostScheme}://${config.hostName}?shop=${session.shop}`;
     const returnUrl = returnUrlParam || (config.isEmbeddedApp ? embeddedAppUrl : appUrl);
     const GraphqlClient2 = graphqlClientClass({ config });
@@ -7736,7 +8955,7 @@ function request(config) {
         plan,
         client,
         returnUrl,
-        isTest
+        isTest,
       });
       data = mutationRecurringResponse.appSubscriptionCreate;
     } else if (isOneTimePlan(billingConfig)) {
@@ -7745,7 +8964,7 @@ function request(config) {
         plan,
         client,
         returnUrl,
-        isTest
+        isTest,
       });
       data = mutationOneTimeResponse.appPurchaseOneTimeCreate;
     } else {
@@ -7756,7 +8975,7 @@ function request(config) {
             plan,
             client,
             returnUrl,
-            isTest
+            isTest,
           });
           data = mutationUsageResponse.appSubscriptionCreate;
           break;
@@ -7767,7 +8986,7 @@ function request(config) {
             plan,
             client,
             returnUrl,
-            isTest
+            isTest,
           });
           data = mutationRecurringResponse.appSubscriptionCreate;
         }
@@ -7776,7 +8995,7 @@ function request(config) {
     if (data.userErrors?.length) {
       throw new BillingError({
         message: "Error while billing the store",
-        errorData: data.userErrors
+        errorData: data.userErrors,
       });
     }
     if (returnObject) {
@@ -7793,40 +9012,40 @@ async function requestSubscriptionPayment({ billingConfig, plan, client, returnU
         interval: item.interval,
         price: {
           amount: item.amount,
-          currencyCode: item.currencyCode
-        }
+          currencyCode: item.currencyCode,
+        },
       };
       if (item.discount) {
         appRecurringPricingDetails.discount = {
           durationLimitInIntervals: item.discount.durationLimitInIntervals,
           value: {
             amount: item.discount.value.amount,
-            percentage: item.discount.value.percentage
-          }
+            percentage: item.discount.value.percentage,
+          },
         };
       }
       return {
         plan: {
-          appRecurringPricingDetails
-        }
+          appRecurringPricingDetails,
+        },
       };
     } else if (item.interval === BillingInterval.Usage) {
       const appUsagePricingDetails = {
         terms: item.terms,
         cappedAmount: {
           amount: item.amount,
-          currencyCode: item.currencyCode
-        }
+          currencyCode: item.currencyCode,
+        },
       };
       return {
         plan: {
-          appUsagePricingDetails
-        }
+          appUsagePricingDetails,
+        },
       };
     } else {
       throw new BillingError({
         message: "Invalid interval provided",
-        errorData: [item]
+        errorData: [item],
       });
     }
   });
@@ -7837,13 +9056,13 @@ async function requestSubscriptionPayment({ billingConfig, plan, client, returnU
       replacementBehavior: billingConfig.replacementBehavior,
       returnUrl,
       test: isTest,
-      lineItems
-    }
+      lineItems,
+    },
   });
   if (mutationResponse.errors) {
     throw new BillingError({
       message: "Error while billing the store",
-      errorData: mutationResponse.errors
+      errorData: mutationResponse.errors,
     });
   }
   return mutationResponse.data;
@@ -7863,25 +9082,27 @@ async function requestRecurringPayment({ billingConfig, plan, client, returnUrl,
               interval: billingConfig.interval,
               price: {
                 amount: billingConfig.amount,
-                currencyCode: billingConfig.currencyCode
+                currencyCode: billingConfig.currencyCode,
               },
-              discount: billingConfig.discount ? {
-                durationLimitInIntervals: billingConfig.discount?.durationLimitInIntervals,
-                value: {
-                  amount: billingConfig.discount?.value?.amount,
-                  percentage: billingConfig.discount?.value?.percentage
-                }
-              } : void 0
-            }
-          }
-        }
-      ]
-    }
+              discount: billingConfig.discount
+                ? {
+                    durationLimitInIntervals: billingConfig.discount?.durationLimitInIntervals,
+                    value: {
+                      amount: billingConfig.discount?.value?.amount,
+                      percentage: billingConfig.discount?.value?.percentage,
+                    },
+                  }
+                : void 0,
+            },
+          },
+        },
+      ],
+    },
   });
   if (mutationResponse.data?.appSubscriptionCreate?.userErrors.length) {
     throw new BillingError({
       message: "Error while creating a subscription",
-      errorData: mutationResponse.data?.appSubscriptionCreate?.userErrors
+      errorData: mutationResponse.data?.appSubscriptionCreate?.userErrors,
     });
   }
   return mutationResponse.data;
@@ -7901,18 +9122,18 @@ async function requestUsagePayment({ billingConfig, plan, client, returnUrl, isT
               terms: billingConfig.usageTerms,
               cappedAmount: {
                 amount: billingConfig.amount,
-                currencyCode: billingConfig.currencyCode
-              }
-            }
-          }
-        }
-      ]
-    }
+                currencyCode: billingConfig.currencyCode,
+              },
+            },
+          },
+        },
+      ],
+    },
   });
   if (mutationResponse.data?.appSubscriptionCreate?.userErrors.length) {
     throw new BillingError({
       message: "Error while creating a subscription",
-      errorData: mutationResponse.data?.appSubscriptionCreate?.userErrors
+      errorData: mutationResponse.data?.appSubscriptionCreate?.userErrors,
     });
   }
   return mutationResponse.data;
@@ -7925,14 +9146,14 @@ async function requestSinglePayment({ billingConfig, plan, client, returnUrl, is
       test: isTest,
       price: {
         amount: billingConfig.amount,
-        currencyCode: billingConfig.currencyCode
-      }
-    }
+        currencyCode: billingConfig.currencyCode,
+      },
+    },
   });
   if (mutationResponse.errors) {
     throw new BillingError({
       message: "Error while billing the store",
-      errorData: mutationResponse.errors
+      errorData: mutationResponse.errors,
     });
   }
   return mutationResponse.data;
@@ -7973,18 +9194,18 @@ const CANCEL_MUTATION = `
   }
 `;
 function cancel(config) {
-  return async function(subscriptionInfo) {
+  return async function (subscriptionInfo) {
     const { session, subscriptionId, prorate = true } = subscriptionInfo;
     const GraphqlClient2 = graphqlClientClass({ config });
     const client = new GraphqlClient2({ session });
     try {
       const response = await client.request(CANCEL_MUTATION, {
-        variables: { id: subscriptionId, prorate }
+        variables: { id: subscriptionId, prorate },
       });
       if (response.data?.appSubscriptionCancel?.userErrors.length) {
         throw new BillingError({
           message: "Error while canceling a subscription",
-          errorData: response.data?.appSubscriptionCancel?.userErrors
+          errorData: response.data?.appSubscriptionCancel?.userErrors,
         });
       }
       return response.data?.appSubscriptionCancel?.appSubscription;
@@ -7992,7 +9213,7 @@ function cancel(config) {
       if (error instanceof GraphqlQueryError) {
         throw new BillingError({
           message: error.message,
-          errorData: error.response?.errors
+          errorData: error.response?.errors,
         });
       } else {
         throw error;
@@ -8011,11 +9232,11 @@ query appSubscription {
 }
 `;
 function subscriptions(config) {
-  return async function({ session }) {
+  return async function ({ session }) {
     if (!config.future?.unstable_managedPricingSupport && !config.billing) {
       throw new BillingError({
         message: "Attempted to look for purchases without billing configs",
-        errorData: []
+        errorData: [],
       });
     }
     const GraphqlClient2 = graphqlClientClass({ config });
@@ -8031,7 +9252,7 @@ function subscriptions(config) {
       }
     });
     return {
-      activeSubscriptions
+      activeSubscriptions,
     };
   };
 }
@@ -8074,26 +9295,35 @@ mutation appUsageRecordCreate($description: String!, $price: MoneyInput!, $subsc
 `;
 function createUsageRecord(config) {
   return async function createUsageRecord2(usageRecordInfo) {
-    const { session, subscriptionLineItemId, description, price, idempotencyKey, isTest = true } = usageRecordInfo;
+    const {
+      session,
+      subscriptionLineItemId,
+      description,
+      price,
+      idempotencyKey,
+      isTest = true,
+    } = usageRecordInfo;
     const GraphqlClient2 = graphqlClientClass({ config });
     const client = new GraphqlClient2({ session });
-    const usageSubscriptionLineItemId = subscriptionLineItemId ? subscriptionLineItemId : await getUsageRecordSubscriptionLineItemId({ client, isTest });
+    const usageSubscriptionLineItemId = subscriptionLineItemId
+      ? subscriptionLineItemId
+      : await getUsageRecordSubscriptionLineItemId({ client, isTest });
     const variables = {
       description,
       price,
-      subscriptionLineItemId: usageSubscriptionLineItemId
+      subscriptionLineItemId: usageSubscriptionLineItemId,
     };
     if (idempotencyKey) {
       variables.idempotencyKey = idempotencyKey;
     }
     try {
       const response = await client.request(CREATE_USAGE_RECORD_MUTATION, {
-        variables
+        variables,
       });
       if (response.data?.appUsageRecordCreate?.userErrors.length) {
         throw new BillingError({
           message: "Error while creating a usage record",
-          errorData: response.data?.appUsageRecordCreate?.userErrors
+          errorData: response.data?.appUsageRecordCreate?.userErrors,
         });
       }
       const appUsageRecord = response.data?.appUsageRecordCreate?.appUsageRecord;
@@ -8104,7 +9334,7 @@ function createUsageRecord(config) {
       if (error instanceof GraphqlQueryError) {
         throw new BillingError({
           message: error.message,
-          errorData: error.response?.errors
+          errorData: error.response?.errors,
         });
       } else {
         throw error;
@@ -8117,13 +9347,13 @@ async function getUsageRecordSubscriptionLineItemId({ client, isTest }) {
   if (!payments.hasActivePayment) {
     throw new BillingError({
       message: "No active payment found",
-      errorData: []
+      errorData: [],
     });
   }
   if (!payments.appSubscriptions.length) {
     throw new BillingError({
       message: "No active subscriptions found",
-      errorData: []
+      errorData: [],
     });
   }
   if (payments.appSubscriptions) {
@@ -8132,7 +9362,7 @@ async function getUsageRecordSubscriptionLineItemId({ client, isTest }) {
   }
   throw new BillingError({
     message: "Unable to find active subscription line item",
-    errorData: []
+    errorData: [],
   });
 }
 function getUsageLineItemId(subscriptions2) {
@@ -8147,7 +9377,7 @@ function getUsageLineItemId(subscriptions2) {
   }
   throw new BillingError({
     message: "No active usage subscription found",
-    errorData: []
+    errorData: [],
   });
 }
 const UPDATE_USAGE_CAPPED_AMOUNT_MUTATION = `
@@ -8170,10 +9400,14 @@ function updateUsageCappedAmount(config) {
     if (!config.billing) {
       throw new BillingError({
         message: "Attempted to update line item without billing configs",
-        errorData: []
+        errorData: [],
       });
     }
-    const { session, subscriptionLineItemId, cappedAmount: { amount, currencyCode } } = params;
+    const {
+      session,
+      subscriptionLineItemId,
+      cappedAmount: { amount, currencyCode },
+    } = params;
     const GraphqlClient2 = graphqlClientClass({ config });
     const client = new GraphqlClient2({ session });
     try {
@@ -8182,14 +9416,14 @@ function updateUsageCappedAmount(config) {
           id: subscriptionLineItemId,
           cappedAmount: {
             amount,
-            currencyCode
-          }
-        }
+            currencyCode,
+          },
+        },
       });
       if (response.data?.appSubscriptionLineItemUpdate?.userErrors.length) {
         throw new BillingError({
           message: "Error while updating usage subscription capped amount",
-          errorData: response.data?.appSubscriptionLineItemUpdate?.userErrors
+          errorData: response.data?.appSubscriptionLineItemUpdate?.userErrors,
         });
       }
       const appSubscription = response.data?.appSubscriptionLineItemUpdate?.appSubscription;
@@ -8198,13 +9432,13 @@ function updateUsageCappedAmount(config) {
       }
       return {
         confirmationUrl: response.data?.appSubscriptionLineItemUpdate?.confirmationUrl,
-        appSubscription
+        appSubscription,
       };
     } catch (error) {
       if (error instanceof GraphqlQueryError) {
         throw new BillingError({
           message: error.message,
-          errorData: error.response?.errors
+          errorData: error.response?.errors,
         });
       }
       throw error;
@@ -8218,7 +9452,7 @@ function shopifyBilling(config) {
     cancel: cancel(config),
     subscriptions: subscriptions(config),
     createUsageRecord: createUsageRecord(config),
-    updateUsageCappedAmount: updateUsageCappedAmount(config)
+    updateUsageCappedAmount: updateUsageCappedAmount(config),
   };
 }
 function validateFactory$1(config) {
@@ -8226,13 +9460,13 @@ function validateFactory$1(config) {
     return validateHmacFromRequestFactory(config)({
       type: HmacValidationType.Flow,
       rawBody,
-      ...adapterArgs
+      ...adapterArgs,
     });
   };
 }
 function shopifyFlow(config) {
   return {
-    validate: validateFactory$1(config)
+    validate: validateFactory$1(config),
   };
 }
 function validateFactory(config) {
@@ -8240,13 +9474,13 @@ function validateFactory(config) {
     return validateHmacFromRequestFactory(config)({
       type: HmacValidationType.FulfillmentService,
       rawBody,
-      ...adapterArgs
+      ...adapterArgs,
     });
   };
 }
 function fulfillmentService(config) {
   return {
-    validate: validateFactory(config)
+    validate: validateFactory(config),
   };
 }
 function shopifyApi({ future: future2, restResources, ...config }) {
@@ -8263,70 +9497,75 @@ function shopifyApi({ future: future2, restResources, ...config }) {
     flow: shopifyFlow(validatedConfig),
     fulfillmentService: fulfillmentService(validatedConfig),
     logger: logger(validatedConfig),
-    rest: {}
+    rest: {},
   };
   if (restResources) {
     shopify.rest = loadRestResources({
       resources: restResources,
       config: validatedConfig,
-      RestClient: restClientClass({ config: validatedConfig })
+      RestClient: restClientClass({ config: validatedConfig }),
     });
   }
-  shopify.logger.info(`version ${SHOPIFY_API_LIBRARY_VERSION}, environment ${abstractRuntimeString()}`).catch((err) => console.log(err));
+  shopify.logger
+    .info(`version ${SHOPIFY_API_LIBRARY_VERSION}, environment ${abstractRuntimeString()}`)
+    .catch((err) => console.log(err));
   logDisabledFutureFlags$1(validatedConfig, shopify.logger);
   return shopify;
 }
 var AppDistribution;
-(function(AppDistribution2) {
+(function (AppDistribution2) {
   AppDistribution2["AppStore"] = "app_store";
   AppDistribution2["SingleMerchant"] = "single_merchant";
   AppDistribution2["ShopifyAdmin"] = "shopify_admin";
 })(AppDistribution || (AppDistribution = {}));
 var LoginErrorType;
-(function(LoginErrorType2) {
+(function (LoginErrorType2) {
   LoginErrorType2["MissingShop"] = "MISSING_SHOP";
   LoginErrorType2["InvalidShop"] = "INVALID_SHOP";
 })(LoginErrorType || (LoginErrorType = {}));
 const SHOPIFY_REMIX_LIBRARY_VERSION = "3.8.5";
 function registerWebhooksFactory({ api, logger: logger2 }) {
   return async function registerWebhooks({ session }) {
-    return api.webhooks.register({ session }).then((response) => {
-      Object.entries(response).forEach(([topic, topicResults]) => {
-        topicResults.forEach(({ success, ...rest }) => {
-          if (success) {
-            logger2.debug("Registered webhook", {
-              topic,
-              shop: session.shop,
-              operation: rest.operation
-            });
-          } else {
-            logger2.error("Failed to register webhook", {
-              topic,
-              shop: session.shop,
-              result: JSON.stringify(rest.result)
-            });
-          }
+    return api.webhooks
+      .register({ session })
+      .then((response) => {
+        Object.entries(response).forEach(([topic, topicResults]) => {
+          topicResults.forEach(({ success, ...rest }) => {
+            if (success) {
+              logger2.debug("Registered webhook", {
+                topic,
+                shop: session.shop,
+                operation: rest.operation,
+              });
+            } else {
+              logger2.error("Failed to register webhook", {
+                topic,
+                shop: session.shop,
+                result: JSON.stringify(rest.result),
+              });
+            }
+          });
         });
+        return response;
+      })
+      .catch((error) => {
+        const graphQLErrors = error.body?.errors?.graphQLErrors || [];
+        const throttled = graphQLErrors.find(({ extensions: { code } }) => code === "THROTTLED");
+        if (throttled) {
+          logger2.error("Failed to register webhooks", {
+            shop: session.shop,
+            error: JSON.stringify(error),
+          });
+        } else {
+          throw error;
+        }
       });
-      return response;
-    }).catch((error) => {
-      const graphQLErrors = error.body?.errors?.graphQLErrors || [];
-      const throttled = graphQLErrors.find(({ extensions: { code } }) => code === "THROTTLED");
-      if (throttled) {
-        logger2.error("Failed to register webhooks", {
-          shop: session.shop,
-          error: JSON.stringify(error)
-        });
-      } else {
-        throw error;
-      }
-    });
   };
 }
 const APP_BRIDGE_URL = "https://cdn.shopify.com/shopifycloud/app-bridge.js";
 const REAUTH_URL_HEADER = "X-Shopify-API-Request-Failure-Reauthorize-Url";
 const RETRY_INVALID_SESSION_HEADER = {
-  "X-Shopify-Retry-Invalid-Session-Request": "1"
+  "X-Shopify-Retry-Invalid-Session-Request": "1",
 };
 function ensureCORSHeadersFactory(params, request2, corsHeaders = []) {
   const { logger: logger2, config } = params;
@@ -8337,7 +9576,7 @@ function ensureCORSHeadersFactory(params, request2, corsHeaders = []) {
       const corsHeadersSet = /* @__PURE__ */ new Set([
         "Authorization",
         "Content-Type",
-        ...corsHeaders
+        ...corsHeaders,
       ]);
       response.headers.set("Access-Control-Allow-Origin", "*");
       response.headers.set("Access-Control-Allow-Headers", [...corsHeadersSet].join(", "));
@@ -8347,27 +9586,29 @@ function ensureCORSHeadersFactory(params, request2, corsHeaders = []) {
   };
 }
 function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
+  _extends = Object.assign
+    ? Object.assign.bind()
+    : function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
         }
-      }
-    }
-    return target;
-  };
+        return target;
+      };
   return _extends.apply(this, arguments);
 }
 var Action;
-(function(Action2) {
+(function (Action2) {
   Action2["Pop"] = "POP";
   Action2["Push"] = "PUSH";
   Action2["Replace"] = "REPLACE";
 })(Action || (Action = {}));
 var ResultType;
-(function(ResultType2) {
+(function (ResultType2) {
   ResultType2["data"] = "data";
   ResultType2["deferred"] = "deferred";
   ResultType2["redirect"] = "redirect";
@@ -8380,16 +9621,19 @@ const redirect$1 = function redirect(url, init) {
   let responseInit = init;
   if (typeof responseInit === "number") {
     responseInit = {
-      status: responseInit
+      status: responseInit,
     };
   } else if (typeof responseInit.status === "undefined") {
     responseInit.status = 302;
   }
   let headers = new Headers(responseInit.headers);
   headers.set("Location", url);
-  return new Response(null, _extends({}, responseInit, {
-    headers
-  }));
+  return new Response(
+    null,
+    _extends({}, responseInit, {
+      headers,
+    })
+  );
 };
 const validMutationMethodsArr = ["post", "put", "patch", "delete"];
 new Set(validMutationMethodsArr);
@@ -8414,29 +9658,34 @@ function respondToInvalidSessionToken({ params, request: request2, retryRequest 
   throw new Response(void 0, {
     status: 401,
     statusText: "Unauthorized",
-    headers: retryRequest ? RETRY_INVALID_SESSION_HEADER : {}
+    headers: retryRequest ? RETRY_INVALID_SESSION_HEADER : {},
   });
 }
 function getShopFromRequest(request2) {
   const url = new URL(request2.url);
   return url.searchParams.get("shop");
 }
-async function validateSessionToken(params, request2, token, { checkAudience = true, retryRequest = true } = {}) {
+async function validateSessionToken(
+  params,
+  request2,
+  token,
+  { checkAudience = true, retryRequest = true } = {}
+) {
   const { api, logger: logger2 } = params;
   const shop = getShopFromRequest(request2);
   logger2.debug("Validating session token", { shop });
   try {
     const payload = await api.session.decodeSessionToken(token, {
-      checkAudience
+      checkAudience,
     });
     logger2.debug("Session token is valid - validated", {
       shop,
-      payload: JSON.stringify(payload)
+      payload: JSON.stringify(payload),
     });
     return payload;
   } catch (error) {
     logger2.debug(`Failed to validate session token: ${error.message}`, {
-      shop
+      shop,
     });
     throw respondToInvalidSessionToken({ params, request: request2, retryRequest });
   }
@@ -8466,12 +9715,14 @@ function respondToBotRequest({ logger: logger2 }, request2) {
 function respondToOptionsRequest(params, request2, corsHeaders) {
   if (request2.method === "OPTIONS") {
     const ensureCORSHeaders = ensureCORSHeadersFactory(params, request2, corsHeaders);
-    throw ensureCORSHeaders(new Response(null, {
-      status: 204,
-      headers: {
-        "Access-Control-Max-Age": "7200"
-      }
-    }));
+    throw ensureCORSHeaders(
+      new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Max-Age": "7200",
+        },
+      })
+    );
   }
 }
 async function beginAuth(params, request2, isOnline, shop) {
@@ -8480,7 +9731,7 @@ async function beginAuth(params, request2, isOnline, shop) {
     shop,
     callbackPath: config.auth.callbackPath,
     isOnline,
-    rawRequest: request2
+    rawRequest: request2,
   });
 }
 function redirectWithExitIframe(params, request2, shop) {
@@ -8501,7 +9752,7 @@ function redirectWithAppBridgeHeaders(redirectUri) {
   throw new Response(void 0, {
     status: 401,
     statusText: "Unauthorized",
-    headers: getAppBridgeHeaders(redirectUri)
+    headers: getAppBridgeHeaders(redirectUri),
   });
 }
 function getAppBridgeHeaders(url) {
@@ -8525,7 +9776,7 @@ async function redirectToAuthPage(params, request2, shop, isOnline = false) {
 async function invalidateAccessToken(params, session) {
   const { logger: logger2, config } = params;
   logger2.debug(`Invalidating access token for session - ${session.id}`, {
-    shop: session.shop
+    shop: session.shop,
   });
   session.accessToken = void 0;
   await config.sessionStorage.storeSession(session);
@@ -8539,12 +9790,12 @@ function cancelBillingFactory(params, request2, session) {
         session,
         subscriptionId: options.subscriptionId,
         isTest: options.isTest,
-        prorate: options.prorate
+        prorate: options.prorate,
       });
     } catch (error) {
       if (error instanceof HttpResponseError && error.response.code === 401) {
         logger2.debug("API token was invalid, redirecting to OAuth", {
-          shop: session.shop
+          shop: session.shop,
         });
         await invalidateAccessToken(params, session);
         throw await redirectToAuthPage(params, request2, session.shop);
@@ -8560,7 +9811,7 @@ function requireBillingFactory(params, request2, session) {
     const logContext = {
       shop: session.shop,
       plans: options.plans,
-      isTest: options.isTest
+      isTest: options.isTest,
     };
     logger2.debug("Checking billing for the shop", logContext);
     let data;
@@ -8569,7 +9820,7 @@ function requireBillingFactory(params, request2, session) {
         session,
         plans: options.plans,
         isTest: options.isTest,
-        returnObject: true
+        returnObject: true,
       });
     } catch (error) {
       if (error instanceof HttpResponseError && error.response.code === 401) {
@@ -8598,13 +9849,13 @@ function redirectOutOfApp(params, request2, url, shop) {
     throw new Response(void 0, {
       status: 401,
       statusText: "Unauthorized",
-      headers: getAppBridgeHeaders(url)
+      headers: getAppBridgeHeaders(url),
     });
   } else if (isEmbeddedRequest2) {
     const params2 = new URLSearchParams({
       shop,
       host: requestUrl.searchParams.get("host"),
-      exitIframe: url
+      exitIframe: url,
     });
     throw redirect2(`${config.auth.exitIframePath}?${params2.toString()}`);
   } else {
@@ -8618,7 +9869,7 @@ function requestBillingFactory(params, request2, session) {
       shop: session.shop,
       plan,
       isTest,
-      returnUrl
+      returnUrl,
     });
     let result;
     try {
@@ -8628,12 +9879,12 @@ function requestBillingFactory(params, request2, session) {
         isTest,
         returnUrl,
         returnObject: true,
-        ...overrides
+        ...overrides,
       });
     } catch (error) {
       if (error instanceof HttpResponseError && error.response.code === 401) {
         logger2.debug("API token was invalid, redirecting to OAuth", {
-          shop: session.shop
+          shop: session.shop,
         });
         await invalidateAccessToken(params, session);
         throw await redirectToAuthPage(params, request2, session.shop);
@@ -8653,12 +9904,12 @@ function checkBillingFactory(params, request2, session) {
         session,
         plans: options.plans,
         isTest: options.isTest,
-        returnObject: true
+        returnObject: true,
       });
     } catch (error) {
       if (error instanceof HttpResponseError && error.response.code === 401) {
         logger2.debug("API token was invalid, redirecting to OAuth", {
-          shop: session.shop
+          shop: session.shop,
         });
         await invalidateAccessToken(params, session);
         throw await redirectToAuthPage(params, request2, session.shop);
@@ -8675,12 +9926,12 @@ function createUsageRecordFactory(params, request2, session) {
     try {
       return await api.billing.createUsageRecord({
         ...options,
-        session
+        session,
       });
     } catch (error) {
       if (error instanceof HttpResponseError && error.response.code === 401) {
         logger2.debug("API token was invalid, redirecting to OAuth", {
-          shop: session.shop
+          shop: session.shop,
         });
         await invalidateAccessToken(params, session);
         throw await redirectToAuthPage(params, request2, session.shop);
@@ -8695,19 +9946,19 @@ function updateUsageCappedAmountFactory(params, request2, session) {
     const { api, logger: logger2 } = params;
     logger2.debug("Updating usage subscription capped amount", {
       shop: session.shop,
-      ...options
+      ...options,
     });
     let result;
     try {
       result = await api.billing.updateUsageCappedAmount({
         session,
         subscriptionLineItemId: options.subscriptionLineItemId,
-        cappedAmount: options.cappedAmount
+        cappedAmount: options.cappedAmount,
       });
     } catch (error) {
       if (error instanceof HttpResponseError && error.response.code === 401) {
         logger2.debug("API token was invalid, redirecting to OAuth", {
-          shop: session.shop
+          shop: session.shop,
         });
         await invalidateAccessToken(params, session);
         throw await redirectToAuthPage(params, request2, session.shop);
@@ -8722,14 +9973,14 @@ function graphqlClientFactory({ params, handleClientError, session }) {
   return async function query(operation, options) {
     const client = new params.api.clients.Graphql({
       session,
-      apiVersion: options?.apiVersion
+      apiVersion: options?.apiVersion,
     });
     try {
       const apiResponse = await client.request(operation, {
         variables: options?.variables,
         retries: options?.tries ? options.tries - 1 : 0,
         headers: options?.headers,
-        signal: options?.signal
+        signal: options?.signal,
       });
       return new Response(JSON.stringify(apiResponse));
     } catch (error) {
@@ -8745,21 +9996,21 @@ function restClientFactory({ params, handleClientError, session }) {
   const client = new RemixRestClient({
     params,
     handleClientError,
-    session
+    session,
   });
   if (api.rest) {
     client.resources = {};
     const RestResourceClient = restResourceClientFactory({
       params,
       handleClientError,
-      session
+      session,
     });
     Object.entries(api.rest).forEach(([name, resource]) => {
       class RemixResource extends resource {
         static Client = RestResourceClient;
       }
       Reflect.defineProperty(RemixResource, "name", {
-        value: name
+        value: name,
       });
       Reflect.set(client.resources, name, RemixResource);
     });
@@ -8783,7 +10034,7 @@ class RemixRestClient {
   async get(params) {
     return this.makeRequest({
       method: "GET",
-      ...params
+      ...params,
     });
   }
   /**
@@ -8794,7 +10045,7 @@ class RemixRestClient {
   async post(params) {
     return this.makeRequest({
       method: "POST",
-      ...params
+      ...params,
     });
   }
   /**
@@ -8805,7 +10056,7 @@ class RemixRestClient {
   async put(params) {
     return this.makeRequest({
       method: "PUT",
-      ...params
+      ...params,
     });
   }
   /**
@@ -8816,28 +10067,27 @@ class RemixRestClient {
   async delete(params) {
     return this.makeRequest({
       method: "DELETE",
-      ...params
+      ...params,
     });
   }
   async makeRequest(params) {
     const originalClient = new this.params.api.clients.Rest({
-      session: this.session
+      session: this.session,
     });
     const originalRequest = Reflect.get(originalClient, "request");
     try {
       const apiResponse = await originalRequest.call(originalClient, params);
       return new Response(JSON.stringify(apiResponse.body), {
-        headers: apiResponse.headers
+        headers: apiResponse.headers,
       });
     } catch (error) {
       if (this.handleClientError) {
         throw await this.handleClientError({
           error,
           session: this.session,
-          params: this.params
+          params: this.params,
         });
-      } else
-        throw new Error(error);
+      } else throw new Error(error);
     }
   }
 }
@@ -8853,8 +10103,7 @@ function restResourceClientFactory({ params, handleClientError, session }) {
       } catch (error) {
         if (handleClientError) {
           throw await handleClientError({ error, params, session });
-        } else
-          throw new Error(error);
+        } else throw new Error(error);
       }
     }
   };
@@ -8862,23 +10111,23 @@ function restResourceClientFactory({ params, handleClientError, session }) {
 function adminClientFactory({ params, handleClientError, session }) {
   if (params.config.future.removeRest) {
     return {
-      graphql: graphqlClientFactory({ params, session, handleClientError })
+      graphql: graphqlClientFactory({ params, session, handleClientError }),
     };
   }
   return {
     rest: restClientFactory({
       params,
       session,
-      handleClientError
+      handleClientError,
     }),
-    graphql: graphqlClientFactory({ params, session, handleClientError })
+    graphql: graphqlClientFactory({ params, session, handleClientError }),
   };
 }
 function createAdminApiContext(session, params, handleClientError) {
   return adminClientFactory({
     session,
     params,
-    handleClientError
+    handleClientError,
   });
 }
 async function redirectToShopifyOrAppRoot(request2, params, responseHeaders) {
@@ -8886,7 +10135,9 @@ async function redirectToShopifyOrAppRoot(request2, params, responseHeaders) {
   const url = new URL(request2.url);
   const host = api.utils.sanitizeHost(url.searchParams.get("host"));
   const shop = api.utils.sanitizeShop(url.searchParams.get("shop"));
-  const redirectUrl = api.config.isEmbeddedApp ? await api.auth.getEmbeddedAppUrl({ rawRequest: request2 }) : `/?shop=${shop}&host=${encodeURIComponent(host)}`;
+  const redirectUrl = api.config.isEmbeddedApp
+    ? await api.auth.getEmbeddedAppUrl({ rawRequest: request2 })
+    : `/?shop=${shop}&host=${encodeURIComponent(host)}`;
   throw redirect2(redirectUrl, { headers: responseHeaders });
 }
 const ensureAppIsEmbeddedIfRequired = async (params, request2) => {
@@ -8915,7 +10166,7 @@ function appBridgeUrl() {
 }
 function addDocumentResponseHeadersFactory(params) {
   const { api, config } = params;
-  return function(request2, headers) {
+  return function (request2, headers) {
     const { searchParams } = new URL(request2.url);
     const shop = api.utils.sanitizeShop(searchParams.get("shop"));
     addDocumentResponseHeaders(headers, config.isEmbeddedApp, shop);
@@ -8923,11 +10174,17 @@ function addDocumentResponseHeadersFactory(params) {
 }
 function addDocumentResponseHeaders(headers, isEmbeddedApp, shop) {
   if (shop) {
-    headers.set("Link", '<https://cdn.shopify.com/shopifycloud/app-bridge.js>; rel="preload"; as="script";');
+    headers.set(
+      "Link",
+      '<https://cdn.shopify.com/shopifycloud/app-bridge.js>; rel="preload"; as="script";'
+    );
   }
   if (isEmbeddedApp) {
     if (shop) {
-      headers.set("Content-Security-Policy", `frame-ancestors https://${shop} https://admin.shopify.com https://*.spin.dev https://admin.myshopify.io https://admin.shop.dev;`);
+      headers.set(
+        "Content-Security-Policy",
+        `frame-ancestors https://${shop} https://admin.shopify.com https://*.spin.dev https://admin.myshopify.io https://admin.shop.dev;`
+      );
     }
   } else {
     headers.set("Content-Security-Policy", `frame-ancestors 'none';`);
@@ -8978,13 +10235,20 @@ function renderAppBridge({ config }, request2, redirectTo) {
     redirectToScript = `<script>window.open(${JSON.stringify(destination.toString())}, ${JSON.stringify(target)})<\/script>`;
   }
   const responseHeaders = new Headers({
-    "content-type": "text/html;charset=utf-8"
+    "content-type": "text/html;charset=utf-8",
   });
-  addDocumentResponseHeaders(responseHeaders, config.isEmbeddedApp, new URL(request2.url).searchParams.get("shop"));
-  throw new Response(`
+  addDocumentResponseHeaders(
+    responseHeaders,
+    config.isEmbeddedApp,
+    new URL(request2.url).searchParams.get("shop")
+  );
+  throw new Response(
+    `
       <script data-api-key="${config.apiKey}" src="${appBridgeUrl()}"><\/script>
       ${redirectToScript}
-    `, { headers: responseHeaders });
+    `,
+    { headers: responseHeaders }
+  );
 }
 function redirectFactory(params, request2, shop) {
   const { config, logger: logger2 } = params;
@@ -8995,7 +10259,7 @@ function redirectFactory(params, request2, shop) {
       url,
       base: config.appUrl,
       shop,
-      init
+      init,
     });
     logger2.debug("Redirecting", { shop, url: parsedUrl.toString() });
     const isSameOrigin = parsedUrl.origin === config.appUrl;
@@ -9010,7 +10274,7 @@ function redirectFactory(params, request2, shop) {
       if (isBounceRequest(request2)) {
         throw renderAppBridge(params, request2, {
           url: parsedUrl.toString(),
-          target
+          target,
         });
       } else {
         return redirect2(parsedUrl.toString(), init);
@@ -9020,7 +10284,7 @@ function redirectFactory(params, request2, shop) {
     } else if (isEmbeddedRequest(request2)) {
       throw renderAppBridge(params, request2, {
         url: parsedUrl.toString(),
-        target
+        target,
       });
     }
     return redirect2(url, init);
@@ -9032,7 +10296,9 @@ function isBounceRequest(request2) {
 function isDataRequest(request2) {
   const isGet = request2.method === "GET";
   const sessionTokenHeader = Boolean(getSessionTokenHeader(request2));
-  return sessionTokenHeader && !isBounceRequest(request2) && (!isEmbeddedRequest(request2) || !isGet);
+  return (
+    sessionTokenHeader && !isBounceRequest(request2) && (!isEmbeddedRequest(request2) || !isGet)
+  );
 }
 function isEmbeddedRequest(request2) {
   const { searchParams } = new URL(request2.url);
@@ -9049,12 +10315,12 @@ function parseURL({ params, base, init, shop, url }) {
     }
     return {
       url: new URL(`https://admin.shopify.com/store/${cleanShopName}${adminPath}`),
-      target
+      target,
     };
   } else {
     return {
       url: new URL(url, base),
-      target: target ?? "_self"
+      target: target ?? "_self",
     };
   }
 }
@@ -9077,7 +10343,7 @@ const embeddedFrameParamsToRemove = [
   "host",
   "embedded",
   // sent when clicking rel="home" nav item
-  "appLoadId"
+  "appLoadId",
 ];
 function removeRestrictedParams(url) {
   const newUrl = new URL(url);
@@ -9091,7 +10357,7 @@ function validateShopAndHostParams(params, request2) {
     const shop = api.utils.sanitizeShop(url.searchParams.get("shop"));
     if (!shop) {
       logger2.debug("Missing or invalid shop, redirecting to login path", {
-        shop
+        shop,
       });
       throw redirectToLoginPath(request2, params);
     }
@@ -9099,7 +10365,7 @@ function validateShopAndHostParams(params, request2) {
     if (!host) {
       logger2.debug("Invalid host, redirecting to login path", {
         shop,
-        host: url.searchParams.get("host")
+        host: url.searchParams.get("host"),
       });
       throw redirectToLoginPath(request2, params);
     }
@@ -9133,11 +10399,14 @@ function buildBaseInstallUrl({ api }, shop) {
   return new URL(`https://${cleanShop}/admin/oauth/install`);
 }
 function buildParamsInstallUrl({ config }, optionalScopes = []) {
-  const optionalScopesParam = optionalScopes && optionalScopes.length > 0 ? { optional_scopes: optionalScopes.join(",") } : void 0;
+  const optionalScopesParam =
+    optionalScopes && optionalScopes.length > 0
+      ? { optional_scopes: optionalScopes.join(",") }
+      : void 0;
   const query = {
     client_id: config.apiKey,
     scope: config.scopes?.toString() || "",
-    ...optionalScopesParam
+    ...optionalScopesParam,
   };
   return new URLSearchParams(query);
 }
@@ -9166,10 +10435,8 @@ function requestScopesFactory(params, session, admin) {
   return async function requestScopes(scopes) {
     const { logger: logger2 } = params;
     logger2.debug("Requesting optional scopes: ", { shop: session.shop, scopes });
-    if (scopes.length === 0)
-      return;
-    if (await alreadyGranted(scopes, admin))
-      return;
+    if (scopes.length === 0) return;
+    if (await alreadyGranted(scopes, admin)) return;
     throw await redirectToInstallPage(params, session.shop, scopes);
   };
   async function alreadyGranted(scopes, admin2) {
@@ -9182,7 +10449,7 @@ function queryScopesFactory(params, session, admin) {
   return async function queryScopes() {
     const { logger: logger2 } = params;
     logger2.debug("Querying scopes details: ", {
-      shop: session.shop
+      shop: session.shop,
     });
     const scopesDetail = await fetchScopeDetail(admin);
     return mapFetchScopeDetail(scopesDetail);
@@ -9190,13 +10457,19 @@ function queryScopesFactory(params, session, admin) {
 }
 function mapFetchScopeDetail(scopesDetailResponse) {
   const appInformation = scopesDetailResponse.app;
-  const granted = new AuthScopes(appInformation.installation.accessScopes.map((scope) => scope.handle)).toArray(true);
-  const required = new AuthScopes(appInformation.requestedAccessScopes.map((scope) => scope.handle)).toArray(true);
-  const optional = new AuthScopes(appInformation.optionalAccessScopes.map((scope) => scope.handle)).toArray(true);
+  const granted = new AuthScopes(
+    appInformation.installation.accessScopes.map((scope) => scope.handle)
+  ).toArray(true);
+  const required = new AuthScopes(
+    appInformation.requestedAccessScopes.map((scope) => scope.handle)
+  ).toArray(true);
+  const optional = new AuthScopes(
+    appInformation.optionalAccessScopes.map((scope) => scope.handle)
+  ).toArray(true);
   return {
     granted,
     required,
-    optional
+    optional,
   };
 }
 const REVOKE_SCOPE_MUTATION = `#graphql
@@ -9214,8 +10487,8 @@ mutation AppRevokeAccessScopes($scopes: [String!]!) {
 async function revokeScopes(admin, scopes) {
   const revokeScopesResult = await admin.graphql(REVOKE_SCOPE_MUTATION, {
     variables: {
-      scopes
-    }
+      scopes,
+    },
   });
   const resultContent = await revokeScopesResult.json();
   return resultContent.data.appRevokeAccessScopes;
@@ -9226,23 +10499,23 @@ function revokeScopesFactory(params, session, admin) {
     await validateScopes(scopes);
     logger2.debug("Revoke scopes: ", {
       shop: session.shop,
-      scopes
+      scopes,
     });
     const revokeScopesResult = await revokeScopes(admin, scopes);
     if (revokeScopesResult.userErrors?.length > 0) {
       logger2.error("Failed to revoke scopes: ", {
         shop: session.shop,
-        errors: revokeScopesResult.userErrors
+        errors: revokeScopesResult.userErrors,
       });
       throw new Response(JSON.stringify(revokeScopesResult.userErrors), {
         status: 422,
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       });
     }
     return {
-      revoked: revokeScopesResult.revoked.map((scope) => scope.handle)
+      revoked: revokeScopesResult.revoked.map((scope) => scope.handle),
     };
   };
 }
@@ -9255,7 +10528,7 @@ function scopesApiFactory(params, session, admin) {
   return {
     query: queryScopesFactory(params, session, admin),
     request: requestScopesFactory(params, session, admin),
-    revoke: revokeScopesFactory(params, session, admin)
+    revoke: revokeScopesFactory(params, session, admin),
   };
 }
 function authStrategyFactory({ strategy, ...params }) {
@@ -9264,7 +10537,7 @@ function authStrategyFactory({ strategy, ...params }) {
     const url = new URL(request2.url);
     if (url.pathname === config.auth.patchSessionTokenPath) {
       logger2.debug("Rendering bounce page", {
-        shop: getShopFromRequest(request2)
+        shop: getShopFromRequest(request2),
       });
       throw renderAppBridge({ config }, request2);
     }
@@ -9275,7 +10548,7 @@ function authStrategyFactory({ strategy, ...params }) {
       const destination = url.searchParams.get("exitIframe");
       logger2.debug("Rendering exit iframe page", {
         shop: getShopFromRequest(request2),
-        destination
+        destination,
       });
       throw renderAppBridge({ config }, request2, { url: destination });
     }
@@ -9289,10 +10562,10 @@ function authStrategyFactory({ strategy, ...params }) {
         request: requestBillingFactory(params, request2, session),
         cancel: cancelBillingFactory(params, request2, session),
         createUsageRecord: createUsageRecordFactory(params, request2, session),
-        updateUsageCappedAmount: updateUsageCappedAmountFactory(params, request2, session)
+        updateUsageCappedAmount: updateUsageCappedAmountFactory(params, request2, session),
       },
       session,
-      cors: ensureCORSHeadersFactory(params, request2)
+      cors: ensureCORSHeadersFactory(params, request2),
     };
     context2 = addEmbeddedFeatures(context2, request2, session, sessionToken);
     context2 = addScopesFeatures(context2);
@@ -9303,7 +10576,7 @@ function authStrategyFactory({ strategy, ...params }) {
       return {
         ...context2,
         sessionToken,
-        redirect: redirectFactory(params, request2, session.shop)
+        redirect: redirectFactory(params, request2, session.shop),
       };
     }
     return context2;
@@ -9311,7 +10584,7 @@ function authStrategyFactory({ strategy, ...params }) {
   function addScopesFeatures(context2) {
     return {
       ...context2,
-      scopes: scopesApiFactory(params, context2.session, context2.admin)
+      scopes: scopesApiFactory(params, context2.session, context2.admin),
     };
   }
   return async function authenticateAdmin(request2) {
@@ -9327,21 +10600,26 @@ function authStrategyFactory({ strategy, ...params }) {
         await ensureSessionTokenSearchParamIfRequired(params, request2);
       }
       logger2.info("Authenticating admin request", {
-        shop: getShopFromRequest(request2)
+        shop: getShopFromRequest(request2),
       });
-      const { payload, shop, sessionId, sessionToken } = await getSessionTokenContext(params, request2);
+      const { payload, shop, sessionId, sessionToken } = await getSessionTokenContext(
+        params,
+        request2
+      );
       logger2.debug("Loading session from storage", { shop, sessionId });
-      const existingSession = sessionId ? await config.sessionStorage.loadSession(sessionId) : void 0;
+      const existingSession = sessionId
+        ? await config.sessionStorage.loadSession(sessionId)
+        : void 0;
       const session = await strategy.authenticate(request2, {
         session: existingSession,
         sessionToken,
-        shop
+        shop,
       });
       return createContext(request2, session, strategy, payload);
     } catch (errorOrResponse) {
       if (errorOrResponse instanceof Response) {
         logger2.debug("Authenticate returned a response", {
-          shop: getShopFromRequest(request2)
+          shop: getShopFromRequest(request2),
         });
         ensureCORSHeadersFactory(params, request2)(errorOrResponse);
       }
@@ -9358,36 +10636,40 @@ async function getSessionTokenContext(params, request2) {
     shop: getShopFromRequest(request2),
     sessionToken: JSON.stringify({
       header: headerSessionToken,
-      search: searchParamSessionToken
-    })
+      search: searchParamSessionToken,
+    }),
   });
   if (config.isEmbeddedApp) {
     const payload = await validateSessionToken(params, request2, sessionToken);
     const dest = new URL(payload.dest);
     const shop2 = dest.hostname;
     logger2.debug("Session token is valid - authenticated", { shop: shop2, payload });
-    const sessionId2 = config.useOnlineTokens ? api.session.getJwtSessionId(shop2, payload.sub) : api.session.getOfflineId(shop2);
+    const sessionId2 = config.useOnlineTokens
+      ? api.session.getJwtSessionId(shop2, payload.sub)
+      : api.session.getOfflineId(shop2);
     return { shop: shop2, payload, sessionId: sessionId2, sessionToken };
   }
   const url = new URL(request2.url);
   const shop = url.searchParams.get("shop");
   const sessionId = await api.session.getCurrentId({
     isOnline: config.useOnlineTokens,
-    rawRequest: request2
+    rawRequest: request2,
   });
   return { shop, sessionId, payload: void 0, sessionToken };
 }
 function handleClientErrorFactory({ request: request2, onError }) {
   return async function handleClientError({ error, params, session }) {
     if (error instanceof HttpResponseError !== true) {
-      params.logger.debug(`Got a response error from the API: ${error.message}`, { shop: session.shop });
+      params.logger.debug(`Got a response error from the API: ${error.message}`, {
+        shop: session.shop,
+      });
       throw error;
     }
     params.logger.debug(`Got an HTTP response error from the API: ${error.message}`, {
       shop: session.shop,
       code: error.response.code,
       statusText: error.response.statusText,
-      body: JSON.stringify(error.response.body)
+      body: JSON.stringify(error.response.body),
     });
     if (onError) {
       await onError({ request: request2, session, error });
@@ -9395,15 +10677,15 @@ function handleClientErrorFactory({ request: request2, onError }) {
     throw new Response(JSON.stringify(error.response.body), {
       status: error.response.code,
       headers: {
-        "Content-Type": error.response.headers["Content-Type"]
-      }
+        "Content-Type": error.response.headers["Content-Type"],
+      },
     });
   };
 }
 async function createOrLoadOfflineSession(shop, { api, config, logger: logger2 }) {
   if (config.distribution === AppDistribution.ShopifyAdmin) {
     logger2.debug("Creating custom app session from configured access token", {
-      shop
+      shop,
     });
     return api.session.customAppSession(shop);
   } else {
@@ -9417,23 +10699,26 @@ function authenticateWebhookFactory(params) {
   const { api, logger: logger2 } = params;
   return async function authenticate2(request2) {
     if (request2.method !== "POST") {
-      logger2.debug("Received a non-POST request for a webhook. Only POST requests are allowed.", { url: request2.url, method: request2.method });
+      logger2.debug("Received a non-POST request for a webhook. Only POST requests are allowed.", {
+        url: request2.url,
+        method: request2.method,
+      });
       throw new Response(void 0, {
         status: 405,
-        statusText: "Method not allowed"
+        statusText: "Method not allowed",
       });
     }
     const rawBody = await request2.text();
     const check2 = await api.webhooks.validate({
       rawBody,
-      rawRequest: request2
+      rawRequest: request2,
     });
     if (!check2.valid) {
       if (check2.reason === WebhookValidationErrorReason.InvalidHmac) {
         logger2.debug("Webhook HMAC validation failed", check2);
         throw new Response(void 0, {
           status: 401,
-          statusText: "Unauthorized"
+          statusText: "Unauthorized",
         });
       } else {
         logger2.debug("Webhook validation failed", check2);
@@ -9449,7 +10734,7 @@ function authenticateWebhookFactory(params) {
       payload: JSON.parse(rawBody),
       subTopic: check2.subTopic || void 0,
       session: void 0,
-      admin: void 0
+      admin: void 0,
     };
     if (!session) {
       return webhookContext;
@@ -9457,12 +10742,12 @@ function authenticateWebhookFactory(params) {
     const admin = adminClientFactory({
       params,
       session,
-      handleClientError: handleClientErrorFactory({ request: request2 })
+      handleClientError: handleClientErrorFactory({ request: request2 }),
     });
     return {
       ...webhookContext,
       session,
-      admin
+      admin,
     };
   };
 }
@@ -9474,8 +10759,7 @@ function requireConstants() {
   hasRequiredConstants = 1;
   const SEMVER_SPEC_VERSION = "2.0.0";
   const MAX_LENGTH = 256;
-  const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || /* istanbul ignore next */
-  9007199254740991;
+  const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER /* istanbul ignore next */ || 9007199254740991;
   const MAX_SAFE_COMPONENT_LENGTH = 16;
   const MAX_SAFE_BUILD_LENGTH = MAX_LENGTH - 6;
   const RELEASE_TYPES = [
@@ -9485,7 +10769,7 @@ function requireConstants() {
     "preminor",
     "patch",
     "prepatch",
-    "prerelease"
+    "prerelease",
   ];
   constants = {
     MAX_LENGTH,
@@ -9495,7 +10779,7 @@ function requireConstants() {
     RELEASE_TYPES,
     SEMVER_SPEC_VERSION,
     FLAG_INCLUDE_PRERELEASE: 1,
-    FLAG_LOOSE: 2
+    FLAG_LOOSE: 2,
   };
   return constants;
 }
@@ -9504,8 +10788,13 @@ var hasRequiredDebug;
 function requireDebug() {
   if (hasRequiredDebug) return debug_1;
   hasRequiredDebug = 1;
-  const debug = typeof process === "object" && process.env && process.env.NODE_DEBUG && /\bsemver\b/i.test(process.env.NODE_DEBUG) ? (...args) => console.error("SEMVER", ...args) : () => {
-  };
+  const debug =
+    typeof process === "object" &&
+    process.env &&
+    process.env.NODE_DEBUG &&
+    /\bsemver\b/i.test(process.env.NODE_DEBUG)
+      ? (...args) => console.error("SEMVER", ...args)
+      : () => {};
   debug_1 = debug;
   return debug_1;
 }
@@ -9513,29 +10802,29 @@ var hasRequiredRe;
 function requireRe() {
   if (hasRequiredRe) return re.exports;
   hasRequiredRe = 1;
-  (function(module, exports$1) {
-    const {
-      MAX_SAFE_COMPONENT_LENGTH,
-      MAX_SAFE_BUILD_LENGTH,
-      MAX_LENGTH
-    } = requireConstants();
+  (function (module, exports$1) {
+    const { MAX_SAFE_COMPONENT_LENGTH, MAX_SAFE_BUILD_LENGTH, MAX_LENGTH } = requireConstants();
     const debug = requireDebug();
     exports$1 = module.exports = {};
-    const re2 = exports$1.re = [];
-    const safeRe = exports$1.safeRe = [];
-    const src = exports$1.src = [];
-    const safeSrc = exports$1.safeSrc = [];
-    const t = exports$1.t = {};
+    const re2 = (exports$1.re = []);
+    const safeRe = (exports$1.safeRe = []);
+    const src = (exports$1.src = []);
+    const safeSrc = (exports$1.safeSrc = []);
+    const t = (exports$1.t = {});
     let R = 0;
     const LETTERDASHNUMBER = "[a-zA-Z0-9-]";
     const safeRegexReplacements = [
       ["\\s", 1],
       ["\\d", MAX_LENGTH],
-      [LETTERDASHNUMBER, MAX_SAFE_BUILD_LENGTH]
+      [LETTERDASHNUMBER, MAX_SAFE_BUILD_LENGTH],
     ];
     const makeSafeRegex = (value) => {
       for (const [token, max] of safeRegexReplacements) {
-        value = value.split(`${token}*`).join(`${token}{0,${max}}`).split(`${token}+`).join(`${token}{1,${max}}`);
+        value = value
+          .split(`${token}*`)
+          .join(`${token}{0,${max}}`)
+          .split(`${token}+`)
+          .join(`${token}{1,${max}}`);
       }
       return value;
     };
@@ -9552,28 +10841,61 @@ function requireRe() {
     createToken("NUMERICIDENTIFIER", "0|[1-9]\\d*");
     createToken("NUMERICIDENTIFIERLOOSE", "\\d+");
     createToken("NONNUMERICIDENTIFIER", `\\d*[a-zA-Z-]${LETTERDASHNUMBER}*`);
-    createToken("MAINVERSION", `(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})`);
-    createToken("MAINVERSIONLOOSE", `(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})`);
-    createToken("PRERELEASEIDENTIFIER", `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIER]})`);
-    createToken("PRERELEASEIDENTIFIERLOOSE", `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIERLOOSE]})`);
-    createToken("PRERELEASE", `(?:-(${src[t.PRERELEASEIDENTIFIER]}(?:\\.${src[t.PRERELEASEIDENTIFIER]})*))`);
-    createToken("PRERELEASELOOSE", `(?:-?(${src[t.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${src[t.PRERELEASEIDENTIFIERLOOSE]})*))`);
+    createToken(
+      "MAINVERSION",
+      `(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})\\.(${src[t.NUMERICIDENTIFIER]})`
+    );
+    createToken(
+      "MAINVERSIONLOOSE",
+      `(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})\\.(${src[t.NUMERICIDENTIFIERLOOSE]})`
+    );
+    createToken(
+      "PRERELEASEIDENTIFIER",
+      `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIER]})`
+    );
+    createToken(
+      "PRERELEASEIDENTIFIERLOOSE",
+      `(?:${src[t.NONNUMERICIDENTIFIER]}|${src[t.NUMERICIDENTIFIERLOOSE]})`
+    );
+    createToken(
+      "PRERELEASE",
+      `(?:-(${src[t.PRERELEASEIDENTIFIER]}(?:\\.${src[t.PRERELEASEIDENTIFIER]})*))`
+    );
+    createToken(
+      "PRERELEASELOOSE",
+      `(?:-?(${src[t.PRERELEASEIDENTIFIERLOOSE]}(?:\\.${src[t.PRERELEASEIDENTIFIERLOOSE]})*))`
+    );
     createToken("BUILDIDENTIFIER", `${LETTERDASHNUMBER}+`);
     createToken("BUILD", `(?:\\+(${src[t.BUILDIDENTIFIER]}(?:\\.${src[t.BUILDIDENTIFIER]})*))`);
     createToken("FULLPLAIN", `v?${src[t.MAINVERSION]}${src[t.PRERELEASE]}?${src[t.BUILD]}?`);
     createToken("FULL", `^${src[t.FULLPLAIN]}$`);
-    createToken("LOOSEPLAIN", `[v=\\s]*${src[t.MAINVERSIONLOOSE]}${src[t.PRERELEASELOOSE]}?${src[t.BUILD]}?`);
+    createToken(
+      "LOOSEPLAIN",
+      `[v=\\s]*${src[t.MAINVERSIONLOOSE]}${src[t.PRERELEASELOOSE]}?${src[t.BUILD]}?`
+    );
     createToken("LOOSE", `^${src[t.LOOSEPLAIN]}$`);
     createToken("GTLT", "((?:<|>)?=?)");
     createToken("XRANGEIDENTIFIERLOOSE", `${src[t.NUMERICIDENTIFIERLOOSE]}|x|X|\\*`);
     createToken("XRANGEIDENTIFIER", `${src[t.NUMERICIDENTIFIER]}|x|X|\\*`);
-    createToken("XRANGEPLAIN", `[v=\\s]*(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:${src[t.PRERELEASE]})?${src[t.BUILD]}?)?)?`);
-    createToken("XRANGEPLAINLOOSE", `[v=\\s]*(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:${src[t.PRERELEASELOOSE]})?${src[t.BUILD]}?)?)?`);
+    createToken(
+      "XRANGEPLAIN",
+      `[v=\\s]*(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:\\.(${src[t.XRANGEIDENTIFIER]})(?:${src[t.PRERELEASE]})?${src[t.BUILD]}?)?)?`
+    );
+    createToken(
+      "XRANGEPLAINLOOSE",
+      `[v=\\s]*(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:\\.(${src[t.XRANGEIDENTIFIERLOOSE]})(?:${src[t.PRERELEASELOOSE]})?${src[t.BUILD]}?)?)?`
+    );
     createToken("XRANGE", `^${src[t.GTLT]}\\s*${src[t.XRANGEPLAIN]}$`);
     createToken("XRANGELOOSE", `^${src[t.GTLT]}\\s*${src[t.XRANGEPLAINLOOSE]}$`);
-    createToken("COERCEPLAIN", `${"(^|[^\\d])(\\d{1,"}${MAX_SAFE_COMPONENT_LENGTH}})(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?`);
+    createToken(
+      "COERCEPLAIN",
+      `${"(^|[^\\d])(\\d{1,"}${MAX_SAFE_COMPONENT_LENGTH}})(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?(?:\\.(\\d{1,${MAX_SAFE_COMPONENT_LENGTH}}))?`
+    );
     createToken("COERCE", `${src[t.COERCEPLAIN]}(?:$|[^\\d])`);
-    createToken("COERCEFULL", src[t.COERCEPLAIN] + `(?:${src[t.PRERELEASE]})?(?:${src[t.BUILD]})?(?:$|[^\\d])`);
+    createToken(
+      "COERCEFULL",
+      src[t.COERCEPLAIN] + `(?:${src[t.PRERELEASE]})?(?:${src[t.BUILD]})?(?:$|[^\\d])`
+    );
     createToken("COERCERTL", src[t.COERCE], true);
     createToken("COERCERTLFULL", src[t.COERCEFULL], true);
     createToken("LONETILDE", "(?:~>?)");
@@ -9588,10 +10910,17 @@ function requireRe() {
     createToken("CARETLOOSE", `^${src[t.LONECARET]}${src[t.XRANGEPLAINLOOSE]}$`);
     createToken("COMPARATORLOOSE", `^${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]})$|^$`);
     createToken("COMPARATOR", `^${src[t.GTLT]}\\s*(${src[t.FULLPLAIN]})$|^$`);
-    createToken("COMPARATORTRIM", `(\\s*)${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]}|${src[t.XRANGEPLAIN]})`, true);
+    createToken(
+      "COMPARATORTRIM",
+      `(\\s*)${src[t.GTLT]}\\s*(${src[t.LOOSEPLAIN]}|${src[t.XRANGEPLAIN]})`,
+      true
+    );
     exports$1.comparatorTrimReplace = "$1$2$3";
     createToken("HYPHENRANGE", `^\\s*(${src[t.XRANGEPLAIN]})\\s+-\\s+(${src[t.XRANGEPLAIN]})\\s*$`);
-    createToken("HYPHENRANGELOOSE", `^\\s*(${src[t.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t.XRANGEPLAINLOOSE]})\\s*$`);
+    createToken(
+      "HYPHENRANGELOOSE",
+      `^\\s*(${src[t.XRANGEPLAINLOOSE]})\\s+-\\s+(${src[t.XRANGEPLAINLOOSE]})\\s*$`
+    );
     createToken("STAR", "(<|>)?=?\\s*\\*");
     createToken("GTE0", "^\\s*>=\\s*0\\.0\\.0\\s*$");
     createToken("GTE0PRE", "^\\s*>=\\s*0\\.0\\.0-0\\s*$");
@@ -9638,7 +10967,7 @@ function requireIdentifiers() {
   const rcompareIdentifiers = (a, b) => compareIdentifiers(b, a);
   identifiers = {
     compareIdentifiers,
-    rcompareIdentifiers
+    rcompareIdentifiers,
   };
   return identifiers;
 }
@@ -9656,7 +10985,10 @@ function requireSemver$1() {
     constructor(version2, options) {
       options = parseOptions(options);
       if (version2 instanceof SemVer) {
-        if (version2.loose === !!options.loose && version2.includePrerelease === !!options.includePrerelease) {
+        if (
+          version2.loose === !!options.loose &&
+          version2.includePrerelease === !!options.includePrerelease
+        ) {
           return version2;
         } else {
           version2 = version2.version;
@@ -9665,9 +10997,7 @@ function requireSemver$1() {
         throw new TypeError(`Invalid version. Must be a string. Got type "${typeof version2}".`);
       }
       if (version2.length > MAX_LENGTH) {
-        throw new TypeError(
-          `version is longer than ${MAX_LENGTH} characters`
-        );
+        throw new TypeError(`version is longer than ${MAX_LENGTH} characters`);
       }
       debug("SemVer", version2, options);
       this.options = options;
@@ -9812,7 +11142,9 @@ function requireSemver$1() {
           throw new Error("invalid increment argument: identifier is empty");
         }
         if (identifier) {
-          const match = `-${identifier}`.match(this.options.loose ? re2[t.PRERELEASELOOSE] : re2[t.PRERELEASE]);
+          const match = `-${identifier}`.match(
+            this.options.loose ? re2[t.PRERELEASELOOSE] : re2[t.PRERELEASE]
+          );
           if (!match || match[1] !== identifier) {
             throw new Error(`invalid identifier: ${identifier}`);
           }
@@ -9982,10 +11314,11 @@ function requireInc() {
       options = void 0;
     }
     try {
-      return new SemVer(
-        version2 instanceof SemVer ? version2.version : version2,
-        options
-      ).inc(release, identifier, identifierBase).version;
+      return new SemVer(version2 instanceof SemVer ? version2.version : version2, options).inc(
+        release,
+        identifier,
+        identifierBase
+      ).version;
     } catch (er) {
       return null;
     }
@@ -10279,7 +11612,10 @@ function requireCoerce() {
     } else {
       const coerceRtlRegex = options.includePrerelease ? re2[t.COERCERTLFULL] : re2[t.COERCERTL];
       let next;
-      while ((next = coerceRtlRegex.exec(version2)) && (!match || match.index + match[0].length !== version2.length)) {
+      while (
+        (next = coerceRtlRegex.exec(version2)) &&
+        (!match || match.index + match[0].length !== version2.length)
+      ) {
         if (!match || next.index + next[0].length !== match.index + match[0].length) {
           match = next;
         }
@@ -10348,7 +11684,10 @@ function requireRange() {
     constructor(range2, options) {
       options = parseOptions(options);
       if (range2 instanceof Range) {
-        if (range2.loose === !!options.loose && range2.includePrerelease === !!options.includePrerelease) {
+        if (
+          range2.loose === !!options.loose &&
+          range2.includePrerelease === !!options.includePrerelease
+        ) {
           return range2;
         } else {
           return new Range(range2.raw, options);
@@ -10364,7 +11703,10 @@ function requireRange() {
       this.loose = !!options.loose;
       this.includePrerelease = !!options.includePrerelease;
       this.raw = range2.trim().replace(SPACE_CHARACTERS, " ");
-      this.set = this.raw.split("||").map((r) => this.parseRange(r.trim())).filter((c) => c.length);
+      this.set = this.raw
+        .split("||")
+        .map((r) => this.parseRange(r.trim()))
+        .filter((c) => c.length);
       if (!this.set.length) {
         throw new TypeError(`Invalid SemVer Range: ${this.raw}`);
       }
@@ -10409,7 +11751,9 @@ function requireRange() {
       return this.range;
     }
     parseRange(range2) {
-      const memoOpts = (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE);
+      const memoOpts =
+        (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) |
+        (this.options.loose && FLAG_LOOSE);
       const memoKey = memoOpts + ":" + range2;
       const cached = cache.get(memoKey);
       if (cached) {
@@ -10425,7 +11769,12 @@ function requireRange() {
       debug("tilde trim", range2);
       range2 = range2.replace(re2[t.CARETTRIM], caretTrimReplace);
       debug("caret trim", range2);
-      let rangeList = range2.split(" ").map((comp) => parseComparator(comp, this.options)).join(" ").split(/\s+/).map((comp) => replaceGTE0(comp, this.options));
+      let rangeList = range2
+        .split(" ")
+        .map((comp) => parseComparator(comp, this.options))
+        .join(" ")
+        .split(/\s+/)
+        .map((comp) => replaceGTE0(comp, this.options));
       if (loose) {
         rangeList = rangeList.filter((comp) => {
           debug("loose invalid filter", comp, this.options);
@@ -10453,13 +11802,19 @@ function requireRange() {
         throw new TypeError("a Range is required");
       }
       return this.set.some((thisComparators) => {
-        return isSatisfiable(thisComparators, options) && range2.set.some((rangeComparators) => {
-          return isSatisfiable(rangeComparators, options) && thisComparators.every((thisComparator) => {
-            return rangeComparators.every((rangeComparator) => {
-              return thisComparator.intersects(rangeComparator, options);
-            });
-          });
-        });
+        return (
+          isSatisfiable(thisComparators, options) &&
+          range2.set.some((rangeComparators) => {
+            return (
+              isSatisfiable(rangeComparators, options) &&
+              thisComparators.every((thisComparator) => {
+                return rangeComparators.every((rangeComparator) => {
+                  return thisComparator.intersects(rangeComparator, options);
+                });
+              })
+            );
+          })
+        );
       });
     }
     // if ANY of the sets match ALL of its comparators, then pass
@@ -10489,13 +11844,7 @@ function requireRange() {
   const Comparator = requireComparator();
   const debug = requireDebug();
   const SemVer = requireSemver$1();
-  const {
-    safeRe: re2,
-    t,
-    comparatorTrimReplace,
-    tildeTrimReplace,
-    caretTrimReplace
-  } = requireRe();
+  const { safeRe: re2, t, comparatorTrimReplace, tildeTrimReplace, caretTrimReplace } = requireRe();
   const { FLAG_INCLUDE_PRERELEASE, FLAG_LOOSE } = requireConstants();
   const isNullSet = (c) => c.value === "<0.0.0-0";
   const isAny = (c) => c.value === "";
@@ -10526,7 +11875,11 @@ function requireRange() {
   };
   const isX = (id) => !id || id.toLowerCase() === "x" || id === "*";
   const replaceTildes = (comp, options) => {
-    return comp.trim().split(/\s+/).map((c) => replaceTilde(c, options)).join(" ");
+    return comp
+      .trim()
+      .split(/\s+/)
+      .map((c) => replaceTilde(c, options))
+      .join(" ");
   };
   const replaceTilde = (comp, options) => {
     const r = options.loose ? re2[t.TILDELOOSE] : re2[t.TILDE];
@@ -10550,7 +11903,11 @@ function requireRange() {
     });
   };
   const replaceCarets = (comp, options) => {
-    return comp.trim().split(/\s+/).map((c) => replaceCaret(c, options)).join(" ");
+    return comp
+      .trim()
+      .split(/\s+/)
+      .map((c) => replaceCaret(c, options))
+      .join(" ");
   };
   const replaceCaret = (comp, options) => {
     debug("caret", comp, options);
@@ -10598,7 +11955,10 @@ function requireRange() {
   };
   const replaceXRanges = (comp, options) => {
     debug("replaceXRanges", comp, options);
-    return comp.split(/\s+/).map((c) => replaceXRange(c, options)).join(" ");
+    return comp
+      .split(/\s+/)
+      .map((c) => replaceXRange(c, options))
+      .join(" ");
   };
   const replaceXRange = (comp, options) => {
     comp = comp.trim();
@@ -10704,7 +12064,11 @@ function requireRange() {
         }
         if (set[i].semver.prerelease.length > 0) {
           const allowed = set[i].semver;
-          if (allowed.major === version2.major && allowed.minor === version2.minor && allowed.patch === version2.patch) {
+          if (
+            allowed.major === version2.major &&
+            allowed.minor === version2.minor &&
+            allowed.patch === version2.patch
+          ) {
             return true;
           }
         }
@@ -10798,7 +12162,10 @@ function requireComparator() {
       if (options.includePrerelease && (this.value === "<0.0.0-0" || comp.value === "<0.0.0-0")) {
         return false;
       }
-      if (!options.includePrerelease && (this.value.startsWith("<0.0.0") || comp.value.startsWith("<0.0.0"))) {
+      if (
+        !options.includePrerelease &&
+        (this.value.startsWith("<0.0.0") || comp.value.startsWith("<0.0.0"))
+      ) {
         return false;
       }
       if (this.operator.startsWith(">") && comp.operator.startsWith(">")) {
@@ -10807,13 +12174,25 @@ function requireComparator() {
       if (this.operator.startsWith("<") && comp.operator.startsWith("<")) {
         return true;
       }
-      if (this.semver.version === comp.semver.version && this.operator.includes("=") && comp.operator.includes("=")) {
+      if (
+        this.semver.version === comp.semver.version &&
+        this.operator.includes("=") &&
+        comp.operator.includes("=")
+      ) {
         return true;
       }
-      if (cmp(this.semver, "<", comp.semver, options) && this.operator.startsWith(">") && comp.operator.startsWith("<")) {
+      if (
+        cmp(this.semver, "<", comp.semver, options) &&
+        this.operator.startsWith(">") &&
+        comp.operator.startsWith("<")
+      ) {
         return true;
       }
-      if (cmp(this.semver, ">", comp.semver, options) && this.operator.startsWith("<") && comp.operator.startsWith(">")) {
+      if (
+        cmp(this.semver, ">", comp.semver, options) &&
+        this.operator.startsWith("<") &&
+        comp.operator.startsWith(">")
+      ) {
         return true;
       }
       return false;
@@ -10851,7 +12230,14 @@ function requireToComparators() {
   if (hasRequiredToComparators) return toComparators_1;
   hasRequiredToComparators = 1;
   const Range = requireRange();
-  const toComparators = (range2, options) => new Range(range2, options).set.map((comp) => comp.map((c) => c.value).join(" ").trim().split(" "));
+  const toComparators = (range2, options) =>
+    new Range(range2, options).set.map((comp) =>
+      comp
+        .map((c) => c.value)
+        .join(" ")
+        .trim()
+        .split(" ")
+    );
   toComparators_1 = toComparators;
   return toComparators_1;
 }
@@ -11233,9 +12619,16 @@ function requireSubset() {
     }
     let higher, lower;
     let hasDomLT, hasDomGT;
-    let needDomLTPre = lt && !options.includePrerelease && lt.semver.prerelease.length ? lt.semver : false;
-    let needDomGTPre = gt && !options.includePrerelease && gt.semver.prerelease.length ? gt.semver : false;
-    if (needDomLTPre && needDomLTPre.prerelease.length === 1 && lt.operator === "<" && needDomLTPre.prerelease[0] === 0) {
+    let needDomLTPre =
+      lt && !options.includePrerelease && lt.semver.prerelease.length ? lt.semver : false;
+    let needDomGTPre =
+      gt && !options.includePrerelease && gt.semver.prerelease.length ? gt.semver : false;
+    if (
+      needDomLTPre &&
+      needDomLTPre.prerelease.length === 1 &&
+      lt.operator === "<" &&
+      needDomLTPre.prerelease[0] === 0
+    ) {
       needDomLTPre = false;
     }
     for (const c of dom) {
@@ -11243,7 +12636,13 @@ function requireSubset() {
       hasDomLT = hasDomLT || c.operator === "<" || c.operator === "<=";
       if (gt) {
         if (needDomGTPre) {
-          if (c.semver.prerelease && c.semver.prerelease.length && c.semver.major === needDomGTPre.major && c.semver.minor === needDomGTPre.minor && c.semver.patch === needDomGTPre.patch) {
+          if (
+            c.semver.prerelease &&
+            c.semver.prerelease.length &&
+            c.semver.major === needDomGTPre.major &&
+            c.semver.minor === needDomGTPre.minor &&
+            c.semver.patch === needDomGTPre.patch
+          ) {
             needDomGTPre = false;
           }
         }
@@ -11258,7 +12657,13 @@ function requireSubset() {
       }
       if (lt) {
         if (needDomLTPre) {
-          if (c.semver.prerelease && c.semver.prerelease.length && c.semver.major === needDomLTPre.major && c.semver.minor === needDomLTPre.minor && c.semver.patch === needDomLTPre.patch) {
+          if (
+            c.semver.prerelease &&
+            c.semver.prerelease.length &&
+            c.semver.major === needDomLTPre.major &&
+            c.semver.minor === needDomLTPre.minor &&
+            c.semver.patch === needDomLTPre.patch
+          ) {
             needDomLTPre = false;
           }
         }
@@ -11394,7 +12799,7 @@ function requireSemver() {
     SEMVER_SPEC_VERSION: constants2.SEMVER_SPEC_VERSION,
     RELEASE_TYPES: constants2.RELEASE_TYPES,
     compareIdentifiers: identifiers2.compareIdentifiers,
-    rcompareIdentifiers: identifiers2.rcompareIdentifiers
+    rcompareIdentifiers: identifiers2.rcompareIdentifiers,
   };
   return semver$1;
 }
@@ -11402,9 +12807,10 @@ var semverExports = requireSemver();
 const semver = /* @__PURE__ */ getDefaultExportFromCjs(semverExports);
 function overrideLogger(logger2) {
   const baseContext = { package: "shopify-app" };
-  const warningFunction = (message2, context2 = {}) => logger2.warning(message2, { ...baseContext, ...context2 });
+  const warningFunction = (message2, context2 = {}) =>
+    logger2.warning(message2, { ...baseContext, ...context2 });
   function deprecated2(warningFunction2) {
-    return function(version2, message2) {
+    return function (version2, message2) {
       if (semver.gte(SHOPIFY_REMIX_LIBRARY_VERSION, version2)) {
         throw new FeatureDeprecatedError(`Feature was deprecated in version ${version2}`);
       }
@@ -11413,12 +12819,13 @@ function overrideLogger(logger2) {
   }
   return {
     ...logger2,
-    log: (severity, message2, context2 = {}) => logger2.log(severity, message2, { ...baseContext, ...context2 }),
+    log: (severity, message2, context2 = {}) =>
+      logger2.log(severity, message2, { ...baseContext, ...context2 }),
     debug: (message2, context2 = {}) => logger2.debug(message2, { ...baseContext, ...context2 }),
     info: (message2, context2 = {}) => logger2.info(message2, { ...baseContext, ...context2 }),
     warning: warningFunction,
     error: (message2, context2 = {}) => logger2.error(message2, { ...baseContext, ...context2 }),
-    deprecated: deprecated2(warningFunction)
+    deprecated: deprecated2(warningFunction),
   };
 }
 function loginFactory(params) {
@@ -11435,7 +12842,8 @@ function loginFactory(params) {
       return { shop: LoginErrorType.MissingShop };
     }
     const shopWithoutProtocol = shop.replace(/^https?:\/\//, "").replace(/\/$/, "");
-    const shopWithDomain = shop?.indexOf(".") === -1 ? `${shopWithoutProtocol}.myshopify.com` : shopWithoutProtocol;
+    const shopWithDomain =
+      shop?.indexOf(".") === -1 ? `${shopWithoutProtocol}.myshopify.com` : shopWithoutProtocol;
     const sanitizedShop = api.utils.sanitizeShop(shopWithDomain);
     if (!sanitizedShop) {
       logger2.debug("Invalid shop parameter", { shop });
@@ -11447,22 +12855,23 @@ function loginFactory(params) {
     const shouldInstall = config.isEmbeddedApp && config.future.unstable_newEmbeddedAuthStrategy;
     const redirectUrl = shouldInstall ? installPath : authPath;
     logger2.info(`Redirecting login request to ${redirectUrl}`, {
-      shop: sanitizedShop
+      shop: sanitizedShop,
     });
     throw redirect2(redirectUrl);
   };
 }
-class SessionNotFoundError extends ShopifyError {
-}
+class SessionNotFoundError extends ShopifyError {}
 function unauthenticatedAdminContextFactory(params) {
   return async (shop) => {
     const session = await createOrLoadOfflineSession(shop, params);
     if (!session) {
-      throw new SessionNotFoundError(`Could not find a session for shop ${shop} when creating unauthenticated admin context`);
+      throw new SessionNotFoundError(
+        `Could not find a session for shop ${shop} when creating unauthenticated admin context`
+      );
     }
     return {
       session,
-      admin: adminClientFactory({ params, session })
+      admin: adminClientFactory({ params, session }),
     };
   };
 }
@@ -11474,20 +12883,23 @@ function authenticateExtensionFactory(params, requestType) {
     respondToOptionsRequest(params, request2, corsHeaders);
     const sessionTokenHeader = getSessionTokenHeader(request2);
     logger2.info(`Authenticating ${requestType} request`, {
-      shop: getShopFromRequest(request2)
+      shop: getShopFromRequest(request2),
     });
     if (!sessionTokenHeader) {
       logger2.debug("Request did not contain a session token", {
-        shop: getShopFromRequest(request2)
+        shop: getShopFromRequest(request2),
       });
       throw new Response(void 0, {
         status: 401,
-        statusText: "Unauthorized"
+        statusText: "Unauthorized",
       });
     }
     return {
-      sessionToken: await validateSessionToken(params, request2, sessionTokenHeader, { checkAudience: false, retryRequest: false }),
-      cors: ensureCORSHeadersFactory(params, request2, corsHeaders)
+      sessionToken: await validateSessionToken(params, request2, sessionTokenHeader, {
+        checkAudience: false,
+        retryRequest: false,
+      }),
+      cors: ensureCORSHeadersFactory(params, request2, corsHeaders),
     };
   };
 }
@@ -11500,15 +12912,15 @@ function storefrontClientFactory({ params, session }) {
     graphql: async (query, options = {}) => {
       const client = new api.clients.Storefront({
         session,
-        apiVersion: options.apiVersion
+        apiVersion: options.apiVersion,
       });
       const apiResponse = await client.request(query, {
         variables: options?.variables,
         retries: options?.tries ? options.tries - 1 : 0,
-        headers: options?.headers
+        headers: options?.headers,
       });
       return new Response(JSON.stringify(apiResponse));
-    }
+    },
   };
 }
 function authenticateAppProxyFactory(params) {
@@ -11517,11 +12929,11 @@ function authenticateAppProxyFactory(params) {
     const url = new URL(request2.url);
     const shop = url.searchParams.get("shop");
     logger2.info("Authenticating app proxy request", { shop });
-    if (!await validateAppProxyHmac(params, url)) {
+    if (!(await validateAppProxyHmac(params, url))) {
       logger2.info("App proxy request has invalid signature", { shop });
       throw new Response(void 0, {
         status: 400,
-        statusText: "Bad Request"
+        statusText: "Bad Request",
       });
     }
     const sessionId = api.session.getOfflineId(shop);
@@ -11529,13 +12941,13 @@ function authenticateAppProxyFactory(params) {
     if (!session) {
       logger2.debug("Could not find offline session, returning empty context", {
         shop,
-        ...Object.fromEntries(url.searchParams.entries())
+        ...Object.fromEntries(url.searchParams.entries()),
       });
       const context3 = {
         liquid,
         session: void 0,
         admin: void 0,
-        storefront: void 0
+        storefront: void 0,
       };
       return context3;
     }
@@ -11543,7 +12955,7 @@ function authenticateAppProxyFactory(params) {
       liquid,
       session,
       admin: adminClientFactory({ params, session }),
-      storefront: storefrontClientFactory({ params, session })
+      storefront: storefrontClientFactory({ params, session }),
     };
     return context2;
   };
@@ -11554,8 +12966,8 @@ const liquid = (body, initAndOptions) => {
     return new Response(processedBody, {
       status: initAndOptions || 200,
       headers: {
-        "Content-Type": "application/liquid"
-      }
+        "Content-Type": "application/liquid",
+      },
     });
   }
   const { layout, ...responseInit } = initAndOptions || {};
@@ -11564,7 +12976,7 @@ const liquid = (body, initAndOptions) => {
   headers.set("Content-Type", "application/liquid");
   return new Response(responseBody, {
     ...responseInit,
-    headers
+    headers,
   });
 };
 async function validateAppProxyHmac(params, url) {
@@ -11574,15 +12986,25 @@ async function validateAppProxyHmac(params, url) {
     if (!searchParams.get("index")) {
       searchParams.delete("index");
     }
-    let isValid = await api.utils.validateHmac(Object.fromEntries(searchParams.entries()), { signator: "appProxy" });
+    let isValid = await api.utils.validateHmac(Object.fromEntries(searchParams.entries()), {
+      signator: "appProxy",
+    });
     if (!isValid) {
       const cleanPath = url.pathname.replace(/^\//, "").replace(/\/$/, "").replaceAll("/", ".");
       const data = `routes%2F${cleanPath}`;
-      searchParams = new URLSearchParams(`?_data=${data}&${searchParams.toString().replace(/^\?/, "")}`);
-      isValid = await api.utils.validateHmac(Object.fromEntries(searchParams.entries()), { signator: "appProxy" });
+      searchParams = new URLSearchParams(
+        `?_data=${data}&${searchParams.toString().replace(/^\?/, "")}`
+      );
+      isValid = await api.utils.validateHmac(Object.fromEntries(searchParams.entries()), {
+        signator: "appProxy",
+      });
       if (!isValid) {
-        const searchParams2 = new URLSearchParams(`?_data=${data}._index&${url.search.replace(/^\?/, "")}`);
-        isValid = await api.utils.validateHmac(Object.fromEntries(searchParams2.entries()), { signator: "appProxy" });
+        const searchParams2 = new URLSearchParams(
+          `?_data=${data}._index&${url.search.replace(/^\?/, "")}`
+        );
+        isValid = await api.utils.validateHmac(Object.fromEntries(searchParams2.entries()), {
+          signator: "appProxy",
+        });
       }
     }
     return isValid;
@@ -11593,7 +13015,9 @@ async function validateAppProxyHmac(params, url) {
   }
 }
 function processLiquidBody(body) {
-  return body.replaceAll(/<(form[^>]+)action="(\/[^"?]+)(\?[^"]+)?">/g, '<$1action="$2/$3">').replaceAll(/<(a[^>]+)href="(\/[^"?]+)(\?[^"]+)?">/g, '<$1href="$2/$3">');
+  return body
+    .replaceAll(/<(form[^>]+)action="(\/[^"?]+)(\?[^"]+)?">/g, '<$1action="$2/$3">')
+    .replaceAll(/<(a[^>]+)href="(\/[^"?]+)(\?[^"]+)?">/g, '<$1href="$2/$3">');
 }
 function authenticateCustomerAccountFactory(params) {
   return authenticateExtensionFactory(params, "customer account");
@@ -11610,7 +13034,7 @@ function authenticatePublicFactory(params) {
     checkout: authenticateCheckout,
     appProxy: authenticateAppProxy,
     customerAccount: authenticateCustomerAccount,
-    pos: authenticatePOS
+    pos: authenticatePOS,
   };
   return context2;
 }
@@ -11618,11 +13042,13 @@ function unauthenticatedStorefrontContextFactory(params) {
   return async (shop) => {
     const session = await createOrLoadOfflineSession(shop, params);
     if (!session) {
-      throw new SessionNotFoundError(`Could not find a session for shop ${shop} when creating unauthenticated storefront context`);
+      throw new SessionNotFoundError(
+        `Could not find a session for shop ${shop} when creating unauthenticated storefront context`
+      );
     }
     return {
       session,
-      storefront: storefrontClientFactory({ params, session })
+      storefront: storefrontClientFactory({ params, session }),
     };
   };
 }
@@ -11633,7 +13059,7 @@ async function triggerAfterAuthHook(params, session, request2, authStrategy) {
     const admin = createAdminApiContext(session, params, authStrategy.handleClientError(request2));
     await config.hooks.afterAuth({
       session,
-      admin
+      admin,
     });
   }
 }
@@ -11653,8 +13079,7 @@ class AuthCodeFlowStrategy {
     const isAuthCallbackRequest = url.pathname === config.auth.callbackPath;
     if (isAuthRequest || isAuthCallbackRequest) {
       const shop = api.utils.sanitizeShop(url.searchParams.get("shop"));
-      if (!shop)
-        throw new Response("Shop param is invalid", { status: 400 });
+      if (!shop) throw new Response("Shop param is invalid", { status: 400 });
       if (isAuthRequest) {
         throw await this.handleAuthBeginRequest(request2, shop);
       } else {
@@ -11686,7 +13111,7 @@ class AuthCodeFlowStrategy {
         if (error.response.code === 401) {
           throw await redirectToAuthPage({ api, config }, request2, session.shop);
         }
-      }
+      },
     });
   }
   async ensureInstalledOnShop(request2) {
@@ -11695,18 +13120,18 @@ class AuthCodeFlowStrategy {
     const url = new URL(request2.url);
     let shop = url.searchParams.get("shop");
     logger2.debug("Ensuring app is installed on shop", { shop });
-    if (!await this.hasValidOfflineId(request2)) {
+    if (!(await this.hasValidOfflineId(request2))) {
       logger2.info("Could not find a shop, can't authenticate request");
       throw new Response(void 0, {
         status: 400,
-        statusText: "Bad Request"
+        statusText: "Bad Request",
       });
     }
     const offlineSession = await this.getOfflineSession(request2);
     const isEmbedded = url.searchParams.get("embedded") === "1";
     if (!offlineSession) {
       logger2.info("Shop hasn't installed app yet, redirecting to OAuth", {
-        shop
+        shop,
       });
       if (isEmbedded) {
         redirectWithExitIframe({ api, config }, request2, shop);
@@ -11718,7 +13143,7 @@ class AuthCodeFlowStrategy {
     if (config.isEmbeddedApp && !isEmbedded) {
       try {
         logger2.debug("Ensuring offline session is valid before embedding", {
-          shop
+          shop,
         });
         await this.testSession(offlineSession);
         logger2.debug("Offline session is still valid, embedding app", { shop });
@@ -11742,24 +13167,27 @@ class AuthCodeFlowStrategy {
     logger2.info("Handling OAuth callback request", { shop });
     try {
       const { session, headers: responseHeaders } = await api.auth.callback({
-        rawRequest: request2
+        rawRequest: request2,
       });
       await config.sessionStorage.storeSession(session);
       if (config.useOnlineTokens && !session.isOnline) {
         logger2.info("Requesting online access token for offline session", {
-          shop
+          shop,
         });
         await beginAuth({ api, config, logger: logger2 }, request2, true, shop);
       }
       logger2.debug("Request is valid, loaded session from OAuth callback", {
         shop: session.shop,
-        isOnline: session.isOnline
+        isOnline: session.isOnline,
       });
       await triggerAfterAuthHook({ api, config, logger: logger2 }, session, request2, this);
-      throw await redirectToShopifyOrAppRoot(request2, { api, config, logger: logger2 }, responseHeaders);
+      throw await redirectToShopifyOrAppRoot(
+        request2,
+        { api, config, logger: logger2 },
+        responseHeaders
+      );
     } catch (error) {
-      if (error instanceof Response)
-        throw error;
+      if (error instanceof Response) throw error;
       throw await this.oauthCallbackError(error, request2, shop);
     }
   }
@@ -11774,12 +13202,14 @@ class AuthCodeFlowStrategy {
     const { api } = this;
     const url = new URL(request2.url);
     const shop = url.searchParams.get("shop");
-    return shop ? api.session.getOfflineId(shop) : api.session.getCurrentId({ isOnline: false, rawRequest: request2 });
+    return shop
+      ? api.session.getOfflineId(shop)
+      : api.session.getCurrentId({ isOnline: false, rawRequest: request2 });
   }
   async testSession(session) {
     const { api } = this;
     const client = new api.clients.Graphql({
-      session
+      session,
     });
     await client.request(`#graphql
       query shopifyAppShopName {
@@ -11798,12 +13228,12 @@ class AuthCodeFlowStrategy {
     if (error instanceof InvalidHmacError || error instanceof InvalidOAuthError) {
       return new Response(void 0, {
         status: 400,
-        statusText: "Invalid OAuth Request"
+        statusText: "Invalid OAuth Request",
       });
     }
     return new Response(void 0, {
       status: 500,
-      statusText: "Internal Server Error"
+      statusText: "Internal Server Error",
     });
   }
   async handleInvalidOfflineSession(error, request2, shop) {
@@ -11811,17 +13241,17 @@ class AuthCodeFlowStrategy {
     if (error instanceof HttpResponseError) {
       if (error.response.code === 401) {
         logger2.info("Shop session is no longer valid, redirecting to OAuth", {
-          shop
+          shop,
         });
         throw await beginAuth({ api, config }, request2, false, shop);
       } else {
         const message2 = JSON.stringify(error.response.body, null, 2);
         logger2.error(`Unexpected error during session validation: ${message2}`, {
-          shop
+          shop,
         });
         throw new Response(void 0, {
           status: error.response.code,
-          statusText: error.response.statusText
+          statusText: error.response.statusText,
         });
       }
     } else if (error instanceof GraphqlQueryError) {
@@ -11832,7 +13262,7 @@ class AuthCodeFlowStrategy {
       logger2.error(`Unexpected error during session validation: ${error.message}`, context2);
       throw new Response(void 0, {
         status: 500,
-        statusText: "Internal Server Error"
+        statusText: "Internal Server Error",
       });
     }
   }
@@ -11846,13 +13276,11 @@ class TokenExchangeStrategy {
     this.config = config;
     this.logger = logger2;
   }
-  async respondToOAuthRequests(_request) {
-  }
+  async respondToOAuthRequests(_request) {}
   async authenticate(request2, sessionContext) {
     const { api, config, logger: logger2 } = this;
     const { shop, session, sessionToken } = sessionContext;
-    if (!sessionToken)
-      throw new InvalidJwtError();
+    if (!sessionToken) throw new InvalidJwtError();
     if (!session || !session.isActive(void 0)) {
       logger2.info("No valid session found", { shop });
       logger2.info("Requesting offline access token", { shop });
@@ -11860,7 +13288,7 @@ class TokenExchangeStrategy {
         request: request2,
         sessionToken,
         shop,
-        requestedTokenType: RequestedTokenType.OfflineAccessToken
+        requestedTokenType: RequestedTokenType.OfflineAccessToken,
       });
       await config.sessionStorage.storeSession(offlineSession);
       let newSession = offlineSession;
@@ -11870,24 +13298,29 @@ class TokenExchangeStrategy {
           request: request2,
           sessionToken,
           shop,
-          requestedTokenType: RequestedTokenType.OnlineAccessToken
+          requestedTokenType: RequestedTokenType.OnlineAccessToken,
         });
         await config.sessionStorage.storeSession(onlineSession);
         newSession = onlineSession;
       }
       logger2.debug("Request is valid, loaded session from session token", {
         shop: newSession.shop,
-        isOnline: newSession.isOnline
+        isOnline: newSession.isOnline,
       });
       try {
-        await this.handleAfterAuthHook({ api, config, logger: logger2 }, newSession, request2, sessionToken);
+        await this.handleAfterAuthHook(
+          { api, config, logger: logger2 },
+          newSession,
+          request2,
+          sessionToken
+        );
       } catch (errorOrResponse) {
         if (errorOrResponse instanceof Response) {
           throw errorOrResponse;
         }
         throw new Response(void 0, {
           status: 500,
-          statusText: "Internal Server Error"
+          statusText: "Internal Server Error",
         });
       }
       return newSession;
@@ -11901,15 +13334,15 @@ class TokenExchangeStrategy {
       onError: async ({ session, error }) => {
         if (error.response.code === 401) {
           logger2.debug("Responding to invalid access token", {
-            shop: getShopFromRequest(request2)
+            shop: getShopFromRequest(request2),
           });
           await invalidateAccessToken({ config, logger: logger2 }, session);
           respondToInvalidSessionToken({
             params: { config, api, logger: logger2 },
-            request: request2
+            request: request2,
           });
         }
-      }
+      },
     });
   }
   async exchangeToken({ request: request2, shop, sessionToken, requestedTokenType }) {
@@ -11918,19 +13351,24 @@ class TokenExchangeStrategy {
       return await api.auth.tokenExchange({
         sessionToken,
         shop,
-        requestedTokenType
+        requestedTokenType,
       });
     } catch (error) {
-      if (error instanceof InvalidJwtError || error instanceof HttpResponseError && error.response.code === 400 && error.response.body?.error === "invalid_subject_token") {
+      if (
+        error instanceof InvalidJwtError ||
+        (error instanceof HttpResponseError &&
+          error.response.code === 400 &&
+          error.response.body?.error === "invalid_subject_token")
+      ) {
         throw respondToInvalidSessionToken({
           params: { api, config, logger: logger2 },
           request: request2,
-          retryRequest: true
+          retryRequest: true,
         });
       }
       throw new Response(void 0, {
         status: 500,
-        statusText: "Internal Server Error"
+        statusText: "Internal Server Error",
       });
     }
   }
@@ -11940,7 +13378,7 @@ class TokenExchangeStrategy {
       promiseFunction: () => {
         return triggerAfterAuthHook(params, session, request2, this);
       },
-      identifier: sessionToken
+      identifier: sessionToken,
     });
   }
 }
@@ -11955,12 +13393,14 @@ class MerchantCustomAuth {
   }
   async respondToOAuthRequests(request2) {
     this.logger.debug("Skipping OAuth request for merchant custom app", {
-      shop: getShopFromRequest(request2)
+      shop: getShopFromRequest(request2),
     });
   }
   async authenticate(_request, sessionContext) {
     const { shop } = sessionContext;
-    this.logger.debug("Building session from configured access token for merchant custom app", { shop });
+    this.logger.debug("Building session from configured access token for merchant custom app", {
+      shop,
+    });
     const session = this.api.session.customAppSession(shop);
     return session;
   }
@@ -11969,10 +13409,12 @@ class MerchantCustomAuth {
       request: request2,
       onError: async ({ error }) => {
         if (error.response.code === 401) {
-          this.logger.info("Request failed with 401. Review your API credentials or generate new tokens. https://shopify.dev/docs/apps/build/authentication-authorization/access-token-types/generate-app-access-tokens-admin#rotating-api-credentials-for-admin-created-apps ");
+          this.logger.info(
+            "Request failed with 401. Review your API credentials or generate new tokens. https://shopify.dev/docs/apps/build/authentication-authorization/access-token-types/generate-app-access-tokens-admin#rotating-api-credentials-for-admin-created-apps "
+          );
           throw new ShopifyError("Unauthorized: Access token has been revoked.");
         }
-      }
+      },
     });
   }
 }
@@ -12012,44 +13454,47 @@ function authenticateFlowFactory(params) {
   return async function authenticate2(request2) {
     logger2.info("Authenticating flow request");
     if (request2.method !== "POST") {
-      logger2.debug("Received a non-POST request for flow. Only POST requests are allowed.", { url: request2.url, method: request2.method });
+      logger2.debug("Received a non-POST request for flow. Only POST requests are allowed.", {
+        url: request2.url,
+        method: request2.method,
+      });
       throw new Response(void 0, {
         status: 405,
-        statusText: "Method not allowed"
+        statusText: "Method not allowed",
       });
     }
     const rawBody = await request2.text();
     const result = await api.flow.validate({
       rawBody,
-      rawRequest: request2
+      rawRequest: request2,
     });
     if (!result.valid) {
       logger2.error("Received an invalid flow request", { reason: result.reason });
       throw new Response(void 0, {
         status: 400,
-        statusText: "Bad Request"
+        statusText: "Bad Request",
       });
     }
     const payload = JSON.parse(rawBody);
     logger2.debug("Flow request is valid, looking for an offline session", {
-      shop: payload.shopify_domain
+      shop: payload.shopify_domain,
     });
     const sessionId = api.session.getOfflineId(payload.shopify_domain);
     const session = await config.sessionStorage.loadSession(sessionId);
     if (!session) {
       logger2.info("Flow request could not find session", {
-        shop: payload.shopify_domain
+        shop: payload.shopify_domain,
       });
       throw new Response(void 0, {
         status: 400,
-        statusText: "Bad Request"
+        statusText: "Bad Request",
       });
     }
     logger2.debug("Found a session for the flow request", { shop: session.shop });
     return {
       session,
       payload,
-      admin: adminClientFactory({ params, session })
+      admin: adminClientFactory({ params, session }),
     };
   };
 }
@@ -12058,58 +13503,65 @@ function authenticateFulfillmentServiceFactory(params) {
   return async function authenticate2(request2) {
     logger2.info("Authenticating fulfillment service request");
     if (request2.method !== "POST") {
-      logger2.debug("Received a non-POST request for fulfillment service. Only POST requests are allowed.", { url: request2.url, method: request2.method });
+      logger2.debug(
+        "Received a non-POST request for fulfillment service. Only POST requests are allowed.",
+        { url: request2.url, method: request2.method }
+      );
       throw new Response(void 0, {
         status: 405,
-        statusText: "Method not allowed"
+        statusText: "Method not allowed",
       });
     }
     const rawBody = await request2.text();
     const result = await api.fulfillmentService.validate({
       rawBody,
-      rawRequest: request2
+      rawRequest: request2,
     });
     if (!result.valid) {
       logger2.error("Received an invalid fulfillment service request", {
-        reason: result.reason
+        reason: result.reason,
       });
       throw new Response(void 0, {
         status: 400,
-        statusText: "Bad Request"
+        statusText: "Bad Request",
       });
     }
     const payload = JSON.parse(rawBody);
     const shop = request2.headers.get(ShopifyHeader.Domain) || "";
     logger2.debug("Fulfillment service request is valid, looking for an offline session", {
-      shop
+      shop,
     });
     const session = await createOrLoadOfflineSession(shop, params);
     if (!session) {
       logger2.info("Fulfillment service request could not find session", {
-        shop
+        shop,
       });
       throw new Response(void 0, {
         status: 400,
-        statusText: "Bad Request"
+        statusText: "Bad Request",
       });
     }
     logger2.debug("Found a session for the fulfillment service request", {
-      shop
+      shop,
     });
     return {
       session,
       payload,
-      admin: adminClientFactory({ params, session })
+      admin: adminClientFactory({ params, session }),
     };
   };
 }
 function logDisabledFutureFlags(config, logger2) {
-  const logFlag = (flag, message2) => logger2.info(`Future flag ${flag} is disabled.
+  const logFlag = (flag, message2) =>
+    logger2.info(`Future flag ${flag} is disabled.
 
   ${message2}
 `);
   if (!config.future.unstable_newEmbeddedAuthStrategy) {
-    logFlag("unstable_newEmbeddedAuthStrategy", "Enable this to use OAuth token exchange instead of auth code to generate API access tokens.\n  Your app must be using Shopify managed install: https://shopify.dev/docs/apps/auth/installation");
+    logFlag(
+      "unstable_newEmbeddedAuthStrategy",
+      "Enable this to use OAuth token exchange instead of auth code to generate API access tokens.\n  Your app must be using Shopify managed install: https://shopify.dev/docs/apps/auth/installation"
+    );
   }
 }
 function shopifyApp(appConfig) {
@@ -12130,7 +13582,7 @@ function shopifyApp(appConfig) {
   }
   const authStrategy = authStrategyFactory({
     ...params,
-    strategy
+    strategy,
   });
   const shopify = {
     sessionStorage: config.sessionStorage,
@@ -12141,12 +13593,12 @@ function shopifyApp(appConfig) {
       flow: authenticateFlowFactory(params),
       public: authenticatePublicFactory(params),
       fulfillmentService: authenticateFulfillmentServiceFactory(params),
-      webhook: authenticateWebhookFactory(params)
+      webhook: authenticateWebhookFactory(params),
     },
     unauthenticated: {
       admin: unauthenticatedAdminContextFactory(params),
-      storefront: unauthenticatedStorefrontContextFactory(params)
-    }
+      storefront: unauthenticatedStorefrontContextFactory(params),
+    },
   };
   if (isAppStoreApp(shopify, appConfig) || isSingleMerchantApp(shopify, appConfig)) {
     shopify.login = loginFactory(params);
@@ -12165,8 +13617,11 @@ function deriveApi(appConfig) {
   try {
     appUrl = new URL(appConfig.appUrl);
   } catch (error) {
-    const message2 = appConfig.appUrl === "" ? `Detected an empty appUrl configuration, please make sure to set the necessary environment variables.
-If you're deploying your app, you can find more information at https://shopify.dev/docs/apps/launch/deployment/deploy-web-app/deploy-to-hosting-service#step-4-set-up-environment-variables` : `Invalid appUrl configuration '${appConfig.appUrl}', please provide a valid URL.`;
+    const message2 =
+      appConfig.appUrl === ""
+        ? `Detected an empty appUrl configuration, please make sure to set the necessary environment variables.
+If you're deploying your app, you can find more information at https://shopify.dev/docs/apps/launch/deployment/deploy-web-app/deploy-to-hosting-service#step-4-set-up-environment-variables`
+        : `Invalid appUrl configuration '${appConfig.appUrl}', please provide a valid URL.`;
     throw new ShopifyError(message2);
   }
   if (appUrl.hostname === "localhost" && !appUrl.port && process.env.PORT) {
@@ -12188,14 +13643,16 @@ If you're deploying your app, you can find more information at https://shopify.d
     billing: appConfig.billing,
     future: {
       lineItemBilling: true,
-      unstable_managedPricingSupport: true
+      unstable_managedPricingSupport: true,
     },
-    _logDisabledFutureFlags: false
+    _logDisabledFutureFlags: false,
   });
 }
 function deriveConfig(appConfig, apiConfig) {
   if (!appConfig.sessionStorage && appConfig.distribution !== AppDistribution.ShopifyAdmin) {
-    throw new ShopifyError("Please provide a valid session storage. Refer to https://github.com/Shopify/shopify-app-js/blob/main/README.md#session-storage-options for options.");
+    throw new ShopifyError(
+      "Please provide a valid session storage. Refer to https://github.com/Shopify/shopify-app-js/blob/main/README.md#session-storage-options for options."
+    );
   }
   const authPathPrefix = appConfig.authPathPrefix || "/auth";
   appConfig.distribution = appConfig.distribution ?? AppDistribution.AppStore;
@@ -12215,9 +13672,9 @@ function deriveConfig(appConfig, apiConfig) {
       callbackPath: `${authPathPrefix}/callback`,
       patchSessionTokenPath: `${authPathPrefix}/session-token`,
       exitIframePath: `${authPathPrefix}/exit-iframe`,
-      loginPath: `${authPathPrefix}/login`
+      loginPath: `${authPathPrefix}/login`,
     },
-    distribution: appConfig.distribution
+    distribution: appConfig.distribution,
   };
 }
 setAbstractRuntimeString(() => {
@@ -12232,7 +13689,7 @@ function createKVSessionStorage(kv) {
     async storeSession(session) {
       const id = session.id;
       await kv.put(`session:${id}`, JSON.stringify(session), {
-        expirationTtl: 60 * 60 * 24 * 30
+        expirationTtl: 60 * 60 * 24 * 30,
         // 30 days in seconds
       });
       return true;
@@ -12258,7 +13715,7 @@ function createKVSessionStorage(kv) {
         })
       );
       return sessions.filter(Boolean);
-    }
+    },
   };
 }
 let shopifyInstance = null;
@@ -12274,8 +13731,8 @@ function getShopify(env) {
       sessionStorage: createKVSessionStorage(env.APP_KV),
       distribution: AppDistribution.AppStore,
       future: {
-        unstable_newEmbeddedAuthStrategy: true
-      }
+        unstable_newEmbeddedAuthStrategy: true,
+      },
     });
   }
   return shopifyInstance;
@@ -12316,36 +13773,42 @@ function Products() {
     product.title,
     product.handle,
     product.status,
-    product.totalInventory?.toString() || "0"
+    product.totalInventory?.toString() || "0",
   ]);
-  const content = /* @__PURE__ */ jsx(
-    Page,
-    {
-      title: "Products",
-      backAction: { url: "/" },
-      children: /* @__PURE__ */ jsx(Layout, { children: /* @__PURE__ */ jsx(Layout.Section, { children: /* @__PURE__ */ jsxs(Card, { children: [
-        /* @__PURE__ */ jsx(Text, { as: "h2", variant: "headingMd", children: "Product List" }),
-        /* @__PURE__ */ jsx(
-          DataTable,
-          {
-            columnContentTypes: ["text", "text", "text", "numeric"],
-            headings: ["Title", "Handle", "Status", "Inventory"],
-            rows
-          }
-        )
-      ] }) }) })
-    }
-  );
+  const content = /* @__PURE__ */ jsx(Page, {
+    title: "Products",
+    backAction: { url: "/" },
+    children: /* @__PURE__ */ jsx(Layout, {
+      children: /* @__PURE__ */ jsx(Layout.Section, {
+        children: /* @__PURE__ */ jsxs(Card, {
+          children: [
+            /* @__PURE__ */ jsx(Text, { as: "h2", variant: "headingMd", children: "Product List" }),
+            /* @__PURE__ */ jsx(DataTable, {
+              columnContentTypes: ["text", "text", "text", "numeric"],
+              headings: ["Title", "Handle", "Status", "Inventory"],
+              rows,
+            }),
+          ],
+        }),
+      }),
+    }),
+  });
   if (host && apiKey) {
     return /* @__PURE__ */ jsx(ShopifyAppBridge, { apiKey, host, children: content });
   }
   return content;
 }
-const route1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: Products,
-  loader: loader$4
-}, Symbol.toStringTag, { value: "Module" }));
+const route1 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      default: Products,
+      loader: loader$4,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 const loader$3 = async ({ request: request2, context: context2 }) => {
   const env = context2.env;
   const { session } = await authenticate(env).admin(request2);
@@ -12363,53 +13826,75 @@ function Settings() {
   const { shop } = useLoaderData();
   const { host, apiKey } = useOutletContext();
   const [settingValue, setSettingValue] = useState("");
-  const content = /* @__PURE__ */ jsx(
-    Page,
-    {
-      title: "Settings",
-      backAction: { url: "/" },
-      children: /* @__PURE__ */ jsxs(Layout, { children: [
-        /* @__PURE__ */ jsx(Layout.Section, { children: /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsx(BlockStack, { gap: "400", children: /* @__PURE__ */ jsxs(FormLayout, { children: [
-          /* @__PURE__ */ jsx(
-            TextField,
-            {
-              label: "App Setting",
-              value: settingValue,
-              onChange: setSettingValue,
-              autoComplete: "off",
-              helpText: "Configure your app settings here"
-            }
-          ),
-          /* @__PURE__ */ jsxs(Form, { method: "post", children: [
-            /* @__PURE__ */ jsx("input", { type: "hidden", name: "setting", value: settingValue }),
-            /* @__PURE__ */ jsx(Button, { submit: true, children: "Save Settings" })
-          ] })
-        ] }) }) }) }),
-        /* @__PURE__ */ jsx(Layout.Section, { children: /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsxs(BlockStack, { gap: "200", children: [
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "Shop:" }),
-            " ",
-            shop
-          ] }),
-          /* @__PURE__ */ jsxs("p", { children: [
-            /* @__PURE__ */ jsx("strong", { children: "Status:" }),
-            " Connected"
-          ] })
-        ] }) }) })
-      ] })
-    }
-  );
+  const content = /* @__PURE__ */ jsx(Page, {
+    title: "Settings",
+    backAction: { url: "/" },
+    children: /* @__PURE__ */ jsxs(Layout, {
+      children: [
+        /* @__PURE__ */ jsx(Layout.Section, {
+          children: /* @__PURE__ */ jsx(Card, {
+            children: /* @__PURE__ */ jsx(BlockStack, {
+              gap: "400",
+              children: /* @__PURE__ */ jsxs(FormLayout, {
+                children: [
+                  /* @__PURE__ */ jsx(TextField, {
+                    label: "App Setting",
+                    value: settingValue,
+                    onChange: setSettingValue,
+                    autoComplete: "off",
+                    helpText: "Configure your app settings here",
+                  }),
+                  /* @__PURE__ */ jsxs(Form, {
+                    method: "post",
+                    children: [
+                      /* @__PURE__ */ jsx("input", {
+                        type: "hidden",
+                        name: "setting",
+                        value: settingValue,
+                      }),
+                      /* @__PURE__ */ jsx(Button, { submit: true, children: "Save Settings" }),
+                    ],
+                  }),
+                ],
+              }),
+            }),
+          }),
+        }),
+        /* @__PURE__ */ jsx(Layout.Section, {
+          children: /* @__PURE__ */ jsx(Card, {
+            children: /* @__PURE__ */ jsxs(BlockStack, {
+              gap: "200",
+              children: [
+                /* @__PURE__ */ jsxs("p", {
+                  children: [/* @__PURE__ */ jsx("strong", { children: "Shop:" }), " ", shop],
+                }),
+                /* @__PURE__ */ jsxs("p", {
+                  children: [/* @__PURE__ */ jsx("strong", { children: "Status:" }), " Connected"],
+                }),
+              ],
+            }),
+          }),
+        }),
+      ],
+    }),
+  });
   if (host && apiKey) {
     return /* @__PURE__ */ jsx(ShopifyAppBridge, { apiKey, host, children: content });
   }
   return content;
 }
-const route2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  action: action$1,
-  default: Settings,
-  loader: loader$3
-}, Symbol.toStringTag, { value: "Module" }));
+const route2 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      action: action$1,
+      default: Settings,
+      loader: loader$3,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 const loader$2 = async ({ request: request2, context: context2 }) => {
   const env = context2.env;
   const url = new URL(request2.url);
@@ -12419,10 +13904,16 @@ const loader$2 = async ({ request: request2, context: context2 }) => {
   }
   return await login(env)(request2);
 };
-const route3 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  loader: loader$2
-}, Symbol.toStringTag, { value: "Module" }));
+const route3 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      loader: loader$2,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 const action = async ({ request: request2, context: context2 }) => {
   const env = context2.env;
   const { topic, shop, session, admin } = await authenticate(env).webhook(request2);
@@ -12441,14 +13932,20 @@ const action = async ({ request: request2, context: context2 }) => {
   }
   return new Response(null, { status: 200 });
 };
-const route4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  action
-}, Symbol.toStringTag, { value: "Module" }));
+const route4 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      action,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 const meta = () => {
   return [
     { title: "CloudCache ShopApp" },
-    { name: "description", content: "Shopify app powered by CloudCache" }
+    { name: "description", content: "Shopify app powered by CloudCache" },
   ];
 };
 const loader$1 = async ({ request: request2, context: context2 }) => {
@@ -12463,50 +13960,211 @@ const loader$1 = async ({ request: request2, context: context2 }) => {
 function Index() {
   const { shop, authenticated } = useLoaderData();
   const { host, apiKey } = useOutletContext();
-  const content = /* @__PURE__ */ jsx(Page, { title: "Dashboard", children: /* @__PURE__ */ jsx(Layout, { children: /* @__PURE__ */ jsx(Layout.Section, { children: /* @__PURE__ */ jsx(Card, { children: /* @__PURE__ */ jsxs(BlockStack, { gap: "400", children: [
-    /* @__PURE__ */ jsx(Text, { as: "h2", variant: "headingMd", children: "Welcome to CloudCache ShopApp" }),
-    /* @__PURE__ */ jsx(Text, { as: "p", variant: "bodyMd", children: authenticated ? `Connected to shop: ${shop}` : "Not authenticated" }),
-    /* @__PURE__ */ jsxs(InlineStack, { gap: "300", children: [
-      /* @__PURE__ */ jsx(Button, { url: "/app/products", children: "Manage Products" }),
-      /* @__PURE__ */ jsx(Button, { url: "/app/settings", children: "Settings" })
-    ] })
-  ] }) }) }) }) });
+  const content = /* @__PURE__ */ jsx(Page, {
+    title: "Dashboard",
+    children: /* @__PURE__ */ jsx(Layout, {
+      children: /* @__PURE__ */ jsx(Layout.Section, {
+        children: /* @__PURE__ */ jsx(Card, {
+          children: /* @__PURE__ */ jsxs(BlockStack, {
+            gap: "400",
+            children: [
+              /* @__PURE__ */ jsx(Text, {
+                as: "h2",
+                variant: "headingMd",
+                children: "Welcome to CloudCache ShopApp",
+              }),
+              /* @__PURE__ */ jsx(Text, {
+                as: "p",
+                variant: "bodyMd",
+                children: authenticated ? `Connected to shop: ${shop}` : "Not authenticated",
+              }),
+              /* @__PURE__ */ jsxs(InlineStack, {
+                gap: "300",
+                children: [
+                  /* @__PURE__ */ jsx(Button, {
+                    url: "/app/products",
+                    children: "Manage Products",
+                  }),
+                  /* @__PURE__ */ jsx(Button, { url: "/app/settings", children: "Settings" }),
+                ],
+              }),
+            ],
+          }),
+        }),
+      }),
+    }),
+  });
   if (host && apiKey) {
     return /* @__PURE__ */ jsx(ShopifyAppBridge, { apiKey, host, children: content });
   }
   return content;
 }
-const route5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  default: Index,
-  loader: loader$1,
-  meta
-}, Symbol.toStringTag, { value: "Module" }));
+const route5 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      default: Index,
+      loader: loader$1,
+      meta,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
 const loader = async ({ request: request2, context: context2 }) => {
   const env = context2.env;
   await authenticate(env).admin(request2);
   return null;
 };
-const route6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  loader
-}, Symbol.toStringTag, { value: "Module" }));
-const serverManifest = { "entry": { "module": "/assets/entry.client-CIPMhcl9.js", "imports": ["/assets/components-pL6DFRjL.js"], "css": [] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/root-B1pO8Diw.js", "imports": ["/assets/components-pL6DFRjL.js"], "css": ["/assets/root-Cst8-6Q9.css"] }, "routes/app.products": { "id": "routes/app.products", "parentId": "root", "path": "app/products", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/app.products-BAyMXZJD.js", "imports": ["/assets/components-pL6DFRjL.js", "/assets/AppBridgeProvider-7j6ZGZU_.js"], "css": [] }, "routes/app.settings": { "id": "routes/app.settings", "parentId": "root", "path": "app/settings", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/app.settings-D1yDm4Qb.js", "imports": ["/assets/components-pL6DFRjL.js", "/assets/AppBridgeProvider-7j6ZGZU_.js"], "css": [] }, "routes/auth.login": { "id": "routes/auth.login", "parentId": "root", "path": "auth/login", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/auth.login-l0sNRNKZ.js", "imports": [], "css": [] }, "routes/webhooks": { "id": "routes/webhooks", "parentId": "root", "path": "webhooks", "index": void 0, "caseSensitive": void 0, "hasAction": true, "hasLoader": false, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/webhooks-l0sNRNKZ.js", "imports": [], "css": [] }, "routes/_index": { "id": "routes/_index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/_index-_iiVQ1UM.js", "imports": ["/assets/components-pL6DFRjL.js", "/assets/AppBridgeProvider-7j6ZGZU_.js"], "css": [] }, "routes/auth.$": { "id": "routes/auth.$", "parentId": "root", "path": "auth/*", "index": void 0, "caseSensitive": void 0, "hasAction": false, "hasLoader": true, "hasClientAction": false, "hasClientLoader": false, "hasErrorBoundary": false, "module": "/assets/auth._-l0sNRNKZ.js", "imports": [], "css": [] } }, "url": "/assets/manifest-db496436.js", "version": "db496436" };
+const route6 = /* @__PURE__ */ Object.freeze(
+  /* @__PURE__ */ Object.defineProperty(
+    {
+      __proto__: null,
+      loader,
+    },
+    Symbol.toStringTag,
+    { value: "Module" }
+  )
+);
+const serverManifest = {
+  entry: {
+    module: "/assets/entry.client-CIPMhcl9.js",
+    imports: ["/assets/components-pL6DFRjL.js"],
+    css: [],
+  },
+  routes: {
+    root: {
+      id: "root",
+      parentId: void 0,
+      path: "",
+      index: void 0,
+      caseSensitive: void 0,
+      hasAction: false,
+      hasLoader: true,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/root-B1pO8Diw.js",
+      imports: ["/assets/components-pL6DFRjL.js"],
+      css: ["/assets/root-Cst8-6Q9.css"],
+    },
+    "routes/app.products": {
+      id: "routes/app.products",
+      parentId: "root",
+      path: "app/products",
+      index: void 0,
+      caseSensitive: void 0,
+      hasAction: false,
+      hasLoader: true,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/app.products-BAyMXZJD.js",
+      imports: ["/assets/components-pL6DFRjL.js", "/assets/AppBridgeProvider-7j6ZGZU_.js"],
+      css: [],
+    },
+    "routes/app.settings": {
+      id: "routes/app.settings",
+      parentId: "root",
+      path: "app/settings",
+      index: void 0,
+      caseSensitive: void 0,
+      hasAction: true,
+      hasLoader: true,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/app.settings-D1yDm4Qb.js",
+      imports: ["/assets/components-pL6DFRjL.js", "/assets/AppBridgeProvider-7j6ZGZU_.js"],
+      css: [],
+    },
+    "routes/auth.login": {
+      id: "routes/auth.login",
+      parentId: "root",
+      path: "auth/login",
+      index: void 0,
+      caseSensitive: void 0,
+      hasAction: false,
+      hasLoader: true,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/auth.login-l0sNRNKZ.js",
+      imports: [],
+      css: [],
+    },
+    "routes/webhooks": {
+      id: "routes/webhooks",
+      parentId: "root",
+      path: "webhooks",
+      index: void 0,
+      caseSensitive: void 0,
+      hasAction: true,
+      hasLoader: false,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/webhooks-l0sNRNKZ.js",
+      imports: [],
+      css: [],
+    },
+    "routes/_index": {
+      id: "routes/_index",
+      parentId: "root",
+      path: void 0,
+      index: true,
+      caseSensitive: void 0,
+      hasAction: false,
+      hasLoader: true,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/_index-_iiVQ1UM.js",
+      imports: ["/assets/components-pL6DFRjL.js", "/assets/AppBridgeProvider-7j6ZGZU_.js"],
+      css: [],
+    },
+    "routes/auth.$": {
+      id: "routes/auth.$",
+      parentId: "root",
+      path: "auth/*",
+      index: void 0,
+      caseSensitive: void 0,
+      hasAction: false,
+      hasLoader: true,
+      hasClientAction: false,
+      hasClientLoader: false,
+      hasErrorBoundary: false,
+      module: "/assets/auth._-l0sNRNKZ.js",
+      imports: [],
+      css: [],
+    },
+  },
+  url: "/assets/manifest-db496436.js",
+  version: "db496436",
+};
 const mode = "production";
 const assetsBuildDirectory = "build/client";
 const basename = "/";
-const future = { "v3_fetcherPersist": true, "v3_relativeSplatPath": true, "v3_throwAbortReason": true, "v3_routeConfig": false, "v3_singleFetch": false, "v3_lazyRouteDiscovery": false, "unstable_optimizeDeps": false };
+const future = {
+  v3_fetcherPersist: true,
+  v3_relativeSplatPath: true,
+  v3_throwAbortReason: true,
+  v3_routeConfig: false,
+  v3_singleFetch: false,
+  v3_lazyRouteDiscovery: false,
+  unstable_optimizeDeps: false,
+};
 const isSpaMode = false;
 const publicPath = "/";
 const entry = { module: entryServer };
 const routes = {
-  "root": {
+  root: {
     id: "root",
     parentId: void 0,
     path: "",
     index: void 0,
     caseSensitive: void 0,
-    module: route0
+    module: route0,
   },
   "routes/app.products": {
     id: "routes/app.products",
@@ -12514,7 +14172,7 @@ const routes = {
     path: "app/products",
     index: void 0,
     caseSensitive: void 0,
-    module: route1
+    module: route1,
   },
   "routes/app.settings": {
     id: "routes/app.settings",
@@ -12522,7 +14180,7 @@ const routes = {
     path: "app/settings",
     index: void 0,
     caseSensitive: void 0,
-    module: route2
+    module: route2,
   },
   "routes/auth.login": {
     id: "routes/auth.login",
@@ -12530,7 +14188,7 @@ const routes = {
     path: "auth/login",
     index: void 0,
     caseSensitive: void 0,
-    module: route3
+    module: route3,
   },
   "routes/webhooks": {
     id: "routes/webhooks",
@@ -12538,7 +14196,7 @@ const routes = {
     path: "webhooks",
     index: void 0,
     caseSensitive: void 0,
-    module: route4
+    module: route4,
   },
   "routes/_index": {
     id: "routes/_index",
@@ -12546,7 +14204,7 @@ const routes = {
     path: void 0,
     index: true,
     caseSensitive: void 0,
-    module: route5
+    module: route5,
   },
   "routes/auth.$": {
     id: "routes/auth.$",
@@ -12554,8 +14212,8 @@ const routes = {
     path: "auth/*",
     index: void 0,
     caseSensitive: void 0,
-    module: route6
-  }
+    module: route6,
+  },
 };
 export {
   serverManifest as assets,
@@ -12566,5 +14224,5 @@ export {
   isSpaMode,
   mode,
   publicPath,
-  routes
+  routes,
 };

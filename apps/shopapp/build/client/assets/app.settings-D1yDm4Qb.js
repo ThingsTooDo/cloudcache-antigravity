@@ -1,1 +1,102 @@
-import{R as a,r as l,u as E,a as I,j as e,F as b}from"./components-pL6DFRjL.js";import{c as F,w as g,B as c,I as L,b as T,T as k,i as v,P as B,L as d,C as h,d as P,a as w,S as A}from"./AppBridgeProvider-7j6ZGZU_.js";var m={Item:"Polaris-FormLayout__Item",grouped:"Polaris-FormLayout--grouped",condensed:"Polaris-FormLayout--condensed"};function j({children:t,condensed:s=!1}){const n=F(m.Item,s?m.condensed:m.grouped);return t?a.createElement("div",{className:n},t):null}function f({children:t,condensed:s,title:n,helpText:r}){const i=l.useId();let o=null,u,x=null,p;r&&(u=`${i}HelpText`,o=a.createElement(T,{id:u,color:"text-secondary"},r)),n&&(p=`${i}Title`,x=a.createElement(k,{id:p,as:"p"},n));const S=l.Children.map(t,C=>g(C,j,{condensed:s}));return a.createElement(c,{role:"group",gap:"200","aria-labelledby":p,"aria-describedby":u},x,a.createElement(L,{gap:"300"},S),o)}const y=l.memo(function({children:s}){return a.createElement(c,{gap:"400"},l.Children.map(s,N))});y.Group=f;function N(t,s){return v(t,f)?t:g(t,j,{key:s})}function O(){const{shop:t}=E(),{host:s,apiKey:n}=I(),[r,i]=l.useState(""),o=e.jsx(B,{title:"Settings",backAction:{url:"/"},children:e.jsxs(d,{children:[e.jsx(d.Section,{children:e.jsx(h,{children:e.jsx(c,{gap:"400",children:e.jsxs(y,{children:[e.jsx(P,{label:"App Setting",value:r,onChange:i,autoComplete:"off",helpText:"Configure your app settings here"}),e.jsxs(b,{method:"post",children:[e.jsx("input",{type:"hidden",name:"setting",value:r}),e.jsx(w,{submit:!0,children:"Save Settings"})]})]})})})}),e.jsx(d.Section,{children:e.jsx(h,{children:e.jsxs(c,{gap:"200",children:[e.jsxs("p",{children:[e.jsx("strong",{children:"Shop:"})," ",t]}),e.jsxs("p",{children:[e.jsx("strong",{children:"Status:"})," Connected"]})]})})})]})});return s&&n?e.jsx(A,{apiKey:n,host:s,children:o}):o}export{O as default};
+import { R as a, r as l, u as E, a as I, j as e, F as b } from "./components-pL6DFRjL.js";
+import {
+  c as F,
+  w as g,
+  B as c,
+  I as L,
+  b as T,
+  T as k,
+  i as v,
+  P as B,
+  L as d,
+  C as h,
+  d as P,
+  a as w,
+  S as A,
+} from "./AppBridgeProvider-7j6ZGZU_.js";
+var m = {
+  Item: "Polaris-FormLayout__Item",
+  grouped: "Polaris-FormLayout--grouped",
+  condensed: "Polaris-FormLayout--condensed",
+};
+function j({ children: t, condensed: s = !1 }) {
+  const n = F(m.Item, s ? m.condensed : m.grouped);
+  return t ? a.createElement("div", { className: n }, t) : null;
+}
+function f({ children: t, condensed: s, title: n, helpText: r }) {
+  const i = l.useId();
+  let o = null,
+    u,
+    x = null,
+    p;
+  (r && ((u = `${i}HelpText`), (o = a.createElement(T, { id: u, color: "text-secondary" }, r))),
+    n && ((p = `${i}Title`), (x = a.createElement(k, { id: p, as: "p" }, n))));
+  const S = l.Children.map(t, (C) => g(C, j, { condensed: s }));
+  return a.createElement(
+    c,
+    { role: "group", gap: "200", "aria-labelledby": p, "aria-describedby": u },
+    x,
+    a.createElement(L, { gap: "300" }, S),
+    o
+  );
+}
+const y = l.memo(function ({ children: s }) {
+  return a.createElement(c, { gap: "400" }, l.Children.map(s, N));
+});
+y.Group = f;
+function N(t, s) {
+  return v(t, f) ? t : g(t, j, { key: s });
+}
+function O() {
+  const { shop: t } = E(),
+    { host: s, apiKey: n } = I(),
+    [r, i] = l.useState(""),
+    o = e.jsx(B, {
+      title: "Settings",
+      backAction: { url: "/" },
+      children: e.jsxs(d, {
+        children: [
+          e.jsx(d.Section, {
+            children: e.jsx(h, {
+              children: e.jsx(c, {
+                gap: "400",
+                children: e.jsxs(y, {
+                  children: [
+                    e.jsx(P, {
+                      label: "App Setting",
+                      value: r,
+                      onChange: i,
+                      autoComplete: "off",
+                      helpText: "Configure your app settings here",
+                    }),
+                    e.jsxs(b, {
+                      method: "post",
+                      children: [
+                        e.jsx("input", { type: "hidden", name: "setting", value: r }),
+                        e.jsx(w, { submit: !0, children: "Save Settings" }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+            }),
+          }),
+          e.jsx(d.Section, {
+            children: e.jsx(h, {
+              children: e.jsxs(c, {
+                gap: "200",
+                children: [
+                  e.jsxs("p", { children: [e.jsx("strong", { children: "Shop:" }), " ", t] }),
+                  e.jsxs("p", {
+                    children: [e.jsx("strong", { children: "Status:" }), " Connected"],
+                  }),
+                ],
+              }),
+            }),
+          }),
+        ],
+      }),
+    });
+  return s && n ? e.jsx(A, { apiKey: n, host: s, children: o }) : o;
+}
+export { O as default };

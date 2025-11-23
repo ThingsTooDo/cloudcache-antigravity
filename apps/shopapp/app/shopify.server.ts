@@ -44,4 +44,3 @@ export function login(env: Env) {
 export function registerWebhooks(env: Env) {
   return getShopify(env).registerWebhooks;
 }
-

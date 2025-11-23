@@ -3,7 +3,7 @@ import { z } from "zod";
  * Environment schema for APP module (Hono Worker)
  */
 export const AppEnvSchema = z
-    .object({
+  .object({
     APP_KV: z.any(), // KV Namespace binding
     APP_D1: z.any(), // D1 Database binding
     SHOPIFY_API_KEY: z.string().min(1, "SHOPIFY_API_KEY is required"),
@@ -13,54 +13,52 @@ export const AppEnvSchema = z
     CF_API_TOKEN: z.string().optional(),
     CF_ACCOUNT_ID: z.string().optional(),
     CF_ZONE_ID: z.string().optional(),
-})
-    .passthrough()
-    .transform((val) => {
+  })
+  .passthrough()
+  .transform((val) => {
     // Ensure optional Cloudflare API fields pass through when set as secrets
     return val;
-});
+  });
 /**
  * Environment schema for ADMIN module (Hono Worker)
  */
 export const AdminEnvSchema = z
-    .object({
+  .object({
     CF_ACCESS_CLIENT_ID: z.string().min(1, "CF_ACCESS_CLIENT_ID is required"),
     CF_ACCESS_CLIENT_SECRET: z.string().min(1, "CF_ACCESS_CLIENT_SECRET is required"),
-})
-    .passthrough();
+  })
+  .passthrough();
 /**
  * Environment schema for APEX module (Astro Pages SSR)
  */
 export const ApexEnvSchema = z
-    .object({
+  .object({
     CF_ACCESS_CLIENT_ID: z.string().min(1, "CF_ACCESS_CLIENT_ID is required"),
     CF_ACCESS_CLIENT_SECRET: z.string().min(1, "CF_ACCESS_CLIENT_SECRET is required"),
-})
-    .passthrough();
+  })
+  .passthrough();
 /**
  * Get and validate environment variables against a schema
  * Fails fast on boot if required bindings are missing
  */
 export function getEnv(schema, env) {
-    try {
-        return schema.parse(env);
+  try {
+    return schema.parse(env);
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const missing = error.errors.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ");
+      throw new Error(`Environment validation failed: ${missing}`);
     }
-    catch (error) {
-        if (error instanceof z.ZodError) {
-            const missing = error.errors.map((e) => `${e.path.join(".")}: ${e.message}`).join(", ");
-            throw new Error(`Environment validation failed: ${missing}`);
-        }
-        throw error;
-    }
+    throw error;
+  }
 }
 /**
  * Safe getEnv that returns undefined instead of throwing
  */
 export function getEnvSafe(schema, env) {
-    try {
-        return schema.parse(env);
-    }
-    catch {
-        return undefined;
-    }
+  try {
+    return schema.parse(env);
+  } catch {
+    return undefined;
+  }
 }

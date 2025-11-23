@@ -2,10 +2,10 @@ export const Header = `<div class="header">Header</div>`;
 export const Sidebar = `<div class="sidebar">Left Sidebar</div>`;
 export const Footer = `<div class="footer">Footer</div>`;
 export function Title(mode, module) {
-    return `<div class="title">This is Cloudcache <span style="color:#FF0000;">${mode}</span> <span style="color:#000000;">${module}</span></div>`;
+  return `<div class="title">This is Cloudcache <span style="color:#FF0000;">${mode}</span> <span style="color:#000000;">${module}</span></div>`;
 }
 export function renderPage(_props) {
-    return `
+  return `
 <!DOCTYPE html>
 <html lang="en">
 <head>

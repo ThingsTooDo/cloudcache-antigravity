@@ -78,7 +78,7 @@ The current codebase follows a `pnpm` workspace monorepo structure, which is a s
 
 ✅ **Phase I**: Root directory cleaned, garbage removed  
 ✅ **Phase II**: Modules renamed for clarity (`shopapp`, `website`)  
-✅ **Phase III**: Shopify + Remix foundation established  
+✅ **Phase III**: Shopify + Remix foundation established
 
 The codebase is now **A+ Grade** with:
 

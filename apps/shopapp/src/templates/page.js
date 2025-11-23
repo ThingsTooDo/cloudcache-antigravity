@@ -1,7 +1,7 @@
 export function renderPage(props = {}) {
-    // Strict UI Template for Preview Phase I
-    // We ignore props for this phase to ensure strict UI compliance
-    return `
+  // Strict UI Template for Preview Phase I
+  // We ignore props for this phase to ensure strict UI compliance
+  return `
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -19,9 +19,6 @@ export default defineConfig({
     resolve: {
       conditions: ["workerd", "worker", "browser"],
     },
-    noExternal: [
-      "@shopify/shopify-app-remix",
-      "@shopify/app-bridge-react",
-    ],
+    noExternal: ["@shopify/shopify-app-remix", "@shopify/app-bridge-react"],
   },
 });

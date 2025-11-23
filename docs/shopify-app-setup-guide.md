@@ -564,22 +564,22 @@ If distributing publicly:
 
 ### Important URLs
 
-| Resource | URL |
-|----------|-----|
-| Partner Dashboard | <https://partners.shopify.com> |
-| Dev Store Admin | https://[store].myshopify.com/admin |
-| Local Dev Server | <http://localhost:8789> |
+| Resource           | URL                                                     |
+| ------------------ | ------------------------------------------------------- |
+| Partner Dashboard  | <https://partners.shopify.com>                          |
+| Dev Store Admin    | https://[store].myshopify.com/admin                     |
+| Local Dev Server   | <http://localhost:8789>                                 |
 | Preview Deployment | <https://shopify-worker-preview.cloudcache.workers.dev> |
-| Production | <https://shopify.cloudcache.ai> |
+| Production         | <https://shopify.cloudcache.ai>                         |
 
 ### Key Files
 
-| File | Purpose |
-|------|---------|
-| `apps/shopify/.dev.vars` | Local environment variables |
-| `apps/shopify/wrangler.toml` | Cloudflare Worker config |
-| `apps/shopify/shopify.app.toml` | Shopify CLI config |
-| `apps/shopify/app/shopify.server.ts` | Shopify SDK initialization |
+| File                                 | Purpose                        |
+| ------------------------------------ | ------------------------------ |
+| `apps/shopify/.dev.vars`             | Local environment variables    |
+| `apps/shopify/wrangler.toml`         | Cloudflare Worker config       |
+| `apps/shopify/shopify.app.toml`      | Shopify CLI config             |
+| `apps/shopify/app/shopify.server.ts` | Shopify SDK initialization     |
 | `apps/shopify/app/session.server.ts` | Session storage implementation |
 
 ### Common Commands

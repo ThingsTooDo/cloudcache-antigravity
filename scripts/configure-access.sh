@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Configure Cloudflare Access policies for all modules
-# Usage: bash scripts/configure-access.sh [all|app|admin|apex]
+# Usage: bash scripts/configure-access.sh [all|shopapp|admin|website]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -270,16 +270,16 @@ configure_all() {
   log "Configuring Access policies for all modules and environments"
   
   # App module
-  configure_module_env "app" "production" "app.cloudcache.ai" "monitor-readyz-app-prod"
-  configure_module_env "app" "staging" "staging-app.cloudcache.ai" "monitor-readyz-app-staging"
+  configure_module_env "shopapp" "production" "shopapp.cloudcache.ai" "monitor-readyz-shopapp-prod"
+  configure_module_env "shopapp" "staging" "staging-shopapp.cloudcache.ai" "monitor-readyz-shopapp-staging"
   
   # Admin module
   configure_module_env "admin" "production" "admin.cloudcache.ai" "monitor-readyz-admin-prod"
   configure_module_env "admin" "staging" "staging-admin.cloudcache.ai" "monitor-readyz-admin-staging"
   
   # Apex module
-  configure_module_env "apex" "production" "cloudcache.ai" "monitor-readyz-apex-prod"
-  configure_module_env "apex" "staging" "staging-apex.cloudcache.ai" "monitor-readyz-apex-staging"
+  configure_module_env "website" "production" "cloudcache.ai" "monitor-readyz-website-prod"
+  configure_module_env "website" "staging" "staging-website.cloudcache.ai" "monitor-readyz-website-staging"
   
   log "✅ All Access policies configured successfully"
 }
@@ -293,20 +293,20 @@ case "$MODULE_ARG" in
   all)
     configure_all
     ;;
-  app)
-    configure_module_env "app" "production" "app.cloudcache.ai" "monitor-readyz-app-prod"
-    configure_module_env "app" "staging" "staging-app.cloudcache.ai" "monitor-readyz-app-staging"
+  shopapp)
+    configure_module_env "shopapp" "production" "shopapp.cloudcache.ai" "monitor-readyz-shopapp-prod"
+    configure_module_env "shopapp" "staging" "staging-shopapp.cloudcache.ai" "monitor-readyz-shopapp-staging"
     ;;
   admin)
     configure_module_env "admin" "production" "admin.cloudcache.ai" "monitor-readyz-admin-prod"
     configure_module_env "admin" "staging" "staging-admin.cloudcache.ai" "monitor-readyz-admin-staging"
     ;;
-  apex)
-    configure_module_env "apex" "production" "cloudcache.ai" "monitor-readyz-apex-prod"
-    configure_module_env "apex" "staging" "staging-apex.cloudcache.ai" "monitor-readyz-apex-staging"
+  website)
+    configure_module_env "website" "production" "cloudcache.ai" "monitor-readyz-website-prod"
+    configure_module_env "website" "staging" "staging-website.cloudcache.ai" "monitor-readyz-website-staging"
     ;;
   *)
-    die "Unknown module: $MODULE_ARG. Use: all|app|admin|apex"
+    die "Unknown module: $MODULE_ARG. Use: all|shopapp|admin|website"
     ;;
 esac
 

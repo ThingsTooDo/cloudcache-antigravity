@@ -25,7 +25,7 @@ setup_wrangler_token
 # Check for wrangler and authenticate once at the start
 require_wrangler
 
-bash "$SCRIPT_DIR/deploy-module.sh" app preview
+bash "$SCRIPT_DIR/deploy-module.sh" shopapp preview
 log "Pausing for 5 seconds to allow API to settle..."
 sleep 5
 
@@ -33,7 +33,7 @@ bash "$SCRIPT_DIR/deploy-module.sh" admin preview
 log "Pausing for 5 seconds to allow API to settle..."
 sleep 5
 
-bash "$SCRIPT_DIR/deploy-module.sh" apex preview
+bash "$SCRIPT_DIR/deploy-module.sh" website preview
 
 log "🎉 All modules successfully deployed to preview!"
 

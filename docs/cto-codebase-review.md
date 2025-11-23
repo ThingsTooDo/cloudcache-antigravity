@@ -35,31 +35,10 @@ To achieve an **A+ Grade**, we must align with Shopify's modern Remix-based arch
 
 ## 2. Recommendations for Refactoring
 
-### Phase 1: Root Hygiene (Immediate)
-
-- **DELETE** `wrangler.toml` (Root): It is incorrect and unused.
-- **DELETE** `folder_structure.txt`: Replace with a dynamic command or documentation if needed.
-- **CLEANUP** `scripts/`: Audit and consolidate.
-
-### Phase 2: Structural Refactoring (The "A+" Standard)
-
-We should restructure `apps/` to be explicit about intent.
-
-#### Proposed Structure
-
-```
-/
-├── apps/
-│   ├── shopify-app/       # [NEW] Remix-based Shopify App (UI + Backend)
-│   │   ├── shopify.app.toml
-│   │   └── app/routes/
-│   ├── api-core/          # [RENAME from apps/app] Shared Backend/Worker API
-│   ├── admin-tool/        # [RENAME from apps/admin] Internal Admin Tool
-│   └── marketing/         # [RENAME from apps/apex] Landing Page (Astro)
-├── packages/
 │   ├── platform-*         # Existing packages (Keep)
 │   ├── shopify-utils/     # [NEW] Shared Shopify logic (Auth, Webhooks)
 │   └── config/            # [NEW] Shared TSConfig, ESLint, Wrangler configs
+
 ```
 
 ### Phase 3: Shopify Integration

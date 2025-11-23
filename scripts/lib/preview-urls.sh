@@ -47,13 +47,13 @@ extract_pages_preview_url() {
 
 # Get preview URL for a module
 # Usage: get_module_preview_url <module> [worker-name-or-url]
-# Example: get_module_preview_url "app" "app-worker-preview"
+# Example: get_module_preview_url "shopapp" "shopapp-worker-preview"
 get_module_preview_url() {
   local module="$1"
   local worker_name_or_url="${2:-}"
   
   case "$module" in
-    apex|app|admin)
+    website|shopapp|admin)
       if [[ -n "$worker_name_or_url" ]]; then
         # If it's already a URL, return it
         if [[ "$worker_name_or_url" =~ ^https?:// ]]; then
@@ -69,7 +69,7 @@ get_module_preview_url() {
       fi
       ;;
     *)
-      die "Unknown module: $module. Must be one of: apex, app, admin"
+      die "Unknown module: $module. Must be one of: website, shopapp, admin"
       ;;
   esac
 }

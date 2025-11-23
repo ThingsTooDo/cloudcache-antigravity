@@ -11,7 +11,7 @@ REPORTS_DIR="$ROOT_DIR/docs/reports/validation"
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 REPORT_FILE="$REPORTS_DIR/validation-report-$TIMESTAMP.md"
 
-MODULES=("app" "admin" "apex")
+MODULES=("shopapp" "admin" "website")
 MODES=("preview" "staging" "production")
 ENVIRONMENTS=("localhost" "cloudflare")
 
@@ -150,11 +150,11 @@ get_worker_name() {
   local module="$1"
   local mode="$2"
   case "$module" in
-    app)
+    shopapp)
       case "$mode" in
-        preview) echo "app-worker-preview" ;;
-        staging) echo "app-staging" ;;
-        production) echo "app-production" ;;
+        preview) echo "shopapp-worker-preview" ;;
+        staging) echo "shopapp-staging" ;;
+        production) echo "shopapp-production" ;;
       esac
       ;;
     admin)
@@ -165,12 +165,12 @@ get_worker_name() {
         production) echo "admin-production" ;;
       esac
       ;;
-    apex)
+    website)
       case "$mode" in
-        localhost) echo "apex-local" ;;
-        preview) echo "apex-pages-preview" ;;
-        staging) echo "apex-staging" ;;
-        production) echo "apex-production" ;;
+        localhost) echo "website-local" ;;
+        preview) echo "website-pages-preview" ;;
+        staging) echo "website-staging" ;;
+        production) echo "website-production" ;;
       esac
       ;;
   esac
@@ -212,16 +212,16 @@ for module in "${MODULES[@]}"; do
       if [[ "$env" == "localhost" ]]; then
         GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
         case "$module" in
-          app) url="http://localhost:8789" ;;
+          shopapp) url="http://localhost:8789" ;;
           admin) url="http://localhost:8787" ;;
-          apex) url="http://localhost:8788" ;;
+          website) url="http://localhost:8788" ;;
         esac
       else # cloudflare
         case "$mode" in
           preview)
             GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
-            if [[ "$module" == "apex" ]]; then
-              url="https://preview.apex-8h2.pages.dev"
+            if [[ "$module" == "website" ]]; then
+              url="https://preview.website-8h2.pages.dev"
             else
               url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
             fi
@@ -241,7 +241,7 @@ for module in "${MODULES[@]}"; do
               continue 2 # Skip to the next mode
             fi
             GIT_HASH=$(git rev-parse --short origin/main 2>/dev/null || echo "unknown")
-            if [[ "$module" == "apex" ]]; then
+            if [[ "$module" == "website" ]]; then
               url="https://cloudcache.ai"
             else
               url="https://$module.cloudcache.ai"

@@ -24,9 +24,9 @@ Secrets are stored per Worker and per environment using `wrangler secret put`:
 - **admin-worker** (production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
 - **admin-worker-staging**: Same secrets, different values
 - **admin-worker-preview**: Same secrets, different values
-- **apex-cloudcache** (Pages production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
-- **apex-cloudcache** (Pages staging): Same secrets, different values
-- **apex-cloudcache** (Pages preview): Same secrets, different values
+- **website-cloudcache** (Pages production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
+- **website-cloudcache** (Pages staging): Same secrets, different values
+- **website-cloudcache** (Pages preview): Same secrets, different values
 
 ### CI/CD
 
@@ -44,7 +44,7 @@ scripts/cloudcache bootstrap <module> <env>
 # Examples:
 scripts/cloudcache bootstrap app prod
 scripts/cloudcache bootstrap admin staging
-scripts/cloudcache bootstrap apex preview
+scripts/cloudcache bootstrap website preview
 ```
 
 ### Bind Secrets
@@ -56,7 +56,7 @@ scripts/cloudcache bind <module> <env>
 # Examples:
 scripts/cloudcache bind app prod
 scripts/cloudcache bind admin staging
-scripts/cloudcache bind apex preview
+scripts/cloudcache bind website preview
 ```
 
 ### Verify Setup
@@ -68,7 +68,7 @@ scripts/cloudcache verify <module> <env>
 # Examples:
 scripts/cloudcache verify app prod
 scripts/cloudcache verify admin staging
-scripts/cloudcache verify apex preview
+scripts/cloudcache verify website preview
 ```
 
 ### Manual Secret Management
@@ -94,7 +94,7 @@ wrangler secret list --name app-worker --env staging
 Use `wrangler dev --remote` to run locally with remote bindings:
 
 ```bash
-cd apps/app
+cd apps/shopapp
 pnpm dev  # Uses wrangler dev --remote automatically
 ```
 

@@ -13,10 +13,12 @@ Local development uses **local bindings** configured via `.dev.vars` files to si
 ## Prerequisites
 
 1. **Wrangler CLI** installed:
+
    ```bash
    npm install -g wrangler
    # No login required for local-only dev
    ```
+
 2. **pnpm** installed (see root `package.json`)
 3. **Dependencies** installed: `pnpm install`
 
@@ -24,9 +26,9 @@ Local development uses **local bindings** configured via `.dev.vars` files to si
 
 | Module | Root Command     | Module Command              | Port |
 | ------ | ---------------- | --------------------------- | ---- |
-| APP    | `pnpm dev:app`   | `cd apps/app && pnpm dev`   | 8789 |
-| ADMIN  | `pnpm dev:admin` | `cd apps/admin && pnpm dev` | 8787 |
-| APEX   | `pnpm dev:apex`  | `cd apps/apex && pnpm dev`  | 8788 |
+| SHOPAPP | `pnpm dev:shopapp` | `cd apps/shopapp && pnpm dev` | 8789 |
+| ADMIN   | `pnpm dev:admin`   | `cd apps/admin && pnpm dev`   | 8787 |
+| WEBSITE | `pnpm dev:website` | `cd apps/website && pnpm dev` | 8788 |
 
 > **Start/stop helpers**
 >
@@ -51,7 +53,7 @@ This tells Wrangler to:
 
 **Runtime secrets** (e.g., `SHOPIFY_API_KEY`, `CF_ACCESS_CLIENT_ID`) are required for the worker to start correctly.
 
-1. **Create `.dev.vars`** in the module directory (e.g., `apps/app/.dev.vars`).
+1. **Create `.dev.vars`** in the module directory (e.g., `apps/shopapp/.dev.vars`).
 2. **Populate with dummy values** for local testing (or real dev keys if needed):
 
    ```bash
@@ -71,7 +73,7 @@ This tells Wrangler to:
 
 ```bash
 # Run tests for a specific module
-pnpm --filter @cloudcache/app test
+pnpm --filter @cloudcache/shopapp test
 
 # Run all tests
 pnpm test
@@ -83,7 +85,7 @@ Use Miniflare for local integration testing (see `packages/test-utils`).
 
 ### Manual Testing
 
-1. Start local dev server: `pnpm dev:app`
+1. Start local dev server: `pnpm dev:shopapp`
 2. Make requests: `curl http://localhost:8789/healthz`
 3. Check logs in terminal
 
@@ -98,10 +100,12 @@ When editing HTML content in Cloudflare Workers (wrangler dev), changes may not 
 1. **Verify File Change**: Check `src/index.ts`.
 2. **Clear Cache**: `rm -rf .wrangler` in the module directory.
 3. **Restart Dev Server**:
+
    ```bash
    bash scripts/dev-stop.sh
    pnpm dev
    ```
+
 4. **Hard Refresh**: Cmd+Shift+R in browser.
 
 **Prevention**: Add cache-control headers to responses.

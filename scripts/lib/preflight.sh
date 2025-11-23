@@ -48,8 +48,8 @@ check_kv_namespace() {
   local module="$1"
   local env="$2"
   
-  if [[ "$module" != "app" ]]; then
-    return 0  # Only app module uses KV
+  if [[ "$module" != "shopapp" ]]; then
+    return 0  # Only shopapp module uses KV
   fi
   
   setup_cf_env
@@ -117,7 +117,7 @@ preflight_check() {
     log "Checking module-specific requirements for $module..."
     
     # Check build artifacts for Workers modules
-    if [[ "$module" == "app" || "$module" == "admin" ]]; then
+    if [[ "$module" == "shopapp" || "$module" == "admin" ]]; then
       if [[ "$operation" == "deploy" ]]; then
         check_build_artifact "$module"
       fi

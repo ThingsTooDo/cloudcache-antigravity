@@ -10,8 +10,14 @@ This document is the canonical source for all deployment, preview, and verificat
 
 1. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
 2. **Hybrid Architecture**:
-   - **APP & ADMIN**: Cloudflare Workers (Workers-first).
-   - **APEX**: Cloudflare Pages (Astro-first).
+   - **SHOPAPP & ADMIN**: Cloudflare Workers (Workers-first).
+   - **WEBSITE**: Cloudflare Pages (Astro-first).
+3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
+4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
+1. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
+2. **Hybrid Architecture**:
+    - **SHOPAPP & ADMIN**: Cloudflare Workers (Workers-first).
+    - **WEBSITE**: Cloudflare Pages (Astro-first).
 3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
 4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
 5. **Sequential with Pauses**: Multi-module deployments pause 5 seconds between modules to allow Cloudflare API settling.
@@ -19,8 +25,8 @@ This document is the canonical source for all deployment, preview, and verificat
 ## Script Reference
 
 | Script                                                          | Purpose                                                                                                                            |
-| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers and `wrangler pages deploy` for APEX. |
+| :-------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers and `wrangler pages deploy` for WEBSITE. |
 | `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                             |
 | `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).               |
 | `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                          |
@@ -40,11 +46,11 @@ bash scripts/deploy-preview.sh
 
 **Expected Behavior:**
 
-- APP module deploys first (~137 KB bundled, ~26 KB gzipped)
+- SHOPAPP module deploys first (~137 KB bundled, ~26 KB gzipped)
 - 5-second pause for API settling
 - ADMIN module deploys second (~120 KB bundled, ~22 KB gzipped)
 - 5-second pause for API settling
-- APEX module deploys third (Static Site Generation via Astro)
+- WEBSITE module deploys third (Static Site Generation via Astro)
 - Success message: "🎉 All modules successfully deployed to preview!"
 
 **Non-Interactive Mode:**
@@ -64,19 +70,19 @@ bash scripts/deploy-preview.sh
 
 ```bash
 bash scripts/deploy-module.sh <module> <environment>
-# Example: bash scripts/deploy-module.sh app preview
+# Example: bash scripts/deploy-module.sh shopapp preview
 ```
 
 **Build Commands:**
 
-- APP/ADMIN: `pnpm build:bundle` (creates `dist/index.js`)
-- APEX: `pnpm build` (Astro build, creates `dist/` static assets)
+- SHOPAPP/ADMIN: `pnpm build:bundle` (creates `dist/index.js`)
+- WEBSITE: `pnpm build` (Astro build, creates `dist/` static assets)
 
 **Current Bundle Sizes (as of 2025-11-21):**
 
-- APP: 137.45 KB (26.56 KB gzipped) - includes component architecture
+- SHOPAPP: 137.45 KB (26.56 KB gzipped) - includes component architecture
 - ADMIN: 119.96 KB (22.56 KB gzipped)
-- APEX: N/A (Static Site)
+- WEBSITE: N/A (Static Site)
 
 ### D1 Database Migrations
 
@@ -84,10 +90,10 @@ When deploying changes that affect the database schema (e.g., multi-tenant toggl
 
 ```bash
 # Apply to local dev
-wrangler d1 execute app-db --file=apps/app/migrations/0002_create_customer_toggles.sql
+wrangler d1 execute app-db --file=apps/shopapp/migrations/0002_create_customer_toggles.sql
 
 # Apply to preview
-wrangler d1 execute app-db --file=apps/app/migrations/0002_create_customer_toggles.sql --env preview
+wrangler d1 execute app-db --file=apps/shopapp/migrations/0002_create_customer_toggles.sql --env preview
 ```
 
 ## Verified URLs
@@ -96,27 +102,27 @@ The following URLs have been manually verified to be correct and functional afte
 
 | Module  | Verified Preview URL                                  | Status      | Worker Startup | Notes                                                                                            |
 | :------ | :---------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| `app`   | `https://app-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
-| `admin` | `https://admin-worker-preview.cloudcache.workers.dev` | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
-| `apex`  | `https://preview.apex-8h2.pages.dev`                  | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
+| `shopapp` | `https://shopapp-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
+| `admin`   | `https://admin-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
+| `website` | `https://preview.website-8h2.pages.dev`                 | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
 
 ### Health Endpoints
 
-**APP Module**
+**SHOPAPP Module**
 
-- Health: `https://app-worker-preview.cloudcache.workers.dev/healthz`
-- Ready: `https://app-worker-preview.cloudcache.workers.dev/readyz`
-- Ping: `https://app-worker-preview.cloudcache.workers.dev/api/v1/ping`
+- Health: `https://shopapp-worker-preview.cloudcache.workers.dev/healthz`
+- Ready: `https://shopapp-worker-preview.cloudcache.workers.dev/readyz`
+- Ping: `https://shopapp-worker-preview.cloudcache.workers.dev/api/v1/ping`
 
 **ADMIN Module**
 
 - Health: `https://admin-worker-preview.cloudcache.workers.dev/healthz`
 - Ready: `https://admin-worker-preview.cloudcache.workers.dev/readyz`
 
-**APEX Module**
+**WEBSITE Module**
 
-- Health: `https://apex-worker-preview.cloudcache.workers.dev/healthz`
-- Ready: `https://apex-worker-preview.cloudcache.workers.dev/readyz`
+- Health: `https://website-worker-preview.cloudcache.workers.dev/healthz`
+- Ready: `https://website-worker-preview.cloudcache.workers.dev/readyz`
 
 ## Testing & Verification
 
@@ -129,9 +135,9 @@ Run these commands to automatically test all preview deployments:
 pnpm test:validation
 
 # Test specific module
-scripts/cloudcache test-preview app
+scripts/cloudcache test-preview shopapp
 scripts/cloudcache test-preview admin
-scripts/cloudcache test-preview apex
+scripts/cloudcache test-preview website
 ```
 
 **What this does automatically:**
@@ -141,7 +147,7 @@ scripts/cloudcache test-preview apex
 - ✅ Builds all modules for local development
 - ✅ Starts local servers sequentially with health checks
 - ✅ Validates 12 deployment targets:
-  - 3 modules (app, admin, apex)
+  - 3 modules (shopapp, admin, website)
   - 2 environments (localhost, cloudflare preview)
   - 2 checks per target: Health & Version Check, Badge Verification
 - ✅ Generates timestamped validation report in `docs/reports/validation/`
@@ -167,7 +173,7 @@ If you want to **visually see** the green markers in your browser:
    - [ ] Page loads without errors
    - [ ] Green text is visible (bright green #00FF00)
    - [ ] Text is centered horizontally and vertically
-   - [ ] Text matches module name (e.g., "I love Cloudcache APP")
+   - [ ] Text matches module name (e.g., "I love Cloudcache SHOPAPP")
 
 ## Preview Policy
 

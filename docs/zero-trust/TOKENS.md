@@ -28,11 +28,13 @@ All tokens live in Cloudflare and are managed remotely—no secrets are checked 
 1. **Create token in Cloudflare Dashboard** (Zero Trust → Access → Service Tokens or My Profile → API Tokens).
 2. **Record metadata** in the internal vault (token name, purpose, owner, expiration).
 3. **Bind to environments** via Wrangler:
+
    ```bash
    # example: update preview token
-   cd apps/app
+   cd apps/shopapp
    wrangler secret put CF_ACCESS_CLIENT_SECRET --env preview
    ```
+
 4. **Update documentation** (this file + the relevant truth doc) if scopes or usage change.
 
 ## Rotation Procedure

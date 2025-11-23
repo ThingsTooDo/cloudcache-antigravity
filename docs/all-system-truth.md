@@ -23,8 +23,8 @@ We use a single, master script for all deployments. It is parameterized to targe
 
 **Usage Examples:**
 
-- Deploy `app` to preview: `bash scripts/deploy-module.sh app preview`
-- Deploy `apex` to staging: `bash scripts/deploy-module.sh apex staging`
+- Deploy `shopapp` to preview: `bash scripts/deploy-module.sh shopapp preview`
+- Deploy `website` to staging: `bash scripts/deploy-module.sh website staging`
 
 ### To Deploy All Modules to Preview
 

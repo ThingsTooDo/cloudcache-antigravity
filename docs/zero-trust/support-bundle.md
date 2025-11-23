@@ -25,11 +25,11 @@
 
 This issue can be reproduced with a minimal test case on any application in our account, including one created manually in the UI.
 
-1.  **Select a Target Application**: We will use the application named `manual-app-probe` which was created manually in the UI to protect the domain `staging-apex.cloudcache.ai`.
-2.  **Create a Service Token**: Create a new service token via the API.
+1. **Select a Target Application**: We will use the application named `manual-app-probe` which was created manually in the UI to protect the domain `staging-apex.cloudcache.ai`.
+2. **Create a Service Token**: Create a new service token via the API.
     - Example Token Name: `svc-debug-ticket-123`
-3.  **Create an "Allow" Policy**: Create a policy on the `manual-app-probe` application to allow access for the service token created in the previous step.
-4.  **Attempt JWT Exchange**: Execute the following `curl` command to attempt the JWT exchange (replace `${CLIENT_ID}` and `${CLIENT_SECRET}` with the credentials from step 2).
+3. **Create an "Allow" Policy**: Create a policy on the `manual-app-probe` application to allow access for the service token created in the previous step.
+4. **Attempt JWT Exchange**: Execute the following `curl` command to attempt the JWT exchange (replace `${CLIENT_ID}` and `${CLIENT_SECRET}` with the credentials from step 2).
 
 ```bash
 # This command fails with a 404 Not Found
@@ -50,24 +50,24 @@ curl -v -X POST \
 
 We have exhaustively tested and ruled out all common configuration errors. The issue is not:
 
-1.  **DNS or Policy Propagation**: We have tested with delays of up to 60 seconds for both DNS and policy changes with no effect. The target hostnames resolve correctly.
-2.  **API vs. UI Configuration**: The issue occurs on applications created via the API **and** on applications created manually in the UI. We performed a `diff` on the JSON configurations and updated our API script to match the UI, which had no effect.
-3.  **Missing Identity Provider**: The account has the default "One-time PIN" Identity Provider enabled, and we have explicitly associated it with our test applications. This did not resolve the `404` error.
-4.  **Incorrect URL**: We have confirmed via documentation that `/cdn-cgi/access/service/auth` is the correct endpoint and have tried authenticating against both the application domain and the account's team domain. Both result in a `404`.
-5.  **Binding Cookie Mismatch**: We identified documentation stating the `enable_binding_cookie` should be disabled for non-browser clients. We explicitly set `"enable_binding_cookie": false` when creating applications via the API. **This did not resolve the `404` error.**
+1. **DNS or Policy Propagation**: We have tested with delays of up to 60 seconds for both DNS and policy changes with no effect. The target hostnames resolve correctly.
+2. **API vs. UI Configuration**: The issue occurs on applications created via the API **and** on applications created manually in the UI. We performed a `diff` on the JSON configurations and updated our API script to match the UI, which had no effect.
+3. **Missing Identity Provider**: The account has the default "One-time PIN" Identity Provider enabled, and we have explicitly associated it with our test applications. This did not resolve the `404` error.
+4. **Incorrect URL**: We have confirmed via documentation that `/cdn-cgi/access/service/auth` is the correct endpoint and have tried authenticating against both the application domain and the account's team domain. Both result in a `404`.
+5. **Binding Cookie Mismatch**: We identified documentation stating the `enable_binding_cookie` should be disabled for non-browser clients. We explicitly set `"enable_binding_cookie": false` when creating applications via the API. **This did not resolve the `404` error.**
 
 Based on our extensive testing, we have high confidence that the service auth endpoint is not being provisioned correctly for our account under any circumstances. We kindly request that you investigate why this endpoint is unavailable.
 
 ## Replication Steps
 
-1.  Create a Zero Trust Access application protecting `staging-apex.cloudcache.ai` in the UI (named `manual-app-probe`).
-2.  Create a Service Token via the API; record the `client_id` and `client_secret` (e.g., `svc-debug-ticket-123`).
-3.  Add an "Allow" policy on the application that permits the Service Token from step 2.
-4.  Wait up to 60 seconds for policy/DNS propagation.
-5.  Attempt a JWT exchange against the application domain using the Service Token headers.
-6.  Repeat the same request against the team domain for the same application.
-7.  Repeat tests on apps created both via API and via the UI; align configurations and set `"enable_binding_cookie": false`.
-8.  Observe the response is consistently `404 Not Found` and capture the `CF-RAY` (e.g., `98d4158b4f2c0b43-SJC`).
+1. Create a Zero Trust Access application protecting `staging-apex.cloudcache.ai` in the UI (named `manual-app-probe`).
+2. Create a Service Token via the API; record the `client_id` and `client_secret` (e.g., `svc-debug-ticket-123`).
+3. Add an "Allow" policy on the application that permits the Service Token from step 2.
+4. Wait up to 60 seconds for policy/DNS propagation.
+5. Attempt a JWT exchange against the application domain using the Service Token headers.
+6. Repeat the same request against the team domain for the same application.
+7. Repeat tests on apps created both via API and via the UI; align configurations and set `"enable_binding_cookie": false`.
+8. Observe the response is consistently `404 Not Found` and capture the `CF-RAY` (e.g., `98d4158b4f2c0b43-SJC`).
 
 ---
 
@@ -84,7 +84,7 @@ Based on our extensive testing, we have high confidence that the service auth en
 ## Latest Evidence (2025-10-13)
 
 - Naming/routes/DNS normalized to canonical hosts; AAAA 100:: present; Workers routes resolved; Access apps exist for all canonical hosts.
-- App-domain service auth continues to return `404` with empty body on `staging-apex.cloudcache.ai` after fresh token and allow policy.
+- App-domain service auth continues to return `404` with empty body on `staging-website.cloudcache.ai` after fresh token and allow policy.
 - Please see CF-RAY from the latest 404 attempt (to be provided below by running the minimal curl):
 
 ### Minimal commands to capture AUD and CF-RAY

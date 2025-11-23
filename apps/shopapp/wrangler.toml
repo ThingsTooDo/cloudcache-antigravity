@@ -1,4 +1,4 @@
-name = "app-worker"
+name = "shopapp-worker"
 main = "dist/index.js"
 compatibility_date = "2025-10-07"
 
@@ -6,7 +6,7 @@ compatibility_date = "2025-10-07"
 
 # Production routes
 routes = [
-  { pattern = "app.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+  { pattern = "shopapp.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 # Remote bindings for local dev (no .dev.vars needed)
@@ -21,9 +21,9 @@ id = "0b01afadb4984342a5e0ef09d7ff5fcd"
 
 # Staging environment
 [env.staging]
-name = "app-worker-staging"
+name = "shopapp-worker-staging"
 routes = [
-  { pattern = "staging-app.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+  { pattern = "staging-shopapp.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 [[env.staging.kv_namespaces]]
@@ -32,7 +32,7 @@ id = "5df224d061fb4f869a1a713f1ebd7252"
 
 # Preview environment
 [env.preview]
-name = "app-worker-preview"
+name = "shopapp-worker-preview"
 # Preview has no routes - uses workers.dev subdomain
 routes = []
 workers_dev = true

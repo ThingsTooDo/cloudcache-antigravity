@@ -14,23 +14,23 @@ This document is the canonical source for all deployment, preview, and verificat
    - **WEBSITE**: Cloudflare Pages (Astro-first).
 3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
 4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
-1. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
-2. **Hybrid Architecture**:
-    - **SHOPAPP & ADMIN**: Cloudflare Workers (Workers-first).
-    - **WEBSITE**: Cloudflare Pages (Astro-first).
-3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
-4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
-5. **Sequential with Pauses**: Multi-module deployments pause 5 seconds between modules to allow Cloudflare API settling.
+5. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
+6. **Hybrid Architecture**:
+   - **SHOPAPP & ADMIN**: Cloudflare Workers (Workers-first).
+   - **WEBSITE**: Cloudflare Pages (Astro-first).
+7. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
+8. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
+9. **Sequential with Pauses**: Multi-module deployments pause 5 seconds between modules to allow Cloudflare API settling.
 
 ## Script Reference
 
-| Script                                                          | Purpose                                                                                                                            |
-| :-------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| Script                                                          | Purpose                                                                                                                               |
+| :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
 | `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers and `wrangler pages deploy` for WEBSITE. |
-| `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                             |
-| `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).               |
-| `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                          |
-| `scripts/lib/preview-urls.sh`                                   | Helper used by automation to print the current preview endpoints.                                                                  |
+| `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                                |
+| `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).                  |
+| `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                             |
+| `scripts/lib/preview-urls.sh`                                   | Helper used by automation to print the current preview endpoints.                                                                     |
 
 ## Deployment Procedures
 
@@ -100,8 +100,8 @@ wrangler d1 execute app-db --file=apps/shopapp/migrations/0002_create_customer_t
 
 The following URLs have been manually verified to be correct and functional after a successful deployment:
 
-| Module  | Verified Preview URL                                  | Status      | Worker Startup | Notes                                                                                            |
-| :------ | :---------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
+| :-------- | :------------------------------------------------------ | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
 | `shopapp` | `https://shopapp-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
 | `admin`   | `https://admin-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
 | `website` | `https://preview.website-8h2.pages.dev`                 | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |

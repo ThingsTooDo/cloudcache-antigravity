@@ -24,8 +24,8 @@ Local development uses **local bindings** configured via `.dev.vars` files to si
 
 ## Running Workers Locally
 
-| Module | Root Command     | Module Command              | Port |
-| ------ | ---------------- | --------------------------- | ---- |
+| Module  | Root Command       | Module Command                | Port |
+| ------- | ------------------ | ----------------------------- | ---- |
 | SHOPAPP | `pnpm dev:shopapp` | `cd apps/shopapp && pnpm dev` | 8789 |
 | ADMIN   | `pnpm dev:admin`   | `cd apps/admin && pnpm dev`   | 8787 |
 | WEBSITE | `pnpm dev:website` | `cd apps/website && pnpm dev` | 8788 |

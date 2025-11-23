@@ -8,11 +8,19 @@
     "dev": "wrangler dev --port 8789 --inspector-port 9229 --no-bundle"
   },
   "dependencies": {
-    "@cloudcache/platform-env": "workspace:*",
-    "@cloudcache/platform-logging": "workspace:*",
-    "@cloudcache/platform-http": "workspace:*",
     "@cloudcache/platform-crypto": "workspace:*",
-    "@cloudcache/platform-validate": "workspace:*"
+    "@cloudcache/platform-env": "workspace:*",
+    "@cloudcache/platform-http": "workspace:*",
+    "@cloudcache/platform-logging": "workspace:*",
+    "@cloudcache/platform-validate": "workspace:*",
+    "@remix-run/cloudflare": "^2.17.2",
+    "@remix-run/react": "^2.17.2",
+    "@shopify/app": "^3.58.2",
+    "@shopify/cli": "^3.87.4",
+    "@shopify/shopify-app-remix": "^4.0.6",
+    "isbot": "^5.1.32",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "git-rev-sync": "^3.0.2",

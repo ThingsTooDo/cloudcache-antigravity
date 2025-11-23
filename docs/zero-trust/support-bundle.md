@@ -27,7 +27,7 @@ This issue can be reproduced with a minimal test case on any application in our 
 
 1. **Select a Target Application**: We will use the application named `manual-app-probe` which was created manually in the UI to protect the domain `staging-apex.cloudcache.ai`.
 2. **Create a Service Token**: Create a new service token via the API.
-    - Example Token Name: `svc-debug-ticket-123`
+   - Example Token Name: `svc-debug-ticket-123`
 3. **Create an "Allow" Policy**: Create a policy on the `manual-app-probe` application to allow access for the service token created in the previous step.
 4. **Attempt JWT Exchange**: Execute the following `curl` command to attempt the JWT exchange (replace `${CLIENT_ID}` and `${CLIENT_SECRET}` with the credentials from step 2).
 

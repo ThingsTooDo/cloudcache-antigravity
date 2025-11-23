@@ -35,9 +35,9 @@ To achieve an **A+ Grade**, we must align with Shopify's modern Remix-based arch
 
 ## 2. Recommendations for Refactoring
 
-│   ├── platform-*         # Existing packages (Keep)
-│   ├── shopify-utils/     # [NEW] Shared Shopify logic (Auth, Webhooks)
-│   └── config/            # [NEW] Shared TSConfig, ESLint, Wrangler configs
+│ ├── platform-\* # Existing packages (Keep)
+│ ├── shopify-utils/ # [NEW] Shared Shopify logic (Auth, Webhooks)
+│ └── config/ # [NEW] Shared TSConfig, ESLint, Wrangler configs
 
 ```
 
@@ -64,3 +64,4 @@ To achieve an **A+ Grade**, we must align with Shopify's modern Remix-based arch
 
 **Decision Required**:
 Is `apps/app` intended to be the **Shopify App Backend** or a **General Purpose API**?
+```

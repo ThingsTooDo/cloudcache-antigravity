@@ -1,6 +1,8 @@
 name = "shopapp-worker"
-main = "dist/index.js"
+main = "./build/server/index.js"
 compatibility_date = "2025-10-07"
+[build]
+command = "pnpm run build"
 
 
 

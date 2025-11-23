@@ -167,8 +167,8 @@ get_worker_name() {
       ;;
     apex)
       case "$mode" in
-        localhost) echo "apex-worker-local" ;;
-        preview) echo "apex-worker-preview" ;;
+        localhost) echo "apex-local" ;;
+        preview) echo "apex-pages-preview" ;;
         staging) echo "apex-staging" ;;
         production) echo "apex-production" ;;
       esac
@@ -220,7 +220,11 @@ for module in "${MODULES[@]}"; do
         case "$mode" in
           preview)
             GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
-            url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
+            if [[ "$module" == "apex" ]]; then
+              url="https://preview.apex-8h2.pages.dev"
+            else
+              url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
+            fi
             ;;
           staging)
             # Skip staging check if remote branch doesn't exist, but don't log it as a failure/skip

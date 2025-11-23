@@ -20,11 +20,14 @@ Deploy the strict UI splash screen for **APP**, **ADMIN**, and **APEX** to the _
 
 1. **Naming sanity‑check** – ensure no `*-preview` (without `-worker`) appears in any `wrangler.toml` or helper scripts.
 2. **Clean caches & rebuild**:
+
    ```bash
    rm -rf apps/*/dist apps/*/node_modules/.cache
    pnpm build:bundle
    ```
+
 3. **Run MDC / MD validation**:
+
    ```bash
    bash scripts/all-git-truth.sh --validate-md
    ```
@@ -34,18 +37,25 @@ Deploy the strict UI splash screen for **APP**, **ADMIN**, and **APEX** to the _
 ### 1️⃣ Create UI components (shared across modules)
 
 - Add a new file `src/components/header.ts` exporting a string:
+
   ```ts
   export const Header = `<div class="header">Header</div>`;
   ```
+
 - Add `src/components/sidebar.ts`:
+
   ```ts
   export const Sidebar = `<div class="sidebar">Left Sidebar</div>`;
   ```
+
 - Add `src/components/footer.ts`:
+
   ```ts
   export const Footer = `<div class="footer">Footer</div>`;
   ```
+
 - Add `src/components/title.ts` – this file receives the **mode** (`preview`, `staging`, `production`) and **module** name and returns the correctly coloured title:
+
   ```ts
   export function Title(mode: string, module: string) {
     const colour = mode === "preview" ? "#FF0000" : mode === "staging" ? "#FF6600" : "#FF0000";
@@ -103,7 +113,7 @@ The script will:
 1. **External Chrome** – open the three URLs:
    - `https://app-worker-preview.cloudcache.workers.dev/`
    - `https://admin-worker-preview.cloudcache.workers.dev/`
-   - `https://apex-worker-preview.cloudcache.workers.dev/`
+   - `https://preview.apex-8h2.pages.dev/` (Cloudflare Pages)
 2. **Internal Antigravity IDE browser** – use the IDE’s built‑in browser to open the same URLs.
 3. **Check** that each page shows:
    - The four components (Header, Left Sidebar, Title, Footer) centered.
@@ -139,11 +149,13 @@ Deploy the same UI to the _staging_ environment (`staging‑*.cloudcache.ai`) an
 
 1. **Update Title component** to accept a `mode` argument (`preview`, `staging`, `production`). The component already does this – just pass `'staging'`.
 2. **Deploy**:
+
    ```bash
    bash scripts/deploy-module.sh app staging
    bash scripts/deploy-module.sh admin staging
    bash scripts/deploy-module.sh apex staging   # Pages publish to staging‑apex.cloudcache.ai
    ```
+
 3. **Verification** – open the three staging URLs in external Chrome and the internal browser, confirm the title now reads **"Staging"** and the UI components are correct. Capture screenshots in `docs/reports/validation/phase‑ii‑staging-<timestamp>.md`.
 4. **Hardening** – update MDC to note that staging URLs are `staging‑*.cloudcache.ai` and that the UI must use the "Staging" title. Update `docs/all-deployment-truth.md` table with the staging URLs. Commit with `feat: phase‑ii staging – UI, deployment, validation`.
 
@@ -169,11 +181,13 @@ Deploy the final UI to production (`app.cloudcache.ai`, `admin.cloudcache.ai`, `
 
 1. **Title component** – pass `'production'`.
 2. **Deploy**:
+
    ```bash
    bash scripts/deploy-module.sh app production
    bash scripts/deploy-module.sh admin production
    bash scripts/deploy-module.sh apex production   # Pages publish to cloudcache.ai
    ```
+
 3. **Verification** – open the three production URLs in external Chrome and the internal browser, confirm the title now reads **"Production"** and the UI components are correct. Capture screenshots in `docs/reports/validation/phase‑iii‑production-<timestamp>.md`.
 4. **Hardening** – update MDC to note production URLs and UI spec. Update `docs/all-deployment-truth.md` with production URLs. Commit with `feat: phase‑iii production – UI, deployment, validation`.
 

@@ -57,7 +57,7 @@ run_deployment() {
 
     local build_command="pnpm build:bundle"
     if [[ "$MODULE" == "apex" ]]; then
-        build_command="pnpm exec tsup src/index.ts --format esm"
+        build_command="pnpm build"
     fi
 
     step "Building $MODULE module..."
@@ -76,10 +76,29 @@ run_deployment() {
     while [[ $deploy_attempt -lt $max_deploy_attempts ]]; do
         deploy_attempt=$((deploy_attempt + 1))
         log "Deploying... (Attempt $deploy_attempt of $max_deploy_attempts)"
-        if wrangler deploy --env "$ENV" --no-bundle 2>&1; then
-            deploy_success=true
-            break
+        
+        if [[ "$MODULE" == "apex" ]]; then
+            # APEX: Cloudflare Pages deployment
+            local branch_name="main"
+            if [[ "$ENV" == "preview" ]]; then
+                branch_name="preview"
+            elif [[ "$ENV" == "staging" ]]; then
+                branch_name="staging"
+            fi
+            
+            # Use project name "apex" as defined in wrangler.toml
+            if wrangler pages deploy dist --project-name=apex --branch="$branch_name" 2>&1; then
+                deploy_success=true
+                break
+            fi
+        else
+            # APP/ADMIN: Cloudflare Workers deployment
+            if wrangler deploy --env "$ENV" --no-bundle 2>&1; then
+                deploy_success=true
+                break
+            fi
         fi
+
         if [[ $deploy_attempt -lt $max_deploy_attempts ]]; then
             log "⚠️  Deployment failed. Retrying in $sleep_duration seconds..."
             sleep "$sleep_duration"

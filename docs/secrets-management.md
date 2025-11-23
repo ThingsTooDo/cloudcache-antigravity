@@ -24,9 +24,9 @@ Secrets are stored per Worker and per environment using `wrangler secret put`:
 - **admin-worker** (production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
 - **admin-worker-staging**: Same secrets, different values
 - **admin-worker-preview**: Same secrets, different values
-- **apex-worker** (production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
-- **apex-worker-staging**: Same secrets, different values
-- **apex-worker-preview**: Same secrets, different values
+- **apex-cloudcache** (Pages production): `CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`
+- **apex-cloudcache** (Pages staging): Same secrets, different values
+- **apex-cloudcache** (Pages preview): Same secrets, different values
 
 ### CI/CD
 

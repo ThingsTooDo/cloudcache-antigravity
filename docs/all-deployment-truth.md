@@ -9,8 +9,10 @@ This document is the canonical source for all deployment, preview, and verificat
 ## Core Principles
 
 1. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
-2. **No Pages**: We do not use Cloudflare Pages. All modules (App, Admin, Apex) are Workers.
-3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev`.
+2. **Hybrid Architecture**:
+   - **APP & ADMIN**: Cloudflare Workers (Workers-first).
+   - **APEX**: Cloudflare Pages (Astro-first).
+3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
 4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
 5. **Sequential with Pauses**: Multi-module deployments pause 5 seconds between modules to allow Cloudflare API settling.
 
@@ -18,7 +20,7 @@ This document is the canonical source for all deployment, preview, and verificat
 
 | Script                                                          | Purpose                                                                                                                                          |
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic and exponential backoff (5s, 10s, 20s, 40s). Handles transient Cloudflare API failures. |
+| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers and `wrangler pages deploy` for APEX.               |
 | `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                                           |
 | `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).                             |
 | `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                                        |
@@ -42,7 +44,7 @@ bash scripts/deploy-preview.sh
 - 5-second pause for API settling
 - ADMIN module deploys second (~120 KB bundled, ~22 KB gzipped)
 - 5-second pause for API settling
-- APEX module deploys third (~11 KB bundled, ~4 KB gzipped)
+- APEX module deploys third (Static Site Generation via Astro)
 - Success message: "🎉 All modules successfully deployed to preview!"
 
 **Non-Interactive Mode:**
@@ -68,13 +70,13 @@ bash scripts/deploy-module.sh <module> <environment>
 **Build Commands:**
 
 - APP/ADMIN: `pnpm build:bundle` (creates `dist/index.js`)
-- APEX: `pnpm exec tsup src/index.ts --format esm` (creates `dist/index.mjs`)
+- APEX: `pnpm build` (Astro build, creates `dist/` static assets)
 
 **Current Bundle Sizes (as of 2025-11-21):**
 
 - APP: 137.45 KB (26.56 KB gzipped) - includes component architecture
 - ADMIN: 119.96 KB (22.56 KB gzipped)
-- APEX: 11.16 KB (3.90 KB gzipped)
+- APEX: N/A (Static Site)
 
 ### D1 Database Migrations
 
@@ -96,7 +98,7 @@ The following URLs have been manually verified to be correct and functional afte
 | :------ | :---------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
 | `app`   | `https://app-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
 | `admin` | `https://admin-worker-preview.cloudcache.workers.dev` | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
-| `apex`  | `https://apex-worker-preview.cloudcache.workers.dev`  | ✅ Verified | N/A            | Displays the main dashboard and validation badge.                                                |
+| `apex`  | `https://preview.apex-8h2.pages.dev`                  | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
 
 ### Health Endpoints
 
@@ -194,7 +196,7 @@ This is a transient Cloudflare API error. The deployment script automatically re
 
 **If all 5 attempts fail:**
 
-1. Check Cloudflare API status: https://www.cloudflarestatus.com/
+1. Check Cloudflare API status: <https://www.cloudflarestatus.com/>
 2. Verify `CLOUDFLARE_API_TOKEN` is set correctly
 3. Wait 60 seconds and retry: `pnpm deploy:preview`
 

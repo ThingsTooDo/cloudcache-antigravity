@@ -10,5 +10,8 @@ export default defineConfig({
     },
     outDir: "dist-worker",
     emptyOutDir: true,
+    rollupOptions: {
+      external: ["__STATIC_CONTENT_MANIFEST"],
+    },
   },
 });

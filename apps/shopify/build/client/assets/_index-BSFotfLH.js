@@ -1,13 +1,4 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-
-export const meta: MetaFunction = () => {
-  return [{ title: "This is Cloudcache Shopapp Preview" }];
-};
-
-export default function Index() {
-  return (
-    <div className="container">
-      <style>{`
+import{j as e}from"./jsx-runtime-BgjmLhhW.js";const t=()=>[{title:"This is Cloudcache Shopapp Preview"}];function n(){return e.jsxs("div",{className:"container",children:[e.jsx("style",{children:`
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; }
         .container {
@@ -58,15 +49,4 @@ export default function Index() {
           padding: 20px;
           border-top: 1px solid #ccc;
         }
-      `}</style>
-      <div className="header">Header</div>
-      <div className="main">
-        <div className="sidebar">Left sidebar</div>
-        <div className="content">
-          <div className="title">I love Cloudcache</div>
-        </div>
-      </div>
-      <div className="footer">Footer</div>
-    </div>
-  );
-}
+      `}),e.jsx("div",{className:"header",children:"Header"}),e.jsxs("div",{className:"main",children:[e.jsx("div",{className:"sidebar",children:"Left sidebar"}),e.jsx("div",{className:"content",children:e.jsx("div",{className:"title",children:"I love Cloudcache"})})]}),e.jsx("div",{className:"footer",children:"Footer"})]})}export{n as default,t as meta};

@@ -1,10 +1,10 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from "@remix-run/react";
 import "@shopify/polaris/build/esm/styles.css";
 
-export async function loader({ request }: { request: Request }) {
+export async function loader({ request, context }: { request: Request; context: any }) {
   const url = new URL(request.url);
   const host = url.searchParams.get("host");
-  const apiKey = process.env.SHOPIFY_API_KEY || "";
+  const apiKey = context.env?.SHOPIFY_API_KEY || "";
 
   return { host, apiKey };
 }

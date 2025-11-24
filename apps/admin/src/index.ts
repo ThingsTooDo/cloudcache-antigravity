@@ -71,7 +71,7 @@ export default {
   <div class="header">Header</div>
   <div class="sidebar">Left Sidebar</div>
   <div class="main">
-    <div class="title">This is Cloudcache <span style="color:#FF0000;">preview</span> <span style="color:#000000;">ADMIN</span></div>
+    <div class="title">I love Cloudcache</div>
   </div>
   <div class="footer">Footer</div>
 </body>

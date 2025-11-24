@@ -12,7 +12,7 @@ To prevent drift, we enforce a strict "One Driver" policy.
 1. **Terminal**: Run `pnpm switch:antigravity`
 2. **Action**: Close Cursor completely.
 3. **Context Injection**: In Antigravity chat, type:
-    > "Read docs/standards/all-code-truth.md and docs/plans/active-plan.md. I am starting a session."
+   > "Read docs/standards/all-code-truth.md and docs/plans/active-plan.md. I am starting a session."
 
 ### 2. Switching to Cursor
 
@@ -22,8 +22,8 @@ To prevent drift, we enforce a strict "One Driver" policy.
 
 ## Shared State
 
-* **Plans**: ALWAYS in `docs/plans/`. Never in IDE-specific storage.
-* **Docs**: `docs/` is the only place for long-term knowledge.
+- **Plans**: ALWAYS in `docs/plans/`. Never in IDE-specific storage.
+- **Docs**: `docs/` is the only place for long-term knowledge.
 
 ## Conflict Prevention
 
@@ -35,6 +35,7 @@ To prevent drift, we enforce a strict "One Driver" policy.
 ## Source-of-Truth Files (NEVER IGNORE)
 
 - `docs/all-*-truth.md` files
+
 * `docs/standards/all-code-truth.md`
 * `.gitignore`, `.prettierrc`, `eslint.config.js`
 * All `/scripts/` shell scripts

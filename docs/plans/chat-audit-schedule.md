@@ -5,19 +5,19 @@
 
 ## Priority Schedule
 
-| Rank | Title | Priority | Status |
-| :--- | :--- | :--- | :--- |
-| 1 | **Renaming Shopify Module** | 🔵🔵🔵 | **Active / Verify** |
-| 2 | **Antigravity Rules File Plan** | 🔵🔵🔵 | **Active / Verify** |
-| 3 | **Fix APEX Pages Deployment** | 🔵🔵 | **Incomplete / Cleanup** |
-| 4 | **Multi-IDE Project Workflow** | 🔵🔵 | **Verify Documentation** |
-| 5 | **Cloudflare Module Deployment Refactor** | 🔵 | **Done / Archive** |
-| 6 | **Adding Code Truth to IDE Rules** | 🔵 | **Done / Archive** |
-| 7 | **Renaming Shop App** | 🔵 | **Done / Archive** |
-| 8 | **Visualize App Deployment** | ⚪ | **Done / Archive** |
-| 9 | **Opening Module Previews** | ⚪ | **Operational / Ignore** |
-| 10 | **Opening Anti-Gravity Browser** | ⚪ | **Operational / Ignore** |
-| 11 | **Import Cursor Project** | ⚪ | **Operational / Ignore** |
+| Rank | Title                                     | Priority | Status                   |
+| :--- | :---------------------------------------- | :------- | :----------------------- |
+| 1    | **Renaming Shopify Module**               | 🔵🔵🔵   | **Active / Verify**      |
+| 2    | **Antigravity Rules File Plan**           | 🔵🔵🔵   | **Active / Verify**      |
+| 3    | **Fix APEX Pages Deployment**             | 🔵🔵     | **Incomplete / Cleanup** |
+| 4    | **Multi-IDE Project Workflow**            | 🔵🔵     | **Verify Documentation** |
+| 5    | **Cloudflare Module Deployment Refactor** | 🔵       | **Done / Archive**       |
+| 6    | **Adding Code Truth to IDE Rules**        | 🔵       | **Done / Archive**       |
+| 7    | **Renaming Shop App**                     | 🔵       | **Done / Archive**       |
+| 8    | **Visualize App Deployment**              | ⚪       | **Done / Archive**       |
+| 9    | **Opening Module Previews**               | ⚪       | **Operational / Ignore** |
+| 10   | **Opening Anti-Gravity Browser**          | ⚪       | **Operational / Ignore** |
+| 11   | **Import Cursor Project**                 | ⚪       | **Operational / Ignore** |
 
 ---
 
@@ -29,29 +29,29 @@ Summary: Execution of the critical rename from `apps/shopify` to `apps/app`. Syn
 
 #### Topics
 
-* Module Renaming
-* Configuration Updates
-* Deployment Scripts
-* Truth File Updates
-* Verification Strategy
+- Module Renaming
+- Configuration Updates
+- Deployment Scripts
+- Truth File Updates
+- Verification Strategy
 
 #### Details
 
-* Renamed `apps/shopify` to `apps/app`.
-* Updated `deploy-module.sh` to accept `app` as a valid module.
-* Modified `package.json` and `shopify.app.toml` to reflect the new name.
+- Renamed `apps/shopify` to `apps/app`.
+- Updated `deploy-module.sh` to accept `app` as a valid module.
+- Modified `package.json` and `shopify.app.toml` to reflect the new name.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Active Verification Needed
-* <span style="color: blue">**Truth Check:**</span> `docs/all-deployment-truth.md` correctly lists the module as `app`.
-* <span style="color: blue">**Gaps:**</span> The `naming-consistency-plan-2025-11-24.md` requires a "case-insensitive search" for residual `shopify` references. It is unclear if this final sweep was completed.
+- <span style="color: blue">**Status:**</span> Active Verification Needed
+- <span style="color: blue">**Truth Check:**</span> `docs/all-deployment-truth.md` correctly lists the module as `app`.
+- <span style="color: blue">**Gaps:**</span> The `naming-consistency-plan-2025-11-24.md` requires a "case-insensitive search" for residual `shopify` references. It is unclear if this final sweep was completed.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> No. Verification pending.
-* <span style="color: blue">**Archive:**</span> No.
-* <span style="color: blue">**Recommendation:**</span> **Do Not Archive Yet.** Perform the grep search to close out the task completely.
+- <span style="color: blue">**Finished:**</span> No. Verification pending.
+- <span style="color: blue">**Archive:**</span> No.
+- <span style="color: blue">**Recommendation:**</span> **Do Not Archive Yet.** Perform the grep search to close out the task completely.
 
 ---
 
@@ -61,28 +61,28 @@ Summary: Formulation of the comprehensive "Antigravity" ruleset for the workspac
 
 #### Topics
 
-* Truth File Hierarchy
-* Agent Rules
-* Documentation Standards
-* Golden Path Definition
+- Truth File Hierarchy
+- Agent Rules
+- Documentation Standards
+- Golden Path Definition
 
 #### Details
 
-* Identified the hierarchy of truth files.
-* Planned the creation of `.cursor/rules/all-code-truth.mdc`.
-* Established the "Golden Path" for agent behavior.
+- Identified the hierarchy of truth files.
+- Planned the creation of `.cursor/rules/all-code-truth.mdc`.
+- Established the "Golden Path" for agent behavior.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Active Verification Needed
-* <span style="color: blue">**Truth Check:**</span> `docs/all-system-truth.md` references `.cursor/rules/all-code-truth.mdc`.
-* <span style="color: blue">**Gaps:**</span> Need to verify that `.cursor/rules/all-code-truth.mdc` exists and contains the correct, up-to-date references.
+- <span style="color: blue">**Status:**</span> Active Verification Needed
+- <span style="color: blue">**Truth Check:**</span> `docs/all-system-truth.md` references `.cursor/rules/all-code-truth.mdc`.
+- <span style="color: blue">**Gaps:**</span> Need to verify that `.cursor/rules/all-code-truth.mdc` exists and contains the correct, up-to-date references.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes (Plan Phase).
-* <span style="color: blue">**Archive:**</span> Yes.
-* <span style="color: blue">**Recommendation:**</span> **Archive Plan, Verify Implementation.** The plan itself is solid and can be saved.
+- <span style="color: blue">**Finished:**</span> Yes (Plan Phase).
+- <span style="color: blue">**Archive:**</span> Yes.
+- <span style="color: blue">**Recommendation:**</span> **Archive Plan, Verify Implementation.** The plan itself is solid and can be saved.
 
 ---
 
@@ -92,27 +92,27 @@ Summary: Troubleshooting and deployment of the `APEX` module. Synopsis: This cha
 
 #### Topics
 
-* Cloudflare Pages
-* APEX Module
-* Deployment Troubleshooting
-* Naming Consistency
+- Cloudflare Pages
+- APEX Module
+- Deployment Troubleshooting
+- Naming Consistency
 
 #### Details
 
-* Converted `APEX` to Pages-first.
-* Fixed `deploy-module.sh` for this specific case.
+- Converted `APEX` to Pages-first.
+- Fixed `deploy-module.sh` for this specific case.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Incomplete / Conflicting
-* <span style="color: blue">**Truth Check:**</span> `APEX` does not appear in `docs/all-deployment-truth.md`. Only `website` is listed as a Pages project.
-* <span style="color: blue">**Gaps:**</span> Major consistency gap. If `APEX` is `website`, the codebase should be scrubbed of `APEX` references to avoid confusion.
+- <span style="color: blue">**Status:**</span> Incomplete / Conflicting
+- <span style="color: blue">**Truth Check:**</span> `APEX` does not appear in `docs/all-deployment-truth.md`. Only `website` is listed as a Pages project.
+- <span style="color: blue">**Gaps:**</span> Major consistency gap. If `APEX` is `website`, the codebase should be scrubbed of `APEX` references to avoid confusion.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> No. The naming inconsistency is a debt.
-* <span style="color: blue">**Archive:**</span> No.
-* <span style="color: blue">**Recommendation:**</span> **Revive & Refactor.** This needs to be revisited to align `APEX` naming with the `website` truth.
+- <span style="color: blue">**Finished:**</span> No. The naming inconsistency is a debt.
+- <span style="color: blue">**Archive:**</span> No.
+- <span style="color: blue">**Recommendation:**</span> **Revive & Refactor.** This needs to be revisited to align `APEX` naming with the `website` truth.
 
 ---
 
@@ -122,27 +122,27 @@ Summary: Strategy for concurrent use of Antigravity and Cursor IDEs. Synopsis: T
 
 #### Topics
 
-* IDE Coexistence
-* Handover Protocol
-* File Protection
-* Workflow Optimization
+- IDE Coexistence
+- Handover Protocol
+- File Protection
+- Workflow Optimization
 
 #### Details
 
-* Protocol for switching IDEs.
-* Identification of IDE-specific config files.
+- Protocol for switching IDEs.
+- Identification of IDE-specific config files.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Documentation Verification Needed
-* <span style="color: blue">**Truth Check:**</span> `docs/all-system-truth.md` mentions the rules file, but not explicitly the "handover protocol".
-* <span style="color: blue">**Gaps:**</span> The specific "handover" steps might live only in chat history and not in `docs/all-local-dev-truth.md`.
+- <span style="color: blue">**Status:**</span> Documentation Verification Needed
+- <span style="color: blue">**Truth Check:**</span> `docs/all-system-truth.md` mentions the rules file, but not explicitly the "handover protocol".
+- <span style="color: blue">**Gaps:**</span> The specific "handover" steps might live only in chat history and not in `docs/all-local-dev-truth.md`.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> Yes.
-* <span style="color: blue">**Recommendation:**</span> **Extract & Archive.** Copy the protocol to `docs/all-local-dev-truth.md` then archive the chat.
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> Yes.
+- <span style="color: blue">**Recommendation:**</span> **Extract & Archive.** Copy the protocol to `docs/all-local-dev-truth.md` then archive the chat.
 
 ---
 
@@ -152,27 +152,27 @@ Summary: Architectural shift to "Hybrid Architecture" (Workers + Pages). Synopsi
 
 #### Topics
 
-* Hybrid Architecture
-* Workers vs Pages
-* Wrangler Configuration
-* Deployment Strategy
+- Hybrid Architecture
+- Workers vs Pages
+- Wrangler Configuration
+- Deployment Strategy
 
 #### Details
 
-* Defined `website` as an Astro-first Pages project.
-* Configured `wrangler.toml` for Workers-first modules.
+- Defined `website` as an Astro-first Pages project.
+- Configured `wrangler.toml` for Workers-first modules.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Complete
-* <span style="color: blue">**Truth Check:**</span> Fully codified in `docs/all-deployment-truth.md`.
-* <span style="color: blue">**Gaps:**</span> None.
+- <span style="color: blue">**Status:**</span> Complete
+- <span style="color: blue">**Truth Check:**</span> Fully codified in `docs/all-deployment-truth.md`.
+- <span style="color: blue">**Gaps:**</span> None.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> Yes.
-* <span style="color: blue">**Recommendation:**</span> **Archive Immediately.** This is a completed architectural decision.
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> Yes.
+- <span style="color: blue">**Recommendation:**</span> **Archive Immediately.** This is a completed architectural decision.
 
 ---
 
@@ -182,27 +182,27 @@ Summary: Integration of truth files into the IDE's rule engine. Synopsis: This c
 
 #### Topics
 
-* IDE Configuration
-* Rule Enforcement
-* Code Truth Integration
-* Automated Compliance
+- IDE Configuration
+- Rule Enforcement
+- Code Truth Integration
+- Automated Compliance
 
 #### Details
 
-* Technical implementation of rule files.
-* Verification that the IDE picks up the context.
+- Technical implementation of rule files.
+- Verification that the IDE picks up the context.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Complete
-* <span style="color: blue">**Truth Check:**</span> Referenced in system truth.
-* <span style="color: blue">**Gaps:**</span> None.
+- <span style="color: blue">**Status:**</span> Complete
+- <span style="color: blue">**Truth Check:**</span> Referenced in system truth.
+- <span style="color: blue">**Gaps:**</span> None.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> Yes.
-* <span style="color: blue">**Recommendation:**</span> **Archive.**
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> Yes.
+- <span style="color: blue">**Recommendation:**</span> **Archive.**
 
 ---
 
@@ -212,27 +212,27 @@ Summary: Initial decision and planning for the `shopapp` rename. Synopsis: This 
 
 #### Topics
 
-* Legacy Planning
-* Module Renaming
-* Impact Analysis
-* Deprecation
+- Legacy Planning
+- Module Renaming
+- Impact Analysis
+- Deprecation
 
 #### Details
 
-* Decision to rename `apps/shopapp`.
-* Initial impact analysis.
+- Decision to rename `apps/shopapp`.
+- Initial impact analysis.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Superseded
-* <span style="color: blue">**Truth Check:**</span> N/A (Historical).
-* <span style="color: blue">**Gaps:**</span> None.
+- <span style="color: blue">**Status:**</span> Superseded
+- <span style="color: blue">**Truth Check:**</span> N/A (Historical).
+- <span style="color: blue">**Gaps:**</span> None.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> Yes.
-* <span style="color: blue">**Recommendation:**</span> **Archive as Legacy.**
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> Yes.
+- <span style="color: blue">**Recommendation:**</span> **Archive as Legacy.**
 
 ---
 
@@ -242,26 +242,26 @@ Summary: Visualization of the deployment pipeline. Synopsis: The user requested 
 
 #### Topics
 
-* Deployment Pipeline
-* Process Visualization
-* Mermaid Diagrams
-* Script Logic
+- Deployment Pipeline
+- Process Visualization
+- Mermaid Diagrams
+- Script Logic
 
 #### Details
 
-* Generated Mermaid diagram for deployment logic.
+- Generated Mermaid diagram for deployment logic.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Complete
-* <span style="color: blue">**Truth Check:**</span> Accurate to current scripts.
-* <span style="color: blue">**Gaps:**</span> None.
+- <span style="color: blue">**Status:**</span> Complete
+- <span style="color: blue">**Truth Check:**</span> Accurate to current scripts.
+- <span style="color: blue">**Gaps:**</span> None.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> Yes.
-* <span style="color: blue">**Recommendation:**</span> **Archive.**
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> Yes.
+- <span style="color: blue">**Recommendation:**</span> **Archive.**
 
 ---
 
@@ -271,26 +271,26 @@ Summary: Operational task to open preview URLs. Synopsis: A simple request to op
 
 #### Topics
 
-* Operational Tasks
-* Preview URLs
-* Browser Automation
-* Verification
+- Operational Tasks
+- Preview URLs
+- Browser Automation
+- Verification
 
 #### Details
 
-* Opened `*-worker-preview.cloudcache.workers.dev` links.
+- Opened `*-worker-preview.cloudcache.workers.dev` links.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Operational
-* <span style="color: blue">**Truth Check:**</span> N/A.
-* <span style="color: blue">**Gaps:**</span> N/A.
+- <span style="color: blue">**Status:**</span> Operational
+- <span style="color: blue">**Truth Check:**</span> N/A.
+- <span style="color: blue">**Gaps:**</span> N/A.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> No.
-* <span style="color: blue">**Recommendation:**</span> **Ignore/Delete.** Ephemeral operational task.
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> No.
+- <span style="color: blue">**Recommendation:**</span> **Ignore/Delete.** Ephemeral operational task.
 
 ---
 
@@ -300,26 +300,26 @@ Summary: Accessing the internal agent browser. Synopsis: The user requested to o
 
 #### Topics
 
-* Agent Tooling
-* Browser Access
-* Internal Tools
-* Operational Tasks
+- Agent Tooling
+- Browser Access
+- Internal Tools
+- Operational Tasks
 
 #### Details
 
-* Opened internal browser.
+- Opened internal browser.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Operational
-* <span style="color: blue">**Truth Check:**</span> N/A.
-* <span style="color: blue">**Gaps:**</span> N/A.
+- <span style="color: blue">**Status:**</span> Operational
+- <span style="color: blue">**Truth Check:**</span> N/A.
+- <span style="color: blue">**Gaps:**</span> N/A.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> No.
-* <span style="color: blue">**Recommendation:**</span> **Ignore/Delete.**
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> No.
+- <span style="color: blue">**Recommendation:**</span> **Ignore/Delete.**
 
 ---
 
@@ -329,23 +329,23 @@ Summary: Setup assistance for Cursor IDE. Synopsis: A basic "how-to" question re
 
 #### Topics
 
-* IDE Setup
-* Project Import
-* Onboarding
-* Operational Tasks
+- IDE Setup
+- Project Import
+- Onboarding
+- Operational Tasks
 
 #### Details
 
-* Provided import steps.
+- Provided import steps.
 
 #### Review & Gap Analysis
 
-* <span style="color: blue">**Status:**</span> Operational
-* <span style="color: blue">**Truth Check:**</span> N/A.
-* <span style="color: blue">**Gaps:**</span> N/A.
+- <span style="color: blue">**Status:**</span> Operational
+- <span style="color: blue">**Truth Check:**</span> N/A.
+- <span style="color: blue">**Gaps:**</span> N/A.
 
 #### Archival Assessment
 
-* <span style="color: blue">**Finished:**</span> Yes.
-* <span style="color: blue">**Archive:**</span> No.
-* <span style="color: blue">**Recommendation:**</span> **Ignore/Delete.**
+- <span style="color: blue">**Finished:**</span> Yes.
+- <span style="color: blue">**Archive:**</span> No.
+- <span style="color: blue">**Recommendation:**</span> **Ignore/Delete.**

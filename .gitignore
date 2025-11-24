@@ -50,3 +50,21 @@ Thumbs.db
 # Docusaurus
 .docusaurus/
 .slush/
+
+# IDE-specific directories (MULTI-IDE SAFETY)
+# Cursor IDE
+.cursor/
+.cursorignore
+.cursorrules
+
+# Antigravity IDE
+.antigravity/
+.antigravityignore
+
+# Session Lock
+.ide-session.lock
+
+# IDE cache and temporary files
+*.log
+*.tmp
+*~

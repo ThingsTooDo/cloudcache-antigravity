@@ -40,6 +40,15 @@ We use a single, master script for validating all environments.
 **Command:**
 `pnpm test:validation` (This is a shortcut for `bash scripts/cloudcache test deployments`)
 
+### To Switch IDEs (Multi-IDE Workflow)
+
+We support both **Antigravity** and **Cursor** IDEs. To prevent conflicts, use the switch script before changing tools.
+
+**Command:**
+`pnpm switch:antigravity` or `pnpm switch:cursor`
+
+**Reference:** `docs/multi-ide-workflow.md`
+
 ---
 
 ## Manifest of Core Scripts
@@ -55,6 +64,7 @@ We use a single, master script for validating all environments.
 | `scripts/configure-access.sh`, `scripts/access/verify.sh` | Zero Trust helpers for managing Access policies and verifying bindings.                                                                | `docs/zero-trust/support-bundle.md`    |
 | `scripts/shopify/scopes-assert.sh`                        | Verifies App OAuth scopes before deployment.                                                                                           | `docs/shopify-oauth-setup.md`          |
 | `scripts/cf/inventory-snapshot.sh`                        | Audits Cloudflare resources for compliance/incident response.                                                                          | `docs/operational-runbook.md`          |
+| `scripts/switch-ide.sh`                                   | Manages safe context switching between Antigravity and Cursor IDEs (session locking, git checks).                                      | `docs/multi-ide-workflow.md`           |
 
 > **Reminder:** When a script changes, update both the table above and the relevant truth document. If a script becomes obsolete, move it to `scripts/archive/` and add the archive header.
 

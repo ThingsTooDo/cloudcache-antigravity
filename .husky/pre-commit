@@ -7,6 +7,15 @@
 # Store the exit code but don't fail immediately
 set +e
 
+# Prevent committing IDE-specific files
+IDE_FILES=$(git diff --cached --name-only | grep -E '^\.(cursor|antigravity|vscode)/')
+if [ -n "$IDE_FILES" ]; then
+  echo "❌ ERROR: Attempting to commit IDE-specific files:"
+  echo "$IDE_FILES"
+  echo "These files should be gitignored. Update .gitignore."
+  exit 1
+fi
+
 # Run consolidated pre-commit checks
 bash scripts/all-git-truth.sh --pre-commit
 PRE_COMMIT_EXIT=$?

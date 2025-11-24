@@ -33,3 +33,7 @@ This document contains the "Golden Path" for all pipeline activities and is the 
 To start the local development environment for all modules simultaneously, run:
 
 `pnpm dev`
+
+### Multi-IDE Support
+
+We support alternating between Antigravity and Cursor. See `docs/multi-ide-workflow.md` for details.

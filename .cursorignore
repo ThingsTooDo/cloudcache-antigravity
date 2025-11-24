@@ -1,1 +1,11 @@
-# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+# Add directories or file patterns to ignore during indexing
+node_modules/
+dist/
+.wrangler/
+.gemini/
+.antigravity/
+.antigravityignore
+pnpm-lock.yaml
+test-results/
+docs/reports/validation/
+.ide-session.lock

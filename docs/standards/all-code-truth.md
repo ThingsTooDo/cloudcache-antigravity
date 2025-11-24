@@ -1,12 +1,12 @@
----
-scope: ["**/*"]
-enforce: true
----
 # All Code Truth
+
+**Last Updated**: 2025-11-25
+**Status**: Canonical Project Standard
+**Related**: `docs/all-system-truth.md`
 
 ## Documentation Truth
 
-Each truth file must stay in lock‑step with the code and scripts listed below. When any process or script changes, update the corresponding truth doc and add an entry to this MDC file.
+Each truth file must stay in lock‑step with the code and scripts listed below. When any process or script changes, update the corresponding truth doc and add an entry to this file.
 
 - **`docs/all-system-truth.md`** – Defines the Golden Path, ownership model, and script manifest. Includes a table that maps every active shell script to its purpose and authoritative documentation.
 - **`docs/all-git-truth.md`** – Covers commit policies, hook behavior, the `scripts/all-git-truth.sh` utility (`--pre-commit`, `--validate-md`, `--git-safe`), and mitigation steps for EPERM or lint-staged failures.
@@ -22,10 +22,12 @@ Each truth file must stay in lock‑step with the code and scripts listed below.
 - **`docs/zero-trust/tokens.md`** – Procedures for creating, rotating, and auditing Zero Trust tokens (canonical: system truth).
 
 Every supporting guide must include:
+
 1. The standard header block (Last Updated, Rule Reference, Canonical Source).
 2. A short “When to use this guide” blurb linking back up to the relevant truth file.
 
 ## Script Truth  
+
 - **`scripts/all-git-truth.sh`** – Unified git wrapper (pre-commit formatting/validation, markdown structure validation, credential-safe git commands). This script is the enforcement point for documentation rules (`--validate-md`).
 - **`scripts/deploy-module.sh`** – Master script for single-module deployments with 5-attempt retry logic and exponential backoff (5s, 10s, 20s, 40s). Handles transient Cloudflare API failures gracefully.
 - **`scripts/deploy-preview.sh`** – Orchestrates preview deployments for all modules sequentially with 5-second API settling pauses between deployments. Wraps `deploy-module.sh`.
@@ -33,26 +35,28 @@ Every supporting guide must include:
 - `scripts/dev-local.sh` / `scripts/dev-stop.sh` – Sequential local server startup with health checks and graceful cleanup.
 - **`scripts/cloudcache`** – Unified CLI for infrastructure management (bootstrap, bind secrets, verify status). Wraps validation and preview testing commands.
 
-### App Module Configuration
+### Shopify App Configuration
 
-- **`apps/app/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
-- **`apps/app/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
-- **`apps/app/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
-- **`apps/app/.dev.vars.example`** – Template for local development environment variables
+- **`apps/shopapp/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
+- **`apps/shopapp/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
+- **`apps/shopapp/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
+- **`apps/shopapp/.dev.vars.example`** – Template for local development environment variables
 
 Each script referenced above must be documented in `docs/all-system-truth.md`'s manifest section.
 
 ## File Naming Convention (ENFORCED)
+
 - **Lowercase only**: no uppercase letters allowed
 - **Hyphen-separated**: use hyphens, not underscores
 - **"all-" prefix**: reserved for truth/index files only
-- **Examples**: 
+- **Examples**:
   - ✅ `all-git-truth.md`, `deploy-module.sh`, `api-helpers.ts`
   - ❌ `Deploy_Module.sh`, `API-HELPERS.ts`, `Quick-Fix-GUIDE.md`
 
 ## MD File Creation Rules
 
 ### Placement
+
 - **Documentation**: `docs/` or domain-specific subdirectories (e.g., `docs/zero-trust/`)
 - **Truth Files**: `docs/all-<domain>-truth.md`
 - **Archives**: `docs/archive/` (never delete, always archive)
@@ -60,24 +64,27 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 ### Required Headers (Templates)
 
 **1. Truth File Template** (`docs/all-*-truth.md`)
+
 ```markdown
 # <Domain> Truth
 
 **Last Updated**: YYYY-MM-DD  
-**Rule Reference**: `.cursor/rules/all-code-truth.mdc`  
+**Rule Reference**: `docs/standards/all-code-truth.md`  
 **Related**: `docs/all-system-truth.md`
 ```
 
 **2. Supporting Guide Template** (`docs/operational-runbook.md`, etc.)
+
 ```markdown
 # <Guide Title>
 
 **Last Updated**: YYYY-MM-DD  
-**Rule Reference**: `.cursor/rules/all-code-truth.mdc`  
+**Rule Reference**: `docs/standards/all-code-truth.md`  
 **Canonical Source**: `docs/all-<domain>-truth.md`
 ```
 
 **3. Archive Header**
+
 ```markdown
 # [Original Title]
 
@@ -91,16 +98,19 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 ```
 
 ### Interlinking
-- Every MD file must reference `.cursor/rules/all-code-truth.mdc`
+
+- Every MD file must reference `docs/standards/all-code-truth.md`
 - Domain-specific files must reference their `all-<domain>-truth.md`
 - Truth files must reference each other where relevant
 
 ### Grouping
+
 - **Domain Truth**: One `all-<domain>-truth.md` per major area (Git, Deployment, API)
 - **Child Files**: Specific guides link UP to the domain truth file
 - **Index**: `docs/all-system-truth.md` lists all truth files
 
 ### Generated Content & Archives
+
 - **Auto-generated reports** under `docs/reports/validation/` are exempt from header requirements but must never be committed manually. The pre-commit check unstages them automatically.
 - **Archives** (`docs/archive/**`, `scripts/archive/**`) must use the archive header template above. Each archived file has to specify the migration date and the active replacement document.
 - When deprecating a file:
@@ -109,9 +119,10 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
   3. Update the relevant truth doc to mention the archive if historical knowledge is still useful.
 
 ## Plan File Rules
+
 - **Location**: All new plans must be created under `docs/plans/`.
-- **Naming**: Use unique, descriptive names with date prefix (e.g., `YYYY-MM-DD-feature-name.md`).
-- **Prohibited**: 
+- **Naming**: Use user-provided filename (lowercase, hyphen-separated).
+- **Prohibited**:
   - Never create or use `one.plan.md`.
   - Do not write plans to repository root or `.cursor/`.
 - **Correction**: If a plan is accidentally generated elsewhere, move it to `docs/plans/<name>.md` immediately.
@@ -119,25 +130,30 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 ## MDC (Rule) File Creation Rules
 
 ### Placement
+
 - **Location**: `.cursor/rules/`
 - **Extension**: `.mdc`
 
 ### Naming
+
 - **Format**: `all-<domain>-truth.mdc` (for consolidated rules) or `<specific-rule>.mdc`
 - **Convention**: Lowercase, hyphen-separated
 
 ### Structure
+
 - **Frontmatter**: Must include `scope` and `enforce` fields
 - **Content**: Clear, actionable rules (no fluff)
 - **References**: Must link to corresponding `docs/all-<domain>-truth.md`
 
 ## Governance & Drift Prevention
+
 - Run `bash scripts/all-git-truth.sh --pre-commit` before every commit (already wired into Husky).
 - Run `bash scripts/all-git-truth.sh --validate-md` after editing documentation to ensure filenames, headers, and references follow this MDC.
 - Files flagged by `--validate-md` must be corrected in the same change that introduced the regression.
 - Automated or temporary files (validation reports, logs) must never be staged; rely on the pre-commit script to enforce this.
 
 ## Deployment Resilience Patterns (ENFORCED)
+
 - **Non-Interactive Mode**: All deployment scripts MUST set `CI=true` and `WRANGLER_SEND_METRICS=false` to disable interactive prompts.
 - **Retry Logic**: All deployment scripts must retry failed operations 5 times with exponential backoff (5s → 10s → 20s → 40s).
 - **API Settling**: Sequential deployments must pause 5 seconds between modules to allow Cloudflare API propagation.
@@ -147,6 +163,7 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 - **No User Interaction**: Deployment scripts must NEVER require user input. All prompts must be disabled.
 
 ## Deprecated Patterns (BANNED)
+
 - `one.plan.md` - never create or use
 - Uppercase in filenames - convert to lowercase
 - Underscore separators - convert to hyphens (except DB migrations)

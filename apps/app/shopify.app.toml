@@ -2,7 +2,7 @@
 
 client_id = "SHOPIFY_API_KEY"
 name = "CloudCache ShopApp"
-application_url = "https://shopify.cloudcache.ai"
+application_url = "https://app.cloudcache.ai"
 embedded = true
 
 [build]
@@ -12,13 +12,13 @@ include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,read_products,read_orders"
+scopes = "write_products,write_customers,write_draft_orders"
 
 [auth]
 redirect_urls = [
-  "https://shopify.cloudcache.ai/auth/callback",
-  "https://shopify.cloudcache.ai/auth/shopify/callback",
-  "https://shopify.cloudcache.ai/api/auth/callback"
+  "https://app.cloudcache.ai/auth/callback",
+  "https://app.cloudcache.ai/auth/shopify/callback",
+  "https://app.cloudcache.ai/api/auth/callback"
 ]
 
 [webhooks]

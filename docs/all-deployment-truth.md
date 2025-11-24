@@ -102,27 +102,22 @@ The following URLs have been manually verified to be correct and functional afte
 
 | Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
 | :-------- | :------------------------------------------------------ | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| `shopify` | `https://shopify-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
-| `admin`   | `https://admin-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
+| Module    | Verified Preview URL                                | Status      | Worker Startup | Notes                                                                                            |
+| :-------- | :-------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| `app`     | `https://app-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
+| `admin`   | `https://admin-worker-preview.cloudcache.workers.dev` | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
 | `website` | `https://website-worker-preview.cloudcache.workers.dev` | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
 
 ### Health Endpoints
 
-**SHOPIFY Module**
+| Module | Preview (Worker) | Staging (Cloudflare Access) | Production (Cloudflare Access) |
+| :--- | :--- | :--- | :--- |
+| `app` | `https://app-worker-preview.cloudcache.workers.dev` | `https://staging-app.cloudcache.ai` | `https://app.cloudcache.ai` |
+| `admin` | `https://admin-worker-preview.cloudcache.workers.dev` | `https://staging-admin.cloudcache.ai` | `https://admin.cloudcache.ai` |
+| `website` | `https://website-worker-preview.cloudcache.workers.dev` | `https://staging-website.cloudcache.ai` | `https://cloudcache.ai` |
 
-- Health: `https://shopify-worker-preview.cloudcache.workers.dev/healthz`
-- Ready: `https://shopify-worker-preview.cloudcache.workers.dev/readyz`
-- Ping: `https://shopify-worker-preview.cloudcache.workers.dev/api/v1/ping`
-
-**ADMIN Module**
-
-- Health: `https://admin-worker-preview.cloudcache.workers.dev/healthz`
-- Ready: `https://admin-worker-preview.cloudcache.workers.dev/readyz`
-
-**WEBSITE Module**
-
-- Health: `https://website-worker-preview.cloudcache.workers.dev/healthz`
-- Ready: `https://website-worker-preview.cloudcache.workers.dev/readyz`
+> [!NOTE]
+> The `app` module was formerly named `shopify`. All references have been updated to `app`.
 
 ## Testing & Verification
 
@@ -135,15 +130,13 @@ Run these commands to automatically test all preview deployments:
 pnpm test:validation
 
 # Test specific module
-scripts/cloudcache test-preview shopify
+scripts/cloudcache test-preview app
 scripts/cloudcache test-preview admin
 scripts/cloudcache test-preview website
 ```
 
 **What this does automatically:**
 
-- ✅ Syncs with remote repository (`git fetch origin --prune`)
-- ✅ Stops lingering development servers (ports 8787, 8788, 8789, 9229, 9230, 9231)
 - ✅ Builds all modules for local development
 - ✅ Starts local servers sequentially with health checks
 - ✅ Validates 12 deployment targets:

@@ -33,12 +33,12 @@ Every supporting guide must include:
 - `scripts/dev-local.sh` / `scripts/dev-stop.sh` – Sequential local server startup with health checks and graceful cleanup.
 - **`scripts/cloudcache`** – Unified CLI for infrastructure management (bootstrap, bind secrets, verify status). Wraps validation and preview testing commands.
 
-### Shopify App Configuration
+### App Module Configuration
 
-- **`apps/shopapp/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
-- **`apps/shopapp/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
-- **`apps/shopapp/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
-- **`apps/shopapp/.dev.vars.example`** – Template for local development environment variables
+- **`apps/app/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
+- **`apps/app/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
+- **`apps/app/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
+- **`apps/app/.dev.vars.example`** – Template for local development environment variables
 
 Each script referenced above must be documented in `docs/all-system-truth.md`'s manifest section.
 
@@ -110,7 +110,7 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 
 ## Plan File Rules
 - **Location**: All new plans must be created under `docs/plans/`.
-- **Naming**: Use user-provided filename (lowercase, hyphen-separated).
+- **Naming**: Use unique, descriptive names with date prefix (e.g., `YYYY-MM-DD-feature-name.md`).
 - **Prohibited**: 
   - Never create or use `one.plan.md`.
   - Do not write plans to repository root or `.cursor/`.

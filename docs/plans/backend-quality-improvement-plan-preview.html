@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Backend Quality Improvement Plan – Preview</title>
+<style>
+body {font-family: Arial, sans-serif; margin: 2rem;}
+h1, h2 {color: #2c3e50;}
+table {border-collapse: collapse; width: 100%;}
+th, td {border: 1px solid #ddd; padding: 8px;}
+th {background-color: #f2f2f2;}
+</style>
+</head>
+<body>
+<h1>Backend Quality Improvement Plan – Achieving A+ Grade</h1>
+<p><strong>Created:</strong> 2025-11-24</p>
+<h2>Objective</h2>
+<p>Elevate the backend codebase to an A+ rating by addressing gaps in naming consistency, testing, CI/CD, security, observability, and documentation.</p>
+<h2>Action Items</h2>
+<table>
+<tr><th>ID</th><th>Category</th><th>Description</th><th>Owner</th><th>Due</th></tr>
+<tr><td>BQI‑001</td><td>Naming Consistency</td><td>Execute Naming Consistency Plan to eradicate all `shopify` remnants.</td><td>Lead Engineer</td><td>2025‑11‑30</td></tr>
+<tr><td>BQI‑002</td><td>CI/CD</td><td>Add GitHub Actions workflow with lint, type‑check, tests, and `grep -i shopify` guard.</td><td>DevOps Engineer</td><td>2025‑12‑05</td></tr>
+<tr><td>BQI‑003</td><td>Test Coverage</td><td>Increase unit‑test coverage for `apps/app` to ≥ 85 % and add integration tests.</td><td>QA Engineer</td><td>2025‑12‑15</td></tr>
+<tr><td>BQI‑004</td><td>Structured Logging</td><td>Introduce `src/lib/logger.ts` (JSON logs) and replace console calls.</td><td>Backend Engineer</td><td>2025‑12‑10</td></tr>
+<tr><td>BQI‑005</td><td>Secret Validation</td><td>Implement `src/lib/validateEnv.ts` to assert required env vars.</td><td>Security Lead</td><td>2025‑12‑12</td></tr>
+<tr><td>BQI‑006</td><td>Observability</td><td>Deploy Cloudflare Workers Analytics script to Logpush bucket.</td><td>SRE Engineer</td><td>2025‑12‑20</td></tr>
+<tr><td>BQI‑007</td><td>Dependency Hygiene</td><td>Enable Renovate bot for automated dependency updates.</td><td>DevOps Engineer</td><td>Ongoing</td></tr>
+<tr><td>BQI‑008</td><td>Documentation Sync</td><td>Audit and update all docs for module name, URLs, and script examples.</td><td>Technical Writer</td><td>2025‑12‑08</td></tr>
+<tr><td>BQI‑009</td><td>Zero‑Trust Verification</td><td>Add `scripts/verify/zero-trust.sh` and integrate into CI.</td><td>Security Lead</td><td>2025‑12‑14</td></tr>
+<tr><td>BQI‑010</td><td>Performance Benchmarking</td><td>Create `k6` load‑test suite; SLA ≤ 150 ms 99th percentile.</td><td>Performance Engineer</td><td>2025‑12‑22</td></tr>
+<tr><td>BQI‑011</td><td>Release Checklist</td><td>Consolidate tasks into `scripts/release/checklist.sh`.</td><td>Release Manager</td><td>2025‑12‑25</td></tr>
+</table>
+<h2>Success Metrics</h2>
+<ul>
+<li>No CI failures on master.</li>
+<li>`grep -i shopify` returns 0.</li>
+<li>Test coverage ≥ 85 % for `apps/app`.</li>
+<li>Structured logs visible in Cloudflare Logpush.</li>
+<li>All staging deployments pass Zero‑Trust verification.</li>
+<li>Latency SLA met in load tests.</li>
+</ul>
+</body>
+</html>

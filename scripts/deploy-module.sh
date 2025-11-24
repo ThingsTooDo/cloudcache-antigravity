@@ -54,11 +54,11 @@ run_deployment() {
     step "Executing deployment for '$MODULE' in '$ENV' environment..."
 
     local module_dir_name="$MODULE"
-    # Map 'shopify' module name to 'shopify' directory
+    # Map 'shopify' module name to 'app' directory (legacy support)
     if [[ "$MODULE" == "shopify" ]]; then
-        module_dir_name="shopify"
+        module_dir_name="app"
     elif [[ "$MODULE" == "app" ]]; then
-        module_dir_name="shopify"
+        module_dir_name="app"
     fi
 
     local module_dir="$ROOT_DIR/apps/$module_dir_name"

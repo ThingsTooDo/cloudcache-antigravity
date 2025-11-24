@@ -23,7 +23,7 @@ We use a single, master script for all deployments. It is parameterized to targe
 
 **Usage Examples:**
 
-- Deploy `shopify` to preview: `bash scripts/deploy-module.sh shopify preview`
+- Deploy `app` to preview: `bash scripts/deploy-module.sh app preview`
 - Deploy `website` to staging: `bash scripts/deploy-module.sh website staging`
 
 ### To Deploy All Modules to Preview
@@ -53,7 +53,7 @@ We use a single, master script for validating all environments.
 | `scripts/dev-local.sh` / `scripts/dev-stop.sh`            | Sequential local server startup with health checks and graceful cleanup using SIGTERM.                                                 | `docs/all-local-dev-truth.md`          |
 | `scripts/lib/core.sh`                                     | Shared shell helpers (logging, kill_port, env loading). Imported by every operational script.                                          | `docs/all-system-truth.md` (this file) |
 | `scripts/configure-access.sh`, `scripts/access/verify.sh` | Zero Trust helpers for managing Access policies and verifying bindings.                                                                | `docs/zero-trust/support-bundle.md`    |
-| `scripts/shopify/scopes-assert.sh`                        | Verifies Shopify OAuth scopes before deployment.                                                                                       | `docs/shopify-oauth-setup.md`          |
+| `scripts/shopify/scopes-assert.sh`                        | Verifies App OAuth scopes before deployment.                                                                                       | `docs/shopify-oauth-setup.md`          |
 | `scripts/cf/inventory-snapshot.sh`                        | Audits Cloudflare resources for compliance/incident response.                                                                          | `docs/operational-runbook.md`          |
 
 > **Reminder:** When a script changes, update both the table above and the relevant truth document. If a script becomes obsolete, move it to `scripts/archive/` and add the archive header.

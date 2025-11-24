@@ -25,7 +25,9 @@ setup_wrangler_token
 # Check for wrangler and authenticate once at the start
 require_wrangler
 
-bash "$SCRIPT_DIR/deploy-module.sh" shopify preview
+# 1. Deploy App (formerly Shopify)
+step "Deploying App module..."
+bash "$ROOT_DIR/scripts/deploy-module.sh" app preview
 log "Pausing for 5 seconds to allow API to settle..."
 sleep 5
 

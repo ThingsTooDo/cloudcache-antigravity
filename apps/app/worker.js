@@ -7,7 +7,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/healthz") {
-      return new Response(JSON.stringify({ status: "ok", service: "shopify-worker" }), {
+      return new Response(JSON.stringify({ status: "ok", service: "app-worker" }), {
         status: 200,
         headers: { "Content-Type": "application/json" },
       });

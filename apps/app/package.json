@@ -1,5 +1,5 @@
 {
-  "name": "@cloudcache/shopify",
+  "name": "@cloudcache/app",
   "private": true,
   "type": "module",
   "scripts": {

@@ -270,8 +270,8 @@ configure_all() {
   log "Configuring Access policies for all modules and environments"
   
   # App module
-  configure_module_env "shopify" "production" "shopify.cloudcache.ai" "monitor-readyz-shopify-prod"
-  configure_module_env "shopify" "staging" "staging-shopify.cloudcache.ai" "monitor-readyz-shopify-staging"
+  configure_module_env "app" "production" "app.cloudcache.ai" "monitor-readyz-app-prod"
+  configure_module_env "app" "staging" "staging-app.cloudcache.ai" "monitor-readyz-app-staging"
   
   # Admin module
   configure_module_env "admin" "production" "admin.cloudcache.ai" "monitor-readyz-admin-prod"
@@ -293,9 +293,9 @@ case "$MODULE_ARG" in
   all)
     configure_all
     ;;
-  shopify)
-    configure_module_env "shopify" "production" "shopify.cloudcache.ai" "monitor-readyz-shopify-prod"
-    configure_module_env "shopify" "staging" "staging-shopify.cloudcache.ai" "monitor-readyz-shopify-staging"
+  app)
+    configure_module_env "app" "production" "app.cloudcache.ai" "monitor-readyz-app-prod"
+    configure_module_env "app" "staging" "staging-app.cloudcache.ai" "monitor-readyz-app-staging"
     ;;
   admin)
     configure_module_env "admin" "production" "admin.cloudcache.ai" "monitor-readyz-admin-prod"

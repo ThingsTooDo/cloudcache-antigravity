@@ -1,6 +1,6 @@
-name = "shopify-worker"
+name = "app-worker"
 main = "./dist-worker/worker.js"
-compatibility_date = "2025-10-07"
+compatibility_date = "2024-04-01"
 # [build]
 # command = "pnpm run build"
 
@@ -8,7 +8,7 @@ compatibility_date = "2025-10-07"
 
 # Production routes
 routes = [
-  { pattern = "shopify.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+  { pattern = "app.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 # Remote bindings for local dev (no .dev.vars needed)
@@ -16,25 +16,32 @@ routes = [
 [dev]
 port = 8789
 
-# Production KV namespace
+# D1 Database Bindings
+[[d1_databases]]
+binding = "DB"
+database_name = "app-db"
+database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+
+# KV Namespaces
 [[kv_namespaces]]
-binding = "APP_KV"
-id = "0b01afadb4984342a5e0ef09d7ff5fcd"
-
-# Staging environment
-[env.staging]
-name = "shopify-worker-staging"
-routes = [
-  { pattern = "staging-shopify.cloudcache.ai/*", zone_name = "cloudcache.ai" }
-]
-
-[[env.staging.kv_namespaces]]
 binding = "APP_KV"
 id = "5df224d061fb4f869a1a713f1ebd7252"
 
+# Staging environment
+[env.staging]
+name = "app-worker-staging"
+routes = [
+  { pattern = "staging-app.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+]
+
+[[env.staging.d1_databases]]
+binding = "DB"
+database_name = "app-db"
+database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+
 # Preview environment
 [env.preview]
-name = "shopify-worker-preview"
+name = "app-worker-preview"
 workers_dev = true
 routes = []
 

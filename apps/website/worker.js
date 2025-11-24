@@ -9,7 +9,7 @@ export default {
       if (url.pathname === "/healthz") {
         return new Response(JSON.stringify({ status: "ok", service: "website-worker" }), {
           status: 200,
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
         });
       }
 

@@ -102,19 +102,19 @@ The following URLs have been manually verified to be correct and functional afte
 
 | Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
 | :-------- | :------------------------------------------------------ | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| Module    | Verified Preview URL                                | Status      | Worker Startup | Notes                                                                                            |
-| :-------- | :-------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| `app`     | `https://app-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
-| `admin`   | `https://admin-worker-preview.cloudcache.workers.dev` | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
+| Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
+| :-------- | :--------------------------------------------------     | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| `app`     | `https://app-worker-preview.cloudcache.workers.dev`     | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
+| `admin`   | `https://admin-worker-preview.cloudcache.workers.dev`   | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADMIN" with navigation sidebar.                            |
 | `website` | `https://website-worker-preview.cloudcache.workers.dev` | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
 
 ### Health Endpoints
 
-| Module | Preview (Worker) | Staging (Cloudflare Access) | Production (Cloudflare Access) |
-| :--- | :--- | :--- | :--- |
-| `app` | `https://app-worker-preview.cloudcache.workers.dev` | `https://staging-app.cloudcache.ai` | `https://app.cloudcache.ai` |
-| `admin` | `https://admin-worker-preview.cloudcache.workers.dev` | `https://staging-admin.cloudcache.ai` | `https://admin.cloudcache.ai` |
-| `website` | `https://website-worker-preview.cloudcache.workers.dev` | `https://staging-website.cloudcache.ai` | `https://cloudcache.ai` |
+| Module    | Preview (Worker)                                        | Staging (Cloudflare Access)             | Production (Cloudflare Access) |
+| :-------- | :------------------------------------------------------ | :-------------------------------------- | :----------------------------- |
+| `app`     | `https://app-worker-preview.cloudcache.workers.dev`     | `https://staging-app.cloudcache.ai`     | `https://app.cloudcache.ai`    |
+| `admin`   | `https://admin-worker-preview.cloudcache.workers.dev`   | `https://staging-admin.cloudcache.ai`   | `https://admin.cloudcache.ai`  |
+| `website` | `https://website-worker-preview.cloudcache.workers.dev` | `https://staging-website.cloudcache.ai` | `https://cloudcache.ai`        |
 
 > [!NOTE]
 > The `app` module was formerly named `shopify`. All references have been updated to `app`.

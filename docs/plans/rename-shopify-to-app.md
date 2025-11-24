@@ -5,7 +5,7 @@
 Rename the `shopify` module to `app` to reflect a more generic naming convention. This involves renaming the directory, updating configuration files (package.json, wrangler.toml, shopify.app.toml), updating deployment scripts, and deploying the changes to preview and staging environments. The external URL will change from `shopify.cloudcache.ai` to `app.cloudcache.ai`.
 
 ## User Review Required
->
+
 > [!WARNING]
 > **URL Change**: The staging URL will change from `https://staging-shopify.cloudcache.ai` to `https://staging-app.cloudcache.ai`. The production URL will change from `https://shopify.cloudcache.ai` to `https://app.cloudcache.ai`.
 > **Preview URL Change**: The preview Worker URL will change from `shopify-worker-preview` to `app-worker-preview`.

@@ -8,19 +8,19 @@ The current backend codebase is functional and successfully deployed, but severa
 
 ## 2. Findings (Scoured Across Code, Docs, Scripts, MDC)
 
-| Area | Observation | Impact |
-|------|-------------|--------|
-| **Naming Consistency** | Residual `shopify` references remain in docs, scripts, and MDC (e.g., `scripts/shopify/scopes-assert.sh`, `docs/all-system-truth.md`). | Confusion, outdated documentation, risk of accidental deployment to wrong module. |
-| **CI/CD Lint & Test Coverage** | No explicit CI pipeline; lint‑staged only runs locally. Unit test coverage < 60 % for the `app` module. | Undetected regressions, lower code quality. |
-| **Type Safety** | Some TypeScript files (e.g., `vite.worker.config.ts`) lack strict `noImplicitAny` and have `any` casts. | Potential runtime errors. |
-| **Error Handling** | Workers return generic 404 on catch; missing structured logging for failures. | Harder to diagnose production incidents. |
-| **Secret Management** | Secrets are referenced directly (`process.env.SHOPIFY_API_KEY`) in several places; no runtime validation wrapper. | Security risk if env missing. |
-| **Zero Trust Documentation** | Zero Trust token procedures are documented but not linked from all relevant scripts; missing guidance on IP allow‑list for internal tooling. | Operational friction for security team. |
-| **Monitoring & Observability** | No health metrics beyond `/healthz`; no integration with Cloudflare Logs or external monitoring. | Limited visibility into latency, error rates. |
-| **Dependency Hygiene** | Some dependencies are pinned to old major versions (e.g., `@remix-run/cloudflare` ^2.17.2). No automated dependency update strategy. | Potential security vulnerabilities. |
-| **MDC Rule Gaps** | MDC does not enforce a rule that every script must have a matching entry in `docs/all-system-truth.md`. | Drift between implementation and documentation. |
-| **Documentation Gaps** | `docs/zero-trust/TOKENS.md` still mentions `Shopify` specific tokens; missing a consolidated “App module” section. | Inconsistent onboarding experience. |
-| **Testing of Staging Zero Trust** | No automated test that verifies Staging Zero Trust redirects correctly. | Manual verification required each release. |
+| Area                              | Observation                                                                                                                                  | Impact                                                                            |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Naming Consistency**            | Residual `shopify` references remain in docs, scripts, and MDC (e.g., `scripts/shopify/scopes-assert.sh`, `docs/all-system-truth.md`).       | Confusion, outdated documentation, risk of accidental deployment to wrong module. |
+| **CI/CD Lint & Test Coverage**    | No explicit CI pipeline; lint‑staged only runs locally. Unit test coverage < 60 % for the `app` module.                                      | Undetected regressions, lower code quality.                                       |
+| **Type Safety**                   | Some TypeScript files (e.g., `vite.worker.config.ts`) lack strict `noImplicitAny` and have `any` casts.                                      | Potential runtime errors.                                                         |
+| **Error Handling**                | Workers return generic 404 on catch; missing structured logging for failures.                                                                | Harder to diagnose production incidents.                                          |
+| **Secret Management**             | Secrets are referenced directly (`process.env.SHOPIFY_API_KEY`) in several places; no runtime validation wrapper.                            | Security risk if env missing.                                                     |
+| **Zero Trust Documentation**      | Zero Trust token procedures are documented but not linked from all relevant scripts; missing guidance on IP allow‑list for internal tooling. | Operational friction for security team.                                           |
+| **Monitoring & Observability**    | No health metrics beyond `/healthz`; no integration with Cloudflare Logs or external monitoring.                                             | Limited visibility into latency, error rates.                                     |
+| **Dependency Hygiene**            | Some dependencies are pinned to old major versions (e.g., `@remix-run/cloudflare` ^2.17.2). No automated dependency update strategy.         | Potential security vulnerabilities.                                               |
+| **MDC Rule Gaps**                 | MDC does not enforce a rule that every script must have a matching entry in `docs/all-system-truth.md`.                                      | Drift between implementation and documentation.                                   |
+| **Documentation Gaps**            | `docs/zero-trust/TOKENS.md` still mentions `Shopify` specific tokens; missing a consolidated “App module” section.                           | Inconsistent onboarding experience.                                               |
+| **Testing of Staging Zero Trust** | No automated test that verifies Staging Zero Trust redirects correctly.                                                                      | Manual verification required each release.                                        |
 
 ## 3. Recommendations
 
@@ -28,7 +28,7 @@ The current backend codebase is functional and successfully deployed, but severa
 
 1. **Complete Naming Refactor** – Run a repo‑wide search‑replace for `shopify` → `app` in all MD, SH, and MDC files. Verify with CI lint.
 2. **Add CI Pipeline** – GitHub Actions workflow that runs `pnpm lint`, `pnpm typecheck`, and `pnpm test --coverage` on every PR.
-3. **Enforce MDC Rule** – Update `.cursor/rules/all-code-truth.mdc` to include a rule: *“Every script referenced in `docs/all-system-truth.md` must exist and be listed in the MDC.”*
+3. **Enforce MDC Rule** – Update `.cursor/rules/all-code-truth.mdc` to include a rule: _“Every script referenced in `docs/all-system-truth.md` must exist and be listed in the MDC.”_
 4. **Create Structured Logging Wrapper** – Add `src/lib/logger.ts` that outputs JSON with `requestId`, `module`, `level`, `message` and replace ad‑hoc `console.log` in workers.
 5. **Add Secret Validation** – Implement `src/lib/validateEnv.ts` that throws on missing required env vars; invoke at worker start.
 
@@ -61,18 +61,18 @@ The current backend codebase is functional and successfully deployed, but severa
 
 ## 4. Action Items (Unique IDs)
 
-| ID | Owner | Description | Due |
-|----|-------|-------------|-----|
-| **CTO‑001** | Lead Architect | Run repo‑wide rename `shopify` → `app` and commit. | 2025‑11‑28 |
-| **CTO‑002** | DevOps Engineer | Add GitHub Actions CI workflow (`ci.yml`). | 2025‑12‑02 |
-| **CTO‑003** | Backend Engineer | Implement `src/lib/logger.ts` and replace console logs. | 2025‑12‑05 |
-| **CTO‑004** | Security Lead | Draft `docs/zero-trust/ip-allowlist.md` and link from scripts. | 2025‑12‑07 |
-| **CTO‑005** | QA Engineer | Write integration tests for `/healthz` and Zero Trust redirects. | 2025‑12‑10 |
-| **CTO‑006** | DevOps Engineer | Enable Renovate bot for dependency updates. | 2025‑12‑12 |
-| **CTO‑007** | Lead Architect | Create `scripts/verify/zero-trust.sh` and add to CI. | 2025‑12‑14 |
-| **CTO‑008** | Architect | Draft performance benchmark plan with `k6`. | 2025‑12‑20 |
-| **CTO‑009** | Security Lead | Run `npm audit` + `semgrep` and remediate. | 2025‑12‑31 |
-| **CTO‑010** | Product Owner | Review and approve documentation restructure under `docs/app/`. | 2026‑01‑05 |
+| ID          | Owner            | Description                                                      | Due        |
+| ----------- | ---------------- | ---------------------------------------------------------------- | ---------- |
+| **CTO‑001** | Lead Architect   | Run repo‑wide rename `shopify` → `app` and commit.               | 2025‑11‑28 |
+| **CTO‑002** | DevOps Engineer  | Add GitHub Actions CI workflow (`ci.yml`).                       | 2025‑12‑02 |
+| **CTO‑003** | Backend Engineer | Implement `src/lib/logger.ts` and replace console logs.          | 2025‑12‑05 |
+| **CTO‑004** | Security Lead    | Draft `docs/zero-trust/ip-allowlist.md` and link from scripts.   | 2025‑12‑07 |
+| **CTO‑005** | QA Engineer      | Write integration tests for `/healthz` and Zero Trust redirects. | 2025‑12‑10 |
+| **CTO‑006** | DevOps Engineer  | Enable Renovate bot for dependency updates.                      | 2025‑12‑12 |
+| **CTO‑007** | Lead Architect   | Create `scripts/verify/zero-trust.sh` and add to CI.             | 2025‑12‑14 |
+| **CTO‑008** | Architect        | Draft performance benchmark plan with `k6`.                      | 2025‑12‑20 |
+| **CTO‑009** | Security Lead    | Run `npm audit` + `semgrep` and remediate.                       | 2025‑12‑31 |
+| **CTO‑010** | Product Owner    | Review and approve documentation restructure under `docs/app/`.  | 2026‑01‑05 |
 
 ## 5. Acceptance Criteria
 
@@ -85,4 +85,5 @@ The current backend codebase is functional and successfully deployed, but severa
 - Security audit reports zero critical findings.
 
 ---
-*Prepared by the CTO & Lead Architect team.*
+
+_Prepared by the CTO & Lead Architect team._

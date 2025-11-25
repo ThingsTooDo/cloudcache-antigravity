@@ -12,7 +12,7 @@ This repository contains the full source code for the Cloudcache suite of applic
 
 For all deployment, validation, and standard operational procedures, refer to our single source of truth:
 
-➡️ **[docs/all-system-truth.md](docs/all-system-truth.md)**
+➡️ **[docs/truth/all-system-truth.md](docs/truth/all-system-truth.md)**
 
 This document contains the "Golden Path" for all pipeline activities and is the definitive entry point for understanding how to build, deploy, and validate our software. Its guidance trumps all other documentation.
 
@@ -36,4 +36,4 @@ To start the local development environment for all modules simultaneously, run:
 
 ### Multi-IDE Support
 
-We support alternating between Antigravity and Cursor. See `docs/multi-ide-workflow.md` for details.
+We support alternating between Antigravity and Cursor. See `docs/truth/multi-ide-workflow.md` for details.

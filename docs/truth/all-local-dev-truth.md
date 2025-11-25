@@ -140,18 +140,18 @@ return new Response(html, {
 
 ### Common Issues
 
-**"Missing environment variable"**
+#### "Missing environment variable"
 
 - Run `scripts/cloudcache verify` to check secrets
 - Ensure you're authenticated: `wrangler login`
 - Check `wrangler.toml` has `[dev] remote = true`
 
-**"Worker not found"**
+#### "Worker not found"
 
 - Run `scripts/cloudcache bootstrap` to create infrastructure
 - Verify Worker name matches `wrangler.toml`
 
-**"Authentication failed"**
+#### "Authentication failed"
 
 - Run `wrangler login` to re-authenticate
 - Check `CF_API_TOKEN` is set (for CLI operations)

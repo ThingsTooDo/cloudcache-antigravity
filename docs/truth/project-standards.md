@@ -6,7 +6,7 @@
 
 ## Documentation Truth
 
-Each truth file must stay in lock‑step with the code and scripts listed below. When any process or script changes, update the corresponding truth doc and add an entry to this file.
+All truth files are located in `docs/truth/`. Each truth file must stay in lock‑step with the code and scripts listed below. When any process or script changes, update the corresponding truth doc and add an entry to this file.
 
 - **`docs/all-system-truth.md`** – Defines the Golden Path, ownership model, and script manifest. Includes a table that maps every active shell script to its purpose and authoritative documentation.
 - **`docs/all-git-truth.md`** – Covers commit policies, hook behavior, the `scripts/all-git-truth.sh` utility (`--pre-commit`, `--validate-md`, `--git-safe`), and mitigation steps for EPERM or lint-staged failures.
@@ -48,18 +48,19 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 
 - **Lowercase only**: no uppercase letters allowed
 - **Hyphen-separated**: use hyphens, not underscores
+- **No Numerical Prefixes**: filenames must NOT start with numbers (e.g., `001-foo.md` is BANNED)
 - **"all-" prefix**: reserved for truth/index files only
 - **Examples**:
-  - ✅ `all-git-truth.md`, `deploy-module.sh`, `api-helpers.ts`
-  - ❌ `Deploy_Module.sh`, `API-HELPERS.ts`, `Quick-Fix-GUIDE.md`
+  - ✅ `all-git-truth.md`, `deploy-module.sh`, `build-strategy.md`
+  - ❌ `001-Build-Strategy.md`, `Deploy_Module.sh`, `Quick-Fix-GUIDE.md`
 
 ## MD File Creation Rules
 
 ### Placement
 
-- **Documentation**: `docs/` or domain-specific subdirectories (e.g., `docs/zero-trust/`)
-- **Truth Files**: `docs/all-<domain>-truth.md`
-- **Archives**: `docs/archive/` (never delete, always archive)
+- **Truth Files**: MUST go in `docs/truth/`.
+- **Plans**: MUST go in `docs/plans/`.
+- **Archives**: `docs/truth/archive/` (for docs) or `docs/plans/archive/` (for plans).
 
 ### Required Headers (Templates)
 
@@ -121,7 +122,8 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 ## Plan File Rules
 
 - **Location**: All new plans must be created under `docs/plans/`.
-- **Naming**: Use user-provided filename (lowercase, hyphen-separated).
+- **Archives**: Completed plans must be moved to `docs/plans/archive/`.
+- **Naming**: Use user-provided filename (lowercase, hyphen-separated, no numbers).
 - **Prohibited**:
   - Never create or use `one.plan.md`.
   - Do not write plans to repository root or `.cursor/`.

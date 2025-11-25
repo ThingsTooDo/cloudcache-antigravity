@@ -159,7 +159,7 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 - **Non-Interactive Mode**: All deployment scripts MUST set `CI=true` and `WRANGLER_SEND_METRICS=false` to disable interactive prompts.
 - **Retry Logic**: All deployment scripts must retry failed operations 5 times with exponential backoff (5s → 10s → 20s → 40s).
 - **API Settling**: Sequential deployments must pause 5 seconds between modules to allow Cloudflare API propagation.
-- **Bundle Sizes**: Expected sizes documented in `docs/all-deployment-truth.md`. Monitor for unexpected growth (>20% increase signals review needed).
+- **Bundle Sizes**: Expected sizes documented in- `docs/truth/deployment-verified-state.md`. Monitor for unexpected growth (>20% increase signals review needed).
 - **Health Validation**: Every deployment must verify `/healthz` endpoint returns version hash before considering deployment successful.
 - **Transient Failures**: "fetch failed" errors during deployment are expected and handled by retry logic. Document all new error patterns in deployment truth.
 - **No User Interaction**: Deployment scripts must NEVER require user input. All prompts must be disabled.

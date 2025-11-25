@@ -4,7 +4,7 @@
 **Rule Reference**: `.cursor/rules/all-code-truth.mdc`  
 **Canonical Source**: `docs/all-deployment-truth.md`
 
-This document captures the verified working state of the deployment system as of 2025-11-21. This serves as a snapshot to prevent regression and drift.
+This document captures the verified working state of the deployment system. This serves as a snapshot to prevent regression and drift.
 
 ## Critical Fix Applied (2025-11-21)
 

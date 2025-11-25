@@ -31,11 +31,11 @@ bash "$ROOT_DIR/scripts/deploy-module.sh" app preview
 log "Pausing for 5 seconds to allow API to settle..."
 sleep 5
 
-bash "$SCRIPT_DIR/deploy-module.sh" admin preview
+bash "$SCRIPT_DIR/deploy-module.sh" adm preview
 log "Pausing for 5 seconds to allow API to settle..."
 sleep 5
 
-bash "$SCRIPT_DIR/deploy-module.sh" website preview
+bash "$SCRIPT_DIR/deploy-module.sh" web preview
 
 log "🎉 All modules successfully deployed to preview!"
 

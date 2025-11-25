@@ -1,4 +1,9 @@
 ---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import LeftSidebar from '../components/LeftSidebar.astro';
+import Title from '../components/Title.astro';
+
 // Phase I - Preview UI for APEX
 const mode = 'preview';
 const moduleName = 'APEX';
@@ -12,19 +17,15 @@ const moduleName = 'APEX';
   <title>APEX {mode}</title>
   <style>
     body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
-    .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
-    .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
-    .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
     .main { display: flex; justify-content: center; align-items: center; }
-    .title { font-size: 30px; color: #000000; }
   </style>
 </head>
 <body>
-  <div class="header">Header</div>
-  <div class="sidebar">Left Sidebar</div>
+  <Header />
+  <LeftSidebar />
   <div class="main">
-    <div class="title">I love Cloudcache</div>
+    <Title />
   </div>
-  <div class="footer">Footer</div>
+  <Footer />
 </body>
 </html>

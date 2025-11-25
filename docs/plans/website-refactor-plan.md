@@ -6,24 +6,24 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 
 ## Operational Impact
 
-- **SHOPIFY** and **ADMIN** remain unchanged (Workers‑first).
-- **WEBSITE** will no longer use `wrangler pages` or any Pages‑specific configuration.
+- **SHOPIFY** and **ADM** remain unchanged (Workers‑first).
+- **WEB** will no longer use `wrangler pages` or any Pages‑specific configuration.
 - All static assets (HTML, CSS, JS, images) will be bundled into the Worker and served via the Worker’s routing logic.
 - Deployment scripts, documentation, and truth files must be updated to reflect the new workflow.
 
 ## High‑Level Steps
 
 1. **Audit Current Pages Setup**
-   - Review `apps/website/` (or equivalent) Astro project.
+   - Review `apps/web/` (or equivalent) Astro project.
    - Identify any Pages‑only settings in `wrangler.toml`, `package.json`, and CI scripts.
 
 2. **Update Build Pipeline**
    - Ensure `pnpm run build` (Astro) outputs to `./dist`.
-   - Add a post‑build step that copies `dist/*` into a `static/` folder inside the Worker project (e.g., `apps/website/static`).
+   - Add a post‑build step that copies `dist/*` into a `static/` folder inside the Worker project (e.g., `apps/web/static`).
    - Adjust `vite.config.ts` (if present) to treat `static/` as a public asset directory.
 
 3. **Create Worker Entry Point**
-   - Add `apps/website/worker.js` (or `.ts`) that:
+   - Add `apps/web/worker.js` (or `.ts`) that:
 
      ```ts
      import { getAssetFromKV } from "@cloudflare/kv-asset-handler";
@@ -50,31 +50,31 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
    - Ensure `compatibility_date` is set and `type = "javascript"` (or `type = "webpack"` if bundling).
 
 5. **Refactor Scripts**
-   - In `scripts/deploy-module.sh`, add a case for `website` that runs:
+   - In `scripts/deploy-module.sh`, add a case for `web` that runs:
 
      ```bash
-     pnpm --filter website run build   # Astro build
-     cp -R dist/* apps/website/static/   # copy assets
+     pnpm --filter web run build   # Astro build
+     cp -R dist/* apps/web/static/   # copy assets
      wrangler deploy --env preview      # Workers deploy
      ```
 
-   - Update `scripts/deploy-preview.sh` to include the new `website` step.
+   - Update `scripts/deploy-preview.sh` to include the new `web` step.
 
 6. **Documentation Updates**
-   - **`docs/all-deployment-truth.md`**: Replace any `*.pages.dev` URLs for WEBSITE with `website-worker-preview.cloudcache.workers.dev`.
+   - **`docs/all-deployment-truth.md`**: Replace any `*.pages.dev` URLs for WEB with `web-worker-preview.cloudcache.workers.dev`.
    - **`docs/all-code-truth.mdc`**: Add a rule entry for the new Workers‑first static asset handling.
    - **`docs/plans/website-refactor-plan.md`** (this file) – link from the deployment truth.
    - Update `README.md` sections that mention Pages deployment.
 
 7. **Testing & Verification**
    - **Local**: Run `pnpm dev` for Astro, then start the Worker locally with `wrangler dev --local` to ensure assets are served correctly.
-   - **Automated**: Extend `scripts/cloudcache test-preview website` to hit `/` and a sample static asset, checking for 200 responses and correct content‑type.
+   - **Automated**: Extend `scripts/cloudcache test-preview web` to hit `/` and a sample static asset, checking for 200 responses and correct content‑type.
    - **Health Checks**: Add `/healthz` endpoint to the Worker that returns version info.
 
 8. **Rollout**
-   - Deploy to **preview** environment first (`website-worker-preview.cloudcache.workers.dev`).
+   - Deploy to **preview** environment first (`web-worker-preview.cloudcache.workers.dev`).
    - Verify UI, asset loading, SEO meta tags, and performance (aim < 200 ms response).
-   - Once validated, promote to **staging** (`website-worker-staging.cloudcache.workers.dev`).
+   - Once validated, promote to **staging** (`web-worker-staging.cloudcache.workers.dev`).
    - Update any DNS CNAMEs that previously pointed to the Pages domain.
 
 ## Risks & Mitigations
@@ -87,8 +87,8 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 
 ## Acceptance Criteria
 
-- `website-worker-preview.cloudcache.workers.dev` serves the full Astro site with correct styling and routing.
-- All automated tests pass (`scripts/cloudcache test-preview website`).
+- `web-worker-preview.cloudcache.workers.dev` serves the full Astro site with correct styling and routing.
+- All automated tests pass (`scripts/cloudcache test-preview web`).
 - Documentation reflects the new deployment path and URLs.
 - No Pages‑specific configuration remains in the repository.
 
@@ -99,14 +99,14 @@ Refactor the **WEBSITE** module from a Cloudflare **Pages** deployment (Astro st
 **Preview URLs** (Workers.dev subdomains):
 
 - Shopify: `https://shopify-worker-preview.cloudcache.workers.dev`
-- Admin: `https://admin-worker-preview.cloudcache.workers.dev`
-- Website: `https://website-worker-preview.cloudcache.workers.dev`
+- Admin: `https://adm-worker-preview.cloudcache.workers.dev`
+- Website: `https://web-worker-preview.cloudcache.workers.dev`
 
 **Staging URLs** (custom domain subdomains):
 
 - Shopify: `https://staging-shopify.cloudcache.ai`
-- Admin: `https://staging-admin.cloudcache.ai`
-- Website: `https://staging-website.cloudcache.ai`
+- Admin: `https://staging-adm.cloudcache.ai`
+- Website: `https://staging-web.cloudcache.ai`
 
 **Production URLs**:
 
@@ -130,7 +130,7 @@ The **SHOPAPP → SHOPIFY** refactor (renaming/realigning the module) can be sch
 
 1. **Step 1** – Audit current Pages setup (already part of the website refactor).
 2. **Step 2** – **SHOPAPP > SHOPIFY** refactor (update module name, bindings, and URLs).
-3. **Step 3** – Update build pipeline and worker entry point for WEBSITE.
+3. **Step 3** – Update build pipeline and worker entry point for WEB.
 
 If you prefer a different ordering, let me know and I will adjust the plan accordingly.
 

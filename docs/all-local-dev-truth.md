@@ -26,9 +26,9 @@ Local development uses **local bindings** configured via `.dev.vars` files to si
 
 | Module  | Root Command       | Module Command                | Port |
 | ------- | ------------------ | ----------------------------- | ---- |
-| SHOPIFY | `pnpm dev:shopify` | `cd apps/shopify && pnpm dev` | 8789 |
-| ADMIN   | `pnpm dev:admin`   | `cd apps/admin && pnpm dev`   | 8787 |
-| WEBSITE | `pnpm dev:website` | `cd apps/website && pnpm dev` | 8788 |
+| APP     | `pnpm dev:app`     | `cd apps/app && pnpm dev`   | 8789 |
+| ADM     | `pnpm dev:adm`     | `cd apps/adm && pnpm dev`   | 8787 |
+| WEB     | `pnpm dev:web`     | `cd apps/web && pnpm dev`   | 8788 |
 
 > **Start/stop helpers**
 >
@@ -53,7 +53,7 @@ This tells Wrangler to:
 
 **Runtime secrets** (e.g., `SHOPIFY_API_KEY`, `CF_ACCESS_CLIENT_ID`) are required for the worker to start correctly.
 
-1. **Create `.dev.vars`** in the module directory (e.g., `apps/shopapp/.dev.vars`).
+1. **Create `.dev.vars`** in the module directory (e.g., `apps/app/.dev.vars`).
 2. **Populate with dummy values** for local testing (or real dev keys if needed):
 
    ```bash
@@ -63,11 +63,11 @@ This tells Wrangler to:
    CF_ACCESS_CLIENT_SECRET="dummy_secret"
    ```
 
-### Shopify App (SHOPIFY Module)
+### App Module (APP)
 
-For the `shopify` module (Remix-based Shopify app), additional environment variables are required:
+For the `app` module (Remix-based Shopify app), additional environment variables are required:
 
-1. **Create `apps/shopify/.dev.vars`** using the template at `apps/shopify/.dev.vars.example`
+1. **Create `apps/app/.dev.vars`** using the template at `apps/app/.dev.vars.example`
 2. **Required variables**:
 
    ```bash
@@ -80,7 +80,7 @@ For the `shopify` module (Remix-based Shopify app), additional environment varia
    ```
 
 3. **Session Storage**: The app uses Cloudflare KV (`APP_KV` binding) for Shopify session persistence
-4. **Local Development**: Use `pnpm dev:shopify` to start the Remix dev server on port 8789
+4. **Local Development**: Use `pnpm dev:app` to start the Remix dev server on port 8789
 
 ### Optional Local Config
 
@@ -92,7 +92,7 @@ For the `shopify` module (Remix-based Shopify app), additional environment varia
 
 ```bash
 # Run tests for a specific module
-pnpm --filter @cloudcache/shopify test
+pnpm --filter @cloudcache/app test
 
 # Run all tests
 pnpm test
@@ -104,7 +104,7 @@ Use Miniflare for local integration testing (see `packages/test-utils`).
 
 ### Manual Testing
 
-1. Start local dev server: `pnpm dev:shopify`
+1. Start local dev server: `pnpm dev:app`
 2. Make requests: `curl http://localhost:8789/healthz`
 3. Check logs in terminal
 

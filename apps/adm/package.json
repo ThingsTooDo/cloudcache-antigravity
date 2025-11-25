@@ -1,5 +1,5 @@
 {
-  "name": "@cloudcache/admin",
+  "name": "@cloudcache/adm",
   "private": true,
   "type": "module",
   "scripts": {

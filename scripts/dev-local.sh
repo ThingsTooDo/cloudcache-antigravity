@@ -52,7 +52,7 @@ pnpm build:dev
 # 3. Start servers sequentially in the background.
 step "Starting development servers in order..."
 
-cd "$ROOT_DIR/apps/admin"
+cd "$ROOT_DIR/apps/adm"
 pnpm dev &
 wait_for_server 8787 "Admin"
 

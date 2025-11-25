@@ -1,4 +1,4 @@
-name = "admin-worker"
+name = "adm-worker"
 main = "dist/index.js"
 compatibility_date = "2025-10-07"
 
@@ -14,13 +14,13 @@ port = 8787
 
 # Staging environment
 [env.staging]
-name = "admin-worker-staging"
+name = "adm-worker-staging"
 routes = [
   { pattern = "staging-admin.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 # Preview environment
 [env.preview]
-name = "admin-worker-preview"
+name = "adm-worker-preview"
 workers_dev = true
 routes = []

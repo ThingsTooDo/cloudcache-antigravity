@@ -40,8 +40,8 @@ parse_arguments() {
 
     # Validate inputs
     # Validate inputs
-    if [[ ! "$MODULE" =~ ^(app|shopify|admin|apex|website)$ ]]; then
-        die "Invalid module '$MODULE'. Must be one of 'app', 'shopify', 'admin', 'apex', or 'website'."
+    if [[ ! "$MODULE" =~ ^(app|shopify|admin|adm|apex|website|web)$ ]]; then
+        die "Invalid module '$MODULE'. Must be one of 'app', 'shopify', 'adm', 'apex', or 'web'."
     fi
     if [[ ! "$ENV" =~ ^(preview|staging|production)$ ]]; then
         die "Invalid environment '$ENV'. Must be one of 'preview', 'staging', or 'production'."
@@ -59,6 +59,10 @@ run_deployment() {
         module_dir_name="app"
     elif [[ "$MODULE" == "app" ]]; then
         module_dir_name="app"
+    elif [[ "$MODULE" == "admin" ]]; then
+        module_dir_name="adm"
+    elif [[ "$MODULE" == "website" ]]; then
+        module_dir_name="web"
     fi
 
     local module_dir="$ROOT_DIR/apps/$module_dir_name"
@@ -67,7 +71,8 @@ run_deployment() {
     local build_command="pnpm build:bundle"
 
     # Added support for website module (Workers deployment)
-    if [[ "$MODULE" == "website" ]]; then
+    # Added support for web module (Workers deployment)
+    if [[ "$MODULE" == "web" || "$MODULE" == "website" ]]; then
         # Build Astro static site AND Worker bundle
         build_command="pnpm build && pnpm exec vite build -c vite.worker.config.ts"
     fi

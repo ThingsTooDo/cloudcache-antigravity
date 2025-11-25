@@ -15,7 +15,7 @@ The current codebase follows a `pnpm` workspace monorepo structure, which is a s
 
 - **Monorepo Structure**: Correct usage of `pnpm-workspace.yaml` with `apps/*` and `packages/*`.
 - **Package Isolation**: Good separation of concerns in `packages/` (e.g., `platform-http`, `platform-logging`).
-- **Cloudflare Readiness**: Apps are set up as Workers (`apps/shopify`, `apps/admin`) or Pages (`apps/website`) with appropriate build tools.
+- **Cloudflare Readiness**: Apps are set up as Workers (`apps/app`, `apps/adm`) or Pages (`apps/web`) with appropriate build tools.
 - **Documentation**: Strong "Truth" file culture (`docs/all-git-truth.md`, `all-code-truth.mdc`).
 
 ### ❌ Critical Issues (RESOLVED)
@@ -28,8 +28,8 @@ The current codebase follows a `pnpm` workspace monorepo structure, which is a s
    - ~~**Missing Libraries**: `apps/app` has no `@shopify/*` dependencies.~~ **INSTALLED**
    - ~~**Architecture Mismatch**: Modern Shopify apps typically use Remix.~~ **IMPLEMENTED**
 3. **Ambiguous Naming** ✅ FIXED:
-   - ~~`apps/app`: "App" is too generic.~~ **RENAMED TO `apps/shopify`**
-   - ~~`apps/apex`: Unclear purpose.~~ **RENAMED TO `apps/website`**
+   - ~~`apps/app`: "App" is too generic.~~ **RENAMED TO `apps/shopify` (Then back to `apps/app`)**
+   - ~~`apps/apex`: Unclear purpose.~~ **RENAMED TO `apps/web`**
 4. **Script Sprawl** ⚠️ ACKNOWLEDGED:
    - `scripts/` contains 85+ files. This suggests a high maintenance burden. (Future: Consider TurboRepo)
 
@@ -44,8 +44,8 @@ The current codebase follows a `pnpm` workspace monorepo structure, which is a s
 
 - [x] **Rename Modules**:
   - `apps/app` → `apps/shopify` (The Shopify App Backend)
-  - `apps/apex` → `apps/website` (The Marketing Website)
-  - `apps/admin` → `apps/admin` (The Admin Tool - Unchanged)
+  - `apps/apex` → `apps/web` (The Marketing Website)
+  - `apps/admin` → `apps/adm` (The Admin Tool)
 - [x] **Update Configurations**: Updated `package.json` names and `wrangler.toml` worker names
 - [x] **Refactor Scripts**: Updated all scripts (`cloudcache`, `deploy-preview`, etc.) to use new module names
 - [x] **Sync Documentation**: Updated all truth files to reflect the new structure
@@ -77,7 +77,7 @@ The current codebase follows a `pnpm` workspace monorepo structure, which is a s
 ## 4. Summary
 
 ✅ **Phase I**: Root directory cleaned, garbage removed  
-✅ **Phase II**: Modules renamed for clarity (`shopify`, `website`)  
+✅ **Phase II**: Modules renamed for clarity (`app`, `web`, `adm`)  
 ✅ **Phase III**: Shopify + Remix foundation established
 
 The codebase is now **A+ Grade** with:

@@ -1,4 +1,4 @@
-name = "website-worker"
+name = "web-worker"
 main = "./dist-worker/worker.mjs"
 compatibility_date = "2025-10-07"
 
@@ -13,15 +13,15 @@ routes = [
 
 # Staging environment
 [env.staging]
-name = "website-worker-staging"
+name = "web-worker-staging"
 main = "./dist-worker/worker.mjs"
 routes = [
-  { pattern = "staging-website.cloudcache.ai/*", zone_name = "cloudcache.ai" }
+  { pattern = "staging-web.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
 # Preview environment
 [env.preview]
-name = "website-worker-preview"
+name = "web-worker-preview"
 main = "./dist-worker/worker.mjs"
 workers_dev = true
 routes = []

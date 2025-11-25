@@ -35,13 +35,20 @@ main() {
 # --- Helper Functions ---
 
 parse_arguments() {
-    MODULE="${1?Missing module name. Must be one of 'app', 'admin', or 'apex'.}"
+    MODULE="${1?Missing module name. Must be one of 'app', 'adm', or 'web'.}"
     ENV="${2?Missing environment name. Must be one of 'preview', 'staging', or 'production'.}"
 
     # Validate inputs
-    # Validate inputs
-    if [[ ! "$MODULE" =~ ^(app|shopify|admin|adm|apex|website|web)$ ]]; then
-        die "Invalid module '$MODULE'. Must be one of 'app', 'shopify', 'adm', 'apex', or 'web'."
+    # Validate module name
+    if [[ ! "$MODULE" =~ ^(app|adm|web)$ ]]; then
+        die "Invalid module '$MODULE'. Must be one of 'app', 'adm', or 'web'."
+    fi
+
+    # Define module directory
+    MODULE_DIR="$ROOT_DIR/apps/$MODULE"
+
+    if [[ ! -d "$MODULE_DIR" ]]; then
+        die "Module directory not found: $MODULE_DIR"
     fi
     if [[ ! "$ENV" =~ ^(preview|staging|production)$ ]]; then
         die "Invalid environment '$ENV'. Must be one of 'preview', 'staging', or 'production'."
@@ -54,16 +61,7 @@ run_deployment() {
     step "Executing deployment for '$MODULE' in '$ENV' environment..."
 
     local module_dir_name="$MODULE"
-    # Map 'shopify' module name to 'app' directory (legacy support)
-    if [[ "$MODULE" == "shopify" ]]; then
-        module_dir_name="app"
-    elif [[ "$MODULE" == "app" ]]; then
-        module_dir_name="app"
-    elif [[ "$MODULE" == "admin" ]]; then
-        module_dir_name="adm"
-    elif [[ "$MODULE" == "website" ]]; then
-        module_dir_name="web"
-    fi
+    # No mapping needed, MODULE is already the directory name
 
     local module_dir="$ROOT_DIR/apps/$module_dir_name"
     cd "$module_dir" || die "Failed to change directory to $module_dir"

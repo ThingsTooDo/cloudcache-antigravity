@@ -1,5 +1,8 @@
-import { useEffect } from "react";
-import { Provider as AppBridgeProvider } from "@shopify/app-bridge-react";
+import { useEffect, useMemo, useState } from "react";
+import { useLocation, useNavigate } from "@remix-run/react";
+import AppBridgeReact from "@shopify/app-bridge-react";
+
+const { Provider } = AppBridgeReact;
 import { Banner, Layout, Page } from "@shopify/polaris";
 
 interface ShopifyAppBridgeProps {
@@ -9,13 +12,28 @@ interface ShopifyAppBridgeProps {
 }
 
 export function ShopifyAppBridge({ children, apiKey, host }: ShopifyAppBridgeProps) {
-  const config = {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const appBridgeConfig = {
     apiKey,
     host,
     forceRedirect: true,
   };
 
-  return <AppBridgeProvider config={config}>{children}</AppBridgeProvider>;
+  const routerConfig = useMemo(
+    () => ({
+      location,
+      history: { replace: (path: string) => navigate(path, { replace: true }) },
+    }),
+    [location, navigate],
+  );
+
+  return (
+    <Provider config={appBridgeConfig} router={routerConfig}>
+      {children}
+    </Provider>
+  );
 }
 
 export function AppBridgeError() {

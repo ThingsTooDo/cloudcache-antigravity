@@ -11,7 +11,7 @@ REPORTS_DIR="$ROOT_DIR/docs/reports/validation"
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 REPORT_FILE="$REPORTS_DIR/validation-report-$TIMESTAMP.md"
 
-MODULES=("shopapp" "adm" "web")
+MODULES=("app" "adm" "web")
 MODES=("preview" "staging" "production")
 ENVIRONMENTS=("localhost" "cloudflare")
 
@@ -150,29 +150,27 @@ get_worker_name() {
   local module="$1"
   local mode="$2"
   case "$module" in
-    shopapp)
-      case "$mode" in
-        preview) echo "shopapp-worker-preview" ;;
-        staging) echo "shopapp-staging" ;;
-        production) echo "shopapp-production" ;;
-      esac
-      ;;
+    app)
+        case "$mode" in
+        preview) echo "app-worker-preview" ;;
+        staging) echo "app-worker-staging" ;;
+        production) echo "app-worker" ;;
+        esac
+        ;;
     adm)
-      case "$mode" in
-        localhost) echo "adm-worker-local" ;;
+        case "$mode" in
         preview) echo "adm-worker-preview" ;;
-        staging) echo "adm-staging" ;;
-        production) echo "adm-production" ;;
-      esac
-      ;;
+        staging) echo "adm-worker-staging" ;;
+        production) echo "adm-worker" ;;
+        esac
+        ;;
     web)
-      case "$mode" in
-        localhost) echo "web-local" ;;
-        preview) echo "web-pages-preview" ;;
-        staging) echo "web-staging" ;;
-        production) echo "web-production" ;;
-      esac
-      ;;
+        case "$mode" in
+        preview) echo "web-worker-preview" ;;
+        staging) echo "web-worker-staging" ;;
+        production) echo "web-worker" ;;
+        esac
+        ;;
   esac
 }
 
@@ -212,7 +210,7 @@ for module in "${MODULES[@]}"; do
       if [[ "$env" == "localhost" ]]; then
         GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
         case "$module" in
-          shopapp) url="http://localhost:8789" ;;
+          app) url="http://localhost:8789" ;;
           adm) url="http://localhost:8787" ;;
           web) url="http://localhost:8788" ;;
         esac

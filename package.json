@@ -23,7 +23,6 @@
     "verify:ping": "bash scripts/verify/ping.sh staging",
     "shopify:scopes": "bash scripts/shopify/scopes-assert.sh",
     "cf:snapshot": "bash scripts/cf/inventory-snapshot.sh",
-    "cf:snapshot": "bash scripts/cf/inventory-snapshot.sh",
     "test:validation": "bash scripts/cloudcache test deployments",
     "switch:antigravity": "bash scripts/switch-ide.sh antigravity",
     "switch:cursor": "bash scripts/switch-ide.sh cursor"

@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Configure Cloudflare Access policies for all modules
-# Usage: bash scripts/configure-access.sh [all|shopify|admin|website]
+# Usage: bash scripts/configure-access.sh [all|app|adm|web]
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"

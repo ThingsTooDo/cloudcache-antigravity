@@ -3,6 +3,7 @@ export const GET = ({ params, request }) => {
     JSON.stringify({
       status: "ok",
       service: "website",
+      version: process.env.GIT_HASH || "unknown",
       timestamp: Date.now(),
     }),
     {

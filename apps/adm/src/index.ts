@@ -74,6 +74,7 @@ export default {
     <div class="title">I love Cloudcache</div>
   </div>
   <div class="footer">Footer</div>
+  <div id="cloudcache-validated-badge" style="display:none">Cloudcache Validated</div>
 </body>
 </html>
       `.trim();

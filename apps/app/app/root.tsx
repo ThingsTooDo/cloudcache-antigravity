@@ -24,6 +24,7 @@ export default function App() {
         <Outlet context={{ host, apiKey }} />
         <ScrollRestoration />
         <Scripts />
+        <div id="cloudcache-validated-badge" style={{ display: "none" }}>Cloudcache Validated</div>
       </body>
     </html>
   );

@@ -14,19 +14,28 @@ const moduleName = 'APEX';
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APEX {mode}</title>
+  <title>WEB</title>
   <style>
     body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
+    .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
     .main { display: flex; justify-content: center; align-items: center; }
+    .title { font-size: 30px; color: red; animation: slideIn 1s ease-out; }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
   </style>
+  <link rel="icon" href="/favicon.ico" />
 </head>
 <body>
-  <Header />
-  <LeftSidebar />
+  <div class="header">Header</div>
+  <div class="sidebar">Left Sidebar</div>
   <div class="main">
-    <Title />
+    <div class="title">I love Cloudflare (web)</div>
   </div>
-  <Footer />
+  <div class="footer">Footer</div>
   <div id="cloudcache-validated-badge" style="display:none">Cloudcache Validated</div>
 </body>
 </html>

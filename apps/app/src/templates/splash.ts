@@ -11,26 +11,27 @@ export function renderPage(_props?: any): string {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>APP preview</title>
+  <title>APP</title>
   <style>
-    body{margin:0;padding:0;height:100vh;display:grid;
-          grid-template-rows:60px 1fr 60px;
-          grid-template-columns:200px 1fr;
-          font-family:sans-serif;background:#FFF;}
-    .header,.sidebar,.footer{display:flex;justify-content:center;align-items:center;
-                             font-size:20px;color:#000;}
-    .header{grid-column:1 / -1;}
-    .footer{grid-column:1 / -1;}
-    .title{display:flex;justify-content:center;align-items:center;
-           font-size:30px;color:#FF0000;}
-    .main{display:flex;justify-content:center;align-items:center;}
+    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
+    .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .main { display: flex; justify-content: center; align-items: center; }
+    .title { font-size: 30px; color: red; animation: slideIn 1s ease-out; }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
   </style>
 </head>
 <body>
-  ${Header}
-  ${Sidebar}
-  <div class="main">${Title("preview", "APP")}</div>
-  ${Footer}
+  <div class="header">Header</div>
+  <div class="sidebar">Left Sidebar</div>
+  <div class="main">
+    <div class="title">I love Cloudflare (app)</div>
+  </div>
+  <div class="footer">Footer</div>
 </body>
 </html>
   `.trim();

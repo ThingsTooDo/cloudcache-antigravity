@@ -48,6 +48,7 @@ export default function Index() {
         }
         .title {
           font-size: 30px;
+          color: green;
         }
         .footer {
           display: flex;
@@ -61,9 +62,9 @@ export default function Index() {
       `}</style>
       <div className="header">Header</div>
       <div className="main">
-        <div className="sidebar">Left sidebar</div>
+        <div className="sidebar">Left Sidebar</div>
         <div className="content">
-          <div className="title">I love Cloudcache</div>
+          <div className="title">I love Cloudflare (app)</div>
         </div>
       </div>
       <div className="footer">Footer</div>

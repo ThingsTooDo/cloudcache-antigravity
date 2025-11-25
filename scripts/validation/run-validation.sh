@@ -218,11 +218,7 @@ for module in "${MODULES[@]}"; do
         case "$mode" in
           preview)
             GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
-            if [[ "$module" == "web" ]]; then
-              url="https://preview.web-8h2.pages.dev"
-            else
-              url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
-            fi
+            url="https://$(get_worker_name "$module" "preview").cloudcache.workers.dev"
             ;;
           staging)
             # Skip staging check if remote branch doesn't exist, but don't log it as a failure/skip

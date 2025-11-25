@@ -39,6 +39,7 @@ import{j as e}from"./jsx-runtime-BgjmLhhW.js";const t=()=>[{title:"This is Cloud
         }
         .title {
           font-size: 30px;
+          color: green;
         }
         .footer {
           display: flex;
@@ -49,4 +50,4 @@ import{j as e}from"./jsx-runtime-BgjmLhhW.js";const t=()=>[{title:"This is Cloud
           padding: 20px;
           border-top: 1px solid #ccc;
         }
-      `}),e.jsx("div",{className:"header",children:"Header"}),e.jsxs("div",{className:"main",children:[e.jsx("div",{className:"sidebar",children:"Left sidebar"}),e.jsx("div",{className:"content",children:e.jsx("div",{className:"title",children:"I love Cloudcache"})})]}),e.jsx("div",{className:"footer",children:"Footer"})]})}export{n as default,t as meta};
+      `}),e.jsx("div",{className:"header",children:"Header"}),e.jsxs("div",{className:"main",children:[e.jsx("div",{className:"sidebar",children:"Left Sidebar"}),e.jsx("div",{className:"content",children:e.jsx("div",{className:"title",children:"I love Cloudflare (app)"})})]}),e.jsx("div",{className:"footer",children:"Footer"})]})}export{n as default,t as meta};

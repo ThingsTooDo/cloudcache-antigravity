@@ -16,7 +16,7 @@ import {
 declare const __VERSION__: string;
 
 const FAVICON_BASE64 =
-  "AAABAAIAEBAAAAEAIADGAQAAJgAAACAgAAABACAAiwMAAOwBAACJUE5HDQoaCgAAAA1JSERSAAAAEAAAABAIBgAAAB/z/2EAAAABc1JHQgCuzhzpAAAARGVYSWZNTQAqAAAACAABh2kABAAAAAEAAAAaAAAAAAADoAEAAwAAAAEAAQAAoAIABAAAAAEAAAAQoAMABAAAAAEAAAAQAAAAADRVcfIAAAEwSURBVDgR7ZC/L0NRFMc/9762GIjGYhGmjn62EjFa+AvEIhKdJN1IRCLpIGIhsXXqJlY2C4MBbWKukJA0BqQWVNVr33GfvtfQ0L+gd7jfc8/9/jg50DqqcQWyOd5DOHBE0RlmJHhLp97CNqyiXuVd+ilYeyp+vOjrtF/UscKcEUe5qwbI2RGUpHFIg0QQ2sCZl92paZ8f8AsXZTm6gdIrvDi1dq4KuRL0WTDaDsoMLBiN7BtC2CX9nkB0wnyGeJWagXubTMZC3tv0XRMoe40GAyiZBBgKwqQnmjDY8TPHEDTJ/wySXgLcVw7oUpcMWI/Pn91Pa5n42/XhFYVMNq8SJ6k/DdR2NqXWL5RaOFNmiTc82DMqdto7e74zaIv+HrvyUc774qYoS7FYU0Lrs76BL/LgWyHfgEGBAAAAAElFTSuQmCCiVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAC9UlEQVRYCe1UTUhUURT+7hsdhzQhoUXUmEaLsEKNJswgLSgQghZhGzcp9EtQllCLIMJVEmVBPwTtrI1RtIigoCbaFCS0KAqslAyiJEsdf0Zn3u07d94bx9c8kXDXHOa+c8695+c7331vgJzkGMgx8L8zoOZLgL5Z0wRbncZvew3WB+MI4gtC6jGKrE5VHe2XOvr51nIkrGOYtHZiWpdiGnGMI4rJxFF18MW3bL3mBUBfYPNiqwsjNtCXBFYHgHV5QAHTF1tTsHCcjcCGnUiooLETPJvWwAR1Qt1TLU/3ZAPAKvMQjRPQLDZKACIfCUIyK/PFC0LjmhhQmfMw3vW1rjfnWR5Wlr2/txQqTLERFnXlA0G8TdDjntlmcwEpkm5sHHmU6BvbB/TFbXXiZIovA3pffQjh8aukuZEJIcQ5/VRmKu13BCDLlTCvJlIwAyiFjKfCjF5BYOdp1Ljhon0BoDh2BirQkg4eS1vZDfbFhmBqesMA2RBtSEnba73Jc1yB1WiS3SIx5/69FVx/ExGEnHLmKpzmMryI7Cnw3mbLHAB0WSrUjADEHD07P+WVk/pSLlcM49542VRRN8TV/legMEHEwqn5oYKhQdry6eVxReOpGiGqLQxz40xfyXEB0Daik0jqdsdJK38GNNFKDaEuXVSK0RnKYLKWzUNOkxTN6eIpwxQhINWm2p71eA7neAmh2jnULq6ADDfrExtIvOFOFcKWxirS4Xx20v/Jp0o79v77RO3g3UJJswqCWBRefrvobG+nt7n4vgyoK696OGyboVaGcF9Grc5hyF5CRINYae2gfsA1TIDD9380vL48dtK6VdpR+LJkt+lnx6cw2vu5zjhZHg53WU58tvShqjIE8vtg23vV9Z7uzLCGS/1NSvEvm7K/rxWbh4iNorX+uqwrGTaO5+HLgCduxrWsejrd3uYS8Ki17E7k18OO5v5TP2sympPJA3K+IKIPb+zQzdVLF6TYvxTRRyKRf8nL5eQYyDGQY8CPgT8p4ed9RS416QAAAABJRU5ErkJggg==";
+  "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAABWlJREFUWEftl1tsFGUUx//nm53Z3XZbCpSr3AqkFSRUaEuCIAEUAz5ohFIh3lChghciEaokICiIgfjggyjBcFFCqLWlEoxQKLYqVUICFSEqhXIrFC2Udm27l9md75jZQrvLDmVbHnxxnnZnz+V3zvmf78sSuvhwYdYDAL8M6XqXcsqbuxgG1BVHLsqYAkYRADukHEI5lde6Esf06TQA7856BlJuCSUHPqLsY8u6mrxTAGzCfp25HMRrW8GpCdIYdi/VxwzAZZNtqG/eCHBuW7WEtTTr2Mp7qT4mAN4xOg1x2sdgng6HBvh0wDDA56sqiVCMxAFbaVHVla6C3FEDXDDSJf+q2yCS+y6AZrdFJGi+Dr5ysfWVEF6yuTYgcc4H9MrmQGdBLAH485Q+rLv3U88BD8KmRsY0guCaU4A02qfh0MCGKKGeqbPo+d9aOgMRBcDbJjs4ePpH6tYnC0KJisWNl0F6A9gcxW0Pqc7deN2TTUQcK0Q0wFfp6yGUPJBFc1QCXzoOsIysPgyGHEkvUm7j9k4D8OrVAqO+XQeH+nZIaBYPN9UA3rqOYyvqRRr4aBo9vs8fC0SoTC4Y70QctsOn59zRiRnsMcXeXr2lbbAZZKOtSBrzJj1Z0cTfjBqI5qupEGoQjkGnaObR+nA/4oIxvSCUYoAnxEJ8VxvFDW48C5DiAdkawHp/MLfOk0QANvsecvZdSrPOh9aIuDDjDIDhUYFv7bxVxjv9ZjSC9fMddonMjdGNa+TsO41mXjlhArQr1ipwRyDhcFojuOWcOdC7NilkoKhnCJnpkQCxud5mxWBcBvgu4jTbbVYfvjH2bvOJizOGtUUUF5aybF7Y9p3jQHIo2o7g8NShzvjAyjmA3G3Bw5MYPicMbxwUtB5awuEDOX3tK6zYiyKWnQ/0n8B67eFbFiRGAh6ndV8oAGhnweSx/L3F3RsrvtsLT9CF5Ynr0UfUAYJhn3AEIsndqknF8UskgKnWUmcFDN94GPGA937r5MILOE2lW58XptPli2OQd6g45P+GayPS1ZOhz1rGSdgG3by7yL4v+iQ83C8Tvr8r0DxcQzAhGkD9B4gz295+F1hSSoGKyrnwBPrjYfk9CAxyeaBlXAACN8egxL9jfRmVDF2Fpu6ro1fzOpBwKXaldyRqUhrgSkmzBijM/AHgSRH+CbWA6+qdQ95a15jWloKgHjn0UH1x9AiKMx6DgZKwTH4k1xhw1sWF3sWUIMz7dnunqxr+uEWUVXcwJMTwkphBKMw4Aqc2rvVCohsgegqjxa/wVk2ENNIgrYQRwwFC5rrYT8DILqfMzYFnnz6XDlXURQIUZT4B5j1BacPx2sygy+mZuObAKj2/aEglL5ntbPI2TffrWuni4MYU1v0NREJXmEYENc2d/+V9lXNnV0+ETVzftSvlT33ZzLHqhqLKOXNqhgopByd0H/yT212dpsKmGYI9xMoMhXGwDaD1Ot57HA4tvez3Sb4tx17NY+ZTIJ63M3/IvJaFM5YQCz8E98tt2JRMwM8Go4GIXzIPfxUiLwBeAYjSnSOeK/JcdfyhCiX7hfpP3iLi/ZJkmZBqIYNvCIEdkrGECbntAAVjp0LQIRDtfa9s3fun61JzwchHvGMcvF58lvRaqSp4gWTelXvj094gMS0osU4TtFhC6kHZslIViR8So3Zzz0XlYDlWEHvn12/qxoJSmdQ1wvBnAyKRhDzKTLNZUb5oB9g22YFe+iOI10poSnnQaqpNC2dMlQq12AzWYSMloBtSUxUVhsEQNEAatmqF0N0QshFsJLMUtQQapCjkD0pJwqE0kt/QWHIPReEqw2FP6PQ/oxjk1imT/wH+8w78C6AoQ9jJ3s9uAAAAAElFTkSuQmCC";
 
 export default {
   async fetch(request: Request, env: unknown): Promise<Response> {
@@ -57,21 +57,26 @@ export default {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADMIN preview</title>
+  <title>ADM</title>
   <style>
     body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
     .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
     .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
     .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
     .main { display: flex; justify-content: center; align-items: center; }
-    .title { font-size: 30px; color: #000000; }
+    .title { font-size: 30px; color: red; animation: slideIn 1s ease-out; }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
   </style>
 </head>
 <body>
   <div class="header">Header</div>
   <div class="sidebar">Left Sidebar</div>
-  <div class="main">
-    <div class="title">I love Cloudcache</div>
+  <div class="main" style="flex-direction: column;">
+    <div class="title" title="I love Cloudflare (adm)">I love Cloudflare (adm)</div>
+    <a href="/about" style="margin-top: 20px; padding: 10px 20px; background-color: red; color: white; text-decoration: none; border-radius: 5px;">About page</a>
   </div>
   <div class="footer">Footer</div>
   <div id="cloudcache-validated-badge" style="display:none">Cloudcache Validated</div>
@@ -84,6 +89,47 @@ export default {
           "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
           Pragma: "no-cache",
           Expires: "0",
+        },
+      });
+      return addSecurityHeaders(response, correlationId);
+    }
+
+    // About Page
+    if (pathname === "/about") {
+      const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADM</title>
+  <style>
+    body { margin: 0; padding: 0; height: 100vh; display: grid; grid-template-rows: 60px 1fr 60px; grid-template-columns: 200px 1fr; font-family: sans-serif; background: #FFFFFF; }
+    .header { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .sidebar { display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .footer { grid-column: 1 / -1; display: flex; justify-content: center; align-items: center; font-size: 20px; color: black; }
+    .main { display: flex; justify-content: center; align-items: center; }
+    .title { font-size: 30px; color: red; animation: slideIn 1s ease-out; }
+    @keyframes slideIn {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Header</div>
+  <div class="sidebar">Left Sidebar</div>
+  <div class="main">
+    <div class="title">About Page</div>
+  </div>
+  <div class="footer">Footer</div>
+</body>
+</html>
+      `.trim();
+      const response = new Response(html, {
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "no-cache, no-store, must-revalidate, max-age=0",
         },
       });
       return addSecurityHeaders(response, correlationId);

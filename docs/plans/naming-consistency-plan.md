@@ -1,7 +1,5 @@
 # Naming Consistency Plan – Backend
 
-**Created:** 2025-11-24
-
 **Goal:** Ensure no residual `shopify` references remain after the rename to `app`.
 
 ## Actions

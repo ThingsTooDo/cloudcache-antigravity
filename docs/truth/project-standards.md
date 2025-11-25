@@ -26,7 +26,7 @@ Every supporting guide must include:
 1. The standard header block (Last Updated, Rule Reference, Canonical Source).
 2. A short “When to use this guide” blurb linking back up to the relevant truth file.
 
-## Script Truth  
+## Script Truth
 
 - **`scripts/all-git-truth.sh`** – Unified git wrapper (pre-commit formatting/validation, markdown structure validation, credential-safe git commands). This script is the enforcement point for documentation rules (`--validate-md`).
 - **`scripts/deploy-module.sh`** – Master script for single-module deployments with 5-attempt retry logic and exponential backoff (5s, 10s, 20s, 40s). Handles transient Cloudflare API failures gracefully.

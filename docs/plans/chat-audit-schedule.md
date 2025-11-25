@@ -5,19 +5,19 @@
 
 ## Priority Schedule
 
-| Rank | Title | Priority | Status |
-| :--- | :--- | :--- | :--- |
-| 1 | **Multi-IDE Project Workflow** | 🔵🔵 | **In Progress** |
-| 2 | **Antigravity Rules File Plan** | 🔵🔵🔵 | **Active / Verify** |
-| 3 | **Fix APEX Pages Deployment** | 🔵🔵 | **Incomplete / Cleanup** |
-| 4 | **Cloudflare Module Deployment Refactor** | 🔵 | **Done / Archive** |
-| 5 | **Adding Code Truth to IDE Rules** | 🔵 | **Done / Archive** |
-| 6 | **Renaming Shop App** | 🔵 | **Done / Archive** |
-| 7 | **Visualize App Deployment** | ⚪ | **Done / Archive** |
-| 8 | **Opening Module Previews** | ⚪ | **Operational / Ignore** |
-| 9 | **Opening Anti-Gravity Browser** | ⚪ | **Operational / Ignore** |
-| 10 | **Import Cursor Project** | ⚪ | **Operational / Ignore** |
-| 11 | **Renaming Shopify Module** | 🔵🔵🔵 | **Awaiting Updates** |
+| Rank | Title                                     | Priority | Status                   |
+| :--- | :---------------------------------------- | :------- | :----------------------- |
+| 1    | **Multi-IDE Project Workflow**            | 🔵🔵     | **In Progress**          |
+| 2    | **Antigravity Rules File Plan**           | 🔵🔵🔵   | **Active / Verify**      |
+| 3    | **Fix APEX Pages Deployment**             | 🔵🔵     | **Incomplete / Cleanup** |
+| 4    | **Cloudflare Module Deployment Refactor** | 🔵       | **Done / Archive**       |
+| 5    | **Adding Code Truth to IDE Rules**        | 🔵       | **Done / Archive**       |
+| 6    | **Renaming Shop App**                     | 🔵       | **Done / Archive**       |
+| 7    | **Visualize App Deployment**              | ⚪       | **Done / Archive**       |
+| 8    | **Opening Module Previews**               | ⚪       | **Operational / Ignore** |
+| 9    | **Opening Anti-Gravity Browser**          | ⚪       | **Operational / Ignore** |
+| 10   | **Import Cursor Project**                 | ⚪       | **Operational / Ignore** |
+| 11   | **Renaming Shopify Module**               | 🔵🔵🔵   | **Awaiting Updates**     |
 
 ---
 

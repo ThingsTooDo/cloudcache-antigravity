@@ -2,91 +2,81 @@
 
 ## Goal
 
-To strictly separate documentation into two distinct categories:
+To strictly separate documentation into two distinct categories with a flattened structure:
 
-1. **Truth** (`docs/truth/`): The current reality, rules, standards, and operational manuals of the codebase.
-2. **Plans** (`docs/plans/`): Intentions, future work, and transient implementation details.
+1. **Truth** (`docs/truth/`): The current reality, rules, standards, and operational manuals.
+2. **Plans** (`docs/plans/`): Intentions, future work, and active tasks.
 
-## Current State Analysis
+## Target Structure (Scaffold)
 
-Currently, `docs/` is a mix of truth files (e.g., `all-deployment-truth.md`), folders (`standards/`, `zero-trust/`), and plans (in `plans/`).
-
-## Proposed Changes
-
-### 1. Create `docs/truth/` Directory
-
-This directory will house all "Source of Truth" documents.
-
-### 2. File & Folder Migrations
-
-#### Move to `docs/truth/`
-
-These files represent the current state of the system.
-
-- `docs/all-deployment-truth.md`
-- `docs/all-git-truth.md`
-- `docs/all-local-dev-truth.md`
-- `docs/all-system-truth.md`
-- `docs/operational-runbook.md`
-- `docs/secrets-management.md`
-- `docs/shopify-app-setup-guide.md`
-- `docs/shopify-oauth-setup.md`
-- `docs/cto-codebase-review.md` (Current state assessment)
-- `docs/deployment-verified-state-2025-11-21.md` (State snapshot)
-- `docs/multi-ide-workflow.md`
-- `ARCHITECTURE-GENERAL.md` (From Root) -> `docs/truth/architecture-general.md`
-
-#### Move Subdirectories to `docs/truth/`
-
-- `docs/adr/` -> `docs/truth/adr/` (Architectural Decision Records are permanent truth)
-- `docs/standards/` -> `docs/truth/standards/`
-- `docs/zero-trust/` -> `docs/truth/zero-trust/`
-- `docs/archive/` -> `docs/truth/archive/` (History is a form of truth)
-
-#### Move to `docs/plans/`
-
-- `docs/app-bundle-debug.md` (Appears to be a transient debug note/plan)
-
-### 3. Root Level Exceptions
-
-- `README.md` will remain in the project root as the entry point.
-
-## Scaffold Structure (Target State)
-
-The following tree illustrates the intended structure after execution:
+The structure will be strictly limited to the following subdirectories:
 
 ```text
 docs/
-├── plans/                          # [INTENT] Future work & active tasks
+├── plans/                          # [INTENT]
+│   ├── archive/                    # Old/Completed plans (Moved from docs/archive/plans)
 │   ├── docs-structure-refactor.md  # (This Plan)
 │   ├── backend-quality-improvement-plan.md
-│   ├── chat-audit-schedule.md
-│   └── ... (other plan files)
+│   └── ... (active plan files)
 │
-└── truth/                          # [REALITY] Current state & rules
-    ├── adr/                        # Architectural Decision Records
-    ├── archive/                    # Historical documents
-    ├── standards/                  # Coding & Engineering Standards
-    ├── zero-trust/                 # Security Policies
+└── truth/                          # [REALITY]
+    ├── archive/                    # Historical documents (General archive)
+    ├── zero-trust/                 # Security Policies (Preserved folder)
+    ├── 001-build-strategy.md       # (Flattened from adr/)
+    ├── project-standards.md        # (Flattened from standards/)
     ├── all-deployment-truth.md
     ├── all-git-truth.md
     ├── all-local-dev-truth.md
     ├── all-system-truth.md
     ├── architecture-general.md     # (Moved from root)
     ├── cto-codebase-review.md
-    ├── deployment-verified-state-*.md
-    ├── multi-ide-workflow.md
     ├── operational-runbook.md
-    ├── secrets-management.md
-    ├── shopify-app-setup-guide.md
-    └── shopify-oauth-setup.md
+    └── ... (other truth files)
 ```
 
 ## Execution Steps
 
-1. Create `docs/truth` directory.
-2. Move top-level truth files from `docs/` to `docs/truth/`.
-3. Move `ARCHITECTURE-GENERAL.md` from root to `docs/truth/`.
-4. Move `docs/app-bundle-debug.md` to `docs/plans/`.
-5. Move directories `adr`, `standards`, `zero-trust`, `archive` into `docs/truth/`.
-6. Update internal links in `README.md` and other docs to point to new locations.
+### 1. Create Directory Structure
+
+- Create `docs/truth/`
+- Create `docs/truth/archive/`
+- Create `docs/truth/zero-trust/`
+- Create `docs/plans/archive/`
+
+### 2. Migrate "Truth" Content
+
+- **Flatten Folders**:
+  - Move `docs/adr/001-build-strategy.md` to `docs/truth/build-strategy.md` (RENAME: Remove numerical prefix) -> Delete `docs/adr/`
+  - Move `docs/standards/project-standards.md` to `docs/truth/project-standards.md` -> Delete `docs/standards/`
+- **Move Directories**:
+  - Move `docs/zero-trust/*` to `docs/truth/zero-trust/` -> Delete `docs/zero-trust/`
+  - Move `docs/archive/*` (excluding `plans/`) to `docs/truth/archive/`
+- **Move Files**:
+  - Move `docs/all-*.md` to `docs/truth/`
+  - Move `docs/operational-runbook.md` to `docs/truth/`
+  - Move `docs/secrets-management.md` to `docs/truth/`
+  - Move `docs/shopify-*.md` to `docs/truth/`
+  - Move `docs/cto-codebase-review.md` to `docs/truth/`
+  - Move `docs/deployment-verified-state-*.md` to `docs/truth/`
+  - Move `docs/multi-ide-workflow.md` to `docs/truth/`
+  - Move `ARCHITECTURE-GENERAL.md` (from root) to `docs/truth/architecture-general.md`
+
+### 3. Migrate "Plans" Content
+
+- **Archive Plans**:
+  - Move `docs/archive/plans/*` to `docs/plans/archive/`
+- **Active Plans**:
+  - Ensure all active plans remain in `docs/plans/`
+  - Move `docs/app-bundle-debug.md` to `docs/plans/` (identified as transient)
+
+### 4. Update Rules & Standards (New Step)
+
+- **Update `docs/truth/project-standards.md`** (and any other relevant "Truth" files):
+  - **Document Structure**: Explicitly define the `docs/truth` vs `docs/plans` separation.
+  - **Naming Convention**: Enforce "No numerical prefixes" or dates in filenames (use kebab-case).
+  - **Agent Instructions**: Add clear instructions for agents on where to place new files (Truth vs Plans) and how to merge code.
+
+### 5. Cleanup
+
+- Remove empty `docs/archive/` directory (after moves).
+- Update `README.md` links to point to new locations.

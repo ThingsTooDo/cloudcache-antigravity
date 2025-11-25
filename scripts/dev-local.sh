@@ -56,9 +56,9 @@ cd "$ROOT_DIR/apps/adm"
 pnpm dev &
 wait_for_server 8787 "Admin"
 
-cd "$ROOT_DIR/apps/apex"
+cd "$ROOT_DIR/apps/web"
 pnpm dev &
-wait_for_server 8788 "Apex"
+wait_for_server 8788 "Web"
 
 cd "$ROOT_DIR/apps/app"
 pnpm dev &
@@ -66,7 +66,7 @@ wait_for_server 8789 "App"
 
 log "🎉 All local development servers started successfully!"
 echo "  - Admin: http://localhost:8787"
-echo "  - Apex:  http://localhost:8788"
+echo "  - Web:   http://localhost:8788"
 echo "  - App:   http://localhost:8789"
 echo ""
 echo "Press Ctrl+C to stop all servers."

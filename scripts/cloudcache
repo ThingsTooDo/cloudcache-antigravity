@@ -26,7 +26,7 @@ load_env_file_if_exists "$ROOT_DIR/.env"
 load_env_file_if_exists "$ROOT_DIR/.env.local"
 
 # Module validation
-MODULES=("website" "shopapp" "admin")
+MODULES=("web" "app" "adm")
 ENVIRONMENTS=("preview" "staging" "prod")
 
 validate_module() {
@@ -117,10 +117,10 @@ get_module_secrets() {
   local module="$1"
   
   case "$module" in
-    shopapp)
+    app)
       echo "SHOPIFY_API_KEY SHOPIFY_API_SECRET CF_ACCESS_CLIENT_ID CF_ACCESS_CLIENT_SECRET"
       ;;
-    admin|website)
+    adm|web)
       echo "CF_ACCESS_CLIENT_ID CF_ACCESS_CLIENT_SECRET"
       ;;
     *)
@@ -147,7 +147,7 @@ cmd_bootstrap() {
   step "Bootstrapping $module for $env environment"
   
   # For Workers: use wrangler deploy to create/update
-  if [[ "$module" != "website" ]]; then
+  if [[ "$module" != "web" ]]; then
     local worker_name
     worker_name=$(get_worker_name "$module" "$env")
     
@@ -202,7 +202,7 @@ cmd_bind() {
   setup_cf_env
   setup_wrangler_token
   
-  if [[ "$module" == "website" ]]; then
+  if [[ "$module" == "web" ]]; then
     # Pages environment variables
     step "Setting Pages environment variables"
     
@@ -285,7 +285,7 @@ cmd_verify() {
   
   step "Verifying $module ($env)"
   
-  if [[ "$module" == "website" ]]; then
+  if [[ "$module" == "web" ]]; then
     # Check Pages project
     local project
     project=$(cf_get "${CF_ACCT_BASE}/pages/projects/website-cloudcache" 2>/dev/null || echo "")
@@ -387,7 +387,7 @@ cmd_status() {
   
   step "Status for $module ($env)"
   
-  if [[ "$module" == "website" ]]; then
+  if [[ "$module" == "web" ]]; then
     # Pages project status
     local project
     project=$(cf_get "${CF_ACCT_BASE}/pages/projects/website-cloudcache" 2>/dev/null || echo "")
@@ -572,11 +572,11 @@ cmd_test_preview() {
   # Get preview URL if not provided
   if [[ -z "$preview_url" ]]; then
     case "$module" in
-      website)
+      web)
         preview_url=$(get_module_preview_url "$module")
         log "Using default preview URL: $preview_url"
         ;;
-      shopapp|admin)
+      app|adm)
         preview_url=$(get_module_preview_url "$module")
         log "Using default preview URL: $preview_url"
         ;;
@@ -677,7 +677,7 @@ usage() {
   echo "  test         deployments       Run the full deployment validation suite" >&2
   echo "  test         preview <module>  Test a preview deployment" >&2
   echo "" >&2
-  echo "Modules: website, shopapp, admin" >&2
+  echo "Modules: web, app, adm" >&2
   echo "Environments: preview (or prev), staging, prod" >&2
 }
 

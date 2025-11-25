@@ -24,7 +24,7 @@ This document is the canonical source for all deployment, preview, and verificat
 
 | Script                                                          | Purpose                                                                                                                                            |
 | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers (APP, ADM, WEB) and `wrangler pages deploy` for APEX. |
+| `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers (APP, ADM, WEB). |
 | `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                                             |
 | `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).                               |
 | `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                                          |
@@ -168,9 +168,8 @@ If you want to **visually see** the green markers in your browser:
 
 ## Preview Policy
 
-- **Staging-Only**: Cloudcache uses staging subdomains for previews (no Cloudflare Pages).
+- **Staging-Only**: Cloudcache uses staging subdomains for previews.
 - **Guidelines**:
-  - Do not create or reference `*.pages.dev` or `wrangler pages` in this repo.
   - Protect staging with Access policies (SSO or IP allowlist) per security posture.
   - Use the lockdown scripts to gate staging as needed.
 - **Verification**:

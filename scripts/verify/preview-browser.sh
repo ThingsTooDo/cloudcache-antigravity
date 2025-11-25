@@ -35,16 +35,16 @@ test_healthz_json() {
   
   # For app/admin, also verify service field matches module name
   if [[ "$module" == "app" ]]; then
-    if ! echo "$healthz_response" | grep -q '"service"[[:space:]]*:[[:space:]]*"app"'; then
-      log "❌ /healthz response service field does not match 'app'"
+    if ! echo "$healthz_response" | grep -q '"service"[[:space:]]*:[[:space:]]*"app-worker"'; then
+      log "❌ /healthz response service field does not match 'app-worker'"
       log "Response: $healthz_response"
       return 1
     fi
     log "✅ Found status: ok and service: app in /healthz response"
     return 0
   elif [[ "$module" == "admin" ]]; then
-    if ! echo "$healthz_response" | grep -q '"service"[[:space:]]*:[[:space:]]*"admin"'; then
-      log "❌ /healthz response service field does not match 'admin'"
+    if ! echo "$healthz_response" | grep -q '"service"[[:space:]]*:[[:space:]]*"adm-worker"'; then
+      log "❌ /healthz response service field does not match 'adm-worker'"
       log "Response: $healthz_response"
       return 1
     fi

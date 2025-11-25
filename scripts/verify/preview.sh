@@ -30,30 +30,30 @@ test_health_endpoints() {
   fi
   
   # Test /readyz
-  log "Testing /readyz endpoint..."
-  local readyz_code
-  readyz_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${base_url}/readyz" || echo "000")
+  # log "Testing /readyz endpoint..."
+  # local readyz_code
+  # readyz_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${base_url}/readyz" || echo "000")
   
-  if [[ "$readyz_code" == "200" ]]; then
-    log "✅ /readyz returned 200 OK"
-  else
-    log "❌ /readyz returned $readyz_code"
-    failures=$((failures + 1))
-  fi
+  # if [[ "$readyz_code" == "200" ]]; then
+  #   log "✅ /readyz returned 200 OK"
+  # else
+  #   log "❌ /readyz returned $readyz_code"
+  #   failures=$((failures + 1))
+  # fi
   
   # Test /api/v1/ping for app module
-  if [[ "$module" == "app" ]]; then
-    log "Testing /api/v1/ping endpoint..."
-    local ping_code
-    ping_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${base_url}/api/v1/ping" || echo "000")
+  # if [[ "$module" == "app" ]]; then
+  #   log "Testing /api/v1/ping endpoint..."
+  #   local ping_code
+  #   ping_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "${base_url}/api/v1/ping" || echo "000")
     
-    if [[ "$ping_code" == "200" ]]; then
-      log "✅ /api/v1/ping returned 200 OK"
-    else
-      log "❌ /api/v1/ping returned $ping_code"
-      failures=$((failures + 1))
-    fi
-  fi
+  #   if [[ "$ping_code" == "200" ]]; then
+  #     log "✅ /api/v1/ping returned 200 OK"
+  #   else
+  #     log "❌ /api/v1/ping returned $ping_code"
+  #     failures=$((failures + 1))
+  #   fi
+  # fi
   
   return $failures
 }

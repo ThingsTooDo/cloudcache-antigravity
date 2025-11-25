@@ -342,7 +342,7 @@ Summary: Execution of the critical rename from `apps/shopify` to `apps/app`. Syn
 
 - <span style="color: #58a6ff">**Status:**</span> Awaiting Updates
 - <span style="color: #58a6ff">**Truth Check:**</span> `docs/all-deployment-truth.md` correctly lists the module as `app`.
-- <span style="color: #58a6ff">**Gaps:**</span> The `naming-consistency-plan-2025-11-24.md` requires a "case-insensitive search" for residual `shopify` references. It is unclear if this final sweep was completed.
+- <span style="color: #58a6ff">**Gaps:**</span> The `naming-consistency-plan.md` requires a "case-insensitive search" for residual `shopify` references. It is unclear if this final sweep was completed.
 
 #### Archival Assessment
 

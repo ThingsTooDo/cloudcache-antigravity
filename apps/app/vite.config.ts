@@ -22,8 +22,7 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   resolve: {
-    alias: {
-    },
+    alias: {},
   },
   build: {
     rollupOptions: {

@@ -26,7 +26,7 @@ export function ShopifyAppBridge({ children, apiKey, host }: ShopifyAppBridgePro
       location,
       history: { replace: (path: string) => navigate(path, { replace: true }) },
     }),
-    [location, navigate],
+    [location, navigate]
   );
 
   return (

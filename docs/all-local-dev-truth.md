@@ -24,11 +24,11 @@ Local development uses **local bindings** configured via `.dev.vars` files to si
 
 ## Running Workers Locally
 
-| Module  | Root Command       | Module Command                | Port |
-| ------- | ------------------ | ----------------------------- | ---- |
-| APP     | `pnpm dev:app`     | `cd apps/app && pnpm dev`   | 8789 |
-| ADM     | `pnpm dev:adm`     | `cd apps/adm && pnpm dev`   | 8787 |
-| WEB     | `pnpm dev:web`     | `cd apps/web && pnpm dev`   | 8788 |
+| Module | Root Command   | Module Command            | Port |
+| ------ | -------------- | ------------------------- | ---- |
+| APP    | `pnpm dev:app` | `cd apps/app && pnpm dev` | 8789 |
+| ADM    | `pnpm dev:adm` | `cd apps/adm && pnpm dev` | 8787 |
+| WEB    | `pnpm dev:web` | `cd apps/web && pnpm dev` | 8788 |
 
 > **Start/stop helpers**
 >

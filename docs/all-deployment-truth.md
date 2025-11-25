@@ -22,13 +22,13 @@ This document is the canonical source for all deployment, preview, and verificat
 
 ## Script Reference
 
-| Script                                                          | Purpose                                                                                                                               |
-| :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| Script                                                          | Purpose                                                                                                                                            |
+| :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `scripts/deploy-module.sh <module> <env>`                       | Builds and deploys one module with 5-attempt retry logic. Uses `wrangler deploy` for Workers (APP, ADM, WEB) and `wrangler pages deploy` for APEX. |
-| `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                                |
-| `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).                  |
-| `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                             |
-| `scripts/lib/preview-urls.sh`                                   | Helper used by automation to print the current preview endpoints.                                                                     |
+| `scripts/deploy-preview.sh` / `pnpm deploy:preview`             | Deploys all modules to preview sequentially with 5-second pauses between deployments for API settling.                                             |
+| `scripts/validation/run-validation.sh` / `pnpm test:validation` | Automated validation suite testing 12 deployment targets (3 modules × preview+localhost × 2 checks = 24 assertions).                               |
+| `scripts/cloudcache test-preview <module>`                      | Targeted preview validation for a module.                                                                                                          |
+| `scripts/lib/preview-urls.sh`                                   | Helper used by automation to print the current preview endpoints.                                                                                  |
 
 ## Deployment Procedures
 
@@ -98,21 +98,21 @@ wrangler d1 execute app-db --file=apps/shopify/migrations/0002_create_customer_t
 
 The following URLs have been manually verified to be correct and functional after a successful deployment:
 
-| Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
-| :-------- | :------------------------------------------------------ | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| Module    | Verified Preview URL                                    | Status      | Worker Startup | Notes                                                                                            |
-| :-------- | :--------------------------------------------------     | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
-| `app`     | `https://app-worker-preview.cloudcache.workers.dev`     | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
-| `adm`     | `https://adm-worker-preview.cloudcache.workers.dev`     | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADM" with navigation sidebar.                              |
-| `web`     | `https://web-worker-preview.cloudcache.workers.dev`     | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
+| Module    | Verified Preview URL                                | Status      | Worker Startup | Notes                                                                                            |
+| :-------- | :-------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| Module    | Verified Preview URL                                | Status      | Worker Startup | Notes                                                                                            |
+| :-------- | :-------------------------------------------------- | :---------- | :------------- | :----------------------------------------------------------------------------------------------- |
+| `app`     | `https://app-worker-preview.cloudcache.workers.dev` | ✅ Verified | 1ms            | Displays CloudCache Dashboard with component architecture, navigation, and optimization toggles. |
+| `adm`     | `https://adm-worker-preview.cloudcache.workers.dev` | ✅ Verified | 2-3ms          | Displays "Hello World I am Cloudcache ADM" with navigation sidebar.                              |
+| `web`     | `https://web-worker-preview.cloudcache.workers.dev` | ✅ Verified | N/A            | Displays the main dashboard and validation badge (Static Site).                                  |
 
 ### Health Endpoints
 
-| Module    | Preview (Worker)                                        | Staging (Cloudflare Access)             | Production (Cloudflare Access) |
-| :-------- | :------------------------------------------------------ | :-------------------------------------- | :----------------------------- |
-| `app`     | `https://app-worker-preview.cloudcache.workers.dev`     | `https://staging-app.cloudcache.ai`     | `https://app.cloudcache.ai`    |
-| `adm`     | `https://adm-worker-preview.cloudcache.workers.dev`     | `https://staging-adm.cloudcache.ai`     | `https://adm.cloudcache.ai`    |
-| `web`     | `https://web-worker-preview.cloudcache.workers.dev`     | `https://staging-web.cloudcache.ai`     | `https://cloudcache.ai`        |
+| Module | Preview (Worker)                                    | Staging (Cloudflare Access)         | Production (Cloudflare Access) |
+| :----- | :-------------------------------------------------- | :---------------------------------- | :----------------------------- |
+| `app`  | `https://app-worker-preview.cloudcache.workers.dev` | `https://staging-app.cloudcache.ai` | `https://app.cloudcache.ai`    |
+| `adm`  | `https://adm-worker-preview.cloudcache.workers.dev` | `https://staging-adm.cloudcache.ai` | `https://adm.cloudcache.ai`    |
+| `web`  | `https://web-worker-preview.cloudcache.workers.dev` | `https://staging-web.cloudcache.ai` | `https://cloudcache.ai`        |
 
 > [!NOTE]
 > The `app` module was formerly named `shopify`. All references have been updated to `app`.

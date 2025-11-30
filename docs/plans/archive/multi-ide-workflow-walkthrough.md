@@ -64,8 +64,8 @@ We designed a "Project Knowledge Server" to serve standards and state dynamicall
 pnpm switch:antigravity
 ```
 
-*Action*: Close Cursor. Open Antigravity.
-*Prompt*: "Read docs/truth/project-standards.md and docs/plans/active-plan.md. I am starting a session."
+_Action_: Close Cursor. Open Antigravity.
+_Prompt_: "Read docs/truth/project-standards.md and docs/plans/active-plan.md. I am starting a session."
 
 ### Switching to Cursor
 
@@ -73,18 +73,18 @@ pnpm switch:antigravity
 pnpm switch:cursor
 ```
 
-*Action*: Close Antigravity. Open Cursor.
-*Context*: Rules auto-load.
+_Action_: Close Antigravity. Open Cursor.
+_Context_: Rules auto-load.
 
 ## Verification Results
 
-| Test Case | Result | Notes |
-| :--- | :--- | :--- |
-| **Git Ignore** | ✅ Passed | Cleaned up and verified. |
-| **Format Check** | ✅ Passed | Codebase is consistent. |
+| Test Case         | Result    | Notes                                                 |
+| :---------------- | :-------- | :---------------------------------------------------- |
+| **Git Ignore**    | ✅ Passed | Cleaned up and verified.                              |
+| **Format Check**  | ✅ Passed | Codebase is consistent.                               |
 | **Switch Script** | ✅ Passed | Successfully locked session and warned about closing. |
-| **Gatekeeper** | ✅ Passed | Blocked switch when changes were uncommitted. |
-| **References** | ✅ Passed | All docs point to `docs/truth/project-standards.md`. |
+| **Gatekeeper**    | ✅ Passed | Blocked switch when changes were uncommitted.         |
+| **References**    | ✅ Passed | All docs point to `docs/truth/project-standards.md`.  |
 
 ## Next Steps
 

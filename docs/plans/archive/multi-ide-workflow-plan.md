@@ -29,20 +29,20 @@ This plan establishes a **dual-IDE governance model** that decouples project sta
 
 ### 1. Decoupling Standards from Tools
 
-* **Critique**: Storing rules in `.cursor/rules` tightly couples governance to one vendor.
-* **Decision**: We will move `all-code-truth.mdc` to `docs/standards/all-code-truth.md`. This elevates it to a project-level architectural standard, accessible to any agent or human.
+- **Critique**: Storing rules in `.cursor/rules` tightly couples governance to one vendor.
+- **Decision**: We will move `all-code-truth.mdc` to `docs/standards/all-code-truth.md`. This elevates it to a project-level architectural standard, accessible to any agent or human.
 
 ### 2. The "Context Injection" Pattern
 
-* **Critique**: Antigravity won't automatically know about Cursor rules.
-* **Decision**: We must define a **Context Injection Protocol**.
-  * **Cursor**: Reads `docs/standards/` via `.cursorrules` pointer.
-  * **Antigravity**: User explicitly prompts "Read project standards" at session start, or we configure a system prompt if available.
+- **Critique**: Antigravity won't automatically know about Cursor rules.
+- **Decision**: We must define a **Context Injection Protocol**.
+  - **Cursor**: Reads `docs/standards/` via `.cursorrules` pointer.
+  - **Antigravity**: User explicitly prompts "Read project standards" at session start, or we configure a system prompt if available.
 
 ### 3. Session Mutex (The "Conch Shell")
 
-* **Critique**: "Just remembering" to switch is error-prone.
-* **Decision**: The `switch-ide.sh` script will act as a soft mutex. It will update a local status file (gitignored) indicating the active session owner, warning you if you try to switch without closing the previous session properly.
+- **Critique**: "Just remembering" to switch is error-prone.
+- **Decision**: The `switch-ide.sh` script will act as a soft mutex. It will update a local status file (gitignored) indicating the active session owner, warning you if you try to switch without closing the previous session properly.
 
 ---
 
@@ -52,40 +52,40 @@ This plan establishes a **dual-IDE governance model** that decouples project sta
 
 #### 1. **IDE Configuration Conflicts** (HIGH RISK)
 
-* **Problem**: Both IDEs store project-specific configurations that may conflict
-* **Impact**: Settings overwriting each other, different formatting rules, linting conflicts
-* **Files at Risk**:
-  * `.cursor/` directory (Cursor-specific)
-  * `~/.gemini/antigravity/brain/` (Antigravity-specific, outside project)
-  * `.cursorignore` vs `.antigravityignore`
-  * `.cursorrules` (Cursor) vs Antigravity's system instructions
+- **Problem**: Both IDEs store project-specific configurations that may conflict
+- **Impact**: Settings overwriting each other, different formatting rules, linting conflicts
+- **Files at Risk**:
+  - `.cursor/` directory (Cursor-specific)
+  - `~/.gemini/antigravity/brain/` (Antigravity-specific, outside project)
+  - `.cursorignore` vs `.antigravityignore`
+  - `.cursorrules` (Cursor) vs Antigravity's system instructions
 
 #### 2. **Plan & Task File Divergence** (HIGH RISK)
 
-* **Problem**: Antigravity stores plans in `~/.gemini/antigravity/brain/[session-id]/` (outside project), Cursor may create plans in `.cursor/plans/`
-* **Impact**: Loss of context when switching IDEs, duplicate work, conflicting approaches
-* **Current State**: Your project already has `.cursor/rules/all-code-truth.mdc` enforcing `docs/plans/` for plans
+- **Problem**: Antigravity stores plans in `~/.gemini/antigravity/brain/[session-id]/` (outside project), Cursor may create plans in `.cursor/plans/`
+- **Impact**: Loss of context when switching IDEs, duplicate work, conflicting approaches
+- **Current State**: Your project already has `.cursor/rules/all-code-truth.mdc` enforcing `docs/plans/` for plans
 
 #### 3. **Code Formatting Drift** (MEDIUM RISK)
 
-* **Problem**: Each IDE may apply different formatting on save
-* **Impact**: Noisy git commits, hard-to-review diffs
-* **Mitigation**: Your project already has Prettier + lint-staged configured
+- **Problem**: Each IDE may apply different formatting on save
+- **Impact**: Noisy git commits, hard-to-review diffs
+- **Mitigation**: Your project already has Prettier + lint-staged configured
 
 #### 4. **Cache & Temporary File Pollution** (MEDIUM RISK)
 
-* **Problem**: IDEs create cache, logs, and temporary files
-* **Impact**: Unnecessary git noise, large commits, merge conflicts
-* **Files at Risk**:
-  * `~/.cache/antigravity/` (system-level, safe)
-  * `.cursor/` subdirectories (project-level, risky)
-  * IDE-specific lock files or indexes
+- **Problem**: IDEs create cache, logs, and temporary files
+- **Impact**: Unnecessary git noise, large commits, merge conflicts
+- **Files at Risk**:
+  - `~/.cache/antigravity/` (system-level, safe)
+  - `.cursor/` subdirectories (project-level, risky)
+  - IDE-specific lock files or indexes
 
 #### 5. **AI Context Mismatch** (LOW-MEDIUM RISK)
 
-* **Problem**: Each IDE builds its own understanding of the codebase
-* **Impact**: Inconsistent suggestions, duplicate work
-* **Mitigation**: Use documentation as source-of-truth
+- **Problem**: Each IDE builds its own understanding of the codebase
+- **Impact**: Inconsistent suggestions, duplicate work
+- **Mitigation**: Use documentation as source-of-truth
 
 ---
 
@@ -117,9 +117,9 @@ Add comprehensive IDE-specific ignores to prevent cross-IDE conflicts:
 
 **Rationale**:
 
-* Current `.gitignore` already includes `.vscode/` and `.idea/` (line 34-35)
-* Need to add `.cursor/`, `.cursorignore`, `.cursorrules` to prevent Cursor-specific configs from being committed
-* Antigravity stores artifacts in `~/.gemini/antigravity/` (outside project), so minimal project pollution
+- Current `.gitignore` already includes `.vscode/` and `.idea/` (line 34-35)
+- Need to add `.cursor/`, `.cursorignore`, `.cursorrules` to prevent Cursor-specific configs from being committed
+- Antigravity stores artifacts in `~/.gemini/antigravity/` (outside project), so minimal project pollution
 
 ---
 
@@ -162,8 +162,8 @@ docs/reports/validation/
 
 **Rationale**:
 
-* Prevents Cursor from indexing Antigravity-specific files
-* Already exists but is empty (only has a comment)
+- Prevents Cursor from indexing Antigravity-specific files
+- Already exists but is empty (only has a comment)
 
 ---
 
@@ -174,16 +174,18 @@ docs/reports/validation/
 **Goal**: Add a standardized "Multi-IDE Context" and "Conflict Protocol" to the top of the file so both IDEs immediately understand the collaboration model.
 
 **New Section: Multi-IDE Collaboration Context**
+
 > This project is jointly managed by **Antigravity** and **Cursor**. To prevent friction, drift, and regression, we adhere to a strict "One Driver" policy enforced by session locking. Both IDEs share this single source of truth.
 
 **New Section: Conflict Warning Protocol**
+
 > If an IDE detects a conflict (e.g., lock file mismatch, uncommitted changes):
 >
 > 1. **WARN**: Display a clear warning (e.g., "⚠️ Session Conflict Detected").
 > 2. **DESCRIBE**: State the conflict (e.g., "Session currently locked by Antigravity").
 > 3. **OFFER**: Provide resolution options:
->    * **Safe**: "Close this window and switch to the active IDE."
->    * **Force**: "Overwrite lock and claim session (WARNING: Potential data loss)."
+>    - **Safe**: "Close this window and switch to the active IDE."
+>    - **Force**: "Overwrite lock and claim session (WARNING: Potential data loss)."
 
 #### [NEW] [docs/multi-ide-workflow.md](file:///Users/rrokk/Projects/Cloudcache-Antigravity/cloudcache-antigravity/docs/truth/multi-ide-workflow.md)
 
@@ -198,22 +200,26 @@ Create the "Operating Manual" for this dual-stack approach.
 **Standard Reference**: `docs/standards/all-code-truth.md`
 
 ## The "Clean Slate" Protocol
+
 To prevent drift, we enforce a strict "One Driver" policy.
 
 ### 1. Switching to Antigravity
+
 1.  **Terminal**: Run `pnpm switch:antigravity`
 2.  **Action**: Close Cursor completely.
 3.  **Context Injection**: In Antigravity chat, type:
     > "Read docs/standards/all-code-truth.md and docs/plans/active-plan.md. I am starting a session."
 
 ### 2. Switching to Cursor
+
 1.  **Terminal**: Run `pnpm switch:cursor`
 2.  **Action**: Close Antigravity completely.
 3.  **Context**: Cursor automatically loads rules via `.cursorrules`.
 
 ## Shared State
-*   **Plans**: ALWAYS in `docs/plans/`. Never in IDE-specific storage.
-*   **Docs**: `docs/` is the only place for long-term knowledge.
+
+- **Plans**: ALWAYS in `docs/plans/`. Never in IDE-specific storage.
+- **Docs**: `docs/` is the only place for long-term knowledge.
 ```
 
 ---
@@ -224,10 +230,10 @@ To prevent drift, we enforce a strict "One Driver" policy.
 
 **Changes**:
 
-* Remove MDC frontmatter (`scope`, `enforce` fields)
-* Add standard truth file header
-* Keep all content intact
-* Update references to point to new location
+- Remove MDC frontmatter (`scope`, `enforce` fields)
+- Add standard truth file header
+- Keep all content intact
+- Update references to point to new location
 
 ---
 
@@ -302,8 +308,8 @@ fi
 **Mechanism**:
 
 1. **Agent Rule**: Whenever I (Antigravity Agent) update `task.md` or `implementation_plan.md` in my brain, I MUST also copy them to:
-    * `docs/plans/active-task.md`
-    * `docs/plans/active-plan.md`
+   - `docs/plans/active-task.md`
+   - `docs/plans/active-plan.md`
 2. **Cursor Visibility**: Cursor can now read these files to know exactly where Antigravity left off.
 
 ---
@@ -316,14 +322,14 @@ fi
 
 1. **Design Custom MCP Server**: `scripts/mcp-server.ts`
 2. **Capabilities**:
-    * **Resource**: `project://standards` (Serves `docs/standards/all-code-truth.md`)
-    * **Resource**: `project://state` (Serves active plan/task status)
-    * **Tool**: `switch_session` (Programmatic session locking)
+   - **Resource**: `project://standards` (Serves `docs/standards/all-code-truth.md`)
+   - **Resource**: `project://state` (Serves active plan/task status)
+   - **Tool**: `switch_session` (Programmatic session locking)
 3. **Integration**:
-    * **Cursor**: Connects to local MCP server via settings.
-    * **Antigravity**: Connects to local MCP server (native support).
+   - **Cursor**: Connects to local MCP server via settings.
+   - **Antigravity**: Connects to local MCP server (native support).
 
-**Benefit**: Instead of relying on file syncing and manual prompts, both IDEs query the *same* live server for "What should I do next?" and "What are the rules?".
+**Benefit**: Instead of relying on file syncing and manual prompts, both IDEs query the _same_ live server for "What should I do next?" and "What are the rules?".
 
 ---
 
@@ -341,6 +347,7 @@ This project supports alternating between **Antigravity IDE** and **Cursor IDE**
 **Canonical Guide**: `docs/multi-ide-workflow.md`
 
 **Key Rules**:
+
 1. IDE-specific files (`.cursor/`, `.antigravity/`) are gitignored
 2. Shared source-of-truth: `docs/rules/all-code-truth.md`
 3. Plans must be in `docs/plans/` (not IDE-specific directories)
@@ -380,47 +387,47 @@ pnpm exec lint-staged
 
 1. **Git ignore verification**:
 
-    ```bash
-    # Create test files in .cursor/ and verify they're ignored
-    touch .cursor/test-file.txt
-    git status --short
-    # Should NOT show .cursor/test-file.txt
-    ```
+   ```bash
+   # Create test files in .cursor/ and verify they're ignored
+   touch .cursor/test-file.txt
+   git status --short
+   # Should NOT show .cursor/test-file.txt
+   ```
 
 2. **Format consistency**:
 
-    ```bash
-    # Run in both IDEs
-    pnpm format:check
-    # Should pass identically
-    ```
+   ```bash
+   # Run in both IDEs
+   pnpm format:check
+   # Should pass identically
+   ```
 
 3. **Switch script test**:
 
-    ```bash
-    # Test switch script
-    pnpm switch:antigravity
-    pnpm switch:cursor
-    ```
+   ```bash
+   # Test switch script
+   pnpm switch:antigravity
+   pnpm switch:cursor
+   ```
 
 ### Manual Verification
 
 1. **IDE isolation test**:
-    * Open project in Antigravity, create a plan, close
-    * Open project in Cursor, verify no Antigravity artifacts in git status
-    * Switch back to Antigravity, verify plan is preserved in `~/.gemini/antigravity/`
+   - Open project in Antigravity, create a plan, close
+   - Open project in Cursor, verify no Antigravity artifacts in git status
+   - Switch back to Antigravity, verify plan is preserved in `~/.gemini/antigravity/`
 
 2. **Code consistency test**:
-    * Edit a file in Antigravity, save
-    * Commit changes
-    * Open in Cursor, verify formatting is identical
-    * Make changes in Cursor, commit
-    * Switch back to Antigravity, verify no formatting drift
+   - Edit a file in Antigravity, save
+   - Commit changes
+   - Open in Cursor, verify formatting is identical
+   - Make changes in Cursor, commit
+   - Switch back to Antigravity, verify no formatting drift
 
 3. **Rule adherence test**:
-    * Both IDEs should reference `docs/rules/all-code-truth.md`
-    * Verify both understand file naming conventions
-    * Verify both use `docs/plans/` for plan files
+   - Both IDEs should reference `docs/rules/all-code-truth.md`
+   - Verify both understand file naming conventions
+   - Verify both use `docs/plans/` for plan files
 
 ---
 
@@ -509,12 +516,12 @@ apps/*/shopify.app.toml (for shopify module)
 
 ## Migration Checklist
 
-* [ ] **Governance**: Move `.cursor/rules/all-code-truth.mdc` → `docs/standards/all-code-truth.md`
-* [ ] **Config**: Update `.cursorrules` to reference the new standards file
-* [ ] **Isolation**: Update `.gitignore` with `.ide-session.lock` and IDE folders
-* [ ] **Automation**: Create `scripts/switch-ide.sh` with mutex logic
-* [ ] **Documentation**: Create `docs/multi-ide-workflow.md`
-* [ ] **Verification**: Test the "Context Injection" flow in Antigravity
+- [ ] **Governance**: Move `.cursor/rules/all-code-truth.mdc` → `docs/standards/all-code-truth.md`
+- [ ] **Config**: Update `.cursorrules` to reference the new standards file
+- [ ] **Isolation**: Update `.gitignore` with `.ide-session.lock` and IDE folders
+- [ ] **Automation**: Create `scripts/switch-ide.sh` with mutex logic
+- [ ] **Documentation**: Create `docs/multi-ide-workflow.md`
+- [ ] **Verification**: Test the "Context Injection" flow in Antigravity
 
 ---
 

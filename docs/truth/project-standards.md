@@ -15,25 +15,35 @@ If an IDE detects a conflict (e.g., lock file mismatch, uncommitted changes):
 1. **WARN**: Display a clear warning (e.g., "⚠️ Session Conflict Detected").
 2. **DESCRIBE**: State the conflict (e.g., "Session currently locked by Antigravity").
 3. **OFFER**: Provide resolution options:
-    * **Safe**: "Close this window and switch to the active IDE."
-    * **Force**: "Overwrite lock and claim session (WARNING: Potential data loss)."
+   - **Safe**: "Close this window and switch to the active IDE."
+   - **Force**: "Overwrite lock and claim session (WARNING: Potential data loss)."
+
+## Session Handoff Protocol
+
+To ensure seamless context transfer, agents must adhere to the **Active Handoff** rule:
+
+1. **Summarize**: Before ending a session, the active agent MUST append a summary to `docs/plans/session-handoff.md`.
+2. **Format**:
+    - **Header**: `## [Timestamp] [IDE Name]: "[Session Title]"`
+    - **Body**: Summary of work, Next Steps, and Status.
+3. **Read**: Upon starting a new session, the agent MUST read the latest entry in `docs/plans/session-handoff.md`.
 
 ## Documentation Truth
 
 All truth files are located in `docs/truth/`. Each truth file must stay in lock‑step with the code and scripts listed below. When any process or script changes, update the corresponding truth doc and add an entry to this file.
 
-* **`docs/all-system-truth.md`** – Defines the Golden Path, ownership model, and script manifest. Includes a table that maps every active shell script to its purpose and authoritative documentation.
-* **`docs/all-git-truth.md`** – Covers commit policies, hook behavior, the `scripts/all-git-truth.sh` utility (`--pre-commit`, `--validate-md`, `--git-safe`), and mitigation steps for EPERM or lint-staged failures.
-* **`docs/all-deployment-truth.md`** – Canonical reference for deploying individual modules or the full stack. Documents preview/staging URLs, health endpoints, and validation/verification commands.
-* **`docs/all-local-dev-truth.md`** – Explains local bindings (`.dev.vars`), local ports, `pnpm dev:*` flows, and troubleshooting steps (cache resets, `scripts/dev-local.sh`, etc.).
+- **`docs/all-system-truth.md`** – Defines the Golden Path, ownership model, and script manifest. Includes a table that maps every active shell script to its purpose and authoritative documentation.
+- **`docs/all-git-truth.md`** – Covers commit policies, hook behavior, the `scripts/all-git-truth.sh` utility (`--pre-commit`, `--validate-md`, `--git-safe`), and mitigation steps for EPERM or lint-staged failures.
+- **`docs/all-deployment-truth.md`** – Canonical reference for deploying individual modules or the full stack. Documents preview/staging URLs, health endpoints, and validation/verification commands.
+- **`docs/all-local-dev-truth.md`** – Explains local bindings (`.dev.vars`), local ports, `pnpm dev:*` flows, and troubleshooting steps (cache resets, `scripts/dev-local.sh`, etc.).
 
 ### Supporting Guides (link up to the truth docs)
 
-* **`docs/operational-runbook.md`** – Monitoring, incident response, and alert flows (canonical: deployment truth).
-* **`docs/secrets-management.md`** – Secret rotation strategy, Wrangler bindings, and disaster-recovery steps (canonical: local-dev truth).
-* **`docs/shopify-oauth-setup.md`** – OAuth scopes, callback configuration, and validation for the App worker (canonical: deployment truth).
-* **`docs/zero-trust/support-bundle.md`** – Template for Cloudflare support tickets with required evidence (canonical: system truth).
-* **`docs/zero-trust/tokens.md`** – Procedures for creating, rotating, and auditing Zero Trust tokens (canonical: system truth).
+- **`docs/operational-runbook.md`** – Monitoring, incident response, and alert flows (canonical: deployment truth).
+- **`docs/secrets-management.md`** – Secret rotation strategy, Wrangler bindings, and disaster-recovery steps (canonical: local-dev truth).
+- **`docs/shopify-oauth-setup.md`** – OAuth scopes, callback configuration, and validation for the App worker (canonical: deployment truth).
+- **`docs/zero-trust/support-bundle.md`** – Template for Cloudflare support tickets with required evidence (canonical: system truth).
+- **`docs/zero-trust/tokens.md`** – Procedures for creating, rotating, and auditing Zero Trust tokens (canonical: system truth).
 
 Every supporting guide must include:
 
@@ -42,39 +52,39 @@ Every supporting guide must include:
 
 ## Script Truth
 
-* **`scripts/all-git-truth.sh`** – Unified git wrapper (pre-commit formatting/validation, markdown structure validation, credential-safe git commands). This script is the enforcement point for documentation rules (`--validate-md`).
-* **`scripts/deploy-module.sh`** – Master script for single-module deployments with 5-attempt retry logic and exponential backoff (5s, 10s, 20s, 40s). Handles transient Cloudflare API failures gracefully.
-* **`scripts/deploy-preview.sh`** – Orchestrates preview deployments for all modules sequentially with 5-second API settling pauses between deployments. Wraps `deploy-module.sh`.
-* **`scripts/validation/run-validation.sh`** – Automated deployment test suite (local + remote health checks). Validates 12 deployment targets (3 modules × 2 environments × 2 checks = 24 total checks).
-* `scripts/dev-local.sh` / `scripts/dev-stop.sh` – Sequential local server startup with health checks and graceful cleanup.
-* **`scripts/cloudcache`** – Unified CLI for infrastructure management (bootstrap, bind secrets, verify status). Wraps validation and preview testing commands.
+- **`scripts/all-git-truth.sh`** – Unified git wrapper (pre-commit formatting/validation, markdown structure validation, credential-safe git commands). This script is the enforcement point for documentation rules (`--validate-md`).
+- **`scripts/deploy-module.sh`** – Master script for single-module deployments with 5-attempt retry logic and exponential backoff (5s, 10s, 20s, 40s). Handles transient Cloudflare API failures gracefully.
+- **`scripts/deploy-preview.sh`** – Orchestrates preview deployments for all modules sequentially with 5-second API settling pauses between deployments. Wraps `deploy-module.sh`.
+- **`scripts/validation/run-validation.sh`** – Automated deployment test suite (local + remote health checks). Validates 12 deployment targets (3 modules × 2 environments × 2 checks = 24 total checks).
+- `scripts/dev-local.sh` / `scripts/dev-stop.sh` – Sequential local server startup with health checks and graceful cleanup.
+- **`scripts/cloudcache`** – Unified CLI for infrastructure management (bootstrap, bind secrets, verify status). Wraps validation and preview testing commands.
 
 ### Shopify App Configuration
 
-* **`apps/shopapp/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
-* **`apps/shopapp/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
-* **`apps/shopapp/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
-* **`apps/shopapp/.dev.vars.example`** – Template for local development environment variables
+- **`apps/shopapp/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
+- **`apps/shopapp/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
+- **`apps/shopapp/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
+- **`apps/shopapp/.dev.vars.example`** – Template for local development environment variables
 
 Each script referenced above must be documented in `docs/all-system-truth.md`'s manifest section.
 
 ## File Naming Convention (ENFORCED)
 
-* **Lowercase only**: no uppercase letters allowed
-* **Hyphen-separated**: use hyphens, not underscores
-* **No Numerical Prefixes**: filenames must NOT start with numbers (e.g., `001-foo.md` is BANNED)
-* **"all-" prefix**: reserved for truth/index files only
-* **Examples**:
-  * ✅ `all-git-truth.md`, `deploy-module.sh`, `build-strategy.md`
-  * ❌ `001-Build-Strategy.md`, `Deploy_Module.sh`, `Quick-Fix-GUIDE.md`
+- **Lowercase only**: no uppercase letters allowed
+- **Hyphen-separated**: use hyphens, not underscores
+- **No Numerical Prefixes**: filenames must NOT start with numbers (e.g., `001-foo.md` is BANNED)
+- **"all-" prefix**: reserved for truth/index files only
+- **Examples**:
+  - ✅ `all-git-truth.md`, `deploy-module.sh`, `build-strategy.md`
+  - ❌ `001-Build-Strategy.md`, `Deploy_Module.sh`, `Quick-Fix-GUIDE.md`
 
 ## MD File Creation Rules
 
 ### Placement
 
-* **Truth Files**: MUST go in `docs/truth/`.
-* **Plans**: MUST go in `docs/plans/`.
-* **Archives**: `docs/truth/archive/` (for docs) or `docs/plans/archive/` (for plans).
+- **Truth Files**: MUST go in `docs/truth/`.
+- **Plans**: MUST go in `docs/plans/`.
+- **Archives**: `docs/truth/archive/` (for docs) or `docs/plans/archive/` (for plans).
 
 ### Required Headers (Templates)
 
@@ -114,75 +124,75 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 
 ### Interlinking
 
-* Every MD file must reference `docs/standards/all-code-truth.md`
-* Domain-specific files must reference their `all-<domain>-truth.md`
-* Truth files must reference each other where relevant
+- Every MD file must reference `docs/standards/all-code-truth.md`
+- Domain-specific files must reference their `all-<domain>-truth.md`
+- Truth files must reference each other where relevant
 
 ### Grouping
 
-* **Domain Truth**: One `all-<domain>-truth.md` per major area (Git, Deployment, API)
-* **Child Files**: Specific guides link UP to the domain truth file
-* **Index**: `docs/all-system-truth.md` lists all truth files
+- **Domain Truth**: One `all-<domain>-truth.md` per major area (Git, Deployment, API)
+- **Child Files**: Specific guides link UP to the domain truth file
+- **Index**: `docs/all-system-truth.md` lists all truth files
 
 ### Generated Content & Archives
 
-* **Auto-generated reports** under `docs/reports/validation/` are exempt from header requirements but must never be committed manually. The pre-commit check unstages them automatically.
-* **Archives** (`docs/archive/**`, `scripts/archive/**`) must use the archive header template above. Each archived file has to specify the migration date and the active replacement document.
-* When deprecating a file:
+- **Auto-generated reports** under `docs/reports/validation/` are exempt from header requirements but must never be committed manually. The pre-commit check unstages them automatically.
+- **Archives** (`docs/archive/**`, `scripts/archive/**`) must use the archive header template above. Each archived file has to specify the migration date and the active replacement document.
+- When deprecating a file:
   1. Move it under `docs/archive/` (or `scripts/archive/`).
   2. Add the archive header block with migration metadata and the pointer to the replacement truth doc.
   3. Update the relevant truth doc to mention the archive if historical knowledge is still useful.
 
 ## Plan File Rules
 
-* **Location**: All new plans must be created under `docs/plans/`.
-* **Archives**: Completed plans must be moved to `docs/plans/archive/`.
-* **Naming**: Use user-provided filename (lowercase, hyphen-separated, no numbers).
-* **Prohibited**:
-  * Never create or use `one.plan.md`.
-  * Do not write plans to repository root or `.cursor/`.
-* **Correction**: If a plan is accidentally generated elsewhere, move it to `docs/plans/<name>.md` immediately.
+- **Location**: All new plans must be created under `docs/plans/`.
+- **Archives**: Completed plans must be moved to `docs/plans/archive/`.
+- **Naming**: Use user-provided filename (lowercase, hyphen-separated, no numbers).
+- **Prohibited**:
+  - Never create or use `one.plan.md`.
+  - Do not write plans to repository root or `.cursor/`.
+- **Correction**: If a plan is accidentally generated elsewhere, move it to `docs/plans/<name>.md` immediately.
 
 ## MDC (Rule) File Creation Rules
 
 ### Placement
 
-* **Location**: `.cursor/rules/`
-* **Extension**: `.mdc`
+- **Location**: `.cursor/rules/`
+- **Extension**: `.mdc`
 
 ### Naming
 
-* **Format**: `all-<domain>-truth.mdc` (for consolidated rules) or `<specific-rule>.mdc`
-* **Convention**: Lowercase, hyphen-separated
+- **Format**: `all-<domain>-truth.mdc` (for consolidated rules) or `<specific-rule>.mdc`
+- **Convention**: Lowercase, hyphen-separated
 
 ### Structure
 
-* **Frontmatter**: Must include `scope` and `enforce` fields
-* **Content**: Clear, actionable rules (no fluff)
-* **References**: Must link to corresponding `docs/all-<domain>-truth.md`
+- **Frontmatter**: Must include `scope` and `enforce` fields
+- **Content**: Clear, actionable rules (no fluff)
+- **References**: Must link to corresponding `docs/all-<domain>-truth.md`
 
 ## Governance & Drift Prevention
 
-* Run `bash scripts/all-git-truth.sh --pre-commit` before every commit (already wired into Husky).
-* Run `bash scripts/all-git-truth.sh --validate-md` after editing documentation to ensure filenames, headers, and references follow this MDC.
-* Files flagged by `--validate-md` must be corrected in the same change that introduced the regression.
-* Automated or temporary files (validation reports, logs) must never be staged; rely on the pre-commit script to enforce this.
+- Run `bash scripts/all-git-truth.sh --pre-commit` before every commit (already wired into Husky).
+- Run `bash scripts/all-git-truth.sh --validate-md` after editing documentation to ensure filenames, headers, and references follow this MDC.
+- Files flagged by `--validate-md` must be corrected in the same change that introduced the regression.
+- Automated or temporary files (validation reports, logs) must never be staged; rely on the pre-commit script to enforce this.
 
 ## Deployment Resilience Patterns (ENFORCED)
 
-* **Non-Interactive Mode**: All deployment scripts MUST set `CI=true` and `WRANGLER_SEND_METRICS=false` to disable interactive prompts.
-* **Retry Logic**: All deployment scripts must retry failed operations 5 times with exponential backoff (5s → 10s → 20s → 40s).
-* **API Settling**: Sequential deployments must pause 5 seconds between modules to allow Cloudflare API propagation.
-* **Bundle Sizes**: Expected sizes documented in- `docs/truth/deployment-verified-state.md`. Monitor for unexpected growth (>20% increase signals review needed).
-* **Health Validation**: Every deployment must verify `/healthz` endpoint returns version hash before considering deployment successful.
-* **Transient Failures**: "fetch failed" errors during deployment are expected and handled by retry logic. Document all new error patterns in deployment truth.
-* **No User Interaction**: Deployment scripts must NEVER require user input. All prompts must be disabled.
+- **Non-Interactive Mode**: All deployment scripts MUST set `CI=true` and `WRANGLER_SEND_METRICS=false` to disable interactive prompts.
+- **Retry Logic**: All deployment scripts must retry failed operations 5 times with exponential backoff (5s → 10s → 20s → 40s).
+- **API Settling**: Sequential deployments must pause 5 seconds between modules to allow Cloudflare API propagation.
+- **Bundle Sizes**: Expected sizes documented in- `docs/truth/deployment-verified-state.md`. Monitor for unexpected growth (>20% increase signals review needed).
+- **Health Validation**: Every deployment must verify `/healthz` endpoint returns version hash before considering deployment successful.
+- **Transient Failures**: "fetch failed" errors during deployment are expected and handled by retry logic. Document all new error patterns in deployment truth.
+- **No User Interaction**: Deployment scripts must NEVER require user input. All prompts must be disabled.
 
 ## Deprecated Patterns (BANNED)
 
-* `one.plan.md` - never create or use
-* Uppercase in filenames - convert to lowercase
-* Underscore separators - convert to hyphens (except DB migrations)
-* Multiple truth files per domain - consolidate to one
-* **Pages.dev**: Do not introduce `pages.dev` references or `wrangler pages` commands. Prefer staging subdomains (`staging-apex|app|admin.cloudcache.ai`).
-* **Deployment without retries**: Never call `wrangler deploy` directly. Always use `scripts/deploy-module.sh` which handles transient failures.
+- `one.plan.md` - never create or use
+- Uppercase in filenames - convert to lowercase
+- Underscore separators - convert to hyphens (except DB migrations)
+- Multiple truth files per domain - consolidate to one
+- **Pages.dev**: Do not introduce `pages.dev` references or `wrangler pages` commands. Prefer staging subdomains (`staging-apex|app|admin.cloudcache.ai`).
+- **Deployment without retries**: Never call `wrangler deploy` directly. Always use `scripts/deploy-module.sh` which handles transient failures.

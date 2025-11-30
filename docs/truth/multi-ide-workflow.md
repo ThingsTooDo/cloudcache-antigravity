@@ -9,6 +9,14 @@ To prevent drift, we enforce a strict "One Driver" policy.
 
 ### 1. Switching to Antigravity
 
+**Option A: Smart Switch (Recommended)**
+
+1. **Command**: Type `/switch` in Antigravity chat.
+2. **Action**: The agent will summarize your session to `docs/plans/session-handoff.md`, switch the lock, and **automatically shut down** Antigravity.
+3. **Open Cursor**: Launch Cursor and pick up where you left off.
+
+**Option B: Manual Switch**
+
 1. **Terminal**: Run `pnpm switch:antigravity`
 2. **Action**: **CLOSE** the Cursor window completely (Cmd+Q).
 3. **Context Injection**: In Antigravity chat, type:
@@ -20,6 +28,15 @@ To prevent drift, we enforce a strict "One Driver" policy.
 2. **Action**: **CLOSE** the Antigravity window completely.
 3. **Context**: Cursor automatically loads rules via `.cursorrules`.
 
+## Session Handoff Protocol
+
+To ensure seamless context transfer, we use an **Active Handoff** log.
+
+* **File**: `docs/plans/session-handoff.md`
+* **Rule**: Before switching, the active agent/user MUST append a summary of the session (Goal, Progress, Next Steps).
+* **Antigravity**: The `/switch` command handles this automatically.
+* **Cursor**: Manually append your summary before running `pnpm switch:antigravity`.
+
 ## Artifact Sync Protocol (Antigravity → Cursor)
 
 To ensure Cursor knows what Antigravity "thinks", Antigravity agents MUST sync their internal state to the filesystem.
@@ -27,15 +44,15 @@ To ensure Cursor knows what Antigravity "thinks", Antigravity agents MUST sync t
 **Agent Rule**:
 Whenever you update your internal `task.md` or `implementation_plan.md`, you MUST copy them to:
 
-- `docs/plans/active-task.md`
-- `docs/plans/active-plan.md`
+* `docs/plans/active-task.md`
+* `docs/plans/active-plan.md`
 
 This ensures the "brain" state is visible to the other IDE.
 
 ## Shared State
 
-- **Plans**: ALWAYS in `docs/plans/`. Never in IDE-specific storage.
-- **Docs**: `docs/` is the only place for long-term knowledge.
+* **Plans**: ALWAYS in `docs/plans/`. Never in IDE-specific storage.
+* **Docs**: `docs/` is the only place for long-term knowledge.
 
 ## Conflict Prevention
 
@@ -46,9 +63,9 @@ This ensures the "brain" state is visible to the other IDE.
 
 ## Source-of-Truth Files (NEVER IGNORE)
 
-- `docs/all-*-truth.md` files
+* `docs/all-*-truth.md` files
 
-- `docs/standards/all-code-truth.md`
-- `.gitignore`, `.prettierrc`, `eslint.config.js`
-- All `/scripts/` shell scripts
-- All configuration files: `package.json`, `tsconfig.json`, `wrangler.toml`
+* `docs/standards/all-code-truth.md`
+* `.gitignore`, `.prettierrc`, `eslint.config.js`
+* All `/scripts/` shell scripts
+* All configuration files: `package.json`, `tsconfig.json`, `wrangler.toml`

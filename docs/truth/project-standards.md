@@ -23,10 +23,11 @@ If an IDE detects a conflict (e.g., lock file mismatch, uncommitted changes):
 To ensure seamless context transfer, agents must adhere to the **Active Handoff** rule:
 
 1. **Summarize**: Before ending a session, the active agent MUST append a summary to `docs/plans/session-handoff.md`.
-2. **Format**:
+2. **Standard Prompt**: Use the template in `docs/standards/prompts/session-summary.md` to generate this summary.
+3. **Format**:
     - **Header**: `## [Timestamp] [IDE Name]: "[Session Title]"`
     - **Body**: Summary of work, Next Steps, and Status.
-3. **Read**: Upon starting a new session, the agent MUST read the latest entry in `docs/plans/session-handoff.md`.
+4. **Read**: Upon starting a new session, the agent MUST read the latest entry in `docs/plans/session-handoff.md`.
 
 ## Documentation Truth
 

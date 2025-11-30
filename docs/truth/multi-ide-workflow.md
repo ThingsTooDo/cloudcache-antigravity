@@ -20,10 +20,12 @@ To prevent drift, we enforce a strict "One Driver" policy.
 1. **Terminal**: Run `pnpm switch:antigravity`
 2. **Action**: **CLOSE** the Cursor window completely (Cmd+Q).
 3. **Context Injection**: In Antigravity chat, type:
-    > "Read docs/truth/project-standards.md and docs/plans/active-plan.md. I am starting a session."
+   > "Read docs/truth/project-standards.md and docs/plans/active-plan.md. I am starting a session."
 
 ### 2. Switching to Cursor
 
+1. **Terminal**: Run `pnpm switch:cursor`
+2. **Action**: **CLOSE** the Antigravity window completely.
 1. **Terminal**: Run `pnpm switch:cursor`
 2. **Action**: **CLOSE** the Antigravity window completely.
 3. **Context**: Cursor automatically loads rules via `.cursorrules`.
@@ -33,9 +35,10 @@ To prevent drift, we enforce a strict "One Driver" policy.
 To ensure seamless context transfer, we use an **Active Handoff** log.
 
 * **File**: `docs/plans/session-handoff.md`
-* **Rule**: Before switching, the active agent/user MUST append a summary of the session (Goal, Progress, Next Steps).
-* **Antigravity**: The `/switch` command handles this automatically.
-* **Cursor**: Manually append your summary before running `pnpm switch:antigravity`.
+* **Prompt Template**: `docs/standards/prompts/session-summary.md`
+* **Rule**: Before switching, the active agent/user MUST append a summary of the session.
+* **Antigravity**: The `/switch` command uses this template automatically.
+* **Cursor**: Copy the prompt from the template file and paste it into Chat to generate your summary.
 
 ## Artifact Sync Protocol (Antigravity → Cursor)
 

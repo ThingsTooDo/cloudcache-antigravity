@@ -29,15 +29,17 @@
   **Status**: 🟢 Complete
 
 ## [2025-12-01 00:03] Antigravity: "Finalizing Switch Logic"
+
 **Summary**:
-*   Reverted  to  per user request.
-*   Updated Usage: bash scripts/switch-ide.sh [antigravity|cursor] [--shutdown] [--app "App Name"] to include actionlint not installed; skipping
-TypeScript not installed; skipping typecheck
-gitleaks not installed; skipping for robust sync.
-*   Updated all documentation references to point to .
-*   Verified file system state and committed all changes.
-**Next Steps**:
-*   Open Cursor.
-*   Read , , and .
-*   Verify the workflow by working for ~30 mins.
-**Status**: 🟢 Complete
+
+- Reverted to per user request.
+- Updated Usage: bash scripts/switch-ide.sh [antigravity|cursor] [--shutdown] [--app "App Name"] to include actionlint not installed; skipping
+  TypeScript not installed; skipping typecheck
+  gitleaks not installed; skipping for robust sync.
+- Updated all documentation references to point to .
+- Verified file system state and committed all changes.
+  **Next Steps**:
+- Open Cursor.
+- Read , , and .
+- Verify the workflow by working for ~30 mins.
+  **Status**: 🟢 Complete

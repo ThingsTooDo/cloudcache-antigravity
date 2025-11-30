@@ -47,7 +47,7 @@ We support both **Antigravity** and **Cursor** IDEs. To prevent conflicts, use t
 **Command:**
 `pnpm switch:antigravity` or `pnpm switch:cursor`
 
-**Reference:** `docs/multi-ide-workflow.md`
+**Reference:** `docs/truth/multi-ide-workflow.md`
 
 ---
 

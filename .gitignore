@@ -31,8 +31,6 @@ dist/
 apps/*/dist/
 .DS_Store
 Thumbs.db
-.vscode/
-.idea/
 **/pnpm-lock.yaml
 **/deploy.yml
 .github/workflows/deploy.yml

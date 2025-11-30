@@ -10,15 +10,27 @@ To prevent drift, we enforce a strict "One Driver" policy.
 ### 1. Switching to Antigravity
 
 1. **Terminal**: Run `pnpm switch:antigravity`
-2. **Action**: Close Cursor completely.
+2. **Action**: **CLOSE** the Cursor window completely (Cmd+Q).
 3. **Context Injection**: In Antigravity chat, type:
-   > "Read docs/standards/all-code-truth.md and docs/plans/active-plan.md. I am starting a session."
+    > "Read docs/truth/project-standards.md and docs/plans/active-plan.md. I am starting a session."
 
 ### 2. Switching to Cursor
 
 1. **Terminal**: Run `pnpm switch:cursor`
-2. **Action**: Close Antigravity completely.
+2. **Action**: **CLOSE** the Antigravity window completely.
 3. **Context**: Cursor automatically loads rules via `.cursorrules`.
+
+## Artifact Sync Protocol (Antigravity → Cursor)
+
+To ensure Cursor knows what Antigravity "thinks", Antigravity agents MUST sync their internal state to the filesystem.
+
+**Agent Rule**:
+Whenever you update your internal `task.md` or `implementation_plan.md`, you MUST copy them to:
+
+- `docs/plans/active-task.md`
+- `docs/plans/active-plan.md`
+
+This ensures the "brain" state is visible to the other IDE.
 
 ## Shared State
 

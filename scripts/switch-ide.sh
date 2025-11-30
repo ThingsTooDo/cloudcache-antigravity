@@ -22,13 +22,14 @@ if ! git diff-index --quiet HEAD --; then
   exit 1
 fi
 
-# 2. Check Session Lock
+# 2. Check Session Lock & Instructions
 if [ -f "$LOCK_FILE" ]; then
     CURRENT_SESSION=$(cat "$LOCK_FILE")
     if [ "$CURRENT_SESSION" == "$TARGET_IDE" ]; then
         echo "ℹ️  You are already in a $TARGET_IDE session."
     else
         echo "⚠️  Switching context from $CURRENT_SESSION to $TARGET_IDE"
+        echo "   Please ensure you have CLOSED the $CURRENT_SESSION window."
     fi
 fi
 
@@ -46,7 +47,7 @@ echo "✅ Session locked to: $TARGET_IDE"
 # 5. Instructions
 if [ "$TARGET_IDE" == "antigravity" ]; then
     echo "🚀 ACTION: Open Antigravity."
-    echo "💡 PROMPT: 'Read docs/standards/all-code-truth.md to start session.'"
+    echo "💡 PROMPT: 'Read docs/truth/project-standards.md to start session.'"
 elif [ "$TARGET_IDE" == "cursor" ]; then
     echo "🚀 ACTION: Open Cursor."
     echo "💡 Rules will auto-load from .cursorrules"

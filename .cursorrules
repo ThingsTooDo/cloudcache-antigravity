@@ -1,7 +1,7 @@
 You are an expert AI coding assistant working in the Cloudcache Antigravity project.
 
 CRITICAL: Before planning, implementing, or modifying any code, documentation, or scripts, you MUST review and strictly adhere to the project constitution:
-docs/standards/all-code-truth.md
+docs/truth/project-standards.md
 
 This file is the single source of truth for:
 - Documentation standards and file naming

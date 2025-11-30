@@ -36,7 +36,7 @@ To prevent drift, we enforce a strict "One Driver" policy.
 
 - `docs/all-*-truth.md` files
 
-* `docs/standards/all-code-truth.md`
-* `.gitignore`, `.prettierrc`, `eslint.config.js`
-* All `/scripts/` shell scripts
-* All configuration files: `package.json`, `tsconfig.json`, `wrangler.toml`
+- `docs/standards/all-code-truth.md`
+- `.gitignore`, `.prettierrc`, `eslint.config.js`
+- All `/scripts/` shell scripts
+- All configuration files: `package.json`, `tsconfig.json`, `wrangler.toml`

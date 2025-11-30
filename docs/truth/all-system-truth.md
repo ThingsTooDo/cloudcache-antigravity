@@ -1,7 +1,7 @@
 # System Truth
 
 **Last Updated**: 2025-11-21
-**Rule Reference**: `.cursor/rules/all-code-truth.mdc`
+**Rule Reference**: `docs/truth/all-code-truth.mdc`
 **Related**: `docs/all-git-truth.md`
 
 This document is the **single source of truth** for all deployment and validation procedures for the Cloudcache project. It is the definitive entry point for any developer, new or experienced, and its guidance trumps any conflicting information found in archived files or legacy documentation.

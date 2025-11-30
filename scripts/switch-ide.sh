@@ -72,13 +72,19 @@ echo "🎨 Enforcing standards (format)..."
 pnpm format
 
 # 4. Set Lock
+# 4. Set Lock
 echo "$TARGET_IDE" > "$LOCK_FILE"
 echo "✅ Session locked to: $TARGET_IDE"
+
+echo "📤 Syncing state (git push)..."
+git add "$LOCK_FILE"
+git commit -m "chore: lock session to $TARGET_IDE" || echo "⚠️  Lock file already committed or no changes."
+git push origin main || { echo "❌ Git push failed"; exit 1; }
 
 # 5. Instructions & Shutdown
 if [ "$TARGET_IDE" == "antigravity" ]; then
     echo "🚀 ACTION: Open Antigravity."
-    echo "💡 PROMPT: 'Read docs/truth/project-standards.md to start session.'"
+    echo "💡 PROMPT: 'Read docs/truth/all-code-truth.mdc to start session.'"
 elif [ "$TARGET_IDE" == "cursor" ]; then
     echo "🚀 ACTION: Open Cursor."
     echo "💡 Rules will auto-load from .cursorrules"

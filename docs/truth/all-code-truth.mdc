@@ -95,7 +95,7 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 # <Domain> Truth
 
 **Last Updated**: YYYY-MM-DD  
-**Rule Reference**: `docs/standards/all-code-truth.md`  
+**Rule Reference**: `docs/truth/all-code-truth.mdc`  
 **Related**: `docs/all-system-truth.md`
 ```
 
@@ -105,7 +105,7 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 # <Guide Title>
 
 **Last Updated**: YYYY-MM-DD  
-**Rule Reference**: `docs/standards/all-code-truth.md`  
+**Rule Reference**: `docs/truth/all-code-truth.mdc`  
 **Canonical Source**: `docs/all-<domain>-truth.md`
 ```
 
@@ -125,7 +125,7 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 
 ### Interlinking
 
-- Every MD file must reference `docs/standards/all-code-truth.md`
+- Every MD file must reference `docs/truth/all-code-truth.mdc`
 - Domain-specific files must reference their `all-<domain>-truth.md`
 - Truth files must reference each other where relevant
 

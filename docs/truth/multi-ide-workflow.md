@@ -20,7 +20,7 @@ To prevent drift, we enforce a strict "One Driver" policy.
 1. **Terminal**: Run `pnpm switch:antigravity`
 2. **Action**: **CLOSE** the Cursor window completely (Cmd+Q).
 3. **Context Injection**: In Antigravity chat, type:
-   > "Read docs/truth/project-standards.md and docs/plans/active-plan.md. I am starting a session."
+   > "Read docs/truth/all-code-truth.mdc and docs/plans/active-plan.md. I am starting a session."
 
 ### 2. Switching to Cursor
 

@@ -26,7 +26,7 @@ graph TD
 
 ### `project://standards`
 
-- **Source**: `docs/truth/project-standards.md`
+- **Source**: `docs/truth/all-code-truth.mdc`
 - **Description**: The full text of the project constitution.
 - **Usage**: Agents read this at session start to load context.
 

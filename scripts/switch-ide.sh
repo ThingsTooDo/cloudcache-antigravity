@@ -77,7 +77,7 @@ echo "$TARGET_IDE" > "$LOCK_FILE"
 echo "✅ Session locked to: $TARGET_IDE"
 
 echo "📤 Syncing state (git push)..."
-git add "$LOCK_FILE"
+git add -f "$LOCK_FILE"
 git commit -m "chore: lock session to $TARGET_IDE" || echo "⚠️  Lock file already committed or no changes."
 git push origin main || { echo "❌ Git push failed"; exit 1; }
 

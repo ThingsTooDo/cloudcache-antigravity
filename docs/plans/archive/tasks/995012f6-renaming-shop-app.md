@@ -1,4 +1,5 @@
 # Renaming shopapp to shopify
+
 <div style="border-left: 4px solid #dfe2e5; padding-left: 15px; margin-top: -5px; margin-bottom: 25px;">
   <h2 style="color: #f78d24; margin: 0; border-bottom: none; font-size: 26px;">Renaming Shop App</h2>
 </div>
@@ -17,6 +18,6 @@
   - [x] Build verification <!-- id: 11 -->
   - [x] Dev server verification <!-- id: 12 -->
 
-
 ---
+
 [⬅️ Return to Task File Audit](../../task-file-audit.md)

@@ -21,6 +21,6 @@
 - [x] Verify no other files violate the naming convention <!-- id: 5 -->
 - [x] Verify `all-code-truth.mdc` references are clean <!-- id: 6 -->
 
-
 ---
+
 [⬅️ Return to Task File Audit](../../task-file-audit.md)

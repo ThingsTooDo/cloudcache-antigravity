@@ -1,4 +1,5 @@
 # Next Steps: Shopify App Configuration
+
 <div style="border-left: 4px solid #dfe2e5; padding-left: 15px; margin-top: -5px; margin-bottom: 25px;">
   <h2 style="color: #f78d24; margin: 0; border-bottom: none; font-size: 26px;">UI Standardization & Styling</h2>
 </div>
@@ -100,6 +101,6 @@
 - [x] Update `web` module: "I love Cloudflare (web)" (Blue)
 - [x] Ensure consistent component names (Header, Left Sidebar, Footer)
 
-
 ---
+
 [⬅️ Return to Task File Audit](../../task-file-audit.md)

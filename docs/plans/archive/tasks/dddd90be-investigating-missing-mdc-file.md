@@ -7,6 +7,6 @@
 - [x] Create a plan to revert `all-code-truth.mdc` and rename/refactor `AllCodeTruth.MD` <!-- id: 3 -->
 - [x] Execute the plan (revert file, rename current file) <!-- id: 4 -->
 
-
 ---
+
 [⬅️ Return to Task File Audit](../../task-file-audit.md)

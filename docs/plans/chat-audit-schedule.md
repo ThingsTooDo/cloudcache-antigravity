@@ -5,29 +5,29 @@
 
 ## Priority Schedule
 
-| Rank | Title | Priority | Status |
-| :--- | :--- | :--- | :--- |
-| 1 | **[Updating Chat Audit Schedule](chat-audit-schedule.md)** | 🔵🔵🔵 | **Active / Meta-Planning** |
-| 2 | **Refactoring Apps Directory** | 🔵🔵🔵 | **High Risk / Structural** |
-| 3 | **[Renaming Shopify Module](rename-shopify-to-app.md)** | 🔵🔵🔵 | **Core / Naming Truth** |
-| 4 | **[Fix APEX Pages Deployment](phase-i-preview.md)** | 🔵🔵🔵 | **Critical / Deployment** |
-| 5 | **[Restoring Website Components](restore-local-dev.md)** | 🔵🔵 | **Recovery / Functional** |
-| 6 | **[Antigravity Rules File Plan](rules-file-plan.md)** | 🔵🔵 | **Governance / Active** |
-| 7 | **Multi-IDE Workflow Setup** | 🔵🔵 | **Workflow / In Progress** |
-| 8 | **UI Standardization & Styling** | 🔵🔵 | **UX / Standardization** |
-| 9 | **Fixing UI Elements** | 🔵🔵 | **UX / Bug Fixes** |
-| 10 | **[Executing Bloated File Reduction Plan](backend-quality-improvement-plan.md)** | 🔵 | **Cleanup / Optimization** |
-| 11 | **Investigating Missing MDC Files** | 🔵 | **Investigation / Rules** |
-| 12 | **[MD Plan Workspace Isolation](docs-structure-refactor.md)** | 🔵 | **Docs / Organization** |
-| 13 | **Fix Markdown Emphasis Headers** | ⚪ | **Docs / Formatting** |
-| 14 | **[Refactor Website To Workers](website-refactor-plan.md)** | ⚪ | **Done / Archive** |
-| 15 | **Adding Code Truth to IDE Rules** | ⚪ | **Done / Archive** |
-| 16 | **Renaming Shop App** | ⚪ | **Done / Archive** |
-| 17 | **[Refactoring Dated Plan Files](md-file-naming-convention.md)** | ⚪ | **Docs / Cleanup** |
-| 18 | **Visualize App Deployment** | ⚪ | **Info / Archive** |
-| 19 | **Downloading File Structure** | ⚪ | **Info / Operational** |
-| 20 | **Opening Module Previews** | ⚪ | **Ops / Ignore** |
-| 21 | **Opening Anti-Gravity Browser** | ⚪ | **Ops / Ignore** |
+| Rank | Title                                                                            | Priority | Status                     |
+| :--- | :------------------------------------------------------------------------------- | :------- | :------------------------- |
+| 1    | **[Updating Chat Audit Schedule](chat-audit-schedule.md)**                       | 🔵🔵🔵   | **Active / Meta-Planning** |
+| 2    | **Refactoring Apps Directory**                                                   | 🔵🔵🔵   | **High Risk / Structural** |
+| 3    | **[Renaming Shopify Module](rename-shopify-to-app.md)**                          | 🔵🔵🔵   | **Core / Naming Truth**    |
+| 4    | **[Fix APEX Pages Deployment](phase-i-preview.md)**                              | 🔵🔵🔵   | **Critical / Deployment**  |
+| 5    | **[Restoring Website Components](restore-local-dev.md)**                         | 🔵🔵     | **Recovery / Functional**  |
+| 6    | **[Antigravity Rules File Plan](rules-file-plan.md)**                            | 🔵🔵     | **Governance / Active**    |
+| 7    | **Multi-IDE Workflow Setup**                                                     | 🔵🔵     | **Workflow / In Progress** |
+| 8    | **UI Standardization & Styling**                                                 | 🔵🔵     | **UX / Standardization**   |
+| 9    | **Fixing UI Elements**                                                           | 🔵🔵     | **UX / Bug Fixes**         |
+| 10   | **[Executing Bloated File Reduction Plan](backend-quality-improvement-plan.md)** | 🔵       | **Cleanup / Optimization** |
+| 11   | **Investigating Missing MDC Files**                                              | 🔵       | **Investigation / Rules**  |
+| 12   | **[MD Plan Workspace Isolation](docs-structure-refactor.md)**                    | 🔵       | **Docs / Organization**    |
+| 13   | **Fix Markdown Emphasis Headers**                                                | ⚪       | **Docs / Formatting**      |
+| 14   | **[Refactor Website To Workers](website-refactor-plan.md)**                      | ⚪       | **Done / Archive**         |
+| 15   | **Adding Code Truth to IDE Rules**                                               | ⚪       | **Done / Archive**         |
+| 16   | **Renaming Shop App**                                                            | ⚪       | **Done / Archive**         |
+| 17   | **[Refactoring Dated Plan Files](md-file-naming-convention.md)**                 | ⚪       | **Docs / Cleanup**         |
+| 18   | **Visualize App Deployment**                                                     | ⚪       | **Info / Archive**         |
+| 19   | **Downloading File Structure**                                                   | ⚪       | **Info / Operational**     |
+| 20   | **Opening Module Previews**                                                      | ⚪       | **Ops / Ignore**           |
+| 21   | **Opening Anti-Gravity Browser**                                                 | ⚪       | **Ops / Ignore**           |
 
 ---
 
@@ -77,7 +77,7 @@ Summary: Structural refactoring of the `apps` directory. Synopsis: Likely involv
 
 #### Details
 
-- *Inferred:* Restructuring `apps/` to match system truth.
+- _Inferred:_ Restructuring `apps/` to match system truth.
 
 #### Review & Gap Analysis
 
@@ -168,7 +168,7 @@ Summary: Restoration of missing or broken website components. Synopsis: Suggests
 
 #### Details
 
-- *Inferred:* Recovering deleted components or fixing broken imports.
+- _Inferred:_ Recovering deleted components or fixing broken imports.
 
 #### Review & Gap Analysis
 
@@ -257,7 +257,7 @@ Summary: Standardization of UI elements and styling. Synopsis: Likely involves a
 
 #### Details
 
-- *Inferred:* Updating CSS variables or component styles.
+- _Inferred:_ Updating CSS variables or component styles.
 
 #### Review & Gap Analysis
 
@@ -285,7 +285,7 @@ Summary: Targeted fixes for specific UI bugs or glitches. Synopsis: A tactical s
 
 #### Details
 
-- *Inferred:* Fixing specific reported UI issues.
+- _Inferred:_ Fixing specific reported UI issues.
 
 #### Review & Gap Analysis
 
@@ -313,7 +313,7 @@ Summary: Cleanup of large or unnecessary files. Synopsis: Likely involves removi
 
 #### Details
 
-- *Inferred:* Deleting unused files or optimizing assets.
+- _Inferred:_ Deleting unused files or optimizing assets.
 
 #### Review & Gap Analysis
 
@@ -342,7 +342,7 @@ Summary: Investigation into missing Markdown Configuration (MDC) files. Synopsis
 
 #### Details
 
-- *Inferred:* Searching for and restoring `.mdc` files.
+- _Inferred:_ Searching for and restoring `.mdc` files.
 
 #### Review & Gap Analysis
 
@@ -370,7 +370,7 @@ Summary: Organization of markdown plan files. Synopsis: Likely involves moving p
 
 #### Details
 
-- *Inferred:* Moving `.md` files to `docs/plans/`.
+- _Inferred:_ Moving `.md` files to `docs/plans/`.
 
 #### Review & Gap Analysis
 
@@ -398,7 +398,7 @@ Summary: Formatting fixes for markdown headers. Synopsis: Correcting markdown sy
 
 #### Details
 
-- *Inferred:* Global search and replace for header formatting.
+- _Inferred:_ Global search and replace for header formatting.
 
 #### Review & Gap Analysis
 
@@ -514,7 +514,7 @@ Summary: Cleanup of old plan files. Synopsis: Archiving or deleting plan files t
 
 #### Details
 
-- *Inferred:* Moving old plans to `docs/plans/archive/`.
+- _Inferred:_ Moving old plans to `docs/plans/archive/`.
 
 #### Review & Gap Analysis
 
@@ -570,7 +570,7 @@ Summary: Request to download or view the file structure. Synopsis: Likely an inf
 
 #### Details
 
-- *Inferred:* Listing files for user review.
+- _Inferred:_ Listing files for user review.
 
 #### Review & Gap Analysis
 

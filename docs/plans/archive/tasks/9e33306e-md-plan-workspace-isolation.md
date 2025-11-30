@@ -6,6 +6,6 @@
 - [x] Update references in `docs/truth/project-standards.md`
 - [x] Verify no broken links
 
-
 ---
+
 [⬅️ Return to Task File Audit](../../task-file-audit.md)

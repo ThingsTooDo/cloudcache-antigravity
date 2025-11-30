@@ -1,4 +1,5 @@
 # Task Checklist for Website Refactor
+
 <div style="border-left: 4px solid #dfe2e5; padding-left: 15px; margin-top: -5px; margin-bottom: 25px;">
   <h2 style="color: #f78d24; margin: 0; border-bottom: none; font-size: 26px;">Conversation Content Management</h2>
 </div>
@@ -12,6 +13,6 @@
 - [ ] Harden CI/CD and run integration tests
 - [ ] Review and merge changes across all modules
 
-
 ---
+
 [⬅️ Return to Task File Audit](../../task-file-audit.md)

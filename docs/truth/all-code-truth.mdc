@@ -1,6 +1,6 @@
 # All Code Truth
 
-**Last Updated**: 2025-11-25
+**Last Updated**: 2025-12-01
 **Status**: Canonical Project Standard
 **Related**: `docs/all-system-truth.md`
 
@@ -62,10 +62,10 @@ Every supporting guide must include:
 
 ### Shopify App Configuration
 
-- **`apps/shopapp/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
-- **`apps/shopapp/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
-- **`apps/shopapp/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
-- **`apps/shopapp/.dev.vars.example`** – Template for local development environment variables
+- **`apps/app/shopify.app.toml`** – Shopify app metadata, OAuth scopes, and webhook configuration
+- **`apps/app/app/shopify.server.ts`** – Shopify app initialization with context-aware KV session storage
+- **`apps/app/app/session.server.ts`** – Cloudflare KV-based session storage adapter for Shopify sessions
+- **`apps/app/.dev.vars.example`** – Template for local development environment variables
 
 Each script referenced above must be documented in `docs/all-system-truth.md`'s manifest section.
 
@@ -144,15 +144,17 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
   2. Add the archive header block with migration metadata and the pointer to the replacement truth doc.
   3. Update the relevant truth doc to mention the archive if historical knowledge is still useful.
 
-## Plan File Rules
+## Plan File Rules (ALL AGENTS - Cursor, Antigravity, Human)
 
-- **Location**: All new plans must be created under `docs/plans/`.
-- **Archives**: Completed plans must be moved to `docs/plans/archive/`.
+- **MANDATORY Location**: ALL new plans MUST be created under `docs/plans/`.
+- **Archives**: Completed plans MUST be moved to `docs/plans/archive/`.
 - **Naming**: Use user-provided filename (lowercase, hyphen-separated, no numbers).
 - **Prohibited**:
-  - Never create or use `one.plan.md`.
-  - Do not write plans to repository root or `.cursor/`.
-- **Correction**: If a plan is accidentally generated elsewhere, move it to `docs/plans/<name>.md` immediately.
+  - NEVER create or use `one.plan.md`.
+  - NEVER write plans to repository root, `.cursor/`, or any other location.
+  - NEVER use IDE-specific plan storage (e.g., `.cursor/plans/`, `.antigravity/plans/`).
+- **Correction**: If a plan is accidentally generated elsewhere, move it to `docs/plans/<name>.md` IMMEDIATELY.
+- **Agent Instruction**: When asked to create a plan, ALWAYS save it to `docs/plans/<descriptive-name>.md`.
 
 ## MDC (Rule) File Creation Rules
 

@@ -1,5 +1,13 @@
 # Naming Consistency Plan – Backend
 
+**DEPRECATED**: This plan has been completed and archived.
+**See**: `docs/truth/all-code-truth.mdc`
+
+**Migration Date**: 2025-11-30
+**Archived On**: 2025-12-01
+
+---
+
 **Goal:** Ensure no residual `shopify` references remain after the rename to `app`.
 
 ## Actions

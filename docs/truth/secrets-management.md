@@ -94,7 +94,7 @@ wrangler secret list --name shopify-worker --env staging
 Use `wrangler dev --remote` to run locally with remote bindings:
 
 ```bash
-cd apps/shopify
+cd apps/app
 pnpm dev  # Uses wrangler dev --remote automatically
 ```
 

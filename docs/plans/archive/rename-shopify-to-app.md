@@ -1,5 +1,13 @@
 # Renaming Shopify Module to App
 
+**DEPRECATED**: This plan has been completed and archived.
+**See**: `docs/truth/cto-codebase-review.md`
+
+**Migration Date**: 2025-11-25
+**Archived On**: 2025-12-01
+
+---
+
 ## Goal Description
 
 Rename the `shopify` module to `app` to reflect a more generic naming convention. This involves renaming the directory, updating configuration files (package.json, wrangler.toml, shopify.app.toml), updating deployment scripts, and deploying the changes to preview and staging environments. The external URL will change from `shopify.cloudcache.ai` to `app.cloudcache.ai`.

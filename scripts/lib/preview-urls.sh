@@ -47,7 +47,7 @@ extract_pages_preview_url() {
 
 # Get preview URL for a module
 # Usage: get_module_preview_url <module> [worker-name-or-url]
-# Example: get_module_preview_url "shopapp" "shopapp-worker-preview"
+# Example: get_module_preview_url "app" "app-worker-preview"
 get_module_preview_url() {
   local module="$1"
   local worker_name_or_url="${2:-}"

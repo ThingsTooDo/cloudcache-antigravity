@@ -518,14 +518,14 @@ cmd_status() {
     case "$env" in
       prod)
         case "$module" in
-          shopapp) domain="https://shopapp.cloudcache.ai" ;;
-          admin) domain="https://admin.cloudcache.ai" ;;
+          app) domain="https://app.cloudcache.ai" ;;
+          adm) domain="https://adm.cloudcache.ai" ;;
         esac
         ;;
       staging)
         case "$module" in
-          shopapp) domain="https://staging-shopapp.cloudcache.ai" ;;
-          admin) domain="https://staging-admin.cloudcache.ai" ;;
+          app) domain="https://staging-app.cloudcache.ai" ;;
+          adm) domain="https://staging-adm.cloudcache.ai" ;;
         esac
         ;;
       preview)

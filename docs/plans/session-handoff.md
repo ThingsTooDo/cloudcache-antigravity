@@ -32,14 +32,35 @@
 
 **Summary**:
 
-- Reverted to per user request.
-- Updated Usage: bash scripts/switch-ide.sh [antigravity|cursor] [--shutdown] [--app "App Name"] to include actionlint not installed; skipping
-  TypeScript not installed; skipping typecheck
-  gitleaks not installed; skipping for robust sync.
-- Updated all documentation references to point to .
+- Reverted lock file commit behavior per user request.
+- Updated `switch-ide.sh` to support `--shutdown` and `--app` flags for robust context switching.
+- Updated all documentation references to point to canonical paths.
 - Verified file system state and committed all changes.
-  **Next Steps**:
+
+**Next Steps**:
+
 - Open Cursor.
-- Read , , and .
+- Read `docs/truth/all-code-truth.mdc`, `docs/truth/multi-ide-workflow.md`, and `docs/plans/session-handoff.md`.
 - Verify the workflow by working for ~30 mins.
-  **Status**: 🟢 Complete
+
+**Status**: 🟢 Complete
+
+## [2025-12-01 12:00] Cursor: "CTO Codebase Hardening"
+
+**Summary**:
+
+- Deleted root garbage files (`http:/localhost:8789`, `project_structure.txt`, backup files)
+- Moved inventory files to `scripts/cf/inventories/`
+- Fixed 7 truth files with stale `shopapp`/`shopify` references → `app`
+- Hardened 9 scripts with correct module naming (`app`, `adm`, `web`)
+- Archived 5 completed/redundant plans with proper archive headers
+- Strengthened Plan File Rules in `all-code-truth.mdc` for ALL agents
+- Created `docs/plans/cto-codebase-hardening-plan.md` documenting all changes
+
+**Next Steps**:
+
+- Review and commit all changes
+- Run `pnpm deploy:preview` to verify deployment still works
+- Continue with Shopify Polaris compliance and preview design updates
+
+**Status**: 🟢 Complete

@@ -19,7 +19,7 @@
 # The script will:
 #   1. Validate the environment argument and the existence of the corresponding .env file.
 #   2. Read each KEY=VALUE pair from the .env file.
-#   3. For each module (shopify, admin, website), it runs `wrangler secret put` to upload
+#   3. For each module (app, adm, web), it runs `wrangler secret put` to upload
 #      the secret to the correct worker for the specified environment.
 #
 
@@ -42,7 +42,7 @@ fi
 
 ENVIRONMENT="$1"
 ENV_FILE=".env.${ENVIRONMENT}"
-MODULES=("shopify" "admin" "website")
+MODULES=("app" "adm" "web")
 
 if [[ ! -f "$ENV_FILE" ]]; then
   log_error "Environment file not found: ${ENV_FILE}"

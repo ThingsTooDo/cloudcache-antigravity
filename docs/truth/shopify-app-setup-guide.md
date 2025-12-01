@@ -1,5 +1,8 @@
 # Shopify App Setup Guide
 
+**Last Updated**: 2025-12-01
+**Rule Reference**: `docs/truth/all-code-truth.mdc`
+
 Complete step-by-step guide to set up and test the CloudCache Shopify app locally.
 
 ---
@@ -203,13 +206,13 @@ Save this URL: `https://[random-id].ngrok-free.app`
 ### 5.1 Create `.dev.vars` File
 
 ```bash
-cd apps/shopify
+cd apps/app
 touch .dev.vars
 ```
 
 ### 5.2 Add Environment Variables
 
-Edit `apps/shopify/.dev.vars`:
+Edit `apps/app/.dev.vars`:
 
 ```bash
 # Shopify App Credentials
@@ -254,7 +257,7 @@ grep -q ".dev.vars" .gitignore || echo ".dev.vars" >> .gitignore
 ### 6.1 Install Dependencies
 
 ```bash
-cd apps/shopify
+cd apps/app
 pnpm install
 ```
 
@@ -430,7 +433,7 @@ The app should:
 ### 11.1 Build the App
 
 ```bash
-cd apps/shopify
+cd apps/app
 pnpm build
 ```
 
@@ -469,7 +472,7 @@ Follow Step 7 using the preview URL instead of tunnel URL.
 
 ### 12.1 Update Production Configuration
 
-Edit `apps/shopify/wrangler.toml` to ensure production routes:
+Edit `apps/app/wrangler.toml` to ensure production routes:
 
 ```toml
 routes = [
@@ -576,23 +579,23 @@ If distributing publicly:
 
 | File                                 | Purpose                        |
 | ------------------------------------ | ------------------------------ |
-| `apps/shopify/.dev.vars`             | Local environment variables    |
-| `apps/shopify/wrangler.toml`         | Cloudflare Worker config       |
-| `apps/shopify/shopify.app.toml`      | Shopify CLI config             |
-| `apps/shopify/app/shopify.server.ts` | Shopify SDK initialization     |
-| `apps/shopify/app/session.server.ts` | Session storage implementation |
+| `apps/app/.dev.vars`             | Local environment variables    |
+| `apps/app/wrangler.toml`         | Cloudflare Worker config       |
+| `apps/app/shopify.app.toml`      | Shopify CLI config             |
+| `apps/app/app/shopify.server.ts` | Shopify SDK initialization     |
+| `apps/app/app/session.server.ts` | Session storage implementation |
 
 ### Common Commands
 
 ```bash
 # Start local dev server
-cd apps/shopify && pnpm dev
+cd apps/app && pnpm dev
 
 # Start tunnel
 cloudflared tunnel --url http://localhost:8789
 
 # Build app
-cd apps/shopify && pnpm build
+cd apps/app && pnpm build
 
 # Deploy preview
 bash scripts/deploy-module.sh shopify preview

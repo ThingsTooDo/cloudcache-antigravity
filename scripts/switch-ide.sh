@@ -72,7 +72,6 @@ echo "🎨 Enforcing standards (format)..."
 pnpm format
 
 # 4. Set Lock
-# 4. Set Lock
 echo "$TARGET_IDE" > "$LOCK_FILE"
 echo "✅ Session locked to: $TARGET_IDE"
 

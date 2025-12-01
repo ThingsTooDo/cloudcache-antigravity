@@ -1,6 +1,6 @@
 # Deployment Verified State
 
-**Last Updated**: 2025-11-21  
+**Last Updated**: 2025-12-01  
 **Rule Reference**: `.cursor/rules/all-code-truth.mdc`  
 **Canonical Source**: `docs/all-deployment-truth.md`
 
@@ -27,16 +27,16 @@ export WRANGLER_SEND_METRICS=false  # Disables telemetry prompts
 
 ### Test Run 1: pnpm deploy:preview (Partial Failure)
 
-- **APP**: ✅ Deployed successfully (137.42 KB, 26.54 KB gzipped)
-- **ADMIN**: ✅ Deployed successfully (119.92 KB, 22.54 KB gzipped)
-- **APEX**: ❌ Failed with "fetch failed" error
+- **app**: ✅ Deployed successfully (137.42 KB, 26.54 KB gzipped)
+- **adm**: ✅ Deployed successfully (119.92 KB, 22.54 KB gzipped)
+- **web**: ❌ Failed with "fetch failed" error
 - **Outcome**: Retry logic triggered correctly
 
 ### Test Run 2: pnpm deploy:preview (Full Success)
 
-- **APP**: ✅ Deployed successfully (137.45 KB, 26.56 KB gzipped)
-- **ADMIN**: ✅ Deployed successfully (119.96 KB, 22.56 KB gzipped)
-- **APEX**: ✅ Deployed successfully (11.16 KB, 3.90 KB gzipped)
+- **app**: ✅ Deployed successfully (137.45 KB, 26.56 KB gzipped)
+- **adm**: ✅ Deployed successfully (119.96 KB, 22.56 KB gzipped)
+- **web**: ✅ Deployed successfully (11.16 KB, 3.90 KB gzipped)
 - **Duration**: ~50 seconds total (including 10 seconds of API settling pauses)
 - **Outcome**: All modules deployed successfully
 
@@ -58,12 +58,12 @@ export WRANGLER_SEND_METRICS=false  # Disables telemetry prompts
 
 ### Bundle Sizes (Verified 2025-11-21)
 
-- **APP**: 137.45 KB bundled (26.56 KB gzipped)
+- **app**: 137.45 KB bundled (26.56 KB gzipped)
   - Worker Startup Time: 1ms
   - Includes component architecture (AnnouncementBar, Navigation, Footer, ToggleSection, Dashboard, styles)
-- **ADMIN**: 119.96 KB bundled (22.56 KB gzipped)
+- **adm**: 119.96 KB bundled (22.56 KB gzipped)
   - Worker Startup Time: 2-3ms
-- **APEX**: 11.16 KB bundled (3.90 KB gzipped)
+- **web**: 11.16 KB bundled (3.90 KB gzipped)
   - Worker Startup Time: Not reported
 
 ### Validation Suite
@@ -92,7 +92,7 @@ export WRANGLER_SEND_METRICS=false  # Disables telemetry prompts
 
 ## Known Issues (Resolved)
 
-### Issue: "fetch failed" during APEX deployment
+### Issue: "fetch failed" during web deployment
 
 - **Status**: ✅ Resolved by retry logic
 - **Root Cause**: Transient Cloudflare API error

@@ -1,5 +1,13 @@
 # Documentation Restructuring Plan: Truth vs. Plans
 
+**DEPRECATED**: This plan has been completed and archived.
+**See**: `docs/truth/all-system-truth.md`
+
+**Migration Date**: 2025-11-20
+**Archived On**: 2025-12-01
+
+---
+
 ## Goal
 
 To strictly separate documentation into two distinct categories with a flattened structure:

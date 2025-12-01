@@ -46,26 +46,26 @@ open_chrome() {
 }
 
 # Open each URL
-log "Opening APP: http://localhost:8789"
+log "Opening app: http://localhost:8789"
 open_chrome "http://localhost:8789"
 sleep 1
 
-log "Opening ADMIN: http://localhost:8787"
+log "Opening adm: http://localhost:8787"
 open_chrome "http://localhost:8787"
 sleep 1
 
-log "Opening APEX: http://localhost:8788"
+log "Opening web: http://localhost:8788"
 open_chrome "http://localhost:8788"
 
 log "✅ All local development URLs opened in Chrome browser"
 echo ""
 echo "Local Development URLs:"
-echo "  APP:   http://localhost:8789"
-echo "  ADMIN: http://localhost:8787"
-echo "  APEX:  http://localhost:8788"
+echo "  app:   http://localhost:8789"
+echo "  adm:   http://localhost:8787"
+echo "  web:   http://localhost:8788"
 echo ""
 echo "Expected Content:"
-echo "  - APP:   Green text 'I love Cloudcache APP' (centered)"
-echo "  - ADMIN: Green text 'I love Cloudcache ADMIN' (centered)"
-echo "  - APEX:  Green text 'I love Cloudcache APEX' (centered)"
+echo "  - app:   Green text 'I love Cloudcache app' (centered)"
+echo "  - adm:   Green text 'I love Cloudcache adm' (centered)"
+echo "  - web:   Green text 'I love Cloudcache web' (centered)"
 

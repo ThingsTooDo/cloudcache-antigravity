@@ -77,7 +77,7 @@ run_deployment() {
     if [[ "$MODULE" == "apex" ]]; then
         build_command="pnpm build"
     fi
-    if [[ "$MODULE" == "shopify" || "$MODULE" == "app" ]]; then
+    if [[ "$MODULE" == "app" ]]; then
         build_command="pnpm build && pnpm exec vite build -c vite.worker.config.ts"
     fi
 

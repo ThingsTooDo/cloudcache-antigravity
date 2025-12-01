@@ -306,7 +306,7 @@ case "$MODULE_ARG" in
     configure_module_env "website" "staging" "staging-website.cloudcache.ai" "monitor-readyz-website-staging"
     ;;
   *)
-    die "Unknown module: $MODULE_ARG. Use: all|shopify|admin|website"
+    die "Unknown module: $MODULE_ARG. Use: all|app|adm|web"
     ;;
 esac
 

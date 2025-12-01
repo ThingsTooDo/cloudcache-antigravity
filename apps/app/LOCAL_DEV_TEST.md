@@ -12,7 +12,7 @@ This document provides a quick test script to verify the Shopify app local devel
 ### 1. Build Test
 
 ```bash
-cd apps/shopapp
+cd apps/app
 pnpm run build
 ```
 
@@ -21,7 +21,7 @@ pnpm run build
 ### 2. Dev Server Test
 
 ```bash
-cd apps/shopapp
+cd apps/app
 pnpm dev
 ```
 

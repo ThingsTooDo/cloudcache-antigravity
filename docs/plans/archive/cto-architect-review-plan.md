@@ -1,5 +1,13 @@
 # CTO & Lead Architect Review Plan – Backend Codebase Grade A+
 
+**DEPRECATED**: This plan has been superseded by ongoing CTO hardening work.
+**See**: `docs/truth/cto-codebase-review.md`
+
+**Migration Date**: 2025-11-24
+**Archived On**: 2025-12-01
+
+---
+
 **Generated:** 2025-11-24
 
 ## 1. Executive Summary

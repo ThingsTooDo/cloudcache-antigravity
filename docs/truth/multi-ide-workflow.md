@@ -1,7 +1,7 @@
 # Multi-IDE Workflow & Governance
 
-**Last Updated**: 2025-11-25
-**Standard Reference**: `docs/standards/all-code-truth.md`
+**Last Updated**: 2025-12-01
+**Rule Reference**: `docs/truth/all-code-truth.mdc`
 
 ## The "Clean Slate" Protocol
 
@@ -26,9 +26,7 @@ To prevent drift, we enforce a strict "One Driver" policy.
 
 1. **Terminal**: Run `pnpm switch:cursor`
 2. **Action**: **CLOSE** the Antigravity window completely.
-3. **Terminal**: Run `pnpm switch:cursor`
-4. **Action**: **CLOSE** the Antigravity window completely.
-5. **Context**: Cursor automatically loads rules via `.cursorrules`.
+3. **Context**: Cursor automatically loads rules via `.cursorrules`.
 
 ## Session Handoff Protocol
 
@@ -68,7 +66,7 @@ This ensures the "brain" state is visible to the other IDE.
 
 - `docs/all-*-truth.md` files
 
-- `docs/standards/all-code-truth.md`
+- `docs/truth/all-code-truth.mdc`
 - `.gitignore`, `.prettierrc`, `eslint.config.js`
 - All `/scripts/` shell scripts
 - All configuration files: `package.json`, `tsconfig.json`, `wrangler.toml`

@@ -1,5 +1,13 @@
 # Plan: Rename Deployment Verified State File
 
+**DEPRECATED**: This plan has been completed and archived.
+**See**: `docs/truth/deployment-verified-state.md`
+
+**Migration Date**: 2025-11-21
+**Archived On**: 2025-12-01
+
+---
+
 ## Goal
 
 Rename `docs/truth/deployment-verified-state-2025-11-21.md` to `docs/truth/deployment-verified-state.md` (removing the date) and update all references to point to the new, static filename.

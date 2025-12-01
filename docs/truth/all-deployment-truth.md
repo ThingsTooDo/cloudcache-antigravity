@@ -1,6 +1,6 @@
 # Deployment Truth
 
-**Last Updated**: 2025-11-21
+**Last Updated**: 2025-12-01
 **Rule Reference**: `.cursor/rules/all-code-truth.mdc`
 **Related**: `docs/all-system-truth.md`
 
@@ -10,15 +10,10 @@ This document is the canonical source for all deployment, preview, and verificat
 
 1. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
 2. **Hybrid Architecture**:
-   - **SHOPIFY, ADMIN, & WEBSITE**: Cloudflare Workers (Workers-first).
-3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
+   - **app, adm, & web**: Cloudflare Workers (Workers-first).
+3. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers).
 4. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
-5. **Golden Path**: Use `bash scripts/deploy-preview.sh` for all preview deployments.
-6. **Hybrid Architecture**:
-   - **SHOPIFY, ADM, & WEB**: Cloudflare Workers (Workers-first).
-7. **Staging Previews**: We use `staging-*.cloudcache.ai` or `*-worker-preview.cloudcache.workers.dev` (for Workers) and `*.pages.dev` (for Pages).
-8. **Resilience First**: All deployments use 5-attempt retry with exponential backoff. Transient "fetch failed" errors are automatically recovered.
-9. **Sequential with Pauses**: Multi-module deployments pause 5 seconds between modules to allow Cloudflare API settling.
+5. **Sequential with Pauses**: Multi-module deployments pause 5 seconds between modules to allow Cloudflare API settling.
 
 ## Script Reference
 
@@ -44,11 +39,11 @@ bash scripts/deploy-preview.sh
 
 **Expected Behavior:**
 
-- SHOPIFY module deploys first (~137 KB bundled, ~26 KB gzipped)
+- app module deploys first (~137 KB bundled, ~26 KB gzipped)
 - 5-second pause for API settling
-- ADM module deploys second (~120 KB bundled, ~22 KB gzipped)
+- adm module deploys second (~120 KB bundled, ~22 KB gzipped)
 - 5-second pause for API settling
-- WEB module deploys third (Static Site Generation via Astro)
+- web module deploys third (Static Site Generation via Astro)
 - Success message: "🎉 All modules successfully deployed to preview!"
 
 **Non-Interactive Mode:**
@@ -68,19 +63,19 @@ bash scripts/deploy-preview.sh
 
 ```bash
 bash scripts/deploy-module.sh <module> <environment>
-# Example: bash scripts/deploy-module.sh shopify preview
+# Example: bash scripts/deploy-module.sh app preview
 ```
 
 **Build Commands:**
 
-- SHOPIFY/ADM: `pnpm build:bundle` (creates `dist/index.js`)
-- WEB: `pnpm build` (Astro build, creates `dist/` static assets)
+- app/adm: `pnpm build:bundle` (creates `dist/index.js`)
+- web: `pnpm build` (Astro build, creates `dist/` static assets)
 
 **Current Bundle Sizes (as of 2025-11-21):**
 
-- SHOPIFY: 137.45 KB (26.56 KB gzipped) - includes component architecture
-- ADM: 119.96 KB (22.56 KB gzipped)
-- WEB: N/A (Static Site)
+- app: 137.45 KB (26.56 KB gzipped) - includes component architecture
+- adm: 119.96 KB (22.56 KB gzipped)
+- web: N/A (Static Site)
 
 ### D1 Database Migrations
 
@@ -88,10 +83,10 @@ When deploying changes that affect the database schema (e.g., multi-tenant toggl
 
 ```bash
 # Apply to local dev
-wrangler d1 execute app-db --file=apps/shopify/migrations/0002_create_customer_toggles.sql
+wrangler d1 execute app-db --file=apps/app/migrations/0002_create_customer_toggles.sql
 
 # Apply to preview
-wrangler d1 execute app-db --file=apps/shopify/migrations/0002_create_customer_toggles.sql --env preview
+wrangler d1 execute app-db --file=apps/app/migrations/0002_create_customer_toggles.sql --env preview
 ```
 
 ## Verified URLs

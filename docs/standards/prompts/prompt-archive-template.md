@@ -14,13 +14,13 @@ Copy everything below the line when creating a new prompt archive:
 
 # Prompt Archive: [Topic Name]
 
-| Field | Value |
-|-------|-------|
-| **Agent** | Cursor / Antigravity |
-| **Related Plan** | [`plan-name.md`](../../plans/plan-name.md) or N/A |
-| **Started** | YYYY-MM-DD |
-| **Last Updated** | YYYY-MM-DD HH:MM |
-| **Total Prompts** | 0 |
+| Field             | Value                                             |
+| ----------------- | ------------------------------------------------- |
+| **Agent**         | Cursor / Antigravity                              |
+| **Related Plan**  | [`plan-name.md`](../../plans/plan-name.md) or N/A |
+| **Started**       | YYYY-MM-DD                                        |
+| **Last Updated**  | YYYY-MM-DD HH:MM                                  |
+| **Total Prompts** | 0                                                 |
 
 **Rule Reference**: [`all-code-truth.mdc`](../../truth/all-code-truth.mdc)
 
@@ -60,28 +60,30 @@ Follow-up prompt text...
 ## Format Notes
 
 ### Metadata Table
+
 - Update **Last Updated** and **Total Prompts** after each new prompt
 - Link to related plan if one exists
 
 ### Details Sections
+
 - Use `<details open>` for the most recent prompt (expanded by default)
 - Use `<details>` for older prompts (collapsed by default)
 - Include timestamp in 24-hour format
 
 ### Prompt Text
-- Always wrap in ```` ```text ```` code blocks
+
+- Always wrap in ` ```text ` code blocks
 - Preserve exact wording including typos (they may be relevant)
 - Include any code snippets the user provided
 
 ### Status Indicators
+
 - **Resolved**: Prompt was addressed successfully
 - **In Progress**: Still working on this
 - **Blocked**: Cannot proceed, needs external input
 - **Paused**: Intentionally deferred
 
 ### Session Grouping
+
 - Group prompts by date under `## Session: YYYY-MM-DD` headers
 - Add horizontal rules (`---`) between prompts for visual separation
-
-
-

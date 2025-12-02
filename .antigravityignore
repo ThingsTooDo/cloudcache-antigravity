@@ -2,13 +2,14 @@
 node_modules/
 dist/
 .wrangler/
-.gemini/
+.vscode/
+.idea/
 pnpm-lock.yaml
 test-results/
 docs/reports/validation/
 .ide-session.lock
 
-# Antigravity IDE directories (IDE isolation)
-.agent/
-.antigravity/
-.antigravityignore
+# Cursor IDE directories (IDE isolation)
+.cursor/
+.cursorignore
+.cursorrules

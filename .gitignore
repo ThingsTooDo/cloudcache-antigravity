@@ -50,14 +50,21 @@ Thumbs.db
 .slush/
 
 # IDE-specific directories (MULTI-IDE SAFETY)
-# Cursor IDE
+# Cursor IDE - ignore cache, track rules and config
 .cursor/
-.cursorignore
-.cursorrules
+!.cursor/rules/
+!.cursor/rules/**
+# Per-app Cursor rules (module-specific architecture)
+apps/*/.cursor/
+!apps/*/.cursor/rules/
+!apps/*/.cursor/rules/**
+# .cursorignore - TRACKED (shared ignore patterns)
+# .cursorrules - TRACKED (points to truth file)
 
-# Antigravity IDE
+# Antigravity IDE - ignore cache, workflows tracked via .agent/
 .antigravity/
-.antigravityignore
+# .antigravityignore - TRACKED (shared ignore patterns)
+# Note: .agent/ is intentionally NOT ignored (workflows are tracked)
 
 # Session Lock
 .ide-session.lock
@@ -66,3 +73,6 @@ Thumbs.db
 *.log
 *.tmp
 *~
+
+# Migration source (child repository - not tracked in parent)
+migration/

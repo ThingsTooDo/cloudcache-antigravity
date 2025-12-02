@@ -1,10 +1,6 @@
 name = "app-worker"
-main = "./dist-worker/worker.js"
-compatibility_date = "2024-04-01"
-# [build]
-# command = "pnpm run build"
-
-
+main = "dist/index.js"
+compatibility_date = "2025-10-07"
 
 # Production routes
 routes = [
@@ -16,16 +12,25 @@ routes = [
 [dev]
 port = 8789
 
-# D1 Database Bindings
-[[d1_databases]]
-binding = "DB"
-database_name = "app-db"
-database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
-
-# KV Namespaces
+# Production KV namespace (keep current ID)
 [[kv_namespaces]]
 binding = "APP_KV"
 id = "5df224d061fb4f869a1a713f1ebd7252"
+
+# Durable Objects - WebSocket hub for real-time toggle sync
+[durable_objects]
+bindings = [
+  { name = "TOGGLE_HUB", class_name = "ToggleHub" }
+]
+
+# Durable Object migrations (use new_sqlite_classes for free plans)
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ToggleHub"]
+
+# Cron triggers for background sync and PageSpeed updates
+[triggers]
+crons = ["*/5 * * * *", "0 6,18 * * *"]
 
 # Staging environment
 [env.staging]
@@ -34,36 +39,27 @@ routes = [
   { pattern = "staging-app.cloudcache.ai/*", zone_name = "cloudcache.ai" }
 ]
 
-[[env.staging.d1_databases]]
-binding = "DB"
-database_name = "app-db"
-database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+[[env.staging.kv_namespaces]]
+binding = "APP_KV"
+id = "5df224d061fb4f869a1a713f1ebd7252"
+
+[env.staging.durable_objects]
+bindings = [
+  { name = "TOGGLE_HUB", class_name = "ToggleHub" }
+]
 
 # Preview environment
 [env.preview]
 name = "app-worker-preview"
-workers_dev = true
+# Preview has no routes - uses workers.dev subdomain
 routes = []
+workers_dev = true
 
 [[env.preview.kv_namespaces]]
 binding = "APP_KV"
 id = "58050e98476b42578f917f32582b6647"
 
-# Add D1 database binding for preview (same as production)
-[[env.preview.d1_databases]]
-binding = "APP_D1"
-database_name = "app-db"
-database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
-
-# D1 Database Binding
-
-
-# Cron Triggers
-[triggers]
-crons = ["*/15 * * * *"] # Every 15 minutes
-
-# D1 Database Binding
-[[d1_databases]]
-binding = "APP_D1"
-database_name = "app-db"
-database_id = "e4078d2b-2e36-454e-a6e9-994b747e4fd8"
+[env.preview.durable_objects]
+bindings = [
+  { name = "TOGGLE_HUB", class_name = "ToggleHub" }
+]

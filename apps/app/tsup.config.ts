@@ -29,7 +29,6 @@ export default defineConfig({
   splitting: false,
   sourcemap: false,
   clean: true,
-  minify: false,
   // Bundle workspace packages but keep external dependencies external
   noExternal: [/^@cloudcache/],
   esbuildOptions(options) {
@@ -39,12 +38,6 @@ export default defineConfig({
     options.bundle = true;
     // Explicitly set mainFields to use standard Node resolution
     options.mainFields = ["module", "main"];
-
-    // Load CSS files as text strings
-    options.loader = {
-      ...options.loader,
-      ".css": "text",
-    };
 
     // Find and alias dependencies of workspace packages (like zod)
     // This helps esbuild resolve packages from pnpm's .pnpm structure

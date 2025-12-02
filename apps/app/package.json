@@ -3,40 +3,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
-    "build:bundle": "remix vite:build",
-    "dev": "remix vite:dev --port 8789",
-    "deploy": "wrangler deploy",
-    "shopify": "shopify",
-    "typecheck": "tsc"
+    "build": "tsup",
+    "build:bundle": "tsup",
+    "dev": "wrangler dev --port 8789 --inspector-port 9229 --no-bundle"
   },
   "dependencies": {
-    "@cloudcache/platform-crypto": "workspace:*",
     "@cloudcache/platform-env": "workspace:*",
-    "@cloudcache/platform-http": "workspace:*",
     "@cloudcache/platform-logging": "workspace:*",
-    "@cloudcache/platform-validate": "workspace:*",
-    "@remix-run/cloudflare": "^2.17.2",
-    "@remix-run/react": "^2.17.2",
-    "@shopify/app": "^3.58.2",
-    "@shopify/app-bridge": "^3.7.11",
-    "@shopify/app-bridge-react": "^3.7.11",
-    "@shopify/cli": "^3.58.2",
-    "@shopify/polaris": "^13.9.5",
-    "@shopify/shopify-app-remix": "^3.3.3",
-    "isbot": "^5.1.21",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@cloudcache/platform-http": "workspace:*",
+    "@cloudcache/platform-crypto": "workspace:*",
+    "@cloudcache/platform-validate": "workspace:*"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20251121.0",
-    "@remix-run/dev": "^2.17.2",
-    "@types/react": "^19.2.6",
-    "@types/react-dom": "^19.2.3",
     "git-rev-sync": "^3.0.2",
     "tsup": "^8.2.2",
-    "typescript": "^5.6.0",
-    "vite": "^7.2.4",
-    "vite-tsconfig-paths": "^5.1.4"
+    "typescript": "^5.6.0"
   }
 }

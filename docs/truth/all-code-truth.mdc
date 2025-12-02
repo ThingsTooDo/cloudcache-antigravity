@@ -1,6 +1,6 @@
 # All Code Truth
 
-**Last Updated**: 2025-12-01
+**Last Updated**: 2025-12-01 (Prompt Archive Protocol added)
 **Status**: Canonical Project Standard
 **Related**: `docs/all-system-truth.md`
 
@@ -28,6 +28,42 @@ To ensure seamless context transfer, agents must adhere to the **Active Handoff*
    - **Header**: `## [Timestamp] [IDE Name]: "[Session Title]"`
    - **Body**: Summary of work, Next Steps, and Status.
 4. **Read**: Upon starting a new session, the agent MUST read the latest entry in `docs/plans/session-handoff.md`.
+
+## Prompt Archive Protocol (ALL AGENTS)
+
+Agents MUST record user prompts when instructed with specific triggers. This creates a searchable history of prompts organized by topic.
+
+### Triggers
+
+- `"Topic: <name>"` - Start a new prompt session with the given topic
+- `"Save prompt"` / `"Log prompt"` - Append the current prompt to the active session
+- `"End topic"` - Close the current prompt session
+
+### File Placement
+
+- **Cursor prompts**: `docs/prompts/cursor/<topic-name>.md`
+- **Antigravity prompts**: `docs/prompts/antigravity/<topic-name>.md`
+- **Archived prompts**: `docs/prompts/archive/<topic-name>.md`
+
+### Integration with Plans
+
+1. When user provides a topic, search `docs/plans/` for a matching plan file.
+2. If found, link the prompt archive to the plan in the metadata table.
+3. If not found, create standalone prompt archive with user-provided topic.
+
+### File Format
+
+Use the template at `docs/standards/prompts/prompt-archive-template.md`. Key elements:
+
+- Metadata table at top (Agent, Related Plan, Started, Last Updated, Total Prompts)
+- Collapsible `<details>` sections for each prompt
+- Code blocks (```` ```text ````) for verbatim prompt text
+- Status indicators: Resolved, In Progress, Blocked, Paused
+- Timestamps for each prompt entry
+
+### Auto-Archive
+
+When a related plan is moved to `docs/plans/archive/`, the corresponding prompt archive should be moved to `docs/prompts/archive/`.
 
 ## Documentation Truth
 
@@ -199,3 +235,41 @@ Each script referenced above must be documented in `docs/all-system-truth.md`'s 
 - Multiple truth files per domain - consolidate to one
 - **Pages.dev**: Do not introduce `pages.dev` references or `wrangler pages` commands. Prefer staging subdomains (`staging-apex|app|admin.cloudcache.ai`).
 - **Deployment without retries**: Never call `wrangler deploy` directly. Always use `scripts/deploy-module.sh` which handles transient failures.
+
+## Agent Tool Chest (Reference Before Creating)
+
+Before creating new scripts, workflows, or documentation, agents MUST check if an existing tool already handles the task.
+
+### Scripts (in `scripts/`)
+
+| Script | Purpose |
+|--------|---------|
+| `cloudcache` | Unified CLI for infrastructure management (bootstrap, bind, verify) |
+| `deploy-module.sh` | Single module deployment with 5-retry logic |
+| `deploy-preview.sh` | Full preview deployment (all modules) |
+| `deploy-standard.sh` | Production deployment |
+| `dev-local.sh` | Start local development servers |
+| `dev-stop.sh` | Stop local development servers |
+| `validation/run-validation.sh` | Health check suite (24 checks) |
+| `all-git-truth.sh` | Git wrapper with pre-commit hooks |
+| `sync-secrets.sh` | Secret synchronization |
+| `configure-access.sh` | Zero Trust access configuration |
+
+### Workflows
+
+| File | Purpose |
+|------|---------|
+| `.agent/workflows/switch.md` | IDE handoff workflow (Antigravity) |
+| `docs/standards/prompts/session-summary.md` | Session summary template |
+| `docs/standards/prompts/prompt-archive-template.md` | Prompt archive template |
+
+### Quick Reference
+
+See `docs/truth/agent-quick-reference.md` for a condensed one-page reference.
+
+### Before Creating New Tools
+
+1. **Search** existing scripts in `scripts/` using grep or file search
+2. **Check** truth files for documented patterns (`docs/truth/`)
+3. **Review** this Tool Chest section
+4. **Ask** the user if unsure whether a tool exists

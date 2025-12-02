@@ -577,8 +577,8 @@ If distributing publicly:
 
 ### Key Files
 
-| File                                 | Purpose                        |
-| ------------------------------------ | ------------------------------ |
+| File                             | Purpose                        |
+| -------------------------------- | ------------------------------ |
 | `apps/app/.dev.vars`             | Local environment variables    |
 | `apps/app/wrangler.toml`         | Cloudflare Worker config       |
 | `apps/app/shopify.app.toml`      | Shopify CLI config             |
